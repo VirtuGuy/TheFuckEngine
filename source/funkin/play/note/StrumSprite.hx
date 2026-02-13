@@ -8,6 +8,7 @@ import flixel.FlxSprite;
 class StrumSprite extends FlxSprite
 {
     public var direction:NoteDirection;
+    public var confirmTime:Float = 0;
 
     public function new(direction:NoteDirection)
     {
@@ -16,6 +17,13 @@ class StrumSprite extends FlxSprite
         this.direction = direction % Constants.NOTE_COUNT;
 
         buildSprite();
+    }
+
+    override public function update(elapsed:Float)
+    {
+        confirmTime = Math.max(0, confirmTime - elapsed * 10);
+
+        super.update(elapsed);
     }
 
     public function buildSprite()

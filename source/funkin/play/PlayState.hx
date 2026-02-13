@@ -1,5 +1,7 @@
 package funkin.play;
 
+import flixel.FlxG;
+import funkin.play.note.NoteSprite;
 import funkin.play.note.Strumline;
 import funkin.ui.FunkinState;
 
@@ -41,6 +43,8 @@ class PlayState extends FunkinState
 
 		processInput();
 
+		if (FlxG.keys.justPressed.R) FlxG.resetState();
+
 		super.update(elapsed);
 	}
 
@@ -49,8 +53,14 @@ class PlayState extends FunkinState
 		conductor.bpm = 100;
 		conductor.time = -conductor.crotchet * 4;
 
-		playerStrumline.data = [{ t: 0, d: 0 }, { t: 1000, d: 1 }, { t: 2000, d: 2 }, { t: 3000, d: 3 }];
 		playerStrumline.speed = 1;
+		playerStrumline.data = [];
+
+		for (i in 0...20)
+			playerStrumline.data.push({ t: i * 200, d: 0 });
+
+		opponentStrumline.data = playerStrumline.data.copy();
+		opponentStrumline.speed = 1;
 
 		loadedSong = true;
 	}
@@ -58,9 +68,32 @@ class PlayState extends FunkinState
 	function processInput()
 	{
 		// Player input
+		// TODO: Make a proper input system
+		for (note in playerStrumline.getMayHitNotes())
+		{
+			if (note.direction.justPressed)
+				playerStrumline.hitNote(note);
+		}
+		
 		playerStrumline.strums.forEach(strum -> {
 			if (strum.direction.pressed)
-				strum.animation.play('press');
+			{
+				if (strum.confirmTime > 0)
+					strum.animation.play('confirm');
+				else
+					strum.animation.play('press');
+			}
+			else
+				strum.animation.play('static');
+		});
+
+		// Opponent input
+		for (note in opponentStrumline.getMayHitNotes())
+			opponentStrumline.hitNote(note);
+
+		opponentStrumline.strums.forEach(strum -> {
+			if (strum.confirmTime > 0)
+				strum.animation.play('confirm');
 			else
 				strum.animation.play('static');
 		});

@@ -17,5 +17,7 @@ class Constants
     
     public static final NOTE_COUNT:Int = 4;
 
+    public static final HIT_WINDOW_MS:Float = 150;
+
     public static final ZOOM:Int = 4;
 }

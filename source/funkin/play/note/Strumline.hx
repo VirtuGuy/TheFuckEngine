@@ -28,7 +28,15 @@ class Strumline extends FlxGroup
         notes = new FlxTypedGroup<NoteSprite>();
         add(notes);
 
-        buildStrums();
+        // Builds the strums
+        for (direction in 0...Constants.NOTE_COUNT)
+        {
+            var strum:StrumSprite = new StrumSprite(direction);
+            strum.y = 60;
+            strums.add(strum);
+        }
+
+        positionStrums();
     }
 
     public function process(isPlayer:Bool)
@@ -52,31 +60,46 @@ class Strumline extends FlxGroup
 
         // Note processing
         notes.forEachAlive(note -> {
-            var strum:StrumSprite = strums.members[note.direction];
+            var strum:StrumSprite = getStrum(note.direction);
             var distance:Float = (note.time - songTime) * Constants.PIXELS_PER_MS * speed;
 
+            // Positions the note
             note.x = strum.x;
             note.y = strum.y + distance;
 
             note.active = distance < FlxG.height;
             note.visible = note.active;
 
-            if (distance <= 0) note.kill();
+            // Check if the note can be hit
+            var hitStart:Float = note.time;
+            var hitEnd:Float = note.time + Constants.HIT_WINDOW_MS;
+
+            // Give the player some extra time to hit the note
+            // Not having this line will create something known as FNF EXTREME DIFFICULTY
+            if (isPlayer) hitStart -= Constants.HIT_WINDOW_MS;
+
+            if (songTime >= hitEnd) note.tooLate = true;
+            if (songTime >= hitStart) note.mayHit = true;
+
+            // TODO: Offscreen note killing
+            // Because the line below isn't good enough
+            // if (distance <= 0) note.kill();
         });
     }
 
-    function buildStrums()
+    public function hitNote(note:NoteSprite)
     {
-        for (direction in 0...Constants.NOTE_COUNT)
-        {
-            var strum:StrumSprite = new StrumSprite(direction);
-            strum.y = 60;
+        var strum:StrumSprite = getStrum(note.direction);
 
-            strums.add(strum);
-        }
-
-        positionStrums();
+        strum.confirmTime = 1;
+        note.kill();
     }
+
+    public function getMayHitNotes():Array<NoteSprite>
+        return notes.members.filter(note -> return note.alive && note.mayHit && !note.tooLate);
+
+    public function getStrum(direction:NoteDirection):StrumSprite
+        return strums.members[direction];
 
     function positionStrums()
     {

@@ -19,7 +19,7 @@ class InitState extends FlxState
         FlxG.stage.showDefaultContextMenu = false;
 
         Conductor.instance = new Conductor();
-		Controls.instance = new Controls();
+        Controls.instance = new Controls();
 
         // Starts the game
         FlxG.switchState(() -> new funkin.play.PlayState());

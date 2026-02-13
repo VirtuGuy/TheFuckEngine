@@ -10,6 +10,9 @@ class NoteSprite extends FlxSprite
     public var time:Float;
     public var direction(default, set):NoteDirection;
 
+    public var mayHit:Bool;
+    public var tooLate:Bool;
+
     public function new()
     {
         super();
@@ -35,6 +38,9 @@ class NoteSprite extends FlxSprite
 
         time = 0;
         direction = LEFT;
+
+        mayHit = false;
+        tooLate = false;
     }
 
     function set_direction(direction:NoteDirection):NoteDirection
