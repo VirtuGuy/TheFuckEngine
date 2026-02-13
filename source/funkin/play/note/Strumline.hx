@@ -44,18 +44,23 @@ class Strumline extends FlxGroup
         var songTime:Float = Conductor.instance.time;
 
         // Spawns the notes
-        // TODO: Make notes spawn based on its distance
         // TODO: Add hold notes
         while (data.length > 0)
         {
-            var noteData:SongNoteData = data.shift();
+            var noteData:SongNoteData = data[0];
+
             var time:Float = noteData.t;
             var direction:NoteDirection = NoteDirection.fromInt(noteData.d);
+            var distance:Float = (time - songTime) * Constants.PIXELS_PER_MS * speed;
+
+            if (distance > FlxG.height) break;
 
             var note:NoteSprite = notes.recycle(NoteSprite);
 
             note.time = time;
             note.direction = direction;
+
+            data.shift();
         }
 
         // Note processing
@@ -67,10 +72,9 @@ class Strumline extends FlxGroup
             note.x = strum.x;
             note.y = strum.y + distance;
 
-            note.active = distance < FlxG.height;
-            note.visible = note.active;
+            if (distance <= -strum.y - note.height) missNote(note);
 
-            // Check if the note can be hit
+            // Checks if the note can be hit
             var hitStart:Float = note.time;
             var hitEnd:Float = note.time + Constants.HIT_WINDOW_MS;
 
@@ -80,10 +84,6 @@ class Strumline extends FlxGroup
 
             if (songTime >= hitEnd) note.tooLate = true;
             if (songTime >= hitStart) note.mayHit = true;
-
-            // TODO: Offscreen note killing
-            // Because the line below isn't good enough
-            // if (distance <= 0) note.kill();
         });
     }
 
@@ -92,6 +92,12 @@ class Strumline extends FlxGroup
         var strum:StrumSprite = getStrum(note.direction);
 
         strum.confirmTime = 1;
+        note.kill();
+    }
+
+    public function missNote(note:NoteSprite)
+    {
+        // TODO: Note miss stuff
         note.kill();
     }
 

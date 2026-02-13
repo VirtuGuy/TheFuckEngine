@@ -1,6 +1,7 @@
 package funkin.play;
 
 import flixel.FlxG;
+import funkin.play.note.NoteDirection;
 import funkin.play.note.NoteSprite;
 import funkin.play.note.Strumline;
 import funkin.ui.FunkinState;
@@ -53,14 +54,14 @@ class PlayState extends FunkinState
 		conductor.bpm = 100;
 		conductor.time = -conductor.crotchet * 4;
 
-		playerStrumline.speed = 1;
+		playerStrumline.speed = 2;
 		playerStrumline.data = [];
 
-		for (i in 0...20)
-			playerStrumline.data.push({ t: i * 200, d: 0 });
+		for (i in 0...100)
+			playerStrumline.data.push({ t: i * 200, d: FlxG.random.int(0, Constants.NOTE_COUNT) });
 
 		opponentStrumline.data = playerStrumline.data.copy();
-		opponentStrumline.speed = 1;
+		opponentStrumline.speed = playerStrumline.speed;
 
 		loadedSong = true;
 	}
@@ -68,11 +69,19 @@ class PlayState extends FunkinState
 	function processInput()
 	{
 		// Player input
-		// TODO: Make a proper input system
-		for (note in playerStrumline.getMayHitNotes())
+		var hitNotes:Array<NoteSprite> = playerStrumline.getMayHitNotes();
+		var directionNotes:Array<Array<NoteSprite>> = [[], [], [], []];
+
+		for (note in hitNotes) directionNotes[note.direction].push(note);
+
+		for (i in 0...directionNotes.length)
 		{
-			if (note.direction.justPressed)
-				playerStrumline.hitNote(note);
+			var direction:NoteDirection = NoteDirection.fromInt(i);
+			var note:NoteSprite = directionNotes[i][0];
+
+			if (!direction.justPressed || note == null) continue;
+
+			playerStrumline.hitNote(note);
 		}
 		
 		playerStrumline.strums.forEach(strum -> {
