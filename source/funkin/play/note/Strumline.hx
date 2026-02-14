@@ -66,6 +66,13 @@ class Strumline extends FlxGroup
         {
             var noteData:SongNoteData = data[0];
 
+            // Skip the note data if it's null
+            if (noteData == null)
+            {
+                data.shift();
+                break;
+            }
+
             var time:Float = noteData.t;
             var direction:NoteDirection = NoteDirection.fromInt(noteData.d);
             var length:Float = noteData.l;
