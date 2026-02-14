@@ -18,7 +18,7 @@ enum abstract NoteDirection(Int) to Int from Int
     @:from
     public static function fromInt(value:Int):NoteDirection
     {
-        return switch (value)
+        return switch (value % Constants.NOTE_COUNT)
         {
             case 0: LEFT;
             case 1: DOWN;

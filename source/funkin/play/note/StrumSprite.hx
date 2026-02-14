@@ -14,7 +14,7 @@ class StrumSprite extends FlxSprite
     {
         super();
 
-        this.direction = direction % Constants.NOTE_COUNT;
+        this.direction = direction;
 
         buildSprite();
     }
