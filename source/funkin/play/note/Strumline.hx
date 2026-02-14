@@ -56,8 +56,7 @@ class Strumline extends FlxGroup
             var direction:NoteDirection = NoteDirection.fromInt(noteData.d);
             var length:Float = noteData.l;
 
-            var distance:Float = (time - songTime) * Constants.PIXELS_PER_MS * speed;
-            if (distance > FlxG.height) break;
+            if (getDistance(time) > FlxG.height) break;
 
             // Creates a note
             var note:NoteSprite = notes.recycle(NoteSprite);
