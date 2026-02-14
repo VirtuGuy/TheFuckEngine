@@ -19,8 +19,10 @@ class Strumline extends FlxGroup
     public var strums:FlxTypedGroup<StrumSprite>;
     public var notes:FlxTypedGroup<NoteSprite>;
     public var holdNotes:FlxTypedGroup<HoldNoteSprite>;
-    public var splashes:FlxTypedGroup<NoteSplash>;
+    public var noteSplashes:FlxTypedGroup<NoteSplash>;
+    public var holdCovers:FlxTypedGroup<HoldNoteCover>;
 
+    var isPlayer:Bool;
     var songTime(get, never):Float;
 
     public function new()
@@ -28,15 +30,17 @@ class Strumline extends FlxGroup
         super();
 
         strums = new FlxTypedGroup<StrumSprite>();
-        add(strums);
-
-        splashes = new FlxTypedGroup<NoteSplash>(Constants.NOTE_COUNT);
-        add(splashes);
-
-        holdNotes = new FlxTypedGroup<HoldNoteSprite>();
-        add(holdNotes);
-
         notes = new FlxTypedGroup<NoteSprite>();
+        holdNotes = new FlxTypedGroup<HoldNoteSprite>();
+        noteSplashes = new FlxTypedGroup<NoteSplash>(Constants.NOTE_COUNT);
+        holdCovers = new FlxTypedGroup<HoldNoteCover>(Constants.NOTE_COUNT);
+
+        // Order:
+        // Strums, note splashes, hold notes, hold covers, and notes
+        add(strums);
+        add(noteSplashes);
+        add(holdNotes);
+        add(holdCovers);
         add(notes);
 
         // Builds the strums
@@ -55,6 +59,8 @@ class Strumline extends FlxGroup
 
     public function process(isPlayer:Bool)
     {
+        this.isPlayer = isPlayer;
+
         // Spawns the notes
         while (data.length > 0)
         {
@@ -135,9 +141,13 @@ class Strumline extends FlxGroup
                     return;
                 }
 
+                playConfirm(holdNote.direction);
+
+                holdNote.length = holdNote.time - songTime + holdNote.fullLength;
                 holdNote.y = y;
 
-                hitHoldNote(holdNote);
+                // Kill the hold note if it's short enough
+                if (holdNote.length <= 10) holdNote.kill();
             }
         });
 
@@ -158,7 +168,13 @@ class Strumline extends FlxGroup
     {
         playConfirm(note.direction);
 
-        if (note.holdNote != null) note.holdNote.wasHit = true;
+        if (note.holdNote != null)
+        {
+            note.holdNote.wasHit = true;
+
+            // Plays the hold cover here because this runs once
+            playHoldCover(note.holdNote);
+        }
 
         note.kill();
     }
@@ -167,16 +183,6 @@ class Strumline extends FlxGroup
     {
         // TODO: Note miss stuff
         note.kill();
-    }
-
-    public function hitHoldNote(holdNote:HoldNoteSprite)
-    {
-        playConfirm(holdNote.direction);
-
-        holdNote.length = holdNote.time - songTime + holdNote.fullLength;
-
-        // Kill the hold note if it's short enough
-        if (holdNote.length <= 10) holdNote.kill();
     }
 
     public function dropHoldNote(holdNote:HoldNoteSprite)
@@ -190,10 +196,18 @@ class Strumline extends FlxGroup
 
     public function playSplash(direction:NoteDirection)
     {
-        var splash:NoteSplash = splashes.recycle(NoteSplash);
+        var splash:NoteSplash = noteSplashes.recycle(NoteSplash);
         var strum:StrumSprite = getStrum(direction);
 
         splash.play(strum);
+    }
+
+    public function playHoldCover(holdNote:HoldNoteSprite)
+    {
+        var cover:HoldNoteCover = holdCovers.recycle(HoldNoteCover);
+        var strum:StrumSprite = getStrum(holdNote.direction);
+
+        cover.play(holdNote, strum);
     }
 
     public function getMayHitNotes():Array<NoteSprite>

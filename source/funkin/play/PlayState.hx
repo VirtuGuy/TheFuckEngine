@@ -57,8 +57,20 @@ class PlayState extends FunkinState
 		playerStrumline.speed = 2;
 		playerStrumline.data = [];
 
-		for (i in 0...100)
-			playerStrumline.data.push({ t: i * 1100, d: FlxG.random.int(0, Constants.NOTE_COUNT), l: 1000 });
+		var lastDir:Int = 0;
+
+		for (i in 0...200)
+		{
+			var direction:Int = lastDir;
+			while (direction == lastDir)
+				direction = FlxG.random.int(0, Constants.NOTE_COUNT - 1);
+			lastDir = direction;
+
+			var time:Float = 150;
+			var holdLength:Float = FlxG.random.bool(10) ? time : 0;
+
+			playerStrumline.data.push({ t: i * time, d: direction, l: holdLength });
+		}
 
 		opponentStrumline.data = playerStrumline.data.copy();
 		opponentStrumline.speed = playerStrumline.speed;
