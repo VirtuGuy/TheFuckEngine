@@ -17,7 +17,7 @@ class NoteSplash extends FlxSprite
     public function buildSprite()
     {
         loadGraphic(Paths.image('play/ui/note-splashes'), true, 82, 85);
-        setGraphicSize(Std.int(width * Constants.NOTE_SCALE * 1.35));
+        setGraphicSize(Std.int(width * Constants.GLOBAL_OBJECT_SCALE * 1.35));
         updateHitbox();
 
         for (direction in 0...Constants.NOTE_COUNT)

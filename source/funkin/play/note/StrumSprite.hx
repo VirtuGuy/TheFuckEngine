@@ -29,7 +29,7 @@ class StrumSprite extends FlxSprite
     public function buildSprite()
     {
         loadGraphic(Paths.image('play/ui/notes'), true, 84, 84);
-        setGraphicSize(Std.int(width * Constants.NOTE_SCALE));
+        setGraphicSize(Std.int(width * Constants.GLOBAL_OBJECT_SCALE));
         updateHitbox();
 
         animation.add('static', [direction], 10);

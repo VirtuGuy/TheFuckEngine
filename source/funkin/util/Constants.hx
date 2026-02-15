@@ -19,5 +19,5 @@ class Constants
 
     public static final HIT_WINDOW_MS:Float = 160;
 
-    public static final NOTE_SCALE:Float = 1.35;
+    public static final GLOBAL_OBJECT_SCALE:Float = 1.35;
 }
