@@ -23,7 +23,13 @@ WTF Engine is an FNF engine built from the ground up and uses shitty art. Probab
 ## Credits
 
 - [FunkinCrew](https://github.com/FunkinCrew) - Made the disgusting game.
-- [VirtuGuy](https://github.com/VirtuGuy/) - Made the engine.
+- [VirtuGuy](https://github.com/VirtuGuy) - Made the engine.
+
+## Special Thanks
+
+- [FunkinCrew](https://github.com/FunkinCrew) - Their game is the reason why this engine exists.
+- [Funkin' Contributors](https://www.youtube.com/@TheFunkinContributors) - Amazing people.
+- WTF Engine Contributors - Thank.
 
 ## Compiling
 
