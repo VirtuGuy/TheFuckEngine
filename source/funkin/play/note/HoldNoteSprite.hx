@@ -103,7 +103,7 @@ class HoldNoteSprite extends FlxStrip
         uvtData[10] = uvtData[2];
         uvtData[11] = uvtData[9];
         uvtData[12] = uvtData[8];
-        uvtData[13] = 1;
+        uvtData[13] = 0.99;
         uvtData[14] = uvtData[10];
         uvtData[15] = uvtData[13];
 

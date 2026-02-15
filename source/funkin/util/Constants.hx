@@ -19,5 +19,5 @@ class Constants
 
     public static final HIT_WINDOW_MS:Float = 160;
 
-    public static final ZOOM:Int = 4;
+    public static final ZOOM:Float = 1.35;
 }

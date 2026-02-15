@@ -28,6 +28,8 @@ class PlayState extends FunkinState
 
 		loadSong();
 
+		FlxG.camera.bgColor = 0xFF252525;
+
 		super.create();
 	}
 
@@ -54,7 +56,7 @@ class PlayState extends FunkinState
 		conductor.bpm = 100;
 		conductor.time = -conductor.crotchet * 4;
 
-		playerStrumline.speed = 2;
+		playerStrumline.speed = 1;
 		playerStrumline.data = [];
 
 		var lastDir:Int = 0;
@@ -66,7 +68,7 @@ class PlayState extends FunkinState
 				direction = FlxG.random.int(0, Constants.NOTE_COUNT - 1);
 			lastDir = direction;
 
-			playerStrumline.data.push({ t: i * 100, d: direction, l: 0 });
+			playerStrumline.data.push({ t: i * 550, d: direction, l: 500 });
 		}
 
 		opponentStrumline.data = playerStrumline.data.copy();
