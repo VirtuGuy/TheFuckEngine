@@ -17,38 +17,32 @@ class Conductor
     public var section:Int;
 
     public var crotchet(get, never):Float;
-    public var stepCrotchet(get, never):Float;
+    public var quaver(get, never):Float;
 
     public var stepHit(default, null) = new FlxTypedSignal<Int->Void>();
     public var beatHit(default, null) = new FlxTypedSignal<Int->Void>();
     public var sectionHit(default, null) = new FlxTypedSignal<Int->Void>();
-
-    var lastStep:Int;
     
-    var lastSteps:Int = 0;
-    var lastTimestamp:Float = 0;
+    var changeSteps:Int = 0;
+    var changeTimestamp:Float = 0;
 
     public function new() {}
 
     public function update()
     {
-        lastStep = step;
+        final lastStep:Int = step;
+        final lastBeat:Int = beat;
+        final lastSection:Int = section;
 
         // Calculates the current step
-        step = lastSteps + Math.floor((time - lastTimestamp) / stepCrotchet);
+        step = changeSteps + Math.floor((time - changeTimestamp) / quaver);
         beat = Math.floor(step / Constants.STEPS_PER_BEAT);
         section = Math.floor(step / Constants.STEPS_PER_SECTION);
 
-        // Dispatches step signals
-        if (lastStep != step)
-        {
-            stepHit.dispatch(step);
-
-            if (step % Constants.STEPS_PER_BEAT == 0)
-                beatHit.dispatch(beat);
-            if (step % Constants.STEPS_PER_SECTION == 0)
-                sectionHit.dispatch(section);
-        }
+        // Dispatches signals
+        if (lastStep != step) stepHit.dispatch(step);
+        if (lastBeat != beat) beatHit.dispatch(beat);
+        if (lastSection != section) sectionHit.dispatch(section);
     }
 
     function set_bpm(bpm:Float):Float
@@ -56,8 +50,8 @@ class Conductor
         if (this.bpm == bpm) return this.bpm;
         this.bpm = bpm;
 
-        lastSteps = step;
-        lastTimestamp = time;
+        changeSteps = step;
+        changeTimestamp = time;
 
         return this.bpm;
     }
@@ -65,6 +59,6 @@ class Conductor
     inline function get_crotchet():Float
         return Constants.SECS_PER_MIN / bpm * Constants.MS_PER_SEC;
 
-    inline function get_stepCrotchet():Float
+    inline function get_quaver():Float
         return crotchet / Constants.STEPS_PER_BEAT;
 }
