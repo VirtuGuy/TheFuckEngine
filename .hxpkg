@@ -1,0 +1,24 @@
+[
+	{
+		"profile": "default",
+		"pkgs": [
+			{
+				"name": "flixel"
+			},
+			{
+				"name": "openfl"
+			},
+			{
+				"name": "lime"
+			},
+			{
+				"name": "hxcpp"
+			},
+			{
+				"name": "moonchart",
+				"link": "https://github.com/MaybeMaru/moonchart",
+				"branch": "main"
+			}
+		]
+	}
+]
