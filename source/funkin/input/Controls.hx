@@ -1,9 +1,9 @@
 package funkin.input;
 
 import flixel.FlxG;
-import flixel.input.FlxInput.FlxInputState;
-import flixel.input.actions.FlxAction.FlxActionDigital;
-import flixel.input.actions.FlxActionInput.FlxInputDevice;
+import flixel.input.FlxInput;
+import flixel.input.actions.FlxAction;
+import flixel.input.actions.FlxActionInput;
 import flixel.input.actions.FlxActionSet;
 import flixel.input.keyboard.FlxKey;
 

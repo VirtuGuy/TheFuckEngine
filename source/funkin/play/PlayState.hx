@@ -1,8 +1,6 @@
 package funkin.play;
 
 import flixel.FlxG;
-import flixel.util.FlxSort;
-import funkin.data.song.SongData.SongNoteData;
 import funkin.play.note.NoteDirection;
 import funkin.play.note.NoteSprite;
 import funkin.play.note.Strumline;
@@ -21,15 +19,19 @@ class PlayState extends FunkinState
 	var opponentStrumline:Strumline;
 	var playerStrumline:Strumline;
 
-	public function new()
-	{
-		super();
-
-		instance = this;
-	}
-
 	override public function create()
 	{
+		instance = this;
+
+		// Eject the player if the song is null
+		// It's WAY too dangerous to be here
+		if (song == null)
+		{
+			// TODO: Make it switch to a menu once there is one
+			// For now, throw an error at the player
+			throw 'Cannot load the song if it\'s null!';
+		}
+
 		opponentStrumline = new Strumline();
 		opponentStrumline.offset = 0.25;
 		add(opponentStrumline);
@@ -70,14 +72,8 @@ class PlayState extends FunkinState
 
 		playerStrumline.speed = song.speed;
 		opponentStrumline.speed = playerStrumline.speed;
-
-		var notes:Array<SongNoteData> = song.getNotes();
-
-		// Sorts the notes because yeah uh why not
-		// If you want to have messed up note spawning, remove the sort
-		notes.sort((note1, note2) -> return FlxSort.byValues(FlxSort.ASCENDING, note1.t, note2.t));
 		
-		for (noteData in notes)
+		for (noteData in song.notes)
 		{
 			if (noteData.d >= Constants.NOTE_COUNT)
 				opponentStrumline.data.push(noteData);

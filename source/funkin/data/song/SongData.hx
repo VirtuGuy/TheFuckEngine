@@ -16,6 +16,7 @@ typedef SongMetadata = {
 typedef SongChartData = {
     @:default(1)
     var speed:Float;
+    @:default([])
     var notes:Array<SongNoteData>;
 }
 

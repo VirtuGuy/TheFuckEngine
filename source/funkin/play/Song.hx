@@ -1,5 +1,6 @@
 package funkin.play;
 
+import flixel.util.FlxSort;
 import funkin.data.song.SongData;
 
 /**
@@ -13,17 +14,19 @@ class Song
 
     public var name(get, never):String;
     public var bpm(get, never):Float;
+
     public var speed(get, never):Float;
+    public var notes(get, never):Array<SongNoteData>;
 
     public function new(id:String, meta:SongMetadata, chart:SongChartData)
     {
         this.id = id;
         this.meta = meta;
         this.chart = chart;
-    }
 
-    public function getNotes():Array<SongNoteData>
-        return chart.notes ?? [];
+        // Sorts the notes because it should be nice and neat :)
+        notes.sort((note1, note2) -> return FlxSort.byValues(FlxSort.ASCENDING, note1.t, note2.t));
+    }
 
     inline function get_name():String
         return meta.name;
@@ -33,4 +36,7 @@ class Song
 
     inline function get_speed():Float
         return chart.speed;
+
+    inline function get_notes():Array<SongNoteData>
+        return chart.notes;
 }
