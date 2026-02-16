@@ -99,6 +99,7 @@ class Strumline extends FlxGroup
             // Sorts the notes
             // Not doing this will mess up the input
             notes.sort((i, note1, note2) -> return FlxSort.byValues(FlxSort.ASCENDING, note1.time, note2.time));
+            holdNotes.sort((i, note1, note2) -> return FlxSort.byValues(FlxSort.ASCENDING, note1.time, note2.time));
         }
 
         // Note processing
@@ -202,6 +203,19 @@ class Strumline extends FlxGroup
         final strum:StrumSprite = getStrum(holdNote.direction);
 
         cover.play(holdNote, strum);
+    }
+
+    public function clean()
+    {
+        // Kill instead of destroy because of recycling
+        notes.killMembers();
+        holdNotes.killMembers();
+        noteSplashes.killMembers();
+        holdCovers.killMembers();
+
+        // Clears the note data because we're cleaning, aren't we?
+        data = [];
+        speed = 0;
     }
 
     public function getMayHitNotes():Array<NoteSprite>

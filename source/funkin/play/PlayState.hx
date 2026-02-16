@@ -102,7 +102,7 @@ class PlayState extends FunkinState
 
 		// TODO: Remove this
 		// This is only here for debugging purposes
-		if (FlxG.keys.justPressed.R) FlxG.resetState();
+		if (FlxG.keys.justPressed.R) resetSong();
 	}
 
 	function loadCharacters()
@@ -127,6 +127,17 @@ class PlayState extends FunkinState
 		}
 
 		loadedSong = true;
+	}
+
+	function resetSong()
+	{
+		loadedSong = false;
+		score = 0;
+
+		opponentStrumline.clean();
+		playerStrumline.clean();
+
+		loadSong();
 	}
 
 	function processInput()
