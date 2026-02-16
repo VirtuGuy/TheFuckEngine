@@ -29,7 +29,6 @@ class Constants
     public static final GOOD_SCORE:Int = 300;
     public static final BAD_SCORE:Int = 100;
     public static final SHIT_SCORE:Int = 50;
-
     public static final GHOST_TAP_SCORE:Int = -50;
     public static final MISS_SCORE:Int = -100;
 }

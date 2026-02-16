@@ -34,15 +34,18 @@ class Strumline extends FlxGroup
         super();
 
         strums = new FlxTypedGroup<StrumSprite>();
-        notes = new FlxTypedGroup<NoteSprite>();
-        holdNotes = new FlxTypedGroup<HoldNoteSprite>();
-        noteSplashes = new FlxTypedGroup<NoteSplash>(Constants.NOTE_COUNT);
-        holdCovers = new FlxTypedGroup<HoldNoteCover>(Constants.NOTE_COUNT);
-
         add(strums);
+
+        noteSplashes = new FlxTypedGroup<NoteSplash>(Constants.NOTE_COUNT);
         add(noteSplashes);
+
+        holdNotes = new FlxTypedGroup<HoldNoteSprite>();
         add(holdNotes);
+
+        holdCovers = new FlxTypedGroup<HoldNoteCover>(Constants.NOTE_COUNT);
         add(holdCovers);
+
+        notes = new FlxTypedGroup<NoteSprite>();
         add(notes);
 
         // Builds the strums
