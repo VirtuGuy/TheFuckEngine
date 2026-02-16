@@ -100,10 +100,10 @@ class PlayState extends FunkinState
 		
 		for (noteData in song.notes)
 		{
-			if (noteData.d >= Constants.NOTE_COUNT)
-				opponentStrumline.data.push(noteData);
-			else
+			if (NoteDirection.isPlayer(noteData.d))
 				playerStrumline.data.push(noteData);
+			else
+				opponentStrumline.data.push(noteData);
 		}
 
 		loadedSong = true;

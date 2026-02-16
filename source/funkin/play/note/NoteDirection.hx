@@ -28,6 +28,9 @@ enum abstract NoteDirection(Int) to Int from Int
         }
     }
 
+	public static inline function isPlayer(value:Int):Bool
+		return value < Constants.NOTE_COUNT;
+
 	function get_pressed():Bool
 	{
 		var controls:Controls = Controls.instance;
