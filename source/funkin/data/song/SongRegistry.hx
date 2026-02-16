@@ -23,21 +23,21 @@ class SongRegistry extends BaseRegistry<Song>
 
         // Some pretty useful json parsers
         // Might come in handy maybe
-        var metaParser:JsonParser<SongMetadata> = new JsonParser<SongMetadata>();
-        var chartParser:JsonParser<SongChartData> = new JsonParser<SongChartData>();
+        final metaParser:JsonParser<SongMetadata> = new JsonParser<SongMetadata>();
+        final chartParser:JsonParser<SongChartData> = new JsonParser<SongChartData>();
 
         // Loads the entries
         for (songId in FileUtil.listFolders(path))
         {
-            var metaPath:String = Paths.json('$path/$songId/meta');
-            var chartPath:String = Paths.json('$path/$songId/chart');
+            final metaPath:String = Paths.json('$path/$songId/meta');
+            final chartPath:String = Paths.json('$path/$songId/chart');
 
             // Skip the song if it doesn't have metadata
             if (!Paths.exists(metaPath)) continue;
 
-            var meta:SongMetadata = metaParser.fromJson(FileUtil.getText(metaPath));
-            var chart:SongChartData = chartParser.fromJson(FileUtil.getText(chartPath));
-            var song:Song = new Song(songId, meta, chart);
+            final meta:SongMetadata = metaParser.fromJson(FileUtil.getText(metaPath));
+            final chart:SongChartData = chartParser.fromJson(FileUtil.getText(chartPath));
+            final song:Song = new Song(songId, meta, chart);
 
             register(songId, song);
         }

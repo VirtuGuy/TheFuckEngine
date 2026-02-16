@@ -1,6 +1,7 @@
 package funkin;
 
 import flixel.FlxG;
+import flixel.FlxObject;
 import flixel.FlxState;
 import funkin.data.character.CharacterRegistry;
 import funkin.data.song.SongRegistry;
@@ -20,6 +21,9 @@ class InitState extends FlxState
         FlxG.inputs.resetOnStateSwitch = false;
         FlxG.mouse.visible = false;
         FlxG.stage.showDefaultContextMenu = false;
+
+        // Velocity isn't ever used much
+        FlxObject.defaultMoves = false;
 
         Conductor.instance = new Conductor();
         Controls.instance = new Controls();

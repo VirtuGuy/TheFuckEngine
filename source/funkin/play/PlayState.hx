@@ -2,11 +2,12 @@ package funkin.play;
 
 import flixel.FlxCamera;
 import flixel.FlxG;
-import funkin.data.character.CharacterRegistry;
 import funkin.play.note.NoteDirection;
 import funkin.play.note.NoteSprite;
 import funkin.play.note.Strumline;
+import funkin.play.popup.Popups;
 import funkin.ui.FunkinState;
+import funkin.util.RhythmUtil;
 
 /**
  * A state where the gameplay occurs. Kinda like a "play" state. Hah! I said the thing!
@@ -22,8 +23,7 @@ class PlayState extends FunkinState
 
 	var opponentStrumline:Strumline;
 	var playerStrumline:Strumline;
-
-	var bf:Character;
+	var popups:Popups;
 
 	override public function create()
 	{
@@ -56,6 +56,9 @@ class PlayState extends FunkinState
 		playerStrumline.camera = camHUD;
 		add(playerStrumline);
 
+		popups = new Popups();
+		add(popups);
+
 		loadCharacters();
 		loadSong();
 
@@ -84,12 +87,7 @@ class PlayState extends FunkinState
 
 	function loadCharacters()
 	{
-		bf = CharacterRegistry.instance.fetchCharacter(song.player);
-		add(bf);
-
-		// Temporary bf position
-		// TODO: Use a more proper bf position
-		bf.setPosition(FlxG.width - bf.width - 100, FlxG.height - bf.height - 100);
+		// TODO: Add characters
 	}
 
 	function loadSong()
@@ -114,20 +112,25 @@ class PlayState extends FunkinState
 	function processInput()
 	{
 		// Player input
-		var directionNotes:Array<Array<NoteSprite>> = [[], [], [], []];
+		final directionNotes:Array<Array<NoteSprite>> = [[], [], [], []];
 
 		for (note in playerStrumline.getMayHitNotes()) directionNotes[note.direction].push(note);
 
 		for (i in 0...directionNotes.length)
 		{
-			var note:NoteSprite = directionNotes[i][0];
-			var direction:NoteDirection = NoteDirection.fromInt(i);
-			var pressed:Bool = direction.justPressed || Preferences.botplay;
+			final note:NoteSprite = directionNotes[i][0];
+			final direction:NoteDirection = NoteDirection.fromInt(i);
+			final pressed:Bool = direction.justPressed || Preferences.botplay;
 
 			if (!pressed || note == null) continue;
 
+			final judgement:Judgement = RhythmUtil.judgeNote(note);
+
 			playerStrumline.hitNote(note);
-			playerStrumline.playSplash(direction);
+			popups.playJudgement(judgement);
+			
+			// Only play the note splash if the player got a Sick!
+			if (judgement == SICK) playerStrumline.playSplash(direction);
 		}
 
 		// Opponent input

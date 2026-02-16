@@ -20,4 +20,7 @@ class Constants
     public static final ZOOM:Float = 1.35;
 
     public static final HIT_WINDOW_MS:Float = 160;
+    public static final SICK_WINDOW_MS:Float = 45;
+    public static final GOOD_WINDOW_MS:Float = 90;
+    public static final BAD_WINDOW_MS:Float = 135;
 }

@@ -27,7 +27,7 @@ class HoldNoteCover extends FlxSprite
 
     public function buildSprite()
     {
-        loadGraphic(Paths.image('play/ui/hold-note-cover'), true, 44, 23);
+        loadGraphic(Paths.image('play/ui/note/hold-note-cover'), true, 44, 23);
         setGraphicSize(Std.int(width * Constants.ZOOM * 0.95));
         updateHitbox();
 

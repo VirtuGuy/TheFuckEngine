@@ -21,18 +21,18 @@ class CharacterRegistry extends BaseRegistry<CharacterData>
         super.load();
 
         // This json parser MIGHT come in handy
-        var parser:JsonParser<CharacterData> = new JsonParser<CharacterData>();
+        final parser:JsonParser<CharacterData> = new JsonParser<CharacterData>();
 
         // Loads the entries
         for (characterId in FileUtil.listFolders(path))
         {
-            var metaPath:String = Paths.json('$path/$characterId/meta');
-            var imagePath:String = Paths.image('$path/$characterId/image');
+            final metaPath:String = Paths.json('$path/$characterId/meta');
+            final imagePath:String = Paths.image('$path/$characterId/image');
 
             // Skip the character if it doesn't have metadata or an image
             if (!Paths.exists(metaPath) || !Paths.exists(imagePath)) continue;
 
-            var meta:CharacterData = parser.fromJson(FileUtil.getText(metaPath));
+            final meta:CharacterData = parser.fromJson(FileUtil.getText(metaPath));
 
             register(characterId, meta);
         }

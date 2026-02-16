@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.group.FlxGroup;
 import flixel.util.FlxSort;
 import funkin.data.song.SongData.SongNoteData;
+import funkin.util.RhythmUtil;
 import funkin.util.SortUtil;
 
 /**
@@ -111,16 +112,7 @@ class Strumline extends FlxGroup
 
             if (distance <= -strum.y - note.height) missNote(note);
 
-            // Checks if the note can be hit
-            var hitStart:Float = note.time;
-            var hitEnd:Float = note.time + Constants.HIT_WINDOW_MS;
-
-            // Give the player some extra time to hit the note
-            // Not having this line will create something known as FNF EXTREME DIFFICULTY
-            if (isPlayer) hitStart -= Constants.HIT_WINDOW_MS;
-
-            if (songTime >= hitEnd) note.tooLate = true;
-            if (songTime >= hitStart) note.mayHit = true;
+            RhythmUtil.processHitWindow(note, isPlayer);
         });
 
         // Hold note processing
