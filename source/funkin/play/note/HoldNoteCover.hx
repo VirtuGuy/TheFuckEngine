@@ -1,11 +1,11 @@
 package funkin.play.note;
 
-import flixel.FlxSprite;
+import funkin.graphics.FunkinSprite;
 
 /**
- * An `FlxSprite` that goes over the strumline while a hold note is being held.
+ * A `FunkinSprite` that goes over the strumline while a hold note is being held.
  */
-class HoldNoteCover extends FlxSprite
+class HoldNoteCover extends FunkinSprite
 {
     public var holdNote:HoldNoteSprite;
 
@@ -27,15 +27,16 @@ class HoldNoteCover extends FlxSprite
 
     public function buildSprite()
     {
-        loadGraphic(Paths.image('play/ui/note/hold-note-cover'), true, 44, 23);
-        setGraphicSize(Std.int(width * Constants.ZOOM * 0.95));
+        loadSprite('play/ui/note/hold-note-cover', 44, 23);
+        setGraphicSize(Std.int(width * 0.95));
         updateHitbox();
 
-        for (direction in 0...Constants.NOTE_COUNT)
+        for (i in 0...Constants.NOTE_COUNT)
         {
-            var frame:Int = direction * 3;
+            final direction:NoteDirection = NoteDirection.fromInt(i);
+            final frame:Int = direction * 3;
             
-            animation.add('cover$direction', [frame, frame + 1, frame + 2], 30);
+            addAnimation(direction.name, [frame, frame + 1, frame + 2], 30);
         }
     }
 
@@ -43,12 +44,10 @@ class HoldNoteCover extends FlxSprite
     {
         this.holdNote = holdNote;
 
-        var direction:NoteDirection = strum.direction;
-
         x = strum.x + (strum.width - width) / 2;
         y = strum.y + (strum.height - height) / 2;
 
-        animation.play('cover$direction');
+        playAnimation(strum.direction.name);
     }
 
     override public function revive()

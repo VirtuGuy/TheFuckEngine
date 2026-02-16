@@ -1,18 +1,18 @@
 package funkin.play.popup;
 
 import flixel.FlxG;
-import flixel.FlxSprite;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
+import funkin.graphics.FunkinSprite;
 import funkin.util.RhythmUtil;
 
 /**
- * An `FlxSprite` used as a judgement popup.
+ * A `FunkinSprite` used as a judgement popup.
  * 
  * TODO: Make a base popup class.
  */
-class JudgementSprite extends FlxSprite
+class JudgementSprite extends FunkinSprite
 {
     public function new()
     {
@@ -22,14 +22,12 @@ class JudgementSprite extends FlxSprite
         acceleration.y = 600;
         moves = true;
 
-        loadGraphic(Paths.image('play/ui/judgements'), true, 192, 96);
-        setGraphicSize(Std.int(width * Constants.ZOOM));
-        updateHitbox();
+        loadSprite('play/ui/judgements', 192, 96);
 
-        animation.add(Judgement.SICK, [0]);
-        animation.add(Judgement.GOOD, [1]);
-        animation.add(Judgement.BAD, [2]);
-        animation.add(Judgement.SHIT, [3]);
+        addAnimation(Judgement.SICK, [0]);
+        addAnimation(Judgement.GOOD, [1]);
+        addAnimation(Judgement.BAD, [2]);
+        addAnimation(Judgement.SHIT, [3]);
     }
 
     public function popup(judgement:Judgement)
@@ -38,7 +36,7 @@ class JudgementSprite extends FlxSprite
         velocity.y = -250;
         alpha = 1;
 
-        animation.play(judgement);
+        playAnimation(judgement);
 
         new FlxTimer().start(0.5, _ -> {
             FlxTween.tween(this, { alpha: 0 }, 0.5, { ease: FlxEase.quadOut, onComplete: _ -> kill() });

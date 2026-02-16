@@ -1,11 +1,11 @@
 package funkin.play.note;
 
-import flixel.FlxSprite;
+import funkin.graphics.FunkinSprite;
 
 /**
- * An `FlxSprite` used as a note for a `Strumline`.
+ * A `FunkinSprite` used as a note for a `Strumline`.
  */
-class NoteSprite extends FlxSprite
+class NoteSprite extends FunkinSprite
 {
     public var time:Float;
     public var direction(default, set):NoteDirection;
@@ -28,12 +28,14 @@ class NoteSprite extends FlxSprite
 
     public function buildSprite()
     {
-        loadGraphic(Paths.image('play/ui/note/notes'), true, 84, 84);
-        setGraphicSize(Std.int(width * Constants.ZOOM));
-        updateHitbox();
+        loadSprite('play/ui/note/notes', 84, 84);
 
-        for (direction in 0...Constants.NOTE_COUNT)
-            animation.add('note$direction', [direction + Constants.NOTE_COUNT * 3]);
+        for (i in 0...Constants.NOTE_COUNT)
+        {
+            final direction:NoteDirection = NoteDirection.fromInt(i);
+
+            addAnimation(direction.name, [direction + Constants.NOTE_COUNT * 3]);
+        }
 
         set_direction(direction);
     }
@@ -57,7 +59,7 @@ class NoteSprite extends FlxSprite
     {
         this.direction = direction % Constants.NOTE_COUNT;
 
-        animation.play('note${this.direction}');
+        playAnimation(this.direction.name);
 
         return this.direction;
     }

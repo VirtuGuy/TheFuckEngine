@@ -1,12 +1,12 @@
 package funkin.play;
 
-import flixel.FlxSprite;
 import funkin.data.character.CharacterData;
+import funkin.graphics.FunkinSprite;
 
 /**
- * An `FlxSprite` that sings and bops and all that.
+ * A `FunkinSprite` that sings and bops and all that.
  */
-class Character extends FlxSprite
+class Character extends FunkinSprite
 {
     public var id:String;
     public var meta:CharacterData;
@@ -19,8 +19,8 @@ class Character extends FlxSprite
         this.meta = meta;
 
         // Loads the image
-        loadGraphic(Paths.image('play/characters/$id/image'));
-        setGraphicSize(Std.int(width * Constants.ZOOM * meta.scale));
+        loadSprite('play/characters/$id/image');
+        setGraphicSize(Std.int(width * meta.scale));
         updateHitbox();
     }
 }

@@ -12,6 +12,8 @@ enum abstract NoteDirection(Int) to Int from Int
     var UP = 2;
     var RIGHT = 3;
 
+	public var name(get, never):String;
+
 	public var pressed(get, never):Bool;
 	public var justPressed(get, never):Bool;
 
@@ -30,6 +32,17 @@ enum abstract NoteDirection(Int) to Int from Int
 
 	public static inline function isPlayer(value:Int):Bool
 		return value < Constants.NOTE_COUNT;
+
+	function get_name():String
+	{
+		return switch (abstract)
+		{
+			case LEFT: 'left';
+			case DOWN: 'down';
+			case UP: 'up';
+			case RIGHT: 'right';
+		}
+	}
 
 	function get_pressed():Bool
 	{

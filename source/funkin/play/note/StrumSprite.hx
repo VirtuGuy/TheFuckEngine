@@ -1,11 +1,11 @@
 package funkin.play.note;
 
-import flixel.FlxSprite;
+import funkin.graphics.FunkinSprite;
 
 /**
- * An `FlxSprite` used as the recepter for a `Strumline`.
+ * A `FunkinSprite` used as the recepter for a `Strumline`.
  */
-class StrumSprite extends FlxSprite
+class StrumSprite extends FunkinSprite
 {
     public var direction:NoteDirection;
     public var confirmTime:Float = 0;
@@ -28,14 +28,12 @@ class StrumSprite extends FlxSprite
 
     public function buildSprite()
     {
-        loadGraphic(Paths.image('play/ui/note/notes'), true, 84, 84);
-        setGraphicSize(Std.int(width * Constants.ZOOM));
-        updateHitbox();
+        loadSprite('play/ui/note/notes', 84, 84);
 
-        animation.add('static', [direction], 10);
-        animation.add('press', [direction + Constants.NOTE_COUNT], 10);
-        animation.add('confirm', [direction + Constants.NOTE_COUNT * 2], 10);
+        addAnimation('static', [direction]);
+        addAnimation('press', [direction + Constants.NOTE_COUNT]);
+        addAnimation('confirm', [direction + Constants.NOTE_COUNT * 2]);
 
-        animation.play('static');
+        playAnimation('static');
     }
 }
