@@ -9,6 +9,7 @@ import funkin.play.note.NoteSprite;
 import funkin.play.note.Strumline;
 import funkin.play.popup.Popups;
 import funkin.ui.FunkinState;
+import funkin.util.MathUtil;
 import funkin.util.RhythmUtil;
 
 /**
@@ -94,15 +95,26 @@ class PlayState extends FunkinState
 		opponentStrumline.process(false);
 		playerStrumline.process(!Preferences.botplay);
 
-		scoreText.text = Std.string(Std.int(score));
-		scoreText.screenCenter(X);
-		scoreText.y = FlxG.height - scoreText.height - 50;
-
 		processInput();
 
 		// TODO: Remove this
 		// This is only here for debugging purposes
 		if (FlxG.keys.justPressed.R) resetSong();
+
+		// HUD stuff
+		camHUD.zoom = MathUtil.lerp(camHUD.zoom, 1, 0.03);
+		
+		scoreText.text = Std.string(Std.int(score));
+		scoreText.screenCenter(X);
+		scoreText.y = FlxG.height - scoreText.height - 50;
+	}
+
+	override function beatHit(beat:Int)
+	{
+		super.beatHit(beat);
+
+		// Only bop the HUD camera every four beats
+		if (beat % 4 == 0) camHUD.zoom = 1.02;
 	}
 
 	function loadCharacters()
