@@ -1,5 +1,6 @@
 {
     "name": "Test",
     "bpm": 100,
+    "opponent": "bf-opponent",
     "player": "bf"
 }

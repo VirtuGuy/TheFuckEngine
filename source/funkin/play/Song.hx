@@ -18,6 +18,7 @@ class Song
     public var speed(get, never):Float;
     public var notes(get, never):Array<SongNoteData>;
 
+    public var opponent(get, never):String;
     public var player(get, never):String;
 
     public function new(id:String, meta:SongMetadata, chart:SongChartData)
@@ -41,6 +42,9 @@ class Song
 
     inline function get_notes():Array<SongNoteData>
         return chart.notes;
+
+    inline function get_opponent():String
+        return meta.opponent;
 
     inline function get_player():String
         return meta.player;

@@ -27,10 +27,9 @@ class CharacterRegistry extends BaseRegistry<CharacterData>
         for (characterId in FileUtil.listFolders(path))
         {
             final metaPath:String = Paths.json('$path/$characterId/meta');
-            final imagePath:String = Paths.image('$path/$characterId/image');
 
-            // Skip the character if it doesn't have metadata or an image
-            if (!Paths.exists(metaPath) || !Paths.exists(imagePath)) continue;
+            // Skip the character if it doesn't have metadata
+            if (!Paths.exists(metaPath)) continue;
 
             final meta:CharacterData = parser.fromJson(FileUtil.getText(metaPath));
 
@@ -40,7 +39,8 @@ class CharacterRegistry extends BaseRegistry<CharacterData>
 
     public function fetchCharacter(id:String, isPlayer:Bool = false):Character
     {
-        // Wow no way!
+        // Return null if the character doesn't exist
+        if (!exists(id)) return null;
         return new Character(id, fetch(id), isPlayer);
     }
 }

@@ -123,19 +123,20 @@ class PlayState extends FunkinState
 		if (beat % 4 == 0) camHUD.zoom = 1.02;
 
 		// Character bopping
-		dad.dance();
-		bf.dance();
+		dad?.dance();
+		bf?.dance();
 	}
 
 	function loadCharacters()
 	{
-		dad = CharacterRegistry.instance.fetchCharacter(song.player);
-		dad.setPosition(130, 350);
-		add(dad);
-
+		dad = CharacterRegistry.instance.fetchCharacter(song.opponent);
 		bf = CharacterRegistry.instance.fetchCharacter(song.player, true);
-		bf.setPosition(850, 350);
-		add(bf);
+		
+		dad?.setPosition(130, 350);
+		bf?.setPosition(850, 350);
+
+		if (dad != null) add(dad);
+		if (bf != null) add(bf);
 	}
 
 	function loadSong()
@@ -208,7 +209,7 @@ class PlayState extends FunkinState
 		if (judgement == SICK) playerStrumline.playSplash(note.direction);
 
 		// Force Boyfriend to sing
-		bf.sing(note.direction);
+		bf?.sing(note.direction);
 	}
 
 	function playerHoldNoteHit(holdNote:HoldNoteSprite)
@@ -220,7 +221,7 @@ class PlayState extends FunkinState
 		score += Constants.HOLD_SCORE_PER_SEC * diff;
 
 		// Resets Boyfriend's sing timer
-		bf.resetSingTimer();
+		bf?.resetSingTimer();
 	}
 
 	function playerNoteMiss(note:NoteSprite)
@@ -229,26 +230,32 @@ class PlayState extends FunkinState
 
 		if (note.holdNote != null) missScore *= (note.holdNote.length / 500);
 		score += missScore;
+
+		bf?.miss(note.direction);
 	}
 
 	function playerGhostMiss(direction:NoteDirection)
 	{
 		score += Constants.GHOST_TAP_SCORE;
+
+		bf?.miss(direction);
 	}
 
 	function playerHoldNoteDrop(holdNote:HoldNoteSprite)
 	{
 		// Takes away score based on how long the hold note is
 		score += Constants.MISS_SCORE * (holdNote.length / 500);
+
+		bf?.miss(holdNote.direction);
 	}
 
 	function opponentNoteHit(note:NoteSprite)
 	{
-		dad.sing(note.direction);
+		dad?.sing(note.direction);
 	}
 
 	function opponentHoldNoteHit(holdNote:HoldNoteSprite)
 	{
-		dad.resetSingTimer();
+		dad?.resetSingTimer();
 	}
 }

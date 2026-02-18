@@ -5,10 +5,12 @@ package funkin.data.character;
  */
 typedef CharacterData = {
     var name:String;
-    @:default(1)
-    var scale:Float;
+    @:optional
+    var image:String;
     var frameWidth:Int;
     var frameHeight:Int;
+    @:default(1)
+    var scale:Float;
     var flipX:Bool;
     @:default(2)
     var danceEvery:Int;

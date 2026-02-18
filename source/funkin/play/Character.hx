@@ -24,7 +24,9 @@ class Character extends FunkinSprite
         this.isPlayer = isPlayer;
 
         // Loads the image
-        loadSprite('play/characters/$id/image', meta.scale, meta.frameWidth, meta.frameHeight);
+        final image:String = meta.image ?? id;
+
+        loadSprite('play/characters/$image/image', meta.scale, meta.frameWidth, meta.frameHeight);
 
         // Adds the animations
         for (anim in meta.animations)
@@ -52,6 +54,12 @@ class Character extends FunkinSprite
     public function sing(direction:NoteDirection)
     {
         playAnimation(direction.name, true);
+        resetSingTimer();
+    }
+
+    public function miss(direction:NoteDirection)
+    {
+        playAnimation('${direction.name}-miss', true);
         resetSingTimer();
     }
 

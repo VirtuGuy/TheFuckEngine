@@ -32,7 +32,7 @@ class BaseRegistry<T>
 
     public function register(id:String, entry:T)
     {
-        if (entries.exists(id))
+        if (exists(id))
             trace('$id is already registered under ${this.id}!');
         else
             trace('Registered $id under ${this.id}.');
@@ -41,10 +41,13 @@ class BaseRegistry<T>
 
     public function fetch(id:String):T
     {
-        if (!entries.exists(id))
+        if (!exists(id))
             trace('$id does NOT exist under ${this.id}!');
         return entries.get(id);
     }
+
+    public function exists(id:String):Bool
+        return entries.exists(id);
 
     public function clear()
         entries.clear();
