@@ -9,6 +9,8 @@ import funkin.play.note.NoteDirection;
 import funkin.play.note.NoteSprite;
 import funkin.play.note.Strumline;
 import funkin.play.popup.Popups;
+import funkin.play.song.Song;
+import funkin.play.song.Voices;
 import funkin.ui.FunkinState;
 import funkin.util.MathUtil;
 import funkin.util.RhythmUtil;
@@ -21,10 +23,13 @@ class PlayState extends FunkinState
 	public static var instance:PlayState;
 	public static var song:Song;
 
-	var loadedSong:Bool = false;
+	var songLoaded:Bool;
+	var songStarted:Bool;
+	var songEnded:Bool;
 
-	// Score is secretly a float because hold note scoring is ass
-	var score:Float = 0;
+	var score:Float;
+
+	var voices:Voices;
 
 	var camHUD:FlxCamera;
 
@@ -83,7 +88,9 @@ class PlayState extends FunkinState
 		add(popups);
 
 		loadCharacters();
-		loadSong();
+
+		// Resets the song
+		resetSong();
 
 		super.create();
 	}
@@ -92,10 +99,14 @@ class PlayState extends FunkinState
 	{
 		super.update(elapsed);
 
-		if (loadedSong)
+		if (songLoaded)
 		{
 			conductor.time += elapsed * Constants.MS_PER_SEC;
 			conductor.update();
+
+			if (conductor.time >= 0 && !songStarted) startSong();
+
+			checkSongResync();
 		}
 
 		opponentStrumline.process(false);
@@ -106,6 +117,7 @@ class PlayState extends FunkinState
 		// TODO: Remove this
 		// This is only here for debugging purposes
 		if (FlxG.keys.justPressed.R) resetSong();
+		if (FlxG.keys.justPressed.J) FlxG.switchState(() -> new FunkinState());
 
 		// HUD stuff
 		camHUD.zoom = MathUtil.lerp(camHUD.zoom, 1, 0.03);
@@ -155,18 +167,67 @@ class PlayState extends FunkinState
 				opponentStrumline.data.push(noteData);
 		}
 
-		loadedSong = true;
+		// Loads the actual song
+		FlxG.sound.playMusic(Paths.sound('songs/${song.id}/inst'), 1, false);
+		FlxG.sound.music.onComplete = endSong;
+		FlxG.sound.music.stop();
+
+		voices = new Voices(song.id);
+
+		songLoaded = true;
+	}
+
+	function startSong()
+	{
+		songStarted = true;
+
+		FlxG.sound.music.play();
+		voices.play();
+	}
+
+	function endSong()
+	{
+		songEnded = true;
+
+		// Stops the vocals
+		// Just because the vocals could be longer than the inst
+		voices.stop();
+
+		// TODO: Add song end logic
 	}
 
 	function resetSong()
 	{
-		loadedSong = false;
+		songLoaded = false;
+		songStarted = false;
+		songEnded = false;
+
 		score = 0;
+
+		FlxG.sound.music?.stop();
+		voices?.stop();
 
 		opponentStrumline.clean();
 		playerStrumline.clean();
 
 		loadSong();
+	}
+
+	function checkSongResync()
+	{
+		if (!songStarted || songEnded) return;
+
+		// Instrumental resync
+		if (Math.abs(conductor.time - FlxG.sound.music.time) > Constants.RESYNC_THRESHOLD)
+		{
+			FlxG.sound.music.pause();
+			FlxG.sound.music.time = conductor.time;
+			FlxG.sound.music.play();
+		}
+
+		// Vocals resync
+		// Because the vocals are two sounds, it needs special treatment
+		voices.checkResync(conductor.time);
 	}
 
 	function processInput()
@@ -203,13 +264,13 @@ class PlayState extends FunkinState
 		final judgement:Judgement = RhythmUtil.judgeNote(note);
 		popups.playJudgement(judgement);
 
-		score += judgement.score;
-		
 		// Only play the note splash if the player got a Sick!
 		if (judgement == SICK) playerStrumline.playSplash(note.direction);
 
-		// Force Boyfriend to sing
+		score += judgement.score;
 		bf?.sing(note.direction);
+
+		voices.playerVolume = 1;
 	}
 
 	function playerHoldNoteHit(holdNote:HoldNoteSprite)
@@ -219,34 +280,37 @@ class PlayState extends FunkinState
 		final diff:Float = (holdNote.lastLength - holdNote.length) / 1000;
 
 		score += Constants.HOLD_SCORE_PER_SEC * diff;
-
-		// Resets Boyfriend's sing timer
 		bf?.resetSingTimer();
+
+		voices.playerVolume = 1;
 	}
 
 	function playerNoteMiss(note:NoteSprite)
 	{
 		var missScore:Float = Constants.MISS_SCORE;
-
 		if (note.holdNote != null) missScore *= (note.holdNote.length / 500);
-		score += missScore;
 
+		score += missScore;
 		bf?.miss(note.direction);
+
+		voices.playerVolume = 0;
 	}
 
 	function playerGhostMiss(direction:NoteDirection)
 	{
 		score += Constants.GHOST_TAP_SCORE;
-
 		bf?.miss(direction);
+
+		voices.playerVolume = 0;
 	}
 
 	function playerHoldNoteDrop(holdNote:HoldNoteSprite)
 	{
 		// Takes away score based on how long the hold note is
 		score += Constants.MISS_SCORE * (holdNote.length / 500);
-
 		bf?.miss(holdNote.direction);
+
+		voices.playerVolume = 0;
 	}
 
 	function opponentNoteHit(note:NoteSprite)
@@ -257,5 +321,15 @@ class PlayState extends FunkinState
 	function opponentHoldNoteHit(holdNote:HoldNoteSprite)
 	{
 		dad?.resetSingTimer();
+	}
+
+	override public function destroy()
+	{
+		super.destroy();
+
+		FlxG.sound.music.stop();
+
+		// Destroy the voices
+		voices.destroy();
 	}
 }

@@ -1,4 +1,4 @@
-package funkin.play;
+package funkin.play.song;
 
 import flixel.util.FlxSort;
 import funkin.data.song.SongData;

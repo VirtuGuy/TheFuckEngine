@@ -19,6 +19,8 @@ class Constants
     public static final NOTE_COUNT:Int = 4;
     public static final ZOOM:Float = 1.35;
 
+    public static final RESYNC_THRESHOLD:Float = 40;
+
     public static final HIT_WINDOW_MS:Float = 160;
     public static final SICK_WINDOW_MS:Float = 45;
     public static final GOOD_WINDOW_MS:Float = 90;

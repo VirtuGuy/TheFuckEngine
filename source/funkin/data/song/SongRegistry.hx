@@ -1,7 +1,7 @@
 package funkin.data.song;
 
 import funkin.data.song.SongData;
-import funkin.play.Song;
+import funkin.play.song.Song;
 import funkin.util.FileUtil;
 import json2object.JsonParser;
 

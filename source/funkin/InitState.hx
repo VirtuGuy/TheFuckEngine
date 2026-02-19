@@ -32,8 +32,7 @@ class InitState extends FlxState
         SongRegistry.instance = new SongRegistry();
 
         // Starts the game
-        // Also loads up a test chart
-        PlayState.song = SongRegistry.instance.fetch('test');
+        PlayState.song = SongRegistry.instance.fetch('fresh');
 
         FlxG.switchState(() -> new funkin.play.PlayState());
 
