@@ -2,6 +2,7 @@ package funkin.play;
 
 import funkin.data.character.CharacterData;
 import funkin.graphics.FunkinSprite;
+import funkin.graphics.shaders.Rimlight;
 import funkin.play.note.NoteDirection;
 
 /**
@@ -38,6 +39,14 @@ class Character extends FunkinSprite
 
         resetSingTimer();
         dance(true);
+
+        var rimlight:Rimlight = new Rimlight();
+        rimlight.rimColor = 0xFFFFFF;
+        rimlight.distance = 10;
+        rimlight.direction = 180;
+        rimlight.brightness = 0.7;
+
+        shader = rimlight.shader;
     }
 
     override public function update(elapsed:Float)
