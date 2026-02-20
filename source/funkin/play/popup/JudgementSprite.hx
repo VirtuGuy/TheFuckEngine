@@ -18,7 +18,6 @@ class JudgementSprite extends FunkinSprite
     {
         super();
 
-        scrollFactor.set();
         acceleration.y = 600;
         moves = true;
 

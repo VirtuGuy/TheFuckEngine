@@ -2,6 +2,8 @@ package funkin.play;
 
 import flixel.FlxCamera;
 import flixel.FlxG;
+import flixel.FlxObject;
+import flixel.math.FlxPoint;
 import flixel.text.FlxText;
 import funkin.data.character.CharacterRegistry;
 import funkin.play.note.HoldNoteSprite;
@@ -32,6 +34,9 @@ class PlayState extends FunkinState
 	var voices:Voices;
 
 	var camHUD:FlxCamera;
+	var camFollow:FlxObject;
+	var camTarget:Character;
+	var camZoom:Float = 1.15;
 
 	var opponentStrumline:Strumline;
 	var playerStrumline:Strumline;
@@ -58,9 +63,13 @@ class PlayState extends FunkinState
 		camHUD.bgColor = 0x0;
 		FlxG.cameras.add(camHUD, false);
 
+		camFollow = new FlxObject();
+		FlxG.camera.follow(camFollow, LOCKON, 0.03);
+
 		// TODO: Remove this
 		// This is only here until there's a proper stage
 		FlxG.camera.bgColor = 0xFF252525;
+		FlxG.camera.zoom = camZoom;
 
 		opponentStrumline = new Strumline();
 		opponentStrumline.offset = 0.25;
@@ -88,8 +97,8 @@ class PlayState extends FunkinState
 		add(popups);
 
 		loadCharacters();
-
-		// Resets the song
+		
+		resetCameraTarget();
 		resetSong();
 
 		super.create();
@@ -120,9 +129,10 @@ class PlayState extends FunkinState
 		if (FlxG.keys.justPressed.O) conductor.time = FlxG.sound.music.length;
 		if (FlxG.keys.justPressed.J) FlxG.switchState(() -> new FunkinState());
 
-		// HUD stuff
+		FlxG.camera.zoom = MathUtil.lerp(FlxG.camera.zoom, camZoom, 0.03);
 		camHUD.zoom = MathUtil.lerp(camHUD.zoom, 1, 0.03);
 		
+		// HUD stuff
 		scoreText.text = Std.string(Std.int(score));
 		scoreText.screenCenter(X);
 		scoreText.y = FlxG.height - scoreText.height - 50;
@@ -132,12 +142,27 @@ class PlayState extends FunkinState
 	{
 		super.beatHit(beat);
 
-		// Only bop the HUD camera every four beats
-		if (beat % 4 == 0) camHUD.zoom = 1.02;
+		// Camera bopping
+		if (beat % 4 == 0)
+		{
+			FlxG.camera.zoom = camZoom + 0.05;
+			camHUD.zoom = 1.02;
+		}
 
 		// Character bopping
 		opponent?.dance();
 		player?.dance();
+	}
+
+	override function sectionHit(section:Int)
+	{
+		super.sectionHit(section);
+		
+		if (!songStarted) return;
+
+		// Moves the camera
+		// TODO: Remove this once events are added
+		setCameraTarget(camTarget == opponent ? player : opponent);
 	}
 
 	function loadCharacters()
@@ -145,8 +170,8 @@ class PlayState extends FunkinState
 		opponent = CharacterRegistry.instance.fetchCharacter(song.opponent);
 		player = CharacterRegistry.instance.fetchCharacter(song.player, true);
 		
-		opponent?.setPosition(130, 250);
-		player?.setPosition(850, 350);
+		opponent?.setPosition(-300, 350);
+		player?.setPosition(300, 350);
 
 		add(opponent);
 		add(player);
@@ -211,6 +236,8 @@ class PlayState extends FunkinState
 		opponentStrumline.clean();
 		playerStrumline.clean();
 
+		resetCameraTarget();
+
 		loadSong();
 	}
 
@@ -238,6 +265,33 @@ class PlayState extends FunkinState
 		// Vocals resync
 		// Because the vocals are two sounds, it needs special treatment
 		voices.checkResync(conductor.time);
+	}
+
+	function setCameraTarget(character:Character, instant:Bool = false)
+	{
+		// Can't target a character when it's null
+		if (character == null) return;
+
+		var camPos:FlxPoint = character.getGraphicMidpoint();
+
+		camPos.x += character.isPlayer ? -100 : 100;
+		camPos.y -= 100;
+
+		camFollow.setPosition(camPos.x, camPos.y);
+		camTarget = character;
+
+		// Instantly focus on camFollow if enabled
+		if (instant) FlxG.camera.focusOn(camFollow.getPosition());
+	}
+
+	function resetCameraTarget()
+	{
+		// Target the opponent if there is one
+		// If not, try and target the player
+		if (opponent != null)
+			setCameraTarget(opponent, true);
+		else if (player != null)
+			setCameraTarget(player, true);
 	}
 
 	function processInput()
