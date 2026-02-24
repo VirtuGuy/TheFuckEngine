@@ -14,6 +14,7 @@ class Character extends FunkinSprite
     public var isPlayer:Bool;
 
     var singTimer:Float;
+    var danced:Bool = false;
 
     public function new(id:String, meta:CharacterData, isPlayer:Bool)
     {
@@ -49,7 +50,19 @@ class Character extends FunkinSprite
     public function dance(force:Bool = false)
     {
         if ((Conductor.instance.beat % meta.danceEvery == 0 && singTimer == 1) || force)
-            playAnimation('idle', true);
+        {
+            var anim:String = 'idle';
+
+            // Deals with idle up and down animations
+            danced = !danced;
+
+            if (danced && hasAnimation('idle-up'))
+                anim = 'idle-up';
+            else if (!danced && hasAnimation('idle-down'))
+                anim = 'idle-down';
+
+            playAnimation(anim, true);
+        }
     }
 
     public function sing(direction:NoteDirection)

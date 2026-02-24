@@ -2,5 +2,6 @@
     "name": "DadBattle",
     "bpm": 180,
     "opponent": "dad",
-    "player": "bf"
+    "player": "bf",
+    "gf": "gf"
 }

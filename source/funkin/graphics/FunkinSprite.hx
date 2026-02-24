@@ -24,4 +24,7 @@ class FunkinSprite extends FlxSprite
         if (!animation.exists(name)) return;
         animation.play(name, force);
     }
+
+    public function hasAnimation(name:String):Bool
+        return animation.exists(name);
 }

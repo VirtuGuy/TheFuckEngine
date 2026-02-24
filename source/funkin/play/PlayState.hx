@@ -45,6 +45,7 @@ class PlayState extends FunkinState
 
 	var opponent:Character;
 	var player:Character;
+	var gf:Character;
 
 	override public function create()
 	{
@@ -64,12 +65,12 @@ class PlayState extends FunkinState
 		FlxG.cameras.add(camHUD, false);
 
 		camFollow = new FlxObject();
-		FlxG.camera.follow(camFollow, LOCKON, 0.03);
 
 		// TODO: Remove this
 		// This is only here until there's a proper stage
 		FlxG.camera.bgColor = 0xFF252525;
 		FlxG.camera.zoom = camZoom;
+		FlxG.camera.follow(camFollow, LOCKON, 0.03);
 
 		opponentStrumline = new Strumline();
 		opponentStrumline.offset = 0.25;
@@ -93,10 +94,11 @@ class PlayState extends FunkinState
 		scoreText.camera = camHUD;
 		add(scoreText);
 
+		loadCharacters();
+
+		// Popups should be above characters
 		popups = new Popups();
 		add(popups);
-
-		loadCharacters();
 		
 		resetCameraTarget();
 		resetSong();
@@ -145,7 +147,7 @@ class PlayState extends FunkinState
 		super.beatHit(beat);
 
 		// Camera bopping
-		if (beat % 4 == 0)
+		if (beat % 2 == 0)
 		{
 			FlxG.camera.zoom = camZoom + 0.05;
 			camHUD.zoom = 1.02;
@@ -154,6 +156,7 @@ class PlayState extends FunkinState
 		// Character bopping
 		opponent?.dance();
 		player?.dance();
+		gf?.dance();
 	}
 
 	override function sectionHit(section:Int)
@@ -171,10 +174,13 @@ class PlayState extends FunkinState
 	{
 		opponent = CharacterRegistry.instance.fetchCharacter(song.opponent);
 		player = CharacterRegistry.instance.fetchCharacter(song.player, true);
+		gf = CharacterRegistry.instance.fetchCharacter(song.gf);
 		
 		opponent?.setPosition(-300, 350);
 		player?.setPosition(300, 350);
+		gf?.setPosition(0, 300);
 
+		add(gf);
 		add(opponent);
 		add(player);
 	}

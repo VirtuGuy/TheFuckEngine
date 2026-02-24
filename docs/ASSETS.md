@@ -12,4 +12,4 @@ Nothing yet lol
 
 ## Format
 
-For consistency, the assets folder should have its files in a lower kebab case format (ex. `my-super-cool-song`). This format is applied to EVERYTHING in the assets folder (file names, JSON data, etc.).
+For consistency, the assets folder should have its files in a lower kebab case format (ex. `my-super-cool-song`).

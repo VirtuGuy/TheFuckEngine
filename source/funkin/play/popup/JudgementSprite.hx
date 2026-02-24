@@ -20,7 +20,7 @@ class JudgementSprite extends FunkinSprite
         acceleration.y = 450;
         moves = true;
 
-        loadSprite('play/ui/judgements', 1, 192, 96);
+        loadSprite('play/ui/judgements', 0.7, 192, 96);
 
         addAnimation(Judgement.SICK, [0]);
         addAnimation(Judgement.GOOD, [1]);

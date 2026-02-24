@@ -27,7 +27,7 @@ class Popups extends FlxGroup
 
         // The center of the screen is (0, 0)
         // Well.. only in PlayState I guess
-        sprite.setPosition();
+        sprite.setPosition(60, 60);
 
         // Ensure that the sprite is on top
         // TODO: Implement a better way to reorder this

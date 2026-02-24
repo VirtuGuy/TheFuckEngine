@@ -20,6 +20,7 @@ class Song
 
     public var opponent(get, never):String;
     public var player(get, never):String;
+    public var gf(get, never):String;
 
     public function new(id:String, meta:SongMetadata, chart:SongChartData)
     {
@@ -48,4 +49,7 @@ class Song
 
     inline function get_player():String
         return meta.player;
+
+    inline function get_gf():String
+        return meta.gf;
 }

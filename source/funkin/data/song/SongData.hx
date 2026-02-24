@@ -10,6 +10,7 @@ typedef SongMetadata = {
     var bpm:Float;
     var opponent:String;
     var player:String;
+    var gf:String;
 }
 
 /**
