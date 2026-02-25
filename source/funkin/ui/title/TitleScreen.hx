@@ -32,8 +32,8 @@ class TitleScreen extends FunkinState
 
 		add(logo);
 
-		titleGF.y += titleGF.height / 4;
-		logo.y -= logo.height / 2;
+		titleGF.y += titleGF.height / 3.8;
+		logo.y -= logo.height / 3;
 
 		conductor.bpm = 102;
 		conductor.time = 0;
