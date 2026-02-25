@@ -25,15 +25,11 @@ class TitleScreen extends FunkinState
 		titleGF.screenCenter();
 
 		logo = new FunkinSprite(0, 0, Paths.image('title/logo'));
-		
-		logo.scale.set(2,2);
-		logo.updateHitbox();
 		logo.screenCenter();
-
 		add(logo);
 
-		titleGF.y += titleGF.height / 3.8;
-		logo.y -= logo.height / 3;
+		titleGF.y += titleGF.height / 4;
+		logo.y -= logo.height * 0.75;
 
 		conductor.bpm = 102;
 		conductor.time = 0;
