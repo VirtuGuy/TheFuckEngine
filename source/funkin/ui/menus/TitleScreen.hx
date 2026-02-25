@@ -105,6 +105,10 @@ class TitleScreen extends FunkinState
 				ease: tweenEase,
 				startDelay: tweenLengths * 0.1,
 			});
+			FlxTween.tween(wackyTexttext, {alpha: 0}, .1, {
+				ease: tweenEase,
+				startDelay: tweenLengths * 0.5,
+			});
 
 			FlxTimer.wait(tweenLengths * 1.1, function()
 			{
