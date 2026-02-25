@@ -72,8 +72,7 @@ class TitleScreen extends FunkinState
 
 		titleGF.dance();
 
-		if (beat % 2 == 0)
-			logo.scale.add(.2, .2);
+		logo.scale.add(.2, .2);
 	}
 
 	override function update(elapsed:Float)
