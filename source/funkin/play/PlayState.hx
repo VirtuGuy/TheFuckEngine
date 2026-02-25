@@ -227,7 +227,7 @@ class PlayState extends FunkinState
 		FlxG.sound.music.stop();
 		voices.stop();
 
-		// TODO: Add song end logic
+		FlxG.switchState(() -> new funkin.ui.menus.TitleScreen());
 	}
 
 	function resetSong()
