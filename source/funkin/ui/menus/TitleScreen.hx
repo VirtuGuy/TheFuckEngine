@@ -2,6 +2,7 @@ package funkin.ui.menus;
 
 import flixel.FlxG;
 import flixel.sound.FlxSound;
+import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
@@ -10,10 +11,12 @@ import funkin.graphics.FunkinSprite;
 import funkin.play.Character;
 import funkin.play.PlayState;
 import funkin.util.FileUtil;
+import funkin.util.MathUtil;
 
 class TitleScreen extends FunkinState
 {
 	var wackyText:String = '';
+	var wackyTexttext:FlxText;
 
 	var titleGF:Character;
 	var logo:FunkinSprite;
@@ -25,10 +28,6 @@ class TitleScreen extends FunkinState
 	override function create()
 	{
 		super.create();
-
-		var trueWackyTexts:Array<String> = FileUtil.getText(Paths.text('menus/titleTexts')).split('\n');
-		
-		wackyText = trueWackyTexts[FlxG.random.int(0, trueWackyTexts.length - 1)] ?? 'null object reference reference!';
 
 		titleGF = CharacterRegistry.instance.fetchCharacter('title-gf');
 		add(titleGF);
@@ -45,6 +44,13 @@ class TitleScreen extends FunkinState
 		titleGF.y += titleGF.height / 4;
 		logo.y -= logo.height * 0.75;
 
+		var trueWackyTexts:Array<String> = FileUtil.getText(Paths.text('menus/titleTexts')).split('\n');
+
+		wackyText = trueWackyTexts[FlxG.random.int(0, trueWackyTexts.length - 1)] ?? 'null object reference reference!';
+
+		wackyTexttext = new FlxText(0, 0, FlxG.width, wackyText, 24);
+		add(wackyTexttext);
+
 		conductor.bpm = 102;
 		conductor.time = 0;
 		FlxG.sound.playMusic(Paths.sound('menus/tracks/freakyMenu'), 1, true);
@@ -57,6 +63,11 @@ class TitleScreen extends FunkinState
 		super.beatHit(beat);
 
 		titleGF.dance();
+
+		wackyTexttext.scale.set(
+			1.3,
+			1.3
+		);
 	}
 
 	override function update(elapsed:Float)
@@ -65,6 +76,13 @@ class TitleScreen extends FunkinState
 
 		conductor.time += elapsed * Constants.MS_PER_SEC;
 		conductor.update();
+
+		wackyTexttext.scale.set(
+			MathUtil.lerp(wackyTexttext.scale.x, 1, 0.15),
+			MathUtil.lerp(wackyTexttext.scale.y, 1, 0.15),
+		);
+		wackyTexttext.updateHitbox();
+		wackyTexttext.screenCenter();
 
 		if (controls.ACCEPT && !transitioning)
 		{
