@@ -70,11 +70,11 @@ class TitleScreen extends FunkinState
 
 			var tweenLengths = (confirmMenuSound.length / 1000);
 
-			FlxTween.tween(titleGF, {alpha: 0, y: FlxG.height + titleGF.height * 2}, tweenLengths, {
+			FlxTween.tween(titleGF, {alpha: 0, y: titleGF.y * 1.1}, tweenLengths, {
 				ease: FlxEase.circInOut,
 				startDelay: tweenLengths * 0.1,
 			});
-			FlxTween.tween(logo, {alpha: 0, y: logo.height * -2}, tweenLengths, {
+			FlxTween.tween(logo, {alpha: 0, y: logo.y * 0.9}, tweenLengths, {
 				ease: FlxEase.circInOut,
 				startDelay: tweenLengths * 0.1,
 			});
