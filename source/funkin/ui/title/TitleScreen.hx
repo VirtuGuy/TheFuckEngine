@@ -24,7 +24,7 @@ class TitleScreen extends FunkinState
 		 
 		titleGF.screenCenter();
 
-		logo = new FunkinSprite(0, 0, Paths.image('title/logo'));
+		logo = new FunkinSprite(0, 0, Paths.image('menus/logo'));
 		logo.screenCenter();
 		add(logo);
 
@@ -33,7 +33,7 @@ class TitleScreen extends FunkinState
 
 		conductor.bpm = 102;
 		conductor.time = 0;
-		FlxG.sound.playMusic(Paths.sound('music/freakyMenu'), 1, true);
+		FlxG.sound.playMusic(Paths.sound('menus/freakyMenu'), 1, true);
 
 		FlxG.camera.zoom = camZoom;
 	}
