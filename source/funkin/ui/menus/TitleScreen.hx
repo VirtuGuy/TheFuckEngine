@@ -68,16 +68,18 @@ class TitleScreen extends FunkinState
 			var confirmMenuSound = new FlxSound().loadEmbedded(Paths.sound('menus/sounds/confirmMenu'));
 			confirmMenuSound.play();
 
-			var tweenLengths = (confirmMenuSound.length / 1000) * 1.1;
+			var tweenLengths = (confirmMenuSound.length / 1000);
 
 			FlxTween.tween(titleGF, {alpha: 0, y: FlxG.height + titleGF.height * 2}, tweenLengths, {
-				ease: FlxEase.quadInOut
+				ease: FlxEase.circInOut,
+				startDelay: tweenLengths * 0.1,
 			});
 			FlxTween.tween(logo, {alpha: 0, y: logo.height * -2}, tweenLengths, {
-				ease: FlxEase.quadInOut
+				ease: FlxEase.circInOut,
+				startDelay: tweenLengths * 0.1,
 			});
 
-			FlxTimer.wait(tweenLengths + .1, function()
+			FlxTimer.wait(tweenLengths * 1.1, function()
 			{
 				FlxG.switchState(() -> new PlayState());
 			});
