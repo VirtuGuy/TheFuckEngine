@@ -92,9 +92,8 @@ class PlayState extends FunkinState
 		add(scoreText);
 
 		stage = StageRegistry.instance.fetchStage(song.stage);
+		camZoom = stage.zoom;
 		add(stage);
-
-		if (stage.meta != null) camZoom = stage.meta.zoom;
 
 		popups = new Popups();
 		add(popups);

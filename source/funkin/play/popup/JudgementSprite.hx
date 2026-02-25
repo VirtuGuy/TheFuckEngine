@@ -20,7 +20,7 @@ class JudgementSprite extends FunkinSprite
         acceleration.y = 450;
         moves = true;
 
-        loadSprite('play/ui/judgements', 0.7, 192, 96);
+        loadSprite('play/ui/judgements', 1, 123, 56);
 
         addAnimation(Judgement.SICK, [0]);
         addAnimation(Judgement.GOOD, [1]);
@@ -36,7 +36,7 @@ class JudgementSprite extends FunkinSprite
         playAnimation(judgement);
 
         new FlxTimer().start(0.25, _ -> {
-            FlxTween.tween(this, { alpha: 0 }, 0.75, { ease: FlxEase.quadOut, onComplete: _ -> kill() });
+            FlxTween.tween(this, { alpha: 0 }, 0.6, { ease: FlxEase.quadOut, onComplete: _ -> kill() });
         }); 
     }
 }

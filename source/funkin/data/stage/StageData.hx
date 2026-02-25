@@ -5,7 +5,7 @@ package funkin.data.stage;
  */
 typedef StageData = {
     var name:String;
-    @:default(1)
+    @:optional
     var zoom:Float;
     @:default([])
     var props:Array<StagePropData>;

@@ -1,7 +1,6 @@
 package funkin.play.stage;
 
 import flixel.group.FlxGroup;
-import flixel.util.FlxSort;
 import funkin.data.character.CharacterRegistry;
 import funkin.data.stage.StageData;
 import funkin.graphics.FunkinSprite;
@@ -13,6 +12,8 @@ class Stage extends FlxGroup
 {
     public var id:String;
     public var meta:StageData;
+
+    public var zoom(get, never):Float;
 
     public var player:Character;
     public var opponent:Character;
@@ -116,4 +117,7 @@ class Stage extends FlxGroup
             refresh();
         }
     }
+
+    function get_zoom():Float
+        return meta?.zoom ?? Constants.DEFAULT_CAMERA_ZOOM;
 }
