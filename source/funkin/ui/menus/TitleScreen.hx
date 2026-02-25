@@ -25,6 +25,7 @@ class TitleScreen extends FunkinState
 	var camZoom:Float = 1.15;
 
 	var transitioning:Bool = false;
+	var stopConductor:Bool = false;
 
 	override function create()
 	{
@@ -79,8 +80,11 @@ class TitleScreen extends FunkinState
 	{
 		super.update(elapsed);
 
-		conductor.time += elapsed * Constants.MS_PER_SEC;
-		conductor.update();
+		if (!stopConductor)
+		{
+			conductor.time += elapsed * Constants.MS_PER_SEC;
+			conductor.update();
+		}
 
 		logo.scale.x = MathUtil.lerp(logo.scale.x, 1, 0.15);
 		logo.scale.y = MathUtil.lerp(logo.scale.y, 1, 0.15);
@@ -113,6 +117,11 @@ class TitleScreen extends FunkinState
 			FlxTimer.wait(tweenLengths * 1.1, function()
 			{
 				FlxG.switchState(() -> new PlayState());
+			});
+
+			FlxG.sound.music.fadeOut(tweenLengths, 0, function(t)
+			{
+				stopConductor = true;
 			});
 		}
 	}
