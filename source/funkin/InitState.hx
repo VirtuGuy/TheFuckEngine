@@ -5,6 +5,7 @@ import flixel.FlxObject;
 import flixel.FlxState;
 import funkin.data.character.CharacterRegistry;
 import funkin.data.song.SongRegistry;
+import funkin.data.stage.StageRegistry;
 import funkin.input.Controls;
 import funkin.play.PlayState;
 
@@ -30,6 +31,7 @@ class InitState extends FlxState
         Controls.instance = new Controls();
 
         CharacterRegistry.instance = new CharacterRegistry();
+        StageRegistry.instance = new StageRegistry();
         SongRegistry.instance = new SongRegistry();
 
         // TODO: Remove this once songs can be loaded ingame

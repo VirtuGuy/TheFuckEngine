@@ -1,6 +1,7 @@
 {
     "name": "DadBattle",
     "bpm": 180,
+    "stage": "stage",
     "opponent": "dad",
     "player": "bf",
     "gf": "gf"

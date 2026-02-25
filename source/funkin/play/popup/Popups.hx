@@ -30,8 +30,7 @@ class Popups extends FlxGroup
         sprite.setPosition(60, 60);
 
         // Ensure that the sprite is on top
-        // TODO: Implement a better way to reorder this
-        judgements.remove(sprite, true);
-        judgements.add(sprite);
+        sprite.zIndex = judgements.getLast(spr -> spr.zIndex > sprite.zIndex)?.zIndex + 1;
+        judgements.refresh();
     }
 }

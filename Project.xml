@@ -22,6 +22,12 @@
 
 	<haxedef name="HAS_FPS_COUNTER" />
 
+	<!-- ____________________________ WTF Engine Flags __________________________ -->
+
+	<!-- Kinda taken from Funkin' lol -->
+	<haxeflag name="--macro addMetadata('@:build(funkin.util.macro.ZIndexMacro.buildFlxBasic())', 'flixel.FlxBasic')" />
+	<haxeflag name="--macro addMetadata('@:build(funkin.util.macro.ZIndexMacro.buildFlxGroup())', 'flixel.group.FlxTypedGroup')" />
+
 	<!-- _____________________________ Path Settings ____________________________ -->
 
 	<set name="BUILD_DIR" value="export/release" />

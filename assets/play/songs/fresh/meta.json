@@ -1,6 +1,7 @@
 {
     "name": "Fresh",
     "bpm": 120,
+    "stage": "stage",
     "opponent": "dad",
     "player": "bf",
     "gf": "gf"
