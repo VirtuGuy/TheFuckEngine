@@ -54,10 +54,7 @@ class TitleScreen extends FunkinState
 		// wackyTexttext.antialiasing = true; // illegal
 		add(wackyTexttext);
 
-		wackyTexttext.scale.set(
-			1.4,
-			1.4
-		);
+		wackyTexttext.scale.set(1.4, 1.4);
 		wackyTexttext.updateHitbox();
 		wackyTexttext.screenCenter();
 		wackyTexttext.y -= logo.height * 0.5;
@@ -74,7 +71,9 @@ class TitleScreen extends FunkinState
 		super.beatHit(beat);
 
 		titleGF.dance();
-		logo.scale.add(.2,.2);
+
+		if (beat % 2 == 0)
+			logo.scale.add(.2, .2);
 	}
 
 	override function update(elapsed:Float)
