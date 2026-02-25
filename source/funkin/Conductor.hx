@@ -46,6 +46,8 @@ class Conductor
         if (lastSection != section) sectionHit.dispatch(section);
 
         // Debug watching (for debugging purposes)
+        FlxG.watch.addQuick('bpm', bpm);
+
         FlxG.watch.addQuick('time', time);
         FlxG.watch.addQuick('step', step);
         FlxG.watch.addQuick('beat', beat);
