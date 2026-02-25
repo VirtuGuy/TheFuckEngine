@@ -105,6 +105,7 @@ class Controls extends FlxActionSet
             {
                 action.addKey(key, PRESSED);
                 action.addKey(key, JUST_PRESSED);
+                action.addKey(key, JUST_RELEASED);
             }
         });
     }
