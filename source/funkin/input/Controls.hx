@@ -16,6 +16,8 @@ enum abstract Control(String) to String from String
     var NOTE_DOWN = 'note-down';
     var NOTE_UP = 'note-up';
     var NOTE_RIGHT = 'note-right';
+
+    var ACCEPT = 'accept';
 }
 
 /**
@@ -24,6 +26,13 @@ enum abstract Control(String) to String from String
 class Controls extends FlxActionSet
 {
     public static var instance:Controls;
+
+    var accept(default, null) = new FunkinAction(Control.ACCEPT);
+
+    public var ACCEPT(get, never):Bool;
+
+    inline function get_ACCEPT():Bool
+        return accept.checkReleased();
 
     var note_left(default, null) = new FunkinAction(Control.NOTE_LEFT);
     var note_down(default, null) = new FunkinAction(Control.NOTE_DOWN);
@@ -34,6 +43,7 @@ class Controls extends FlxActionSet
     public var NOTE_DOWN(get, never):Bool;
     public var NOTE_UP(get, never):Bool;
     public var NOTE_RIGHT(get, never):Bool;
+
     public var NOTE_LEFT_P(get, never):Bool;
     public var NOTE_DOWN_P(get, never):Bool;
     public var NOTE_UP_P(get, never):Bool;
@@ -73,11 +83,15 @@ class Controls extends FlxActionSet
         add(note_up);
         add(note_right);
 
+        add(accept);
+
         // Sets the keys
         setKeys(Control.NOTE_LEFT, [A, LEFT]);
         setKeys(Control.NOTE_DOWN, [S, DOWN]);
         setKeys(Control.NOTE_UP, [W, UP]);
         setKeys(Control.NOTE_RIGHT, [D, RIGHT]);
+
+        setKeys(Control.ACCEPT, [ENTER]);
     }
 
     public function setKeys(id:Control, keys:Array<FlxKey>)
@@ -103,6 +117,7 @@ class Controls extends FlxActionSet
             case NOTE_DOWN: func(note_down);
             case NOTE_UP: func(note_up);
             case NOTE_RIGHT: func(note_right);
+            case ACCEPT: func(accept);
         }
     }
 }
@@ -122,6 +137,9 @@ class FunkinAction extends FlxActionDigital
 
     public function checkPressed():Bool
         return checkFiltered(JUST_PRESSED);
+
+    public function checkReleased():Bool
+        return checkFiltered(JUST_RELEASED);
 
     public function removeDevice(device:FlxInputDevice)
     {
