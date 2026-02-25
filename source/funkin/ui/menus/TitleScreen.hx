@@ -39,7 +39,6 @@ class TitleScreen extends FunkinState
 		titleGF.screenCenter();
 
 		logo = new FunkinSprite(0, 0, Paths.image('menus/logo'));
-		logo.screenCenter();
 		add(logo);
 
 		titleGF.y += titleGF.height / 4;
@@ -74,6 +73,7 @@ class TitleScreen extends FunkinState
 		super.beatHit(beat);
 
 		titleGF.dance();
+		logo.scale.add(.2,.2);
 	}
 
 	override function update(elapsed:Float)
@@ -82,6 +82,11 @@ class TitleScreen extends FunkinState
 
 		conductor.time += elapsed * Constants.MS_PER_SEC;
 		conductor.update();
+
+		logo.scale.x = MathUtil.lerp(logo.scale.x, 1, 0.15);
+		logo.scale.y = MathUtil.lerp(logo.scale.y, 1, 0.15);
+		logo.updateHitbox();
+		logo.screenCenter();
 
 		if (controls.ACCEPT && !transitioning)
 		{
