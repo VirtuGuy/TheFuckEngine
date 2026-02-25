@@ -68,14 +68,14 @@ class TitleScreen extends FunkinState
 			confirmMenuSound.play();
 
 			var tweenLengths = (confirmMenuSound.length / 1000);
-			var verticalOffset = 0.75;
-			var tweenEase = FlxEase.sineOut;
+			var verticalOffset = 1.5;
+			var tweenEase = FlxEase.smootherStepInOut;
 
 			FlxTween.tween(titleGF, {alpha: 0, y: titleGF.y * (1 + verticalOffset)}, tweenLengths, {
 				ease: tweenEase,
 				startDelay: tweenLengths * 0.1,
 			});
-			FlxTween.tween(logo, {alpha: 0, y: logo.y * (1 - verticalOffset)}, tweenLengths, {
+			FlxTween.tween(logo, {alpha: 0, y: logo.y - (logo.y * verticalOffset)}, tweenLengths, {
 				ease: tweenEase,
 				startDelay: tweenLengths * 0.1,
 			});
