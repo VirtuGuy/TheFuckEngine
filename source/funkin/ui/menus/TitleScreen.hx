@@ -41,7 +41,7 @@ class TitleScreen extends FunkinState
 
 		conductor.bpm = 102;
 		conductor.time = 0;
-		FlxG.sound.playMusic(Paths.sound('menus/freakyMenu'), 1, true);
+		FlxG.sound.playMusic(Paths.sound('menus/tracks/freakyMenu'), 1, true);
 
 		FlxG.camera.zoom = camZoom;
 	}
@@ -62,7 +62,7 @@ class TitleScreen extends FunkinState
 
 		if (controls.ACCEPT && !transitioning)
 		{
-			var confirmMenuSound = new FlxSound().loadEmbedded(Paths.sound('menus/confirmMenu'));
+			var confirmMenuSound = new FlxSound().loadEmbedded(Paths.sound('menus/sounds/confirmMenu'));
 			confirmMenuSound.play();
 
 			var tweenLengths = (confirmMenuSound.length / 1000) * 1.1;
