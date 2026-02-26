@@ -4,33 +4,36 @@ import flixel.group.FlxGroup;
 import funkin.util.RhythmUtil.Judgement;
 
 /**
- * An `FlxGroup` containing sprites that popup during gameplay.
+ * An `FlxGroup` containing popup sprites that appear when hitting notes.
  * 
  * TODO: Add combo numbers.
  */
 class Popups extends FlxGroup
 {
-    public var judgements:FlxTypedGroup<JudgementSprite>;
+    public var judgements:PopupGroup;
 
     public function new()
     {
         super();
 
-        judgements = new FlxTypedGroup<JudgementSprite>();
+        judgements = new PopupGroup();
         add(judgements);
     }
 
     public function playJudgement(judgement:Judgement)
     {
-        var sprite:JudgementSprite = judgements.recycle(JudgementSprite);
-        sprite.popup(judgement);
+        var sprite:PopupSprite = judgements.popup(80, 80);
 
-        // The center of the screen is (0, 0)
-        // Well.. only in PlayState I guess
-        sprite.setPosition(80, 80);
+        if (sprite.graphic == null)
+        {
+            sprite.loadSprite('play/ui/judgements', 1, 123, 56);
+            
+            sprite.addAnimation(Judgement.SICK, [0]);
+            sprite.addAnimation(Judgement.GOOD, [1]);
+            sprite.addAnimation(Judgement.BAD, [2]);
+            sprite.addAnimation(Judgement.SHIT, [3]);
+        }
 
-        // Ensure that the sprite is on top
-        sprite.zIndex = judgements.getLast(spr -> spr.zIndex > sprite.zIndex)?.zIndex + 1;
-        judgements.refresh();
+        sprite.playAnimation(judgement);
     }
 }

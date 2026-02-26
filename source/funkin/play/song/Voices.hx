@@ -1,15 +1,15 @@
 package funkin.play.song;
 
 import flixel.FlxG;
-import flixel.sound.FlxSound;
+import funkin.audio.FunkinSound;
 
 /**
  * A class for handling the vocals for a song.
  */
 class Voices
 {
-    public var opponent:FlxSound;
-    public var player:FlxSound;
+    public var opponent:FunkinSound;
+    public var player:FunkinSound;
 
     public var time(default, set):Float;
 
@@ -18,14 +18,8 @@ class Voices
 
     public function new(id:String)
     {
-        opponent = new FlxSound();
-        opponent.loadEmbedded(Paths.voices(id, 'opponent'));
-        
-        player = new FlxSound();
-        player.loadEmbedded(Paths.voices(id, 'player'));
-
-        FlxG.sound.list.add(opponent);
-        FlxG.sound.list.add(player);
+        opponent = new FunkinSound(Paths.voices(id, 'opponent'), 1, false, false);
+        player = new FunkinSound(Paths.voices(id, 'player'), 1, false, false);
     }
 
     public function play()
@@ -93,9 +87,5 @@ class Voices
     {
         opponent.destroy();
         player.destroy();
-
-        // Removes the vocals from the sound list
-        FlxG.sound.list.remove(opponent, true);
-        FlxG.sound.list.remove(player, true);
     }
 }

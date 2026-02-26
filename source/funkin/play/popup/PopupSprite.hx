@@ -4,14 +4,11 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 import funkin.graphics.FunkinSprite;
-import funkin.util.RhythmUtil;
 
 /**
- * A `FunkinSprite` used as a judgement popup.
- * 
- * TODO: Make a base popup class.
+ * A `FunkinSprite` that pops up on the screen and fades away.
  */
-class JudgementSprite extends FunkinSprite
+class PopupSprite extends FunkinSprite
 {
     public function new()
     {
@@ -19,21 +16,12 @@ class JudgementSprite extends FunkinSprite
 
         acceleration.y = 450;
         moves = true;
-
-        loadSprite('play/ui/judgements', 1, 123, 56);
-
-        addAnimation(Judgement.SICK, [0]);
-        addAnimation(Judgement.GOOD, [1]);
-        addAnimation(Judgement.BAD, [2]);
-        addAnimation(Judgement.SHIT, [3]);
     }
 
-    public function popup(judgement:Judgement)
+    public function popup()
     {
         velocity.y = -200;
         alpha = 1;
-
-        playAnimation(judgement);
 
         new FlxTimer().start(0.25, _ -> {
             FlxTween.tween(this, { alpha: 0 }, 0.6, { ease: FlxEase.quadOut, onComplete: _ -> kill() });

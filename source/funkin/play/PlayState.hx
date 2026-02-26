@@ -5,12 +5,14 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.math.FlxPoint;
 import flixel.text.FlxText;
+import funkin.audio.FunkinSound;
 import funkin.data.character.CharacterRegistry;
 import funkin.data.stage.StageRegistry;
 import funkin.play.note.HoldNoteSprite;
 import funkin.play.note.NoteDirection;
 import funkin.play.note.NoteSprite;
 import funkin.play.note.Strumline;
+import funkin.play.popup.Countdown;
 import funkin.play.popup.Popups;
 import funkin.play.song.Song;
 import funkin.play.song.Voices;
@@ -43,6 +45,8 @@ class PlayState extends FunkinState
 	var opponentStrumline:Strumline;
 	var playerStrumline:Strumline;
 	var scoreText:FlxText;
+
+	var countdown:Countdown;
 	var popups:Popups;
 
 	var stage:Stage;
@@ -94,6 +98,10 @@ class PlayState extends FunkinState
 		stage = StageRegistry.instance.fetchStage(song.stage);
 		camZoom = stage.zoom;
 		add(stage);
+
+		countdown = new Countdown();
+		countdown.camera = camHUD;
+		add(countdown);
 
 		popups = new Popups();
 		add(popups);
@@ -158,6 +166,10 @@ class PlayState extends FunkinState
 		stage.opponent?.dance();
 		stage.player?.dance();
 		stage.gf?.dance();
+
+		// Advances the countdown by a step
+		// Only if the countdown had started though
+		countdown.advance();
 	}
 
 	override function sectionHit(section:Int)
@@ -195,9 +207,7 @@ class PlayState extends FunkinState
 		}
 
 		// Loads the actual song
-		FlxG.sound.playMusic(Paths.inst(song.id), 1, false);
-		FlxG.sound.music.stop();
-
+		FunkinSound.playMusic(Paths.inst(song.id), 1, false, false);
 		voices = new Voices(song.id);
 
 		songLoaded = true;
@@ -236,6 +246,8 @@ class PlayState extends FunkinState
 
 		opponentStrumline.clean();
 		playerStrumline.clean();
+
+		countdown.start();
 
 		resetCameraTarget();
 
