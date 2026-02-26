@@ -1,6 +1,5 @@
 package funkin.play.song;
 
-import flixel.FlxG;
 import funkin.audio.FunkinSound;
 
 /**
