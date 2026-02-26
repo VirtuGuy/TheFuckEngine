@@ -1,7 +1,7 @@
 package funkin.play.song;
 
-import flixel.util.FlxSort;
 import funkin.data.song.SongData;
+import haxe.ds.StringMap;
 
 /**
  * A class containing meta and chart data for a song.
@@ -10,13 +10,12 @@ class Song
 {
     public var id:String;
     public var meta:SongMetadata;
-    public var chart:SongChartData;
+    
+    public var charts:StringMap<SongChartData> = new StringMap<SongChartData>();
 
     public var name(get, never):String;
     public var bpm(get, never):Float;
-
-    public var speed(get, never):Float;
-    public var notes(get, never):Array<SongNoteData>;
+    public var difficulties(get, never):Array<String>;
 
     public var stage(get, never):String;
 
@@ -24,15 +23,20 @@ class Song
     public var player(get, never):String;
     public var gf(get, never):String;
 
-    public function new(id:String, meta:SongMetadata, chart:SongChartData)
+    public function new(id:String, meta:SongMetadata)
     {
         this.id = id;
         this.meta = meta;
-        this.chart = chart;
-
-        // Sorts the notes because it should be nice and neat :)
-        notes.sort((note1, note2) -> return FlxSort.byValues(FlxSort.ASCENDING, note1.t, note2.t));
     }
+
+    public function getChart(diff:String):SongChartData
+        return charts.get(diff);
+
+    public function getNotes(diff:String):Array<SongNoteData>
+        return getChart(diff)?.notes ?? [];
+    
+    public function getSpeed(diff:String):Float
+        return getChart(diff)?.speed ?? Constants.DEFAULT_SPEED;
 
     inline function get_name():String
         return meta.name;
@@ -40,11 +44,8 @@ class Song
     inline function get_bpm():Float
         return meta.bpm;
 
-    inline function get_speed():Float
-        return chart.speed;
-
-    inline function get_notes():Array<SongNoteData>
-        return chart.notes;
+    inline function get_difficulties():Array<String>
+        return meta.difficulties;
 
     inline function get_stage():String
         return meta.stage;

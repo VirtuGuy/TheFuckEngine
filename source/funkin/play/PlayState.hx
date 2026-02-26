@@ -5,8 +5,9 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.math.FlxPoint;
 import flixel.text.FlxText;
+import flixel.util.FlxSort;
 import funkin.audio.FunkinSound;
-import funkin.data.character.CharacterRegistry;
+import funkin.data.song.SongData.SongNoteData;
 import funkin.data.stage.StageRegistry;
 import funkin.play.note.HoldNoteSprite;
 import funkin.play.note.NoteDirection;
@@ -27,6 +28,7 @@ import funkin.util.RhythmUtil;
 class PlayState extends FunkinState
 {
 	public static var instance:PlayState;
+	public static var difficulty:String;
 	public static var song:Song;
 
 	var songLoaded:Bool;
@@ -195,10 +197,13 @@ class PlayState extends FunkinState
 		conductor.bpm = song.bpm;
 		conductor.time = -conductor.crotchet * 4;
 
-		playerStrumline.speed = song.speed;
+		playerStrumline.speed = song.getSpeed(difficulty);
 		opponentStrumline.speed = playerStrumline.speed;
+
+		var notes:Array<SongNoteData> = song.getNotes(difficulty);
+		notes.sort((note1, note2) -> return FlxSort.byValues(FlxSort.ASCENDING, note1.t, note2.t));
 		
-		for (noteData in song.notes)
+		for (noteData in notes)
 		{
 			if (NoteDirection.isPlayer(noteData.d))
 				playerStrumline.data.push(noteData);

@@ -24,16 +24,14 @@ class StageRegistry extends BaseRegistry<StageData>
         final parser:JsonParser<StageData> = new JsonParser<StageData>();
 
         // Loads the entries
-        for (stageId in FileUtil.listFolders(path))
+        for (id in FileUtil.listFolders(path))
         {
-            final metaPath:String = Paths.json('$path/$stageId/meta');
+            final metaPath:String = Paths.json('$path/$id/meta');
 
-            // Skip the character if it doesn't have metadata
+            // Skip the stage if it doesn't have metadata
             if (!Paths.exists(metaPath)) continue;
 
-            final meta:StageData = parser.fromJson(FileUtil.getText(metaPath));
-
-            register(stageId, meta);
+            register(id, parser.fromJson(FileUtil.getText(metaPath)));
         }
     }
 

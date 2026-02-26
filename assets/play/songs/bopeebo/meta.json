@@ -1,6 +1,7 @@
 {
     "name": "Bopeebo",
     "bpm": 100,
+    "difficulties": ["easy", "normal", "hard"],
     "stage": "stage",
     "opponent": "dad",
     "player": "bf",

@@ -24,16 +24,14 @@ class CharacterRegistry extends BaseRegistry<CharacterData>
         final parser:JsonParser<CharacterData> = new JsonParser<CharacterData>();
 
         // Loads the entries
-        for (characterId in FileUtil.listFolders(path))
+        for (id in FileUtil.listFolders(path))
         {
-            final metaPath:String = Paths.json('$path/$characterId/meta');
+            final metaPath:String = Paths.json('$path/$id/meta');
 
             // Skip the character if it doesn't have metadata
             if (!Paths.exists(metaPath)) continue;
 
-            final meta:CharacterData = parser.fromJson(FileUtil.getText(metaPath));
-
-            register(characterId, meta);
+            register(id, parser.fromJson(FileUtil.getText(metaPath)));
         }
     }
 

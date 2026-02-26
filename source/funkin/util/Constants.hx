@@ -20,6 +20,7 @@ class Constants
     public static final ZOOM:Float = 1.35;
 
     public static final DEFAULT_CAMERA_ZOOM:Float = 1;
+    public static final DEFAULT_SPEED:Float = 1;
 
     public static final RESYNC_THRESHOLD:Float = 40;
 

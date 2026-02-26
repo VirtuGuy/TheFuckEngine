@@ -11,7 +11,6 @@ import funkin.play.PlayState;
 
 /**
  * The initial state of the game. This is what sets up the game.
- * On web, this is used as a "Click to Start" screen.
  */
 class InitState extends FlxState
 {
@@ -22,7 +21,6 @@ class InitState extends FlxState
         FlxG.game.focusLostFramerate = 30;
         FlxG.inputs.resetOnStateSwitch = false;
         FlxG.mouse.visible = false;
-        FlxG.stage.showDefaultContextMenu = false;
 
         // Velocity isn't ever used much
         FlxObject.defaultMoves = false;
@@ -35,7 +33,8 @@ class InitState extends FlxState
         SongRegistry.instance = new SongRegistry();
 
         // TODO: Remove this once songs can be loaded ingame
-        PlayState.song = SongRegistry.instance.fetch('bopeebo');
+        PlayState.song = SongRegistry.instance.fetch('fresh');
+        PlayState.difficulty = 'hard';
 
         // Switches the state to PlayState
         // TODO: Change this to a title screen once there is one

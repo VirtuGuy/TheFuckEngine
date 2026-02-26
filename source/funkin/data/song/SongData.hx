@@ -8,6 +8,8 @@ typedef SongMetadata = {
     var name:String;
     @:default(100)
     var bpm:Float;
+    @:default([])
+    var difficulties:Array<String>;
     var stage:String;
     var opponent:String;
     var player:String;
@@ -18,9 +20,8 @@ typedef SongMetadata = {
  * A structure object used for song chart data.
  */
 typedef SongChartData = {
-    @:default(1)
+    @:optional
     var speed:Float;
-    @:default([])
     var notes:Array<SongNoteData>;
 }
 
