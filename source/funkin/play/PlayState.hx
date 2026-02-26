@@ -136,7 +136,7 @@ class PlayState extends FunkinState
 		// TODO: Remove this
 		// This is only here for debugging purposes
 		if (FlxG.keys.justPressed.R) resetSong();
-		if (FlxG.keys.justPressed.O) conductor.time = FlxG.sound.music.length;
+		if (FlxG.keys.justPressed.O) conductor.time = FunkinSound.music.length;
 		if (FlxG.keys.justPressed.F5) FlxG.switchState(() -> new InitState());
 		if (FlxG.keys.justPressed.J) FlxG.switchState(() -> new FunkinState());
 
@@ -217,7 +217,7 @@ class PlayState extends FunkinState
 	{
 		songStarted = true;
 
-		FlxG.sound.music.play();
+		FunkinSound.music.play();
 		voices.play();
 	}
 
@@ -227,7 +227,7 @@ class PlayState extends FunkinState
 
 		// Stops the music
 		// Remove this line if you want to hear something loud
-		FlxG.sound.music.stop();
+		FunkinSound.music.stop();
 		voices.stop();
 
 		// TODO: Add song end logic
@@ -241,7 +241,7 @@ class PlayState extends FunkinState
 
 		score = 0;
 
-		FlxG.sound.music?.stop();
+		FunkinSound.music?.stop();
 		voices?.stop();
 
 		opponentStrumline.clean();
@@ -256,21 +256,21 @@ class PlayState extends FunkinState
 
 	function checkSongTime()
 	{
-		if (!FlxG.sound.music.playing) return;
+		if (!FunkinSound.music.playing) return;
 
 		// End the song of the time has come...
-		if (conductor.time >= FlxG.sound.music.length)
+		if (conductor.time >= FunkinSound.music.length)
 		{
 			endSong();
 			return;
 		}
 
 		// Instrumental resync
-		if (Math.abs(conductor.time - FlxG.sound.music.time) > Constants.RESYNC_THRESHOLD)
+		if (Math.abs(conductor.time - FunkinSound.music.time) > Constants.RESYNC_THRESHOLD)
 		{
-			FlxG.sound.music.pause();
-			FlxG.sound.music.time = conductor.time;
-			FlxG.sound.music.play();
+			FunkinSound.music.pause();
+			FunkinSound.music.time = conductor.time;
+			FunkinSound.music.play();
 
 			trace('Resynced instrumental.');
 		}
@@ -412,9 +412,6 @@ class PlayState extends FunkinState
 	{
 		super.destroy();
 
-		FlxG.sound.music.stop();
-
-		// Destroy the voices
-		voices.destroy();
+		FunkinSound.music.stop();
 	}
 }

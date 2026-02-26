@@ -5,39 +5,48 @@ import flixel.sound.FlxSound;
 
 /**
  * A class for playing and handling sounds.
+ * 
+ * TODO: Use unique sound list and groups.
  */
 class FunkinSound extends FlxSound
 {
-    public function new(id:String, volume:Float = 1, looped:Bool = false, autoDestroy:Bool = true)
+    public static var music:FunkinSound;
+
+    public static function load(id:String, volume:Float = 1, looped:Bool = true):FunkinSound
     {
-        super();
+        var sound:FunkinSound = cast FlxG.sound.list.recycle(FunkinSound);
+        sound.loadEmbedded(Paths.sound(id), false, true);
 
-        loadEmbedded(Paths.sound(id), looped, autoDestroy);
-        
-        this.volume = volume;
+        sound.persist = false;
+        sound.volume = volume;
 
-        FlxG.sound.list.add(this);
-    }
+        FlxG.sound.list.add(sound);
+        FlxG.sound.defaultSoundGroup.add(sound);
 
-    override public function destroy()
-    {
-        super.destroy();
-
-        FlxG.sound.list.remove(this, true);
+        return sound;
     }
 
     public static function playOnce(id:String, volume:Float = 1):FunkinSound
     {
-        var sound:FunkinSound = new FunkinSound(id, volume);
+        var sound:FunkinSound = load(id, volume, false);
         sound.play();
         return sound;
     }
 
-    public static function playMusic(id:String, volume:Float = 1, looped:Bool = true, autoStart:Bool = true)
+    public static function playMusic(id:String, volume:Float = 1, looped:Bool = true, autoPlay:Bool = true)
     {
-        FlxG.sound.playMusic(Paths.sound(id), volume, looped);
+        if (music == null)
+            music = new FunkinSound();
+        else if (music.active)
+            music.stop();
 
-        // Don't play the music if auto start is off
-        if (!autoStart) FlxG.sound.music.stop();
+        music.loadEmbedded(Paths.sound(id), looped);
+        music.volume = volume;
+        music.persist = true;
+
+        FlxG.sound.music = music;
+        FlxG.sound.defaultMusicGroup.add(music);
+
+        if (autoPlay) music.play();
     }
 }

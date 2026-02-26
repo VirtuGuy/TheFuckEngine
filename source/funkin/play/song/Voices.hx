@@ -10,15 +10,13 @@ class Voices
     public var opponent:FunkinSound;
     public var player:FunkinSound;
 
-    public var time(default, set):Float;
-
-    public var opponentVolume(default, set):Float = 1;
-    public var playerVolume(default, set):Float = 1;
+    public var opponentVolume(get, set):Float;
+    public var playerVolume(get, set):Float;
 
     public function new(id:String)
     {
-        opponent = new FunkinSound(Paths.voices(id, 'opponent'), 1, false, false);
-        player = new FunkinSound(Paths.voices(id, 'player'), 1, false, false);
+        opponent = FunkinSound.load(Paths.voices(id, 'opponent'), 1, false);
+        player = FunkinSound.load(Paths.voices(id, 'player'), 1, false);
     }
 
     public function play()
@@ -31,12 +29,6 @@ class Voices
     {
         opponent.stop();
         player.stop();
-    }
-
-    public function pause()
-    {
-        opponent.pause();
-        player.pause();
     }
 
     public function checkResync(time:Float)
@@ -58,33 +50,21 @@ class Voices
         }
     }
 
-    function set_time(time:Float):Float
-    {
-        this.time = time;
-
-        opponent.time = time;
-        player.time = time;
-
-        return time;
-    }
-
     function set_opponentVolume(opponentVolume:Float):Float
     {
-        this.opponentVolume = opponentVolume;
         opponent.volume = opponentVolume;
         return opponentVolume;
     }
 
     function set_playerVolume(playerVolume:Float):Float
     {
-        this.playerVolume = playerVolume;
         player.volume = playerVolume;
         return playerVolume;
     }
 
-    public function destroy()
-    {
-        opponent.destroy();
-        player.destroy();
-    }
+    inline function get_opponentVolume():Float
+        return opponent.volume;
+
+    inline function get_playerVolume():Float
+        return player.volume;
 }
