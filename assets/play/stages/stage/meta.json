@@ -1,6 +1,15 @@
 {
     "name": "Stage",
     "zoom": 1.25,
+    "opponent": {
+        "position": [-300, 350]
+    },
+    "player": {
+        "position": [300, 350]
+    },
+    "gf": {
+        "position": [0, 300]
+    },
     "props": [
         {
             "id": "back",

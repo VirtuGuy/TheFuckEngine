@@ -7,8 +7,23 @@ typedef StageData = {
     var name:String;
     @:optional
     var zoom:Float;
+    var opponent:StageCharacterData;
+    var player:StageCharacterData;
+    var gf:StageCharacterData;
     @:default([])
     var props:Array<StagePropData>;
+}
+
+/**
+ * A structure object used for stage character data.
+ */
+typedef StageCharacterData = {
+    @:optional
+    var position:Array<Float>;
+    @:optional
+    var scroll:Array<Float>;
+    @:optional
+    var zIndex:Int;
 }
 
 /**

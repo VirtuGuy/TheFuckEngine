@@ -15,7 +15,6 @@ import funkin.play.note.Strumline;
 import funkin.play.popup.Popups;
 import funkin.play.song.Song;
 import funkin.play.song.Voices;
-import funkin.play.stage.Stage;
 import funkin.ui.FunkinState;
 import funkin.util.MathUtil;
 import funkin.util.RhythmUtil;

@@ -1,6 +1,6 @@
 package funkin.data.stage;
 
-import funkin.play.stage.Stage;
+import funkin.play.Stage;
 import funkin.util.FileUtil;
 import json2object.JsonParser;
 
