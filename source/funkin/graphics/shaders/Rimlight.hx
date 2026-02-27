@@ -17,7 +17,7 @@ class Rimlight
     function set_rimColor(rimColor:FlxColor):FlxColor
     {
         this.rimColor = rimColor;
-        shader.uRimColor.value = [rimColor.redFloat, rimColor.greenFloat, rimColor.blueFloat];
+        shader.uRimColor.value = [rimColor.redFloat, rimColor.greenFloat, rimColor.blueFloat, rimColor.alphaFloat];
         return rimColor;
     }
 
@@ -48,7 +48,7 @@ class RimlightShader extends FlxShader
     @:glFragmentSource('
         #pragma header
 
-        uniform vec3 uRimColor;
+        uniform vec4 uRimColor;
         uniform float uDistance;
         uniform float uDirection;
         uniform float uBrightness;
@@ -56,7 +56,8 @@ class RimlightShader extends FlxShader
         void main()
         {
             vec4 color = flixel_texture2D(bitmap, openfl_TextureCoordv);
-	
+            
+            // Shading
             vec2 pixelDist = 1.0 / openfl_TextureSize * uDistance;
             vec2 rimUV = openfl_TextureCoordv;
             
@@ -64,15 +65,16 @@ class RimlightShader extends FlxShader
             rimUV.y += cos(radians(uDirection)) * pixelDist.y;
             
             vec4 rim = flixel_texture2D(bitmap, rimUV);
-            
             float sub = rim.a * (1.0 - uBrightness);
-            float average = (color.r + color.g + color.b) / 3.0;
             
             color.rgb -= sub;
             color.b += sub * 0.5;
             
             // Rim
-            color.rgb += uRimColor * (1.0 - rim.a) * average * 2.0;
+            float average = (color.r + color.b + color.g) / 3.0;
+            vec3 finalRimColor = mix(color.rgb, uRimColor.rgb * average * 4.0, uRimColor.a);
+            
+            color.rgb = finalRimColor * (1.0 - rim.a) + color.rgb * rim.a;
             
             gl_FragColor = color;
         }

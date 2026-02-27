@@ -41,7 +41,7 @@ class Character extends FunkinSprite
         dance(true);
 
         var rimlight:Rimlight = new Rimlight();
-        rimlight.rimColor = 0xFFFFFF;
+        rimlight.rimColor = 0xFFFFFFFF;
         rimlight.distance = 10;
         rimlight.direction = 180;
         rimlight.brightness = 0.7;
