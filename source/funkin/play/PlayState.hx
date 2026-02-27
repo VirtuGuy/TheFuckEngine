@@ -3,11 +3,11 @@ package funkin.play;
 import flixel.FlxCamera;
 import flixel.FlxObject;
 import flixel.math.FlxPoint;
-import flixel.text.FlxText;
 import flixel.util.FlxSort;
 import funkin.audio.FunkinSound;
 import funkin.data.song.SongData.SongNoteData;
 import funkin.data.stage.StageRegistry;
+import funkin.graphics.FunkinText;
 import funkin.play.note.HoldNoteSprite;
 import funkin.play.note.NoteDirection;
 import funkin.play.note.NoteSprite;
@@ -44,7 +44,7 @@ class PlayState extends FunkinState
 
 	var opponentStrumline:Strumline;
 	var playerStrumline:Strumline;
-	var scoreText:FlxText;
+	var scoreText:FunkinText;
 
 	var countdown:Countdown;
 	var popups:Popups;
@@ -89,10 +89,10 @@ class PlayState extends FunkinState
 		playerStrumline.holdNoteDrop.add(playerHoldNoteDrop);
 		add(playerStrumline);
 
-		scoreText = new FlxText();
-		scoreText.size = 24;
+		scoreText = new FunkinText();
 		scoreText.alignment = CENTER;
 		scoreText.camera = camHUD;
+		scoreText.size = 24;
 		add(scoreText);
 
 		stage = StageRegistry.instance.fetchStage(song.stage);
