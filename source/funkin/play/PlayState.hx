@@ -390,9 +390,6 @@ class PlayState extends FunkinState
 
 	function playerHoldNoteDrop(holdNote:HoldNoteSprite)
 	{
-		// No penalty if the note is too short
-		if (holdNote.length < 30) return;
-
 		// Takes away score based on how long the hold note is
 		score += Constants.MISS_SCORE * (holdNote.length / 500);
 		stage.player?.miss(holdNote.direction);
