@@ -13,7 +13,6 @@ import funkin.play.note.HoldNoteSprite;
 import funkin.play.note.NoteDirection;
 import funkin.play.note.NoteSprite;
 import funkin.play.note.Strumline;
-import funkin.play.popup.Countdown;
 import funkin.play.popup.Popups;
 import funkin.play.song.Song;
 import funkin.play.song.Voices;
