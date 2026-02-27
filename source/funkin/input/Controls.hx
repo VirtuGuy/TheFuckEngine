@@ -1,6 +1,5 @@
 package funkin.input;
 
-import flixel.FlxG;
 import flixel.input.FlxInput.FlxInputState;
 import flixel.input.actions.FlxAction.FlxActionDigital;
 import flixel.input.actions.FlxActionInput.FlxInputDevice;

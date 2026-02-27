@@ -1,7 +1,6 @@
 package funkin.play;
 
 import flixel.FlxCamera;
-import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.math.FlxPoint;
 import flixel.text.FlxText;

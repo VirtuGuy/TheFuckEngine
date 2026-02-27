@@ -1,6 +1,5 @@
 package funkin;
 
-import flixel.FlxG;
 import flixel.util.FlxSignal.FlxTypedSignal;
 
 /**

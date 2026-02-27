@@ -1,6 +1,5 @@
 package funkin.play.note;
 
-import flixel.FlxG;
 import flixel.group.FlxGroup;
 import flixel.util.FlxSignal.FlxTypedSignal;
 import flixel.util.FlxSort;

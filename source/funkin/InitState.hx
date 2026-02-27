@@ -1,6 +1,5 @@
 package funkin;
 
-import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxState;
 import funkin.data.character.CharacterRegistry;
