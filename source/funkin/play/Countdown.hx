@@ -17,7 +17,7 @@ class Countdown extends FunkinSprite
     {
         super();
 
-        loadSprite('play/ui/countdown', 1.35, 259, 99);
+        loadSprite('play/ui/countdown', 1, 259, 99);
         screenCenter();
 
         addAnimation('ready', [0]);
@@ -25,6 +25,7 @@ class Countdown extends FunkinSprite
         addAnimation('go', [2]);
 
         visible = false;
+        active = false;
     }
 
     public function start()
@@ -63,10 +64,14 @@ class Countdown extends FunkinSprite
     {
         super.playAnimation(name, force);
 
-        alpha = 1;
         visible = true;
+        alpha = 1;
+
+        scale.x = scale.y = 4;
 
         FlxTween.cancelTweensOf(this);
-        FlxTween.tween(this, { alpha: 0 }, 0.5, { ease: FlxEase.quadOut, onComplete: _ -> visible = false });
+        FlxTween.tween(this, { "scale.x": 2 }, 0.5, { ease: FlxEase.elasticOut, onUpdate: _ -> scale.y = scale.x, onComplete: _ -> {
+            FlxTween.tween(this, { alpha: 0 }, 0.35, { ease: FlxEase.quadOut, onComplete: _ -> visible = false });
+        } } );
     }
 }

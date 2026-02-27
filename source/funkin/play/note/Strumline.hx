@@ -149,7 +149,7 @@ class Strumline extends FlxGroup
             if (holdNote.wasHit)
             {
                 // Drops the hold note
-                if (!holdNote.direction.pressed && isPlayer && holdNote.length > 50)
+                if (!holdNote.direction.pressed && isPlayer && holdNote.length > 60)
                 {
                     holdNote.kill();
                     holdNoteDrop.dispatch(holdNote);
