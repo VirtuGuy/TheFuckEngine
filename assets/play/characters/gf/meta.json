@@ -5,12 +5,8 @@
     "danceEvery": 1,
     "animations": [
         {
-            "name": "idle-down",
+            "name": "idle",
             "frames": [0, 1, 2]
-        },
-        {
-            "name": "idle-up",
-            "frames": [2, 1, 0]
         }
     ]
 }
