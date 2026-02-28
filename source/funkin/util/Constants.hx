@@ -19,8 +19,10 @@ class Constants
     public static final NOTE_COUNT:Int = 4;
     public static final ZOOM:Float = 1.35;
 
-    public static final DEFAULT_CAMERA_ZOOM:Float = 1;
+    public static final DEFAULT_SONG_NAME:String = 'Untitled';
+    public static final DEFAULT_SONG_ARTIST:String = 'Unknown';
     public static final DEFAULT_SPEED:Float = 1;
+    public static final DEFAULT_CAMERA_ZOOM:Float = 1;
 
     public static final RESYNC_THRESHOLD:Float = 40;
 

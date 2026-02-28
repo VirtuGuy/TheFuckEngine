@@ -4,12 +4,14 @@ package funkin.data.song;
  * A structure object used for song metadata.
  */
 typedef SongMetadata = {
-    @:default('Untitled')
+    @:optional
     var name:String;
     @:default(100)
     var bpm:Float;
     @:default([])
     var difficulties:Array<String>;
+    @:optional
+    var artist:String;
     var stage:String;
     var opponent:String;
     var player:String;

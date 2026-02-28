@@ -1,6 +1,7 @@
 package funkin.play.note;
 
 import flixel.FlxStrip;
+import funkin.data.song.SongData.SongNoteData;
 
 /**
  * A sprite used as a sustain note that the player must hold.
@@ -18,6 +19,8 @@ class HoldNoteSprite extends FlxStrip
     public var lastLength:Float;
 
     public var wasHit:Bool;
+
+    public var data:SongNoteData;
 
     var holdHeight:Float;
     var endHeight:Float;
@@ -136,6 +139,8 @@ class HoldNoteSprite extends FlxStrip
         lastLength = 0;
 
         wasHit = false;
+
+        data = null;
 
         holdHeight = 0;
         endHeight = 0;

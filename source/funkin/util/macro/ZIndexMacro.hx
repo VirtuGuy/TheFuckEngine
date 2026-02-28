@@ -51,7 +51,7 @@ class ZIndexMacro
                 access: [APublic],
                 kind: FieldType.FFun({
                     args: [],
-                    expr: macro { sort((i, basic1, basic2) -> return flixel.util.FlxSort.byValues(FlxSort.ASCENDING, basic1.zIndex, basic2.zIndex)); }
+                    expr: macro { sort(funkin.util.SortUtil.byZIndex); }
                 }),
                 pos: Context.currentPos()
             });

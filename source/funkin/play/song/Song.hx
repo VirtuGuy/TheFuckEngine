@@ -10,11 +10,11 @@ class Song
 {
     public var id:String;
     public var meta:SongMetadata;
-    
     public var charts:StringMap<SongChartData> = new StringMap<SongChartData>();
 
     public var name(get, never):String;
     public var bpm(get, never):Float;
+    public var artist(get, never):String;
     public var difficulties(get, never):Array<String>;
 
     public var stage(get, never):String;
@@ -39,10 +39,23 @@ class Song
         return getChart(diff)?.speed ?? Constants.DEFAULT_SPEED;
 
     inline function get_name():String
-        return meta.name;
+    {
+        var name:Null<String> = meta.name;
+        if (name == null || name.trim() == '')
+            name = Constants.DEFAULT_SONG_NAME;
+        return name;
+    }
 
     inline function get_bpm():Float
         return meta.bpm;
+
+    inline function get_artist():String
+    {
+        var artist:Null<String> = meta.artist;
+        if (artist == null || artist.trim() == '')
+            artist = Constants.DEFAULT_SONG_ARTIST;
+        return artist;
+    }
 
     inline function get_difficulties():Array<String>
         return meta.difficulties;

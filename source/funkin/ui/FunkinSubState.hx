@@ -1,12 +1,12 @@
 package funkin.ui;
 
-import flixel.FlxState;
+import flixel.FlxSubState;
 import funkin.input.Controls;
 
 /**
- * A class used as the base for all the game's states.
+ * A class used as the base for all the game's sub states.
  */
-class FunkinState extends FlxState
+class FunkinSubState extends FlxSubState
 {
     var conductor(get, never):Conductor;
     var controls(get, never):Controls;
@@ -30,7 +30,7 @@ class FunkinState extends FlxState
         conductor.beatHit.remove(beatHit);
         conductor.sectionHit.remove(sectionHit);
     }
-    
+
     function stepHit(step:Int) {}
     function beatHit(beat:Int) {}
     function sectionHit(section:Int) {}

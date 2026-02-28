@@ -2,7 +2,9 @@ package funkin.play;
 
 import flixel.FlxCamera;
 import flixel.FlxObject;
+import flixel.FlxSubState;
 import flixel.math.FlxPoint;
+import flixel.tweens.FlxTween;
 import flixel.util.FlxSort;
 import funkin.audio.FunkinSound;
 import funkin.data.song.SongData.SongNoteData;
@@ -18,6 +20,7 @@ import funkin.play.song.Voices;
 import funkin.ui.FunkinState;
 import funkin.util.MathUtil;
 import funkin.util.RhythmUtil;
+import funkin.util.SortUtil;
 
 /**
  * A state where the gameplay occurs. Kinda like a "play" state. Hah! I said the thing!
@@ -37,6 +40,8 @@ class PlayState extends FunkinState
 	var voices:Voices;
 
 	var camHUD:FlxCamera;
+	var camPause:FlxCamera;
+
 	var camFollow:FlxObject;
 	var camTarget:Int;
 	var camZoom:Float = 1;
@@ -67,9 +72,12 @@ class PlayState extends FunkinState
 		camHUD.bgColor = 0x0;
 		FlxG.cameras.add(camHUD, false);
 
-		camFollow = new FlxObject();
+		camPause = new FlxCamera();
+		camPause.bgColor = 0x0;
+		FlxG.cameras.add(camPause, false);
 
-		FlxG.camera.zoom = camZoom;
+		camFollow = new FlxObject();
+		camFollow.active = false;
 		FlxG.camera.follow(camFollow, LOCKON, 0.03);
 
 		opponentStrumline = new Strumline();
@@ -139,6 +147,9 @@ class PlayState extends FunkinState
 		if (FlxG.keys.justPressed.F5) FlxG.switchState(() -> new InitState());
 		if (FlxG.keys.justPressed.J) FlxG.switchState(() -> new FunkinState());
 
+		// Pausing
+		if (controls.PAUSE) pauseGame();
+
 		FlxG.camera.zoom = MathUtil.lerp(FlxG.camera.zoom, camZoom, 0.03);
 		camHUD.zoom = MathUtil.lerp(camHUD.zoom, 1, 0.03);
 		
@@ -197,8 +208,10 @@ class PlayState extends FunkinState
 		playerStrumline.speed = song.getSpeed(difficulty);
 		opponentStrumline.speed = playerStrumline.speed;
 
-		var notes:Array<SongNoteData> = song.getNotes(difficulty);
-		notes.sort((note1, note2) -> return FlxSort.byValues(FlxSort.ASCENDING, note1.t, note2.t));
+		final notes:Array<SongNoteData> = song.getNotes(difficulty);
+
+		// Sorts the notes to prevent any problems with note generation
+		notes.sort((a, b) -> SortUtil.byTime(FlxSort.ASCENDING, a, b));
 		
 		for (noteData in notes)
 		{
@@ -248,17 +261,17 @@ class PlayState extends FunkinState
 
 		opponentStrumline.clean();
 		playerStrumline.clean();
-
 		countdown.start();
 
-		resetCameraTarget();
+		FlxG.camera.zoom = camZoom;
 
+		resetCameraTarget();
 		loadSong();
 	}
 
 	function checkSongTime()
 	{
-		if (!FunkinSound.music.playing) return;
+		if (!songStarted || songEnded) return;
 
 		// End the song of the time has come...
 		if (conductor.time >= FunkinSound.music.length)
@@ -280,6 +293,13 @@ class PlayState extends FunkinState
 		// Vocals resync
 		// Because the vocals are two sounds, it needs special treatment
 		voices.checkResync(conductor.time);
+	}
+
+	function pauseGame()
+	{
+		var pause:PauseSubState = new PauseSubState();
+		pause.camera = camPause;
+		openSubState(pause);
 	}
 
 	function setCameraTarget(target:Int, instant:Bool = false)
@@ -405,6 +425,35 @@ class PlayState extends FunkinState
 	function opponentHoldNoteHit(holdNote:HoldNoteSprite)
 	{
 		stage.opponent?.resetSingTimer();
+	}
+
+	override public function openSubState(subState:FlxSubState)
+	{
+		super.openSubState(subState);
+
+		FunkinSound.music.pause();
+		voices.pause();
+
+		FlxTween.globalManager.active = false;
+		FlxG.sound.defaultSoundGroup.pause();
+		
+		FlxG.camera.followLerp = 0;
+	}
+
+	override public function closeSubState()
+	{
+		super.closeSubState();
+
+		if (songStarted && !songEnded)
+		{
+			FunkinSound.music.play();
+			voices.play();
+		}
+
+		FlxTween.globalManager.active = true;
+		FlxG.sound.defaultSoundGroup.resume();
+
+		FlxG.camera.followLerp = 0.03;
 	}
 
 	override public function destroy()

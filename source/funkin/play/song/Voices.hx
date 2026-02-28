@@ -25,6 +25,12 @@ class Voices
         player.play();
     }
 
+    public function pause()
+    {
+        opponent.pause();
+        player.pause();
+    }
+
     public function stop()
     {
         opponent.stop();

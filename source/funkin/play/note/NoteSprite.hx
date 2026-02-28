@@ -1,5 +1,6 @@
 package funkin.play.note;
 
+import funkin.data.song.SongData.SongNoteData;
 import funkin.graphics.FunkinSprite;
 
 /**
@@ -15,6 +16,7 @@ class NoteSprite extends FunkinSprite
     public var wasMissed:Bool;
 
     public var holdNote:HoldNoteSprite;
+    public var data:SongNoteData;
 
     public function new()
     {
@@ -55,6 +57,7 @@ class NoteSprite extends FunkinSprite
         wasMissed = false;
 
         holdNote = null;
+        data = null;
     }
 
     function set_direction(direction:NoteDirection):NoteDirection

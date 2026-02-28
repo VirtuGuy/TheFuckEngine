@@ -1,6 +1,7 @@
 {
     "name": "Fresh",
     "bpm": 120,
+    "artist": "KawaiSprite",
     "difficulties": ["easy", "normal", "hard"],
     "stage": "stage",
     "opponent": "dad",

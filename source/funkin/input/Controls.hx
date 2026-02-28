@@ -15,6 +15,8 @@ enum abstract Control(String) to String from String
     var NOTE_DOWN = 'note-down';
     var NOTE_UP = 'note-up';
     var NOTE_RIGHT = 'note-right';
+    var ACCEPT = 'accept';
+    var PAUSE = 'pause';
 }
 
 /**
@@ -28,6 +30,8 @@ class Controls extends FlxActionSet
     var note_down(default, null) = new FunkinAction(Control.NOTE_DOWN);
     var note_up(default, null) = new FunkinAction(Control.NOTE_UP);
     var note_right(default, null) = new FunkinAction(Control.NOTE_RIGHT);
+    var accept(default, null) = new FunkinAction(Control.ACCEPT);
+    var pause(default, null) = new FunkinAction(Control.PAUSE);
 
     public var NOTE_LEFT(get, never):Bool;
     public var NOTE_DOWN(get, never):Bool;
@@ -37,6 +41,8 @@ class Controls extends FlxActionSet
     public var NOTE_DOWN_P(get, never):Bool;
     public var NOTE_UP_P(get, never):Bool;
     public var NOTE_RIGHT_P(get, never):Bool;
+    public var ACCEPT(get, never):Bool;
+    public var PAUSE(get, never):Bool;
 
     inline function get_NOTE_LEFT():Bool
         return note_left.check();
@@ -62,6 +68,12 @@ class Controls extends FlxActionSet
     inline function get_NOTE_RIGHT_P():Bool
         return note_right.checkPressed();
 
+    inline function get_ACCEPT():Bool
+        return accept.checkPressed();
+
+    inline function get_PAUSE():Bool
+        return pause.checkPressed();
+
     public function new()
     {
         super('controls');
@@ -71,12 +83,16 @@ class Controls extends FlxActionSet
         add(note_down);
         add(note_up);
         add(note_right);
+        add(accept);
+        add(pause);
 
         // Sets the keys
         setKeys(Control.NOTE_LEFT, [A, LEFT]);
         setKeys(Control.NOTE_DOWN, [S, DOWN]);
         setKeys(Control.NOTE_UP, [W, UP]);
         setKeys(Control.NOTE_RIGHT, [D, RIGHT]);
+        setKeys(Control.ACCEPT, [Z, ENTER]);
+        setKeys(Control.PAUSE, [P, ENTER]);
     }
 
     public function setKeys(id:Control, keys:Array<FlxKey>)
@@ -102,6 +118,8 @@ class Controls extends FlxActionSet
             case NOTE_DOWN: func(note_down);
             case NOTE_UP: func(note_up);
             case NOTE_RIGHT: func(note_right);
+            case ACCEPT: func(accept);
+            case PAUSE: func(pause);
         }
     }
 }
@@ -127,7 +145,6 @@ class FunkinAction extends FlxActionDigital
         for (input in inputs)
         {
             if (input.device != device) continue;
-
             input.destroy();
         }
     }

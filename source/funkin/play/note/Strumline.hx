@@ -5,6 +5,7 @@ import flixel.util.FlxSignal.FlxTypedSignal;
 import flixel.util.FlxSort;
 import funkin.data.song.SongData;
 import funkin.util.RhythmUtil;
+import funkin.util.SortUtil;
 
 /**
  * An `FlxGroup` containing strums and notes.
@@ -86,6 +87,8 @@ class Strumline extends FlxGroup
             note.time = time;
             note.direction = direction;
 
+            note.data = noteData;
+
             // Creates a hold note
             // However, its length has to be lengthy enough to be considered length
             if (length > 25)
@@ -100,6 +103,8 @@ class Strumline extends FlxGroup
                 holdNote.length = length;
                 holdNote.flipY = Preferences.downscroll;
 
+                holdNote.data = noteData;
+
                 note.holdNote = holdNote;
             }
 
@@ -107,8 +112,8 @@ class Strumline extends FlxGroup
 
             // Sorts the notes
             // Not doing this will mess up the input
-            notes.sort((i, note1, note2) -> return FlxSort.byValues(FlxSort.ASCENDING, note1.time, note2.time));
-            holdNotes.sort((i, note1, note2) -> return FlxSort.byValues(FlxSort.ASCENDING, note1.time, note2.time));
+            notes.sort((i, a, b) -> return SortUtil.byTime(FlxSort.ASCENDING, a.data, b.data));
+            holdNotes.sort((i, a, b) -> return SortUtil.byTime(FlxSort.ASCENDING, a.data, b.data));
         }
 
         // Note processing
