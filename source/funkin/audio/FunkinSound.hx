@@ -14,7 +14,7 @@ class FunkinSound extends FlxSound
     public static function load(id:String, volume:Float = 1, looped:Bool = true):FunkinSound
     {
         var sound:FunkinSound = cast FlxG.sound.list.recycle(FunkinSound);
-        sound.loadEmbedded(Paths.sound(id), false, true);
+        sound.loadEmbedded(Paths.sound(id), looped, true);
 
         sound.persist = false;
         sound.volume = volume;

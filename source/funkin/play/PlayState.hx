@@ -142,8 +142,6 @@ class PlayState extends FunkinState
 
 		// TODO: Remove this
 		// This is only here for debugging purposes
-		if (FlxG.keys.justPressed.R) resetSong();
-		if (FlxG.keys.justPressed.O) conductor.time = FunkinSound.music.length;
 		if (FlxG.keys.justPressed.F5) FlxG.switchState(() -> new InitState());
 		if (FlxG.keys.justPressed.J) FlxG.switchState(() -> new FunkinState());
 
@@ -191,6 +189,27 @@ class PlayState extends FunkinState
 		// Moves the camera
 		// TODO: Remove this once events are added
 		setCameraTarget(1 - camTarget);
+	}
+
+	public function resetSong()
+	{
+		songLoaded = false;
+		songStarted = false;
+		songEnded = false;
+
+		score = 0;
+
+		FunkinSound.music?.stop();
+		voices?.stop();
+
+		opponentStrumline.clean();
+		playerStrumline.clean();
+		countdown.start();
+
+		FlxG.camera.zoom = camZoom;
+
+		resetCameraTarget();
+		loadSong();
 	}
 
 	function loadCharacters()
@@ -246,27 +265,6 @@ class PlayState extends FunkinState
 		voices.stop();
 
 		// TODO: Add song end logic
-	}
-
-	function resetSong()
-	{
-		songLoaded = false;
-		songStarted = false;
-		songEnded = false;
-
-		score = 0;
-
-		FunkinSound.music?.stop();
-		voices?.stop();
-
-		opponentStrumline.clean();
-		playerStrumline.clean();
-		countdown.start();
-
-		FlxG.camera.zoom = camZoom;
-
-		resetCameraTarget();
-		loadSong();
 	}
 
 	function checkSongTime()

@@ -3,25 +3,33 @@ package funkin.play;
 import funkin.audio.FunkinSound;
 import funkin.graphics.FunkinSprite;
 import funkin.graphics.FunkinText;
+import funkin.play.song.Song;
 import funkin.ui.FunkinSubState;
+import funkin.ui.MenuList;
 
 /**
  * The game's pause menu sub state.
  */
 class PauseSubState extends FunkinSubState
 {
-    var justOpened:Bool;
+    var song(get, never):Song;
+    var difficulty(get, never):String;
+
+    var options:Array<String>;
+    var changingDiff:Bool = false;
 
     var music:FunkinSound;
 
     var bg:FunkinSprite;
     var songText:FunkinText;
+    var items:MenuList;
 
     override public function create()
     {
         super.create();
 
-        justOpened = controls.ACCEPT;
+        options = ['resume', 'restart', 'exit to menu'];
+        if (song.difficulties.length > 1) options.insert(2, 'difficulty');
 
         music = FunkinSound.load('play/music/pause', 0);
         music.play();
@@ -37,10 +45,14 @@ class PauseSubState extends FunkinSubState
         songText.alignment = RIGHT;
         add(songText);
 
-        songText.text = 'song name: ${PlayState.song.name}';
-        songText.text += '\ndifficulty: ${PlayState.difficulty}';
-        songText.text += '\nartist: ${PlayState.song.artist}';
+        items = new MenuList(options);
+        items.itemSelected.add(itemSelected);
+        add(items);
 
+        // Updates the song text
+        songText.text = 'song name: ${song.name}';
+        songText.text += '\ndifficulty: ${difficulty}';
+        songText.text += '\nartist: ${song.artist}';
         songText.x = FlxG.width - songText.width - 20;
     }
 
@@ -49,17 +61,45 @@ class PauseSubState extends FunkinSubState
         super.update(elapsed);
 
         // Gotta do this as tweens cannot be used here :(
-        music.volume = Math.min(1, music.volume += elapsed / 5);
+        music.volume = Math.min(1, music.volume += elapsed / 8);
         bg.alpha = Math.min(0.8, bg.alpha += elapsed * 5);
+    }
 
-        if (controls.ACCEPT)
+    function itemSelected(item:String)
+    {
+        if (changingDiff)
         {
-            if (justOpened)
+            // Checks if back was pressed
+            // I mean, you never know if someone makes a BACK difficulty
+            if (items.selected == items.items.length - 1)
             {
-                justOpened = false;
-                return;
+                items.items = options;
+                changingDiff = false;
             }
-            close();
+            else
+            {
+                PlayState.difficulty = item;
+                PlayState.instance.resetSong();
+                close();
+            }
+
+            return;
+        }
+
+        switch (item)
+        {
+            case 'resume' | 'restart':
+                if (item == 'restart')
+                    PlayState.instance.resetSong();
+                close();
+            case 'difficulty':
+                var newItems:Array<String> = song.difficulties.copy();
+
+                newItems.remove(difficulty);
+                newItems.push('back');
+                
+                items.items = newItems;
+                changingDiff = true;
         }
     }
 
@@ -71,4 +111,10 @@ class PauseSubState extends FunkinSubState
         // If you remove this line, great things will happen
         music.destroy();
     }
+
+    inline function get_song():Song
+        return PlayState.song;
+
+    inline function get_difficulty():String
+        return PlayState.difficulty;
 }
