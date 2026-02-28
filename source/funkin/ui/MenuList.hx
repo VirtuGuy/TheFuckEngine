@@ -2,6 +2,7 @@ package funkin.ui;
 
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.util.FlxSignal.FlxTypedSignal;
+import funkin.audio.FunkinSound;
 import funkin.graphics.FunkinText;
 import funkin.input.Controls;
 import funkin.util.MathUtil;
@@ -52,8 +53,10 @@ class MenuList extends FlxTypedGroup<FunkinText>
         });
     }
 
-    public function changeItem(change:Int = 0)
+    public function changeItem(change:Int)
     {
+        FunkinSound.playOnce('ui/sounds/scroll');
+
         selected += change;
 
         if (selected < 0) selected = items.length - 1;
