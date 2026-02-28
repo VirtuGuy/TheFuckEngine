@@ -1,5 +1,6 @@
 package funkin.play;
 
+import funkin.audio.FunkinSound;
 import funkin.graphics.FunkinSprite;
 import funkin.graphics.FunkinText;
 import funkin.ui.FunkinSubState;
@@ -11,6 +12,8 @@ class PauseSubState extends FunkinSubState
 {
     var justOpened:Bool;
 
+    var music:FunkinSound;
+
     var bg:FunkinSprite;
     var songText:FunkinText;
 
@@ -19,6 +22,9 @@ class PauseSubState extends FunkinSubState
         super.create();
 
         justOpened = controls.ACCEPT;
+
+        music = FunkinSound.load('play/music/pause', 0);
+        music.play();
 
         bg = new FunkinSprite();
         bg.makeGraphic(FlxG.width, FlxG.height, 0xFF000000);
@@ -43,6 +49,7 @@ class PauseSubState extends FunkinSubState
         super.update(elapsed);
 
         // Gotta do this as tweens cannot be used here :(
+        music.volume = Math.min(1, music.volume += elapsed / 5);
         bg.alpha = Math.min(0.8, bg.alpha += elapsed * 5);
 
         if (controls.ACCEPT)
@@ -54,5 +61,14 @@ class PauseSubState extends FunkinSubState
             }
             close();
         }
+    }
+
+    override public function destroy()
+    {
+        super.destroy();
+
+        // Destroys the music as it isn't needed anymore
+        // If you remove this line, great things will happen
+        music.destroy();
     }
 }
