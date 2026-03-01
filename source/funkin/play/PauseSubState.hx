@@ -6,17 +6,20 @@ import funkin.graphics.FunkinText;
 import funkin.play.song.Song;
 import funkin.ui.FunkinSubState;
 import funkin.ui.MenuList;
+import funkin.ui.freeplay.FreeplayState;
 
 /**
  * The game's pause menu sub state.
  */
 class PauseSubState extends FunkinSubState
 {
+    final ogItems:Array<String> = ['resume', 'restart', 'difficulty', 'exit to menu'];
+
     var song(get, never):Song;
     var difficulty(get, never):String;
 
-    var ogItems:Array<String>;
     var changingDiff:Bool = false;
+    var justOpened:Bool;
 
     var music:FunkinSound;
 
@@ -28,8 +31,7 @@ class PauseSubState extends FunkinSubState
     {
         super.create();
 
-        ogItems = ['resume', 'restart', 'exit to menu'];
-        if (song.difficulties.length > 1) ogItems.insert(2, 'difficulty');
+        justOpened = controls.ACCEPT;
 
         music = FunkinSound.load('play/music/pause', 0);
         music.play();
@@ -49,6 +51,8 @@ class PauseSubState extends FunkinSubState
         items.itemSelected.add(itemSelected);
         add(items);
 
+        if (song.difficulties.length < 2) items.removeItem('difficulty');
+
         // Updates the song text
         songText.text = song.name;
         songText.text += '\ndifficulty: ${difficulty}';
@@ -67,13 +71,20 @@ class PauseSubState extends FunkinSubState
 
     function itemSelected(item:String)
     {
+        // Input is so dumb lol
+        if (justOpened)
+        {
+            justOpened = false;
+            return;
+        }
+
         if (changingDiff)
         {
             // Checks if back was pressed
             // I mean, you never know if someone makes a BACK difficulty
-            if (items.selected == items.items.length - 1)
+            if (items.selected == items.count() - 1)
             {
-                items.items = ogItems;
+                items.setItems(ogItems);
                 changingDiff = false;
             }
             else
@@ -82,24 +93,24 @@ class PauseSubState extends FunkinSubState
                 PlayState.instance.resetSong();
                 close();
             }
-
-            return;
         }
-
-        switch (item)
+        else
         {
-            case 'resume' | 'restart':
-                if (item == 'restart')
-                    PlayState.instance.resetSong();
-                close();
-            case 'difficulty':
-                var newItems:Array<String> = song.difficulties.copy();
+            switch (item)
+            {
+                case 'resume' | 'restart':
+                    if (item == 'restart')
+                        PlayState.instance.resetSong();
+                    close();
+                case 'exit to menu':
+                    FlxG.switchState(() -> new FreeplayState());
+                case 'difficulty':
+                    changingDiff = true;
 
-                newItems.remove(difficulty);
-                newItems.push('back');
-                
-                items.items = newItems;
-                changingDiff = true;
+                    items.setItems(song.difficulties.copy());
+                    items.removeItem(difficulty);
+                    items.addItem('back');
+            }
         }
     }
 

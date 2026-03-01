@@ -17,6 +17,7 @@ enum abstract Control(String) to String from String
     var UI_UP = 'ui-up';
     var UI_RIGHT = 'ui-right';
     var ACCEPT = 'accept';
+    var BACK = 'back';
     var PAUSE = 'pause';
     var RESET = 'reset';
 }
@@ -37,6 +38,7 @@ class Controls extends FlxActionSet
     var ui_up(default, null) = new FunkinAction(Control.UI_UP);
     var ui_right(default, null) = new FunkinAction(Control.UI_RIGHT);
     var accept(default, null) = new FunkinAction(Control.ACCEPT);
+    var back(default, null) = new FunkinAction(Control.BACK);
     var pause(default, null) = new FunkinAction(Control.PAUSE);
     var reset(default, null) = new FunkinAction(Control.RESET);
 
@@ -57,6 +59,7 @@ class Controls extends FlxActionSet
     public var UI_UP_P(get, never):Bool;
     public var UI_RIGHT_P(get, never):Bool;
     public var ACCEPT(get, never):Bool;
+    public var BACK(get, never):Bool;
     public var PAUSE(get, never):Bool;
     public var RESET(get, never):Bool;
 
@@ -111,6 +114,9 @@ class Controls extends FlxActionSet
     inline function get_ACCEPT():Bool
         return accept.checkPressed();
 
+    inline function get_BACK():Bool
+        return back.checkPressed();
+
     inline function get_PAUSE():Bool
         return pause.checkPressed();
 
@@ -131,6 +137,7 @@ class Controls extends FlxActionSet
         add(ui_up);
         add(ui_right);
         add(accept);
+        add(back);
         add(pause);
         add(reset);
 
@@ -144,6 +151,7 @@ class Controls extends FlxActionSet
         setKeys(Control.UI_UP, [W, UP]);
         setKeys(Control.UI_RIGHT, [D, RIGHT]);
         setKeys(Control.ACCEPT, [Z, ENTER]);
+        setKeys(Control.BACK, [Z, ESCAPE]);
         setKeys(Control.PAUSE, [P, ENTER]);
         setKeys(Control.RESET, [R]);
     }
@@ -176,6 +184,7 @@ class Controls extends FlxActionSet
             case UI_UP: func(ui_up);
             case UI_RIGHT: func(ui_right);
             case ACCEPT: func(accept);
+            case BACK: func(back);
             case PAUSE: func(pause);
             case RESET: func(reset);
         }

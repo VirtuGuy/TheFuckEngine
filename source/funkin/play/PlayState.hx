@@ -227,8 +227,7 @@ class PlayState extends FunkinState
 		camPos.y -= 100;
 		camFollow.setPosition(camPos.x, camPos.y);
 
-		if (instant)
-			FlxG.camera.focusOn(camFollow.getPosition());
+		if (instant) FlxG.camera.snapToTarget();
 	}
 
 	function loadCharacters()
@@ -431,8 +430,7 @@ class PlayState extends FunkinState
 
 		FlxTween.globalManager.active = false;
 		FlxG.sound.defaultSoundGroup.pause();
-		
-		FlxG.camera.followLerp = 0;
+		FlxG.camera.active = false;
 	}
 
 	override public function closeSubState()
@@ -447,8 +445,7 @@ class PlayState extends FunkinState
 
 		FlxTween.globalManager.active = true;
 		FlxG.sound.defaultSoundGroup.resume();
-
-		FlxG.camera.followLerp = 0.03;
+		FlxG.camera.active = true;
 	}
 
 	override public function destroy()
@@ -456,5 +453,9 @@ class PlayState extends FunkinState
 		super.destroy();
 
 		FunkinSound.music.destroy();
+
+		// Gonna want to reactivate this when the state is destroyed
+		// There are problems if this isn't done
+		FlxTween.globalManager.active = true;
 	}
 }

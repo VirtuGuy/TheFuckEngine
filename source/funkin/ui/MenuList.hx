@@ -12,22 +12,17 @@ import funkin.util.MathUtil;
  */
 class MenuList extends FlxTypedGroup<FunkinText>
 {
-    public var items(default, set):Array<String>;
     public var selected:Int = 0;
-
     public var itemSelected(default, null) = new FlxTypedSignal<String->Void>();
 
     var controls(get, never):Controls;
-    var justAccepted:Bool = false;
+    var items:Array<String>;
 
     public function new(items:Array<String>)
     {
         super();
 
-        this.items = items;
-
-        // This exists because input is stupid
-        justAccepted = controls.ACCEPT;
+        setItems(items);
     }
 
     override public function update(elapsed:Float)
@@ -37,13 +32,7 @@ class MenuList extends FlxTypedGroup<FunkinText>
         if (controls.UI_UP_P || controls.UI_DOWN_P)
             changeItem(controls.UI_UP_P ? -1 : 1);
 
-        if (controls.ACCEPT)
-        {
-            if (justAccepted)
-                justAccepted = false;
-            else
-                selectItem();
-        }
+        if (controls.ACCEPT) selectItem();
 
         // Updates the items to be in the correct position
         forEachAlive(item -> {
@@ -71,12 +60,34 @@ class MenuList extends FlxTypedGroup<FunkinText>
         itemSelected.dispatch(items[selected]);
     }
 
-    public function refreshItems()
+    public function setItems(items:Array<String>)
+    {
+        this.items = items;
+        refreshItems();
+    }
+
+    public function addItem(text:String)
+    {
+        items.push(text);
+        refreshItems();
+    }
+
+    public function removeItem(text:String)
+    {
+        items.remove(text);
+        refreshItems();
+    }
+
+    public function count():Int
+        return items.length;
+
+    function refreshItems()
     {
         selected = 0;
 
+        // Generates the items
         killMembers();
-
+        
         for (i => item in items)
         {
             var text:FunkinText = recycle(FunkinText);
@@ -95,16 +106,6 @@ class MenuList extends FlxTypedGroup<FunkinText>
     function getItemY(item:FunkinText):Float
     {
         return FlxG.height / 2 + (item.ID - selected - 0.5) * (item.height + 50);
-    }
-
-    function set_items(items:Array<String>):Array<String>
-    {
-        if (this.items == items) return items;
-        this.items = items;
-
-        refreshItems();
-
-        return items;
     }
 
     inline function get_controls():Controls

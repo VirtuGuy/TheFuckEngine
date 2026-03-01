@@ -5,6 +5,7 @@ import flixel.util.FlxTimer;
 import funkin.audio.FunkinSound;
 import funkin.data.character.CharacterRegistry;
 import funkin.ui.FunkinSubState;
+import funkin.ui.freeplay.FreeplayState;
 
 /**
  * The game over sub state that appears when the player dies.
@@ -37,7 +38,7 @@ class GameOverSubState extends FunkinSubState
             final followPos:FlxPoint = character.getGraphicMidpoint();
 
             PlayState.instance.camFollow.setPosition(followPos.x, followPos.y);
-            FlxG.camera.followLerp = 0.03;
+            FlxG.camera.active = true;
         }
     }
 
@@ -69,6 +70,7 @@ class GameOverSubState extends FunkinSubState
         }
 
         if (controls.ACCEPT) skip();
+        if (controls.BACK) back();
     }
 
     function startLoop()
@@ -91,6 +93,11 @@ class GameOverSubState extends FunkinSubState
 
         FunkinSound.playOnce('play/sounds/gameover/end');
         FlxTimer.wait(1, () -> FlxG.camera.fade(0xFF000000, 1, false, close));
+    }
+
+    function back()
+    {
+        FlxG.switchState(() -> new FreeplayState());
     }
 
     override function beatHit(beat:Int)

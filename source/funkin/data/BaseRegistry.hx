@@ -46,6 +46,14 @@ class BaseRegistry<T>
         return entries.get(id);
     }
 
+    public function list():Array<String>
+    {
+        var list:Array<String> = [];
+        for (entry in entries.keys())
+            list.push(entry);
+        return list;
+    }
+
     public function exists(id:String):Bool
         return entries.exists(id);
 
