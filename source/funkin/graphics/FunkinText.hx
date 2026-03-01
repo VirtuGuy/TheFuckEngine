@@ -26,7 +26,7 @@ class FunkinText extends FlxBitmapText
 
     override function set_text(text:String):String
     {
-        text = text.toLowerCase();
+        text = text?.toLowerCase();
         if (this.text == text) return text;
         return super.set_text(text);
     }

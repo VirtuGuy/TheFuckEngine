@@ -1,8 +1,5 @@
 package funkin.input;
 
-import flixel.input.FlxInput.FlxInputState;
-import flixel.input.actions.FlxAction.FlxActionDigital;
-import flixel.input.actions.FlxActionInput.FlxInputDevice;
 import flixel.input.actions.FlxActionSet;
 import flixel.input.keyboard.FlxKey;
 
@@ -21,6 +18,7 @@ enum abstract Control(String) to String from String
     var UI_RIGHT = 'ui-right';
     var ACCEPT = 'accept';
     var PAUSE = 'pause';
+    var RESET = 'reset';
 }
 
 /**
@@ -40,6 +38,7 @@ class Controls extends FlxActionSet
     var ui_right(default, null) = new FunkinAction(Control.UI_RIGHT);
     var accept(default, null) = new FunkinAction(Control.ACCEPT);
     var pause(default, null) = new FunkinAction(Control.PAUSE);
+    var reset(default, null) = new FunkinAction(Control.RESET);
 
     public var NOTE_LEFT(get, never):Bool;
     public var NOTE_DOWN(get, never):Bool;
@@ -59,6 +58,7 @@ class Controls extends FlxActionSet
     public var UI_RIGHT_P(get, never):Bool;
     public var ACCEPT(get, never):Bool;
     public var PAUSE(get, never):Bool;
+    public var RESET(get, never):Bool;
 
     inline function get_NOTE_LEFT():Bool
         return note_left.check();
@@ -114,6 +114,9 @@ class Controls extends FlxActionSet
     inline function get_PAUSE():Bool
         return pause.checkPressed();
 
+    inline function get_RESET():Bool
+        return reset.checkPressed();
+
     public function new()
     {
         super('controls');
@@ -129,6 +132,7 @@ class Controls extends FlxActionSet
         add(ui_right);
         add(accept);
         add(pause);
+        add(reset);
 
         // Sets the keys
         setKeys(Control.NOTE_LEFT, [A, LEFT]);
@@ -141,6 +145,7 @@ class Controls extends FlxActionSet
         setKeys(Control.UI_RIGHT, [D, RIGHT]);
         setKeys(Control.ACCEPT, [Z, ENTER]);
         setKeys(Control.PAUSE, [P, ENTER]);
+        setKeys(Control.RESET, [R]);
     }
 
     public function setKeys(id:Control, keys:Array<FlxKey>)
@@ -172,64 +177,7 @@ class Controls extends FlxActionSet
             case UI_RIGHT: func(ui_right);
             case ACCEPT: func(accept);
             case PAUSE: func(pause);
+            case RESET: func(reset);
         }
-    }
-}
-
-/**
- * An extension of `FlxActionDigital` used for `Controls`.
- */
-class FunkinAction extends FlxActionDigital
-{
-    public function new(id:Control)
-    {
-        super(id);
-    }
-
-    public override function check():Bool
-        return checkFiltered(PRESSED);
-
-    public function checkPressed():Bool
-        return checkFiltered(JUST_PRESSED);
-
-    public function removeDevice(device:FlxInputDevice)
-    {
-        for (input in inputs)
-        {
-            if (input.device != device) continue;
-            input.destroy();
-        }
-    }
-
-    function checkFiltered(trigger:FlxInputState):Bool
-    {
-        // Borrowed from FlxActionDigital hehehe
-        _x = null;
-		_y = null;
-		
-		_timestamp = FlxG.game.ticks;
-		triggered = false;
-		
-		var i = inputs != null ? inputs.length : 0;
-		while (i-- > 0) // Iterate backwards, since we may remove items
-		{
-			final input = inputs[i];
-			
-			if (input.destroyed)
-			{
-				inputs.remove(input);
-				continue;
-			}
-
-            // Skip the input if it doesn't match the specified trigger
-            if (input.trigger != trigger) continue;
-			
-			input.update();
-			
-			if (input.check(this))
-				triggered = true;
-		}
-		
-		return triggered;
     }
 }

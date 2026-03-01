@@ -15,7 +15,7 @@ class PauseSubState extends FunkinSubState
     var song(get, never):Song;
     var difficulty(get, never):String;
 
-    var options:Array<String>;
+    var ogItems:Array<String>;
     var changingDiff:Bool = false;
 
     var music:FunkinSound;
@@ -28,8 +28,8 @@ class PauseSubState extends FunkinSubState
     {
         super.create();
 
-        options = ['resume', 'restart', 'exit to menu'];
-        if (song.difficulties.length > 1) options.insert(2, 'difficulty');
+        ogItems = ['resume', 'restart', 'exit to menu'];
+        if (song.difficulties.length > 1) ogItems.insert(2, 'difficulty');
 
         music = FunkinSound.load('play/music/pause', 0);
         music.play();
@@ -45,12 +45,12 @@ class PauseSubState extends FunkinSubState
         songText.alignment = RIGHT;
         add(songText);
 
-        items = new MenuList(options);
+        items = new MenuList(ogItems);
         items.itemSelected.add(itemSelected);
         add(items);
 
         // Updates the song text
-        songText.text = 'song name: ${song.name}';
+        songText.text = song.name;
         songText.text += '\ndifficulty: ${difficulty}';
         songText.text += '\nartist: ${song.artist}';
         songText.x = FlxG.width - songText.width - 20;
@@ -73,7 +73,7 @@ class PauseSubState extends FunkinSubState
             // I mean, you never know if someone makes a BACK difficulty
             if (items.selected == items.items.length - 1)
             {
-                items.items = options;
+                items.items = ogItems;
                 changingDiff = false;
             }
             else

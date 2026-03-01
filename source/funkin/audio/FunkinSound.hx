@@ -4,8 +4,6 @@ import flixel.sound.FlxSound;
 
 /**
  * A class for playing and handling sounds.
- * 
- * TODO: Use unique sound list and groups.
  */
 class FunkinSound extends FlxSound
 {
@@ -47,5 +45,12 @@ class FunkinSound extends FlxSound
         FlxG.sound.defaultMusicGroup.add(music);
 
         if (autoPlay) music.play();
+    }
+
+    public static function stopAllSounds(stopMusic:Bool = false)
+    {
+        for (sound in FlxG.sound.list)
+            sound.stop();
+        if (stopMusic) music?.stop();
     }
 }

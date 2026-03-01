@@ -42,10 +42,8 @@ class Stage extends FlxGroup
             final position:FlxPoint = MathUtil.arrayToPoint(prop.position);
             final scroll:FlxPoint = MathUtil.arrayToPoint(prop.scroll, 1);
 
-            var sprite:FunkinSprite = new FunkinSprite();
+            var sprite:FunkinSprite = new FunkinSprite(position.x, position.y);
             sprite.loadSprite('play/stages/${this.id}/props/${prop.id}', prop.scale);
-
-            sprite.setPosition(position.x, position.y);
             sprite.scrollFactor.copyFrom(scroll);
 
             sprite.flipX = prop.flipX;

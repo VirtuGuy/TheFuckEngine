@@ -31,20 +31,23 @@ class PlayState extends FunkinState
 	public static var difficulty:String;
 	public static var song:Song;
 
+	public var camFollow:FlxObject;
+	public var stage:Stage;
+
 	var songLoaded:Bool;
 	var songStarted:Bool;
 	var songEnded:Bool;
 
 	var score:Float;
+	var health:Float;
 
 	var voices:Voices;
 
 	var camHUD:FlxCamera;
 	var camPause:FlxCamera;
 
-	var camFollow:FlxObject;
 	var camTarget:Int;
-	var camZoom:Float = 1;
+	var camZoom:Float;
 
 	var opponentStrumline:Strumline;
 	var playerStrumline:Strumline;
@@ -52,8 +55,6 @@ class PlayState extends FunkinState
 
 	var countdown:Countdown;
 	var popups:Popups;
-
-	var stage:Stage;
 
 	override public function create()
 	{
@@ -125,6 +126,7 @@ class PlayState extends FunkinState
 	{
 		super.update(elapsed);
 
+		// Updates the song and input
 		if (songLoaded)
 		{
 			conductor.time += elapsed * Constants.MS_PER_SEC;
@@ -140,28 +142,28 @@ class PlayState extends FunkinState
 
 		processInput();
 
-		// TODO: Remove this
-		// This is only here for debugging purposes
-		if (FlxG.keys.justPressed.F5) FlxG.switchState(() -> new InitState());
-		if (FlxG.keys.justPressed.J) FlxG.switchState(() -> new FunkinState());
-
-		// Pausing
-		if (controls.PAUSE) pauseGame();
-
-		FlxG.camera.zoom = MathUtil.lerp(FlxG.camera.zoom, camZoom, 0.03);
-		camHUD.zoom = MathUtil.lerp(camHUD.zoom, 1, 0.03);
-		
-		// HUD stuff
+		// HUD
 		scoreText.text = Std.string(Std.int(score));
 		scoreText.screenCenter(X);
 		scoreText.y = FlxG.height - scoreText.height - 50;
-
 		if (Preferences.downscroll) scoreText.y = 50;
+		
+		FlxG.camera.zoom = MathUtil.lerp(FlxG.camera.zoom, camZoom, 0.03);
+		camHUD.zoom = MathUtil.lerp(camHUD.zoom, 1, 0.03);
+
+		// Keybinds
+		if (controls.PAUSE) pauseGame();
+		if (controls.RESET) health = 0;
+
+		// Death if health is below or equal to zero
+		if (health <= 0) openSubState(new GameOverSubState());
 	}
 
 	override function beatHit(beat:Int)
 	{
 		super.beatHit(beat);
+
+		if (subState != null) return;
 
 		// Camera bopping
 		if (beat % 2 == 0)
@@ -184,7 +186,7 @@ class PlayState extends FunkinState
 	{
 		super.sectionHit(section);
 		
-		if (!songStarted) return;
+		if (!songStarted || subState != null) return;
 
 		// Moves the camera
 		// TODO: Remove this once events are added
@@ -198,18 +200,35 @@ class PlayState extends FunkinState
 		songEnded = false;
 
 		score = 0;
+		health = 0.5;
 
-		FunkinSound.music?.stop();
-		voices?.stop();
+		FunkinSound.stopAllSounds(true);
+		FlxG.camera.zoom = camZoom;
 
 		opponentStrumline.clean();
 		playerStrumline.clean();
 		countdown.start();
 
-		FlxG.camera.zoom = camZoom;
-
 		resetCameraTarget();
 		loadSong();
+	}
+
+	public function setCameraTarget(target:Int, instant:Bool = false)
+	{
+		camTarget = target;
+
+		var character:Character = stage.opponent;
+		if (target == 1) character = stage.player;
+
+		if (character == null) return;
+
+		final camPos:FlxPoint = character.getGraphicMidpoint();
+		camPos.x += character.isPlayer ? -100 : 100;
+		camPos.y -= 100;
+		camFollow.setPosition(camPos.x, camPos.y);
+
+		if (instant)
+			FlxG.camera.focusOn(camFollow.getPosition());
 	}
 
 	function loadCharacters()
@@ -221,7 +240,7 @@ class PlayState extends FunkinState
 
 	function loadSong()
 	{
-		conductor.bpm = song.bpm;
+		conductor.reset(song.bpm);
 		conductor.time = -conductor.crotchet * 4;
 
 		playerStrumline.speed = song.getSpeed(difficulty);
@@ -298,28 +317,6 @@ class PlayState extends FunkinState
 		var pause:PauseSubState = new PauseSubState();
 		pause.camera = camPause;
 		openSubState(pause);
-	}
-
-	function setCameraTarget(target:Int, instant:Bool = false)
-	{
-		camTarget = target;
-
-		// Gets which character to target
-		var character:Character = stage.opponent;
-		if (target == 1) character = stage.player;
-
-		// Can't target a character when it's null
-		if (character == null) return;
-
-		var camPos:FlxPoint = character.getGraphicMidpoint();
-
-		camPos.x += character.isPlayer ? -100 : 100;
-		camPos.y -= 100;
-
-		camFollow.setPosition(camPos.x, camPos.y);
-
-		// Instantly focus on camFollow if enabled
-		if (instant) FlxG.camera.focusOn(camFollow.getPosition());
 	}
 
 	function resetCameraTarget()
@@ -458,6 +455,6 @@ class PlayState extends FunkinState
 	{
 		super.destroy();
 
-		FunkinSound.music.stop();
+		FunkinSound.music.destroy();
 	}
 }

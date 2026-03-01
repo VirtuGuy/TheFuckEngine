@@ -23,7 +23,7 @@ class Conductor
     public var beatHit(default, null) = new FlxTypedSignal<Int->Void>();
     public var sectionHit(default, null) = new FlxTypedSignal<Int->Void>();
     
-    var changeSteps:Int = 0;
+    var changeStep:Int = 0;
     var changeTimestamp:Float = 0;
 
     public function new() {}
@@ -35,7 +35,7 @@ class Conductor
         final lastSection:Int = section;
 
         // Calculates the current step
-        step = changeSteps + Math.floor((time - changeTimestamp) / quaver);
+        step = changeStep + Math.floor((time - changeTimestamp) / quaver);
         beat = Math.floor(step / Constants.STEPS_PER_BEAT);
         section = Math.floor(step / Constants.STEPS_PER_SECTION);
 
@@ -51,12 +51,30 @@ class Conductor
         FlxG.watch.addQuick('section', section);
     }
 
+    /**
+     * Resets everything, including time, BPM, and steps.
+     * You're going to want to run this whenever music is changed.
+     */
+    public function reset(bpm:Float = 0)
+    {
+        this.bpm = bpm;
+
+        time = 0;
+
+        step = 0;
+        beat = 0;
+        section = 0;
+
+        changeStep = 0;
+        changeTimestamp = 0;
+    }
+
     function set_bpm(bpm:Float):Float
     {
         if (this.bpm == bpm) return bpm;
         this.bpm = bpm;
 
-        changeSteps = step;
+        changeStep = step;
         changeTimestamp = time;
 
         return bpm;
