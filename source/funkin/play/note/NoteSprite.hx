@@ -35,7 +35,7 @@ class NoteSprite extends FunkinSprite
 
         for (i in 0...Constants.NOTE_COUNT)
         {
-            final direction:NoteDirection = NoteDirection.fromInt(i);
+            var direction:NoteDirection = NoteDirection.fromInt(i);
 
             addAnimation(direction.name, [direction + Constants.NOTE_COUNT * 3]);
         }

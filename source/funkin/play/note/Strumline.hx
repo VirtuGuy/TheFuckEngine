@@ -67,10 +67,10 @@ class Strumline extends FlxGroup
         // Spawns the notes
         while (data[0] != null)
         {
-            final noteData:SongNoteData = data[0];
-            final time:Float = noteData.t;
-            final direction:NoteDirection = NoteDirection.fromInt(noteData.d);
-            final length:Float = noteData.l;
+            var noteData:SongNoteData = data[0];
+            var time:Float = noteData.t;
+            var direction:NoteDirection = NoteDirection.fromInt(noteData.d);
+            var length:Float = noteData.l;
 
             if (RhythmUtil.getDistance(time, speed) > FlxG.height) break;
 
@@ -118,8 +118,8 @@ class Strumline extends FlxGroup
 
         // Note processing
         notes.forEachAlive(note -> {
-            final strum:StrumSprite = getStrum(note.direction);
-            final distance:Float = RhythmUtil.getDistance(note.time, speed);
+            var strum:StrumSprite = getStrum(note.direction);
+            var distance:Float = RhythmUtil.getDistance(note.time, speed);
 
             // Positions the note
             note.x = strum.x;
@@ -140,9 +140,9 @@ class Strumline extends FlxGroup
 
         // Hold note processing
         holdNotes.forEachAlive(holdNote -> {
-            final strum:StrumSprite = getStrum(holdNote.direction);  
-            final distance:Float = RhythmUtil.getDistance(holdNote.time, speed);
-            final y:Float = strum.y + strum.height / 2;
+            var strum:StrumSprite = getStrum(holdNote.direction);  
+            var distance:Float = RhythmUtil.getDistance(holdNote.time, speed);
+            var y:Float = strum.y + strum.height / 2;
 
             // Positions the hold note
             holdNote.x = strum.x + (strum.width - holdNote.width) / 2;
@@ -175,7 +175,7 @@ class Strumline extends FlxGroup
 
         // Strum processing
         strums.forEachAlive(strum -> {
-            final pressed:Bool = strum.direction.pressed;
+            var pressed:Bool = strum.direction.pressed;
 
             if (strum.confirmTime > 0 && (pressed || !isPlayer))
                 strum.playAnimation('confirm');
@@ -207,16 +207,16 @@ class Strumline extends FlxGroup
 
     public function playSplash(direction:NoteDirection)
     {
-        final splash:NoteSplash = noteSplashes.recycle(NoteSplash);
-        final strum:StrumSprite = getStrum(direction);
+        var splash:NoteSplash = noteSplashes.recycle(NoteSplash);
+        var strum:StrumSprite = getStrum(direction);
 
         splash.play(strum);
     }
 
     public function playHoldCover(holdNote:HoldNoteSprite)
     {
-        final cover:HoldNoteCover = holdCovers.recycle(HoldNoteCover);
-        final strum:StrumSprite = getStrum(holdNote.direction);
+        var cover:HoldNoteCover = holdCovers.recycle(HoldNoteCover);
+        var strum:StrumSprite = getStrum(holdNote.direction);
 
         cover.play(holdNote, strum);
     }
@@ -243,7 +243,7 @@ class Strumline extends FlxGroup
     function positionStrums()
     {
         strums.forEach(strum -> {
-            final off:Float = (strum.direction - Constants.NOTE_COUNT / 2);
+            var off:Float = (strum.direction - Constants.NOTE_COUNT / 2);
 
             strum.x = FlxG.width * offset + off * (strum.width + spacing);
             strum.x += spacing / 2;

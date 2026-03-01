@@ -3,7 +3,6 @@ package funkin.data.song;
 import funkin.data.song.SongData;
 import funkin.play.song.Song;
 import funkin.util.FileUtil;
-import haxe.ds.StringMap;
 import json2object.JsonParser;
 
 /**
@@ -12,6 +11,9 @@ import json2object.JsonParser;
 class SongRegistry extends BaseRegistry<Song>
 {
     public static var instance:SongRegistry;
+
+    var metaParser(default, null) = new JsonParser<SongMetadata>();
+    var chartParser(default, null) = new JsonParser<SongChartData>();
 
     public function new()
     {
@@ -22,15 +24,10 @@ class SongRegistry extends BaseRegistry<Song>
     {
         super.load();
 
-        // Some pretty useful json parsers
-        // Might come in handy maybe
-        final metaParser:JsonParser<SongMetadata> = new JsonParser<SongMetadata>();
-        final chartParser:JsonParser<SongChartData> = new JsonParser<SongChartData>();
-
         // Loads the entries
         for (id in FileUtil.listFolders(path))
         {
-            final metaPath:String = Paths.json('$path/$id/meta');
+            var metaPath:String = Paths.json('$path/$id/meta');
 
             // Skip the song if it doesn't have metadata
             if (!Paths.exists(metaPath)) continue;
@@ -39,7 +36,7 @@ class SongRegistry extends BaseRegistry<Song>
 
             for (diff in song.difficulties)
             {
-                final chartPath:String = Paths.json('$path/$id/charts/$diff');
+                var chartPath:String = Paths.json('$path/$id/charts/$diff');
 
                 // Skips the chart if it doesn't exist
                 if (!Paths.exists(chartPath)) continue;

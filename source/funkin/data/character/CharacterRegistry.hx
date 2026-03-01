@@ -11,6 +11,8 @@ class CharacterRegistry extends BaseRegistry<CharacterData>
 {
     public static var instance:CharacterRegistry;
 
+    var parser(default, null) = new JsonParser<CharacterData>();
+
     public function new()
     {
         super('characters', 'play/characters');
@@ -20,13 +22,10 @@ class CharacterRegistry extends BaseRegistry<CharacterData>
     {
         super.load();
 
-        // This json parser MIGHT come in handy
-        final parser:JsonParser<CharacterData> = new JsonParser<CharacterData>();
-
         // Loads the entries
         for (id in FileUtil.listFolders(path))
         {
-            final metaPath:String = Paths.json('$path/$id/meta');
+            var metaPath:String = Paths.json('$path/$id/meta');
 
             // Skip the character if it doesn't have metadata
             if (!Paths.exists(metaPath)) continue;

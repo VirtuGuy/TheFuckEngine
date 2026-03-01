@@ -28,7 +28,7 @@ class FreeplayState extends FunkinState
         add(freeplayText);
 
         // Loads the songs
-        final songsList:Array<String> = SongRegistry.instance.list();
+        var songsList:Array<String> = SongRegistry.instance.list();
         songsList.sort(SortUtil.alphabetically);
 
         songs = new MenuList(songsList);

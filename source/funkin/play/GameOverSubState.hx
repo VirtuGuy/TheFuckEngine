@@ -35,7 +35,7 @@ class GameOverSubState extends FunkinSubState
 
         if (character != null)
         {
-            final followPos:FlxPoint = character.getGraphicMidpoint();
+            var followPos:FlxPoint = character.getGraphicMidpoint();
 
             PlayState.instance.camFollow.setPosition(followPos.x, followPos.y);
             FlxG.camera.active = true;
@@ -44,7 +44,7 @@ class GameOverSubState extends FunkinSubState
 
     function buildCharacter()
     {
-        final player:Character = PlayState.instance.stage.player;
+        var player:Character = PlayState.instance.stage.player;
         if (player == null) return;
 
         character = CharacterRegistry.instance.fetchCharacter('${player.id}-death');

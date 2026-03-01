@@ -24,7 +24,7 @@ class Character extends FunkinSprite
         this.isPlayer = isPlayer;
 
         // Loads the image
-        final image:String = meta.image ?? id;
+        var image:String = meta.image ?? id;
 
         loadSprite('play/characters/$image/image', meta.scale, meta.frameWidth, meta.frameHeight);
 

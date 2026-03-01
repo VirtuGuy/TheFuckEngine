@@ -31,8 +31,8 @@ class HoldNoteCover extends FunkinSprite
 
         for (i in 0...Constants.NOTE_COUNT)
         {
-            final direction:NoteDirection = NoteDirection.fromInt(i);
-            final frame:Int = direction * 3;
+            var direction:NoteDirection = NoteDirection.fromInt(i);
+            var frame:Int = direction * 3;
             
             addAnimation(direction.name, [frame, frame + 1, frame + 2], 30);
         }

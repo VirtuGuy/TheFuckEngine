@@ -33,8 +33,7 @@ class RhythmUtil
 {
     public static function processHitWindow(note:NoteSprite, isPlayer:Bool)
     {
-        final songTime:Float = Conductor.instance.time;
-
+        var songTime:Float = Conductor.instance.time;
         var hitStart:Float = note.time;
         var hitEnd:Float = note.time + Constants.HIT_WINDOW_MS;
 
@@ -48,9 +47,8 @@ class RhythmUtil
 
     public static function judgeNote(note:NoteSprite):Judgement
     {
-        final songTime:Float = Conductor.instance.time;
-        final timing:Float = Math.abs(note.time - songTime);
-
+        var songTime:Float = Conductor.instance.time;
+        var timing:Float = Math.abs(note.time - songTime);
         var judgement:Judgement = SHIT;
 
         if (timing <= Constants.SICK_WINDOW_MS)

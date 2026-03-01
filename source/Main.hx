@@ -18,8 +18,6 @@ class Main extends Sprite
 	{
 		super();
 
-		
-
 		// Starts the game
 		final gameWidth:Int = 0;
 		final gameHeight:Int = 0;

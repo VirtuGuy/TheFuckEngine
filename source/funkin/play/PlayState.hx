@@ -222,7 +222,7 @@ class PlayState extends FunkinState
 
 		if (character == null) return;
 
-		final camPos:FlxPoint = character.getGraphicMidpoint();
+		var camPos:FlxPoint = character.getGraphicMidpoint();
 		camPos.x += character.isPlayer ? -100 : 100;
 		camPos.y -= 100;
 		camFollow.setPosition(camPos.x, camPos.y);
@@ -245,7 +245,7 @@ class PlayState extends FunkinState
 		playerStrumline.speed = song.getSpeed(difficulty);
 		opponentStrumline.speed = playerStrumline.speed;
 
-		final notes:Array<SongNoteData> = song.getNotes(difficulty);
+		var notes:Array<SongNoteData> = song.getNotes(difficulty);
 
 		// Sorts the notes to prevent any problems with note generation
 		notes.sort((a, b) -> SortUtil.byTime(FlxSort.ASCENDING, a, b));
@@ -331,15 +331,15 @@ class PlayState extends FunkinState
 	function processInput()
 	{
 		// Player input
-		final directionNotes:Array<Array<NoteSprite>> = [[], [], [], []];
+		var directionNotes:Array<Array<NoteSprite>> = [[], [], [], []];
 
 		for (note in playerStrumline.getMayHitNotes()) directionNotes[note.direction].push(note);
 
 		for (i in 0...directionNotes.length)
 		{
-			final note:NoteSprite = directionNotes[i][0];
-			final direction:NoteDirection = NoteDirection.fromInt(i);
-			final pressed:Bool = direction.justPressed || Preferences.botplay;
+			var note:NoteSprite = directionNotes[i][0];
+			var direction:NoteDirection = NoteDirection.fromInt(i);
+			var pressed:Bool = direction.justPressed || Preferences.botplay;
 
 			// Miss if ghost tapping is disabled
 			// Don't count the miss if botplay is enabled though
@@ -359,7 +359,7 @@ class PlayState extends FunkinState
 
 	function playerNoteHit(note:NoteSprite)
 	{
-		final judgement:Judgement = RhythmUtil.judgeNote(note);
+		var judgement:Judgement = RhythmUtil.judgeNote(note);
 		popups.playJudgement(judgement);
 
 		// Only play the note splash if the player got a Sick!
@@ -375,7 +375,7 @@ class PlayState extends FunkinState
 	{
 		// Kinda based on PR #3832 for Funkin'
 		// This is only a TINY bit inconsistent
-		final diff:Float = (holdNote.lastLength - holdNote.length) / 1000;
+		var diff:Float = (holdNote.lastLength - holdNote.length) / 1000;
 
 		score += Constants.HOLD_SCORE_PER_SEC * diff;
 		stage.player?.resetSingTimer();

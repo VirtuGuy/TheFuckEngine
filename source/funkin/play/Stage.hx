@@ -39,8 +39,8 @@ class Stage extends FlxGroup
         {
             if (prop == null) continue;
 
-            final position:FlxPoint = MathUtil.arrayToPoint(prop.position);
-            final scroll:FlxPoint = MathUtil.arrayToPoint(prop.scroll, 1);
+            var position:FlxPoint = MathUtil.arrayToPoint(prop.position);
+            var scroll:FlxPoint = MathUtil.arrayToPoint(prop.scroll, 1);
 
             var sprite:FunkinSprite = new FunkinSprite(position.x, position.y);
             sprite.loadSprite('play/stages/${this.id}/props/${prop.id}', prop.scale);
@@ -66,8 +66,8 @@ class Stage extends FlxGroup
 
     public function setPlayer(id:String)
     {
-        final position:FlxPoint = MathUtil.arrayToPoint(meta?.player?.position);
-        final scroll:FlxPoint = MathUtil.arrayToPoint(meta?.player?.scroll, 1);
+        var position:FlxPoint = MathUtil.arrayToPoint(meta?.player?.position);
+        var scroll:FlxPoint = MathUtil.arrayToPoint(meta?.player?.scroll, 1);
 
         player?.destroy();
         player = CharacterRegistry.instance.fetchCharacter(id, true);
@@ -88,8 +88,8 @@ class Stage extends FlxGroup
 
     public function setOpponent(id:String)
     {
-        final position:FlxPoint = MathUtil.arrayToPoint(meta?.opponent?.position);
-        final scroll:FlxPoint = MathUtil.arrayToPoint(meta?.opponent?.scroll, 1);
+        var position:FlxPoint = MathUtil.arrayToPoint(meta?.opponent?.position);
+        var scroll:FlxPoint = MathUtil.arrayToPoint(meta?.opponent?.scroll, 1);
 
         opponent?.destroy();
         opponent = CharacterRegistry.instance.fetchCharacter(id);
@@ -110,8 +110,8 @@ class Stage extends FlxGroup
 
     public function setGF(id:String)
     {
-        final position:FlxPoint = MathUtil.arrayToPoint(meta?.gf?.position);
-        final scroll:FlxPoint = MathUtil.arrayToPoint(meta?.gf?.scroll, 1);
+        var position:FlxPoint = MathUtil.arrayToPoint(meta?.gf?.position);
+        var scroll:FlxPoint = MathUtil.arrayToPoint(meta?.gf?.scroll, 1);
 
         gf?.destroy();
         gf = CharacterRegistry.instance.fetchCharacter(id);
