@@ -364,11 +364,7 @@ class PlayState extends FunkinState
 
 	function playerHoldNoteHit(holdNote:HoldNoteSprite)
 	{
-		// Kinda based on PR #3832 for Funkin'
-		// This is only a TINY bit inconsistent
-		var diff:Float = (holdNote.lastLength - holdNote.length) / 1000;
-
-		score += Constants.HOLD_SCORE_PER_SEC * diff;
+		score += Constants.HOLD_SCORE_PER_SEC * FlxG.elapsed;
 		stage.player?.resetSingTimer();
 
 		voices.playerVolume = 1;

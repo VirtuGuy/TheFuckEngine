@@ -16,8 +16,6 @@ class HoldNoteSprite extends FlxStrip
     public var speed(default, set):Float;
 
     public var fullLength:Float;
-    public var lastLength:Float;
-
     public var wasHit:Bool;
 
     public var data:SongNoteData;
@@ -136,8 +134,6 @@ class HoldNoteSprite extends FlxStrip
         speed = 0;
 
         fullLength = 0;
-        lastLength = 0;
-
         wasHit = false;
 
         data = null;
@@ -163,8 +159,6 @@ class HoldNoteSprite extends FlxStrip
         length = Math.max(0, length);
 
         if (this.length == length) return length;
-
-        this.lastLength = this.length;
         this.length = length;
 
         redraw();
