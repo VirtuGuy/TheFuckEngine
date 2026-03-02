@@ -60,15 +60,6 @@ class PlayState extends FunkinState
 	{
 		instance = this;
 
-		// Eject the player if the song is null
-		// It's WAY too dangerous to be here
-		if (song == null)
-		{
-			// TODO: Make it switch to a menu once there is one
-			// For now, throw an error at the player
-			throw 'Cannot load the song if it\'s null!';
-		}
-
 		camHUD = new FlxCamera();
 		camHUD.bgColor = 0x0;
 		FlxG.cameras.add(camHUD, false);
