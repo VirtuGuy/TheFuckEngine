@@ -15,8 +15,7 @@ class Strumline extends FlxGroup
     public var data:Array<SongNoteData> = [];
     public var speed(default, set):Float;
 
-    public var offset(default, set):Float = 0.5;
-    public var spacing(default, set):Float = 0;
+    public var x(default, set):Float;
 
     public var strums:FlxTypedGroup<StrumSprite>;
     public var notes:FlxTypedGroup<NoteSprite>;
@@ -58,8 +57,6 @@ class Strumline extends FlxGroup
 
             strums.add(strum);
         }
-
-        positionStrums();
     }
 
     public function process(isPlayer:Bool)
@@ -240,16 +237,6 @@ class Strumline extends FlxGroup
     public function getStrum(direction:NoteDirection):StrumSprite
         return strums.members[direction];
 
-    function positionStrums()
-    {
-        strums.forEach(strum -> {
-            var off:Float = (strum.direction - Constants.NOTE_COUNT / 2);
-
-            strum.x = FlxG.width * offset + off * (strum.width + spacing);
-            strum.x += spacing / 2;
-        });
-    }
-
     function set_speed(speed:Float):Float
     {
         speed = Math.max(0, speed);
@@ -262,23 +249,18 @@ class Strumline extends FlxGroup
         return speed;
     }
 
-    function set_offset(offset:Float):Float
+    function set_x(x:Float):Float
     {
-        if (this.offset == offset) return offset;
-        this.offset = offset;
+        this.x = x;
 
-        positionStrums();
+        strums.forEach(strum -> {
+            var off:Float = (strum.direction - Constants.NOTE_COUNT / 2);
+            var spacing:Float = 2;
 
-        return offset;
-    }
+            strum.x = x + off * (strum.width + spacing);
+            strum.x += spacing / 2;
+        });
 
-    function set_spacing(spacing:Float):Float
-    {
-        if (this.spacing == spacing) return spacing;
-        this.spacing = spacing;
-
-        positionStrums();
-
-        return spacing;
+        return x;
     }
 }

@@ -82,14 +82,14 @@ class PlayState extends FunkinState
 		FlxG.camera.follow(camFollow, LOCKON, 0.03);
 
 		opponentStrumline = new Strumline();
-		opponentStrumline.offset = 0.25;
+		opponentStrumline.x = 325;
 		opponentStrumline.camera = camHUD;
 		opponentStrumline.noteHit.add(opponentNoteHit);
 		opponentStrumline.holdNoteHit.add(opponentHoldNoteHit);
 		add(opponentStrumline);
 
 		playerStrumline = new Strumline();
-		playerStrumline.offset = 0.75;
+		playerStrumline.x = FlxG.width - opponentStrumline.x;
 		playerStrumline.camera = camHUD;
 		playerStrumline.noteHit.add(playerNoteHit);
 		playerStrumline.noteMiss.add(playerNoteMiss);
