@@ -92,7 +92,7 @@ class GameOverSubState extends FunkinSubState
         conductor.reset();
 
         FunkinSound.playOnce('play/sounds/gameover/end');
-        FlxTimer.wait(1, () -> FlxG.camera.fade(0xFF000000, 1, false, close));
+        FlxTimer.wait(1, () -> FlxG.camera.fade(0xFF000000, 2, false, close));
     }
 
     function back()
