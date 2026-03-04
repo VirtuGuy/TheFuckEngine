@@ -80,10 +80,10 @@ class Strumline extends FlxGroup
 
             // Creates a note
             var note:NoteSprite = notes.recycle(NoteSprite);
+            note.y = -9999;
 
             note.time = time;
             note.direction = direction;
-
             note.data = noteData;
 
             // Creates a hold note
@@ -91,15 +91,15 @@ class Strumline extends FlxGroup
             if (length > 25)
             {
                 var holdNote:HoldNoteSprite = holdNotes.recycle(HoldNoteSprite);
+                holdNote.y = -9999;
 
                 holdNote.time = time;
                 holdNote.direction = direction;
                 holdNote.speed = speed;
-
                 holdNote.fullLength = length;
                 holdNote.length = length;
-                holdNote.flipY = Preferences.downscroll;
 
+                holdNote.flipY = Preferences.downscroll;
                 holdNote.data = noteData;
 
                 note.holdNote = holdNote;

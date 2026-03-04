@@ -47,8 +47,6 @@ class NoteSprite extends FunkinSprite
     {
         super.revive();
 
-        y = -9999;
-
         time = 0;
         direction = LEFT;
 

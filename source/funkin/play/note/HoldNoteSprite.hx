@@ -125,9 +125,6 @@ class HoldNoteSprite extends FlxStrip
     {
         super.revive();
 
-        y = -9999;
-        flipY = false;
-
         time = 0;
         direction = LEFT;
         length = 0;
