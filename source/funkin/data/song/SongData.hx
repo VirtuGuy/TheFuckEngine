@@ -22,9 +22,8 @@ typedef SongMetadata = {
  * A structure object used for song chart data.
  */
 typedef SongChartData = {
-    @:optional
-    var speed:Float;
-    var notes:Array<SongNoteData>;
+    var speed:Map<String, Float>;
+    var notes:Map<String, Array<SongNoteData>>;
 }
 
 /**

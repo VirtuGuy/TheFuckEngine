@@ -28,21 +28,14 @@ class SongRegistry extends BaseRegistry<Song>
         for (id in FileUtil.listFolders(path))
         {
             var metaPath:String = Paths.json('$path/$id/meta');
+            var chartPath:String = Paths.json('$path/$id/chart');
 
-            // Skip the song if it doesn't have metadata
-            if (!Paths.exists(metaPath)) continue;
+            // Skip the song if it doesn't have a chart or metadata file
+            if (!Paths.exists(metaPath) || !Paths.exists(chartPath)) continue;
 
-            var song:Song = new Song(id, metaParser.fromJson(FileUtil.getText(metaPath)));
-
-            for (diff in song.difficulties)
-            {
-                var chartPath:String = Paths.json('$path/$id/charts/$diff');
-
-                // Skips the chart if it doesn't exist
-                if (!Paths.exists(chartPath)) continue;
-
-                song.charts.set(diff, chartParser.fromJson(FileUtil.getText(chartPath)));
-            }
+            var meta:SongMetadata = metaParser.fromJson(FileUtil.getText(metaPath));
+            var chart:SongChartData = chartParser.fromJson(FileUtil.getText(chartPath));
+            var song:Song = new Song(id, meta, chart);
 
             register(id, song);
         }

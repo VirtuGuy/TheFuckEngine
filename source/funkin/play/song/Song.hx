@@ -1,7 +1,6 @@
 package funkin.play.song;
 
 import funkin.data.song.SongData;
-import haxe.ds.StringMap;
 
 /**
  * A class containing meta and chart data for a song.
@@ -10,7 +9,7 @@ class Song
 {
     public var id:String;
     public var meta:SongMetadata;
-    public var charts:StringMap<SongChartData> = new StringMap<SongChartData>();
+    public var chart:SongChartData;
 
     public var name(get, never):String;
     public var bpm(get, never):Float;
@@ -23,20 +22,18 @@ class Song
     public var player(get, never):String;
     public var gf(get, never):String;
 
-    public function new(id:String, meta:SongMetadata)
+    public function new(id:String, meta:SongMetadata, chart:SongChartData)
     {
         this.id = id;
         this.meta = meta;
+        this.chart = chart;
     }
 
-    public function getChart(diff:String):SongChartData
-        return charts.get(diff);
-
     public function getNotes(diff:String):Array<SongNoteData>
-        return getChart(diff)?.notes ?? [];
+        return chart?.notes?.get(diff) ?? [];
     
     public function getSpeed(diff:String):Float
-        return getChart(diff)?.speed ?? Constants.DEFAULT_SPEED;
+        return chart?.speed?.get(diff) ?? Constants.DEFAULT_SPEED;
 
     inline function get_name():String
     {
