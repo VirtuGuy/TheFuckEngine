@@ -26,8 +26,7 @@ class FreeplayState extends FunkinState
         PlayState.difficulty = 'hard';
         PlayState.song = null;
 
-        var bg:FunkinSprite = new FunkinSprite();
-        bg.loadSprite('ui/bg', 1.5);
+        var bg:FunkinSprite = FunkinSprite.create(0, 0, 'ui/bg', 1.5);
         bg.color = 0xFF151515;
         add(bg);
 

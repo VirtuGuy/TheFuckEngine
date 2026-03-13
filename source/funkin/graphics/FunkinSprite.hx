@@ -8,10 +8,13 @@ import flixel.util.FlxColor;
  */
 class FunkinSprite extends FlxSprite
 {
-    public function loadSprite(id:String, scale:Float = 1, frameWidth:Int = 0, frameHeight:Int = 0):FunkinSprite
+    public static function create(x:Float, y:Float, id:String, scale:Float = 1, width:Int = 0, height:Int = 0):FunkinSprite
+        return new FunkinSprite(x, y).loadSprite(id, scale, width, height);
+
+    public function loadSprite(id:String, scale:Float = 1, width:Int = 0, height:Int = 0):FunkinSprite
     {
-        loadGraphic(Paths.image(id), frameWidth > 0 || frameHeight > 0, frameWidth, frameHeight);
-        setGraphicSize(Std.int(width * Constants.ZOOM * scale));
+        loadGraphic(Paths.image(id), width > 0 || height > 0, width, height);
+        setGraphicSize(Std.int(this.width * Constants.ZOOM * scale));
         updateHitbox();
 
         return this;
