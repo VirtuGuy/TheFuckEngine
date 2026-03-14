@@ -6,6 +6,7 @@ import flixel.FlxSubState;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.tweens.FlxTween;
+import flixel.util.FlxStringUtil;
 import funkin.audio.FunkinSound;
 import funkin.data.song.SongData.SongNoteData;
 import funkin.data.stage.StageRegistry;
@@ -62,6 +63,7 @@ class PlayState extends FunkinState
 	var opponentIcon:HealthIcon;
 	var playerIcon:HealthIcon;
 	var scoreText:FunkinText;
+	var timeText:FunkinText;
 	var countdown:Countdown;
 	var popups:Popups;
 
@@ -118,7 +120,18 @@ class PlayState extends FunkinState
 		healthBar.camera = camHUD;
 		add(healthBar);
 
-		if (Preferences.downscroll) healthBar.y = 60;
+		timeText = new FunkinText(0, 0, '1:23');
+		timeText.size = 24;
+		timeText.alignment = CENTER;
+		timeText.camera = camHUD;
+		timeText.y = 35;
+		add(timeText);
+
+		if (Preferences.downscroll)
+		{
+			healthBar.y = FlxG.height - healthBar.height - healthBar.y;
+			timeText.y = FlxG.height - timeText.height - timeText.y;
+		}
 
 		scoreText = new FunkinText(0, 0, '123456');
 		scoreText.size = 15;
@@ -198,6 +211,12 @@ class PlayState extends FunkinState
 
 		scoreText.text = 'score: ${Std.int(score)} | misses: ${tallies.misses}';
 		scoreText.screenCenter(X);
+
+		if (!songEnded)
+		{
+			timeText.text = FlxStringUtil.formatTime((FunkinSound.music.length - FunkinSound.music.time) / Constants.MS_PER_SEC);
+			timeText.screenCenter(X);
+		}
 		
 		camGame.zoom = MathUtil.lerp(camGame.zoom, stage.zoom, 0.03);
 		camHUD.zoom = MathUtil.lerp(camHUD.zoom, 1, 0.03);
