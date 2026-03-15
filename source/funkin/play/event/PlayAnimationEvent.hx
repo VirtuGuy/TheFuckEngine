@@ -1,4 +1,4 @@
-package funkin.play.song.event;
+package funkin.play.event;
 
 /**
  * An event that plays an animation for a character.
@@ -14,6 +14,6 @@ class PlayAnimationEvent extends BaseEvent
     {
         super.handle(value);
 
-        getCharacter(value.c)?.playAnimation(value.a, value.f);
+        getCharacter('c')?.playAnimation(getString('a'), getBool('f'));
     }
 }

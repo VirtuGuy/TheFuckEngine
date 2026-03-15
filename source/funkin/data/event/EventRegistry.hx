@@ -1,8 +1,8 @@
 package funkin.data.event;
 
-import funkin.play.song.event.BaseEvent;
-import funkin.play.song.event.FocusCameraEvent;
-import funkin.play.song.event.PlayAnimationEvent;
+import funkin.play.event.BaseEvent;
+import funkin.play.event.FocusCameraEvent;
+import funkin.play.event.PlayAnimationEvent;
 
 /**
  * A registry class for loading song events.

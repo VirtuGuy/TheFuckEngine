@@ -1,4 +1,4 @@
-package funkin.play.song.event;
+package funkin.play.event;
 
 import funkin.play.character.Character;
 
@@ -16,8 +16,8 @@ class FocusCameraEvent extends BaseEvent
     {
         super.handle(value);
 
-        var target:Character = getCharacter(value.c);
-        var instant:Bool = value.i;
+        var target:Character = getCharacter('c');
+        var instant:Bool = getBool('i');
 
         PlayState.instance.setCameraTarget(target, instant);
     }
