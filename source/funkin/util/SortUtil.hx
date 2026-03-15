@@ -2,6 +2,7 @@ package funkin.util;
 
 import flixel.FlxBasic;
 import flixel.util.FlxSort;
+import funkin.data.event.EventData;
 import funkin.data.song.SongData.SongNoteData;
 
 /**
@@ -10,6 +11,9 @@ import funkin.data.song.SongData.SongNoteData;
 class SortUtil
 {
     public static inline function byTime(order:Int, a:SongNoteData, b:SongNoteData):Int
+        return FlxSort.byValues(order, a.t, b.t);
+
+    public static inline function byEventTime(order:Int, a:EventData, b:EventData):Int
         return FlxSort.byValues(order, a.t, b.t);
 
     public static inline function byZIndex(order:Int, a:FlxBasic, b:FlxBasic):Int

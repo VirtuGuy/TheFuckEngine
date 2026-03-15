@@ -1,5 +1,7 @@
 package funkin.data.song;
 
+import funkin.data.event.EventData;
+
 /**
  * A structure object used for song metadata.
  */
@@ -8,10 +10,10 @@ typedef SongMetadata = {
     var name:String;
     @:default(100)
     var bpm:Float;
-    @:default([])
-    var difficulties:Array<String>;
     @:optional
     var artist:String;
+    @:default([])
+    var difficulties:Array<String>;
     var stage:String;
     var opponent:String;
     var player:String;
@@ -24,6 +26,8 @@ typedef SongMetadata = {
 typedef SongChartData = {
     var speed:Map<String, Float>;
     var notes:Map<String, Array<SongNoteData>>;
+    @:default([])
+    var events:Array<EventData>;
 }
 
 /**

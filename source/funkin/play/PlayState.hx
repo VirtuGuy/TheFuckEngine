@@ -6,8 +6,11 @@ import flixel.FlxSubState;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.tweens.FlxTween;
+import flixel.util.FlxSort;
 import flixel.util.FlxStringUtil;
 import funkin.audio.FunkinSound;
+import funkin.data.event.EventData;
+import funkin.data.event.EventRegistry;
 import funkin.data.song.SongData.SongNoteData;
 import funkin.data.stage.StageRegistry;
 import funkin.graphics.FunkinBar;
@@ -27,6 +30,7 @@ import funkin.ui.FunkinState;
 import funkin.ui.freeplay.FreeplayState;
 import funkin.util.MathUtil;
 import funkin.util.RhythmUtil;
+import funkin.util.SortUtil;
 
 /**
  * A state where the gameplay occurs. Kinda like a "play" state. Hah! I said the thing!
@@ -44,6 +48,9 @@ class PlayState extends FunkinState
 	public var camFollow:FlxObject;
 	public var stage:Stage;
 
+	var events:Array<EventData>;
+	var voices:Voices;
+
 	var songLoaded:Bool;
 	var songStarted:Bool;
 	var songEnded:Bool;
@@ -51,12 +58,8 @@ class PlayState extends FunkinState
 	var health:Float;
 	var healthLerp:Float;
 
-	var camGame:FlxCamera;
 	var camHUD:FlxCamera;
 	var camPause:FlxCamera;
-
-	var camTarget:Int;
-	var voices:Voices;
 
 	var opponentStrumline:Strumline;
 	var playerStrumline:Strumline;
@@ -78,9 +81,6 @@ class PlayState extends FunkinState
 		// CAMERAS
 		//
 
-		camGame = new FlxCamera();
-		FlxG.cameras.reset(camGame);
-
 		camHUD = new FlxCamera();
 		camHUD.bgColor = 0x0;
 		FlxG.cameras.add(camHUD, false);
@@ -92,7 +92,7 @@ class PlayState extends FunkinState
 		camFollow = new FlxObject();
 		camFollow.active = false;
 
-		camGame.follow(camFollow, LOCKON, 0.03);
+		FlxG.camera.follow(camFollow, LOCKON, 0.03);
 
 		//
 		// HUD
@@ -139,7 +139,7 @@ class PlayState extends FunkinState
 		scoreText.size = 15;
 		scoreText.alignment = CENTER;
 		scoreText.camera = camHUD;
-		scoreText.y = healthBar.y + healthBar.height + 25;
+		scoreText.y = healthBar.y + healthBar.height + 20;
 		scoreText.zIndex = 1;
 		add(scoreText);
 
@@ -147,22 +147,21 @@ class PlayState extends FunkinState
 		countdown.camera = camHUD;
 		add(countdown);
 
+		//
+		// SETUP
+		//
+
 		stage = StageRegistry.instance.fetchStage(song.stage);
 		add(stage);
 
 		popups = new Popups();
 		add(popups);
 
-		//
-		// SETUP
-		//
-
 		tallies = new Tallies();
 
-		loadSong();
 		loadCharacters();
+		loadSong();
 
-		resetCameraTarget();
 		resetSong();
 
 		refresh();
@@ -188,6 +187,7 @@ class PlayState extends FunkinState
 		opponentStrumline.process(false);
 		playerStrumline.process(!Preferences.botplay);
 
+		processEvents();
 		processInput();
 
 		//
@@ -220,11 +220,11 @@ class PlayState extends FunkinState
 			timeText.screenCenter(X);
 		}
 		
-		camGame.zoom = MathUtil.lerp(camGame.zoom, stage.zoom, 0.03);
+		FlxG.camera.zoom = MathUtil.lerp(FlxG.camera.zoom, stage.zoom, 0.03);
 		camHUD.zoom = MathUtil.lerp(camHUD.zoom, 1, 0.03);
 
 		if (controls.PAUSE)
-			pauseGame();
+			pause();
 
 		if (controls.RESET)
 		{
@@ -257,20 +257,9 @@ class PlayState extends FunkinState
 
 		if (beat % 2 == 0)
 		{
-			camGame.zoom = stage.zoom + 0.05;
+			FlxG.camera.zoom = stage.zoom + 0.05;
 			camHUD.zoom = 1.02;
 		}
-	}
-
-	override function sectionHit(section:Int)
-	{
-		super.sectionHit(section);
-		
-		if (!songStarted || subState != null) return;
-
-		// Moves the camera
-		// TODO: Remove this once events are added
-		setCameraTarget(1 - camTarget);
 	}
 
 	public function resetSong()
@@ -282,7 +271,12 @@ class PlayState extends FunkinState
 		health = Constants.STARTING_HEALTH;
 		tallies.reset();
 
-		camGame.zoom = stage.zoom;
+		events = song.events.copy();
+		events.sort(SortUtil.byEventTime.bind(FlxSort.ASCENDING));
+
+		setCameraTarget(stage.player, true);
+
+		FlxG.camera.zoom = stage.zoom;
 
 		// Loads the strumline
 		var notes:Array<SongNoteData> = song.getNotes(difficulty);
@@ -302,25 +296,20 @@ class PlayState extends FunkinState
 		countdown.start();
 
 		FunkinSound.stopAllSounds(true);
-
-		resetCameraTarget();
 	}
 
-	public function setCameraTarget(target:Int, instant:Bool = false)
+	public function setCameraTarget(target:Character, instant:Bool = false)
 	{
-		camTarget = target;
+		// Why????
+		if (target == null) return;
 
-		var character:Character = stage.opponent;
-		if (target == 1) character = stage.player;
+		var pos:FlxPoint = target.getGraphicMidpoint();
+        var offset:FlxPoint = MathUtil.arrayToPoint(target.meta.cameraOffset);
 
-		if (character == null) return;
+        PlayState.instance.camFollow.setPosition(pos.x + offset.x, pos.y + offset.y);
 
-		var pos:FlxPoint = character.getGraphicMidpoint();
-		var offset:FlxPoint = MathUtil.arrayToPoint(character.meta.cameraOffset);
-
-		camFollow.setPosition(pos.x + offset.x, pos.y + offset.y);
-
-		if (instant) camGame.snapToTarget();
+		if (instant)
+			FlxG.camera.snapToTarget();
 	}
 
 	function loadCharacters()
@@ -383,6 +372,13 @@ class PlayState extends FunkinState
 		FlxG.switchState(() -> new FreeplayState());
 	}
 
+	function pause()
+	{
+		var state:PauseSubState = new PauseSubState();
+		state.camera = camPause;
+		openSubState(state);
+	}
+
 	function checkSongTime()
 	{
 		// End the song if the time has come...
@@ -408,21 +404,30 @@ class PlayState extends FunkinState
 		voices.checkResync(conductor.time);
 	}
 
-	function pauseGame()
+	function processEvents()
 	{
-		var pause:PauseSubState = new PauseSubState();
-		pause.camera = camPause;
-		openSubState(pause);
-	}
+		while (events.length > 0)
+		{
+			var event:EventData = events[0];
 
-	function resetCameraTarget()
-	{
-		// Target the opponent if there is one
-		// If not, try and target the player
-		if (stage.opponent != null)
-			setCameraTarget(0, true);
-		else if (stage.player != null)
-			setCameraTarget(1, true);
+			// Don't handle the event until it's the right time
+			if (event.t > conductor.time)
+				break;
+
+			// Skip the event if it's one second late
+			if (conductor.time - event.t > 1000)
+			{
+				events.shift();
+				break;
+			}
+
+			// Handle the event
+			EventRegistry.instance.handleEvent(event.e, event.v);
+
+			events.shift();
+
+			trace('Handling event ${event.e}.');
+		}
 	}
 
 	function processInput()
@@ -430,7 +435,8 @@ class PlayState extends FunkinState
 		// Player input
 		var directionNotes:Array<Array<NoteSprite>> = [[], [], [], []];
 
-		for (note in playerStrumline.getMayHitNotes()) directionNotes[note.direction].push(note);
+		for (note in playerStrumline.getMayHitNotes())
+			directionNotes[note.direction].push(note);
 
 		for (i in 0...directionNotes.length)
 		{
@@ -487,7 +493,6 @@ class PlayState extends FunkinState
 	function playerHoldNoteHit(holdNote:HoldNoteSprite)
 	{
 		score += Constants.HOLD_SCORE_PER_SEC * FlxG.elapsed;
-
 		health += Constants.HOLD_HEALTH_PER_SEC * FlxG.elapsed;
 
 		stage.player?.resetSingTimer();
@@ -551,7 +556,7 @@ class PlayState extends FunkinState
 		FlxTween.globalManager.active = false;
 		FlxG.sound.defaultSoundGroup.pause();
 
-		camGame.active = false;
+		FlxG.camera.active = false;
 	}
 
 	override public function closeSubState()
@@ -567,7 +572,7 @@ class PlayState extends FunkinState
 		FlxTween.globalManager.active = true;
 		FlxG.sound.defaultSoundGroup.resume();
 
-		camGame.active = true;
+		FlxG.camera.active = true;
 	}
 
 	override public function destroy()

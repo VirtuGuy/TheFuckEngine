@@ -1,5 +1,6 @@
 package funkin.play.song;
 
+import funkin.data.event.EventData;
 import funkin.data.song.SongData;
 
 /**
@@ -10,6 +11,8 @@ class Song
     public var id:String;
     public var meta:SongMetadata;
     public var chart:SongChartData;
+
+    public var events(get, never):Array<EventData>;
 
     public var name(get, never):String;
     public var bpm(get, never):Float;
@@ -36,10 +39,10 @@ class Song
     }
 
     public function getNotes(diff:String):Array<SongNoteData>
-        return chart?.notes?.get(diff) ?? [];
-    
+        return chart.notes?.get(diff) ?? [];
+
     public function getSpeed(diff:String):Float
-        return chart?.speed?.get(diff) ?? Constants.DEFAULT_SPEED;
+        return chart.speed?.get(diff) ?? Constants.DEFAULT_SPEED;
 
     inline function get_name():String
     {
@@ -74,6 +77,9 @@ class Song
 
     inline function get_gf():String
         return meta.gf;
+
+    inline function get_events():Array<EventData>
+        return chart.events;
 
     inline function get_instPath():String
         return '$path/inst';

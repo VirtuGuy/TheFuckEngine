@@ -1,10 +1,14 @@
 {
-    "name": "Bopeebo",
-    "bpm": 100,
-    "artist": "KawaiSprite",
-    "difficulties": ["easy", "normal", "hard"],
-    "stage": "stage",
-    "opponent": "dad",
-    "player": "bf",
-    "gf": "gf"
+	"name": "Bopeebo",
+	"gf": "gf",
+	"difficulties": [
+		"easy",
+		"normal",
+		"hard"
+	],
+	"opponent": "dad",
+	"player": "bf",
+	"stage": "stage",
+	"bpm": 100,
+	"artist": "Kawai Sprite"
 }

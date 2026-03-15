@@ -1,13 +1,11 @@
 package funkin.play;
 
-import flixel.math.FlxPoint;
 import flixel.util.FlxTimer;
 import funkin.audio.FunkinSound;
 import funkin.data.character.CharacterRegistry;
 import funkin.play.character.Character;
 import funkin.ui.FunkinSubState;
 import funkin.ui.freeplay.FreeplayState;
-import funkin.util.MathUtil;
 
 /**
  * The game over sub state that appears when the player dies.
@@ -39,11 +37,7 @@ class GameOverSubState extends FunkinSubState
 
         if (character != null)
         {
-            var pos:FlxPoint = character.getGraphicMidpoint();
-            var offset:FlxPoint = MathUtil.arrayToPoint(character.meta.cameraOffset);
-
-            PlayState.instance.camFollow.setPosition(pos.x + offset.x, pos.y + offset.y);
-
+            PlayState.instance.setCameraTarget(character);
             FlxG.camera.active = true;
         }
 

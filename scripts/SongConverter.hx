@@ -58,6 +58,55 @@ class SongConverter
 
         wtfChart.speed = chart.scrollSpeed;
         wtfChart.notes = chart.notes;
+        wtfChart.events = [];
+
+        for (event in chart.events ?? [])
+        {
+            var wtfEvent:Dynamic = {}
+
+            var kind:String = '';
+            var value:Dynamic = {}
+
+            switch (event.e)
+            {
+                case 'FocusCamera':
+                    kind = 'focus-camera';
+
+                    var c:Int = event.v.char;
+                    
+                    if (Type.typeof(event.v) == TInt)
+                        c = event.v;
+
+                    // Swap char because fuck
+                    if (c == 0)
+                        c = 1;
+                    else if (c == 1)
+                        c = 0;
+
+                    value.c = c;
+                case 'PlayAnimation':
+                    kind = 'play-animation';
+
+                    var target:String = event.v.target;
+                    var c:Int = 0;
+
+                    if (target == 'boyfriend')
+                        c = 1;
+                    if (target == 'girlfriend')
+                        c = 2;
+
+                    value.c = c;
+                    value.a = event.v.anim;
+                default:
+                    continue;
+            }
+
+            wtfEvent.t = event.t;
+            wtfEvent.e = kind;
+            wtfEvent.v = value;
+
+            wtfChart.events.push(wtfEvent);
+        }
 
         // Saves the final song
         final output:String = '../assets/play/songs/$songName';

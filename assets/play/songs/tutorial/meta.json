@@ -1,10 +1,14 @@
 {
 	"name": "Tutorial",
-	"bpm": 100,
-	"artist": "Kawai Sprite",
-	"difficulties": ["easy", "normal", "hard"],
-	"stage": "stage",
+	"gf": "gf",
+	"difficulties": [
+		"easy",
+		"normal",
+		"hard"
+	],
 	"opponent": "gf",
 	"player": "bf",
-	"gf": "gf"
+	"stage": "stage",
+	"bpm": 100,
+	"artist": "Kawai Sprite"
 }

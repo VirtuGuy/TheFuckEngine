@@ -3,6 +3,7 @@ package funkin;
 import flixel.FlxObject;
 import flixel.FlxState;
 import funkin.data.character.CharacterRegistry;
+import funkin.data.event.EventRegistry;
 import funkin.data.song.SongRegistry;
 import funkin.data.stage.StageRegistry;
 import funkin.input.Controls;
@@ -30,6 +31,7 @@ class InitState extends FlxState
         CharacterRegistry.instance = new CharacterRegistry();
         StageRegistry.instance = new StageRegistry();
         SongRegistry.instance = new SongRegistry();
+        EventRegistry.instance = new EventRegistry();
 
         FlxG.switchState(() -> new funkin.ui.freeplay.FreeplayState());
     }

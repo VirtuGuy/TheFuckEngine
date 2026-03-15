@@ -1,10 +1,14 @@
 {
-    "name": "Fresh",
-    "bpm": 120,
-    "artist": "KawaiSprite",
-    "difficulties": ["easy", "normal", "hard"],
-    "stage": "stage",
-    "opponent": "dad",
-    "player": "bf",
-    "gf": "gf"
+	"name": "Fresh",
+	"gf": "gf",
+	"difficulties": [
+		"easy",
+		"normal",
+		"hard"
+	],
+	"opponent": "dad",
+	"player": "bf",
+	"stage": "stage",
+	"bpm": 120,
+	"artist": "Kawai Sprite"
 }
