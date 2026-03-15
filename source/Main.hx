@@ -14,7 +14,7 @@ class Main extends FlxGame
 
 	public function new()
 	{
-		final framerate:Int = 120;
+		final framerate:Int = 180;
 
 		super(0, 0, funkin.InitState, framerate, framerate, true, false);
 	}
