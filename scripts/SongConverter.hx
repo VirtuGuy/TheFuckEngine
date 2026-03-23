@@ -51,6 +51,7 @@ class SongConverter
         wtfMeta.bpm = meta.timeChanges[0].bpm;
         wtfMeta.artist = meta.artist;
         wtfMeta.difficulties = meta.playData.difficulties;
+        wtfMeta.rating = meta.playData.ratings;
         wtfMeta.stage = meta.playData.stage;
         wtfMeta.player = meta.playData.characters.player;
         wtfMeta.opponent = meta.playData.characters.opponent;

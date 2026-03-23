@@ -5,7 +5,7 @@ import funkin.audio.FunkinSound;
 import funkin.data.character.CharacterRegistry;
 import funkin.play.character.Character;
 import funkin.ui.FunkinSubState;
-import funkin.ui.freeplay.FreeplayState;
+import funkin.ui.freeplay.FreeplaySubState;
 
 /**
  * The game over sub state that appears when the player dies.
@@ -72,7 +72,7 @@ class GameOverSubState extends FunkinSubState
         if (controls.ACCEPT)
             skip();
         if (controls.BACK)
-            FlxG.switchState(() -> new FreeplayState());
+            FlxG.switchState(() -> FreeplaySubState.build());
     }
 
     function skip()

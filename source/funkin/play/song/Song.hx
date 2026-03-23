@@ -38,6 +38,9 @@ class Song
         this.chart = chart;
     }
 
+    public function getRating(diff:String):Int
+        return meta.rating?.get(diff) ?? 0;
+
     public function getNotes(diff:String):Array<SongNoteData>
         return chart.notes?.get(diff) ?? [];
 

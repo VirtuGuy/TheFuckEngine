@@ -7,6 +7,8 @@ import funkin.data.event.EventRegistry;
 import funkin.data.song.SongRegistry;
 import funkin.data.stage.StageRegistry;
 import funkin.input.Controls;
+import funkin.save.Save;
+import funkin.ui.freeplay.FreeplaySubState;
 
 /**
  * The initial state of the game. This is what sets up the game.
@@ -27,12 +29,13 @@ class InitState extends FlxState
         // Instances
         Conductor.instance = new Conductor();
         Controls.instance = new Controls();
+        Save.instance = new Save();
 
         CharacterRegistry.instance = new CharacterRegistry();
         StageRegistry.instance = new StageRegistry();
         SongRegistry.instance = new SongRegistry();
         EventRegistry.instance = new EventRegistry();
 
-        FlxG.switchState(() -> new funkin.ui.freeplay.FreeplayState());
+        FlxG.switchState(() -> FreeplaySubState.build(false));
     }
 }

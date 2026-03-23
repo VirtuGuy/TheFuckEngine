@@ -26,8 +26,9 @@ import funkin.play.note.NoteSprite;
 import funkin.play.note.Strumline;
 import funkin.play.song.Song;
 import funkin.play.song.Voices;
+import funkin.save.Save;
 import funkin.ui.FunkinState;
-import funkin.ui.freeplay.FreeplayState;
+import funkin.ui.freeplay.FreeplaySubState;
 import funkin.util.MathUtil;
 import funkin.util.RhythmUtil;
 import funkin.util.SortUtil;
@@ -366,10 +367,13 @@ class PlayState extends FunkinState
 	{
 		songEnded = true;
 
+		// Save the song score
+		Save.instance.setScore(song.id, difficulty, Std.int(score), false);
+
 		FunkinSound.stopAllSounds(true);
 
-		// TODO: Change this to a results screen
-		FlxG.switchState(() -> new FreeplayState());
+		// TODO: Make this open the results screen instead
+		FlxG.switchState(() -> FreeplaySubState.build());
 	}
 
 	function pause()

@@ -6,7 +6,7 @@ import funkin.graphics.FunkinText;
 import funkin.play.song.Song;
 import funkin.ui.FunkinSubState;
 import funkin.ui.MenuList;
-import funkin.ui.freeplay.FreeplayState;
+import funkin.ui.freeplay.FreeplaySubState;
 
 /**
  * The game's pause menu sub state.
@@ -113,7 +113,7 @@ class PauseSubState extends FunkinSubState
                     PlayState.instance.resetSong();
                     close();
                 case 'exit to menu':
-                    FlxG.switchState(() -> new FreeplayState());
+                    FlxG.switchState(() -> FreeplaySubState.build());
                 case 'difficulty':
                     var entries:Array<String> = song.difficulties.copy();
 

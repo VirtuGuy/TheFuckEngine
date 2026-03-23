@@ -20,6 +20,9 @@ enum abstract Control(String) to String from String
     var BACK = 'back';
     var PAUSE = 'pause';
     var RESET = 'reset';
+    var FAVORITE = 'favorite';
+    var SORT_LEFT = 'sort-left';
+    var SORT_RIGHT = 'sort-right';
 }
 
 /**
@@ -41,6 +44,9 @@ class Controls extends FlxActionSet
     var back(default, null) = new FunkinAction(Control.BACK);
     var pause(default, null) = new FunkinAction(Control.PAUSE);
     var reset(default, null) = new FunkinAction(Control.RESET);
+    var favorite(default, null) = new FunkinAction(Control.FAVORITE);
+    var sort_left(default, null) = new FunkinAction(Control.SORT_LEFT);
+    var sort_right(default, null) = new FunkinAction(Control.SORT_RIGHT);
 
     public var NOTE_LEFT(get, never):Bool;
     public var NOTE_DOWN(get, never):Bool;
@@ -62,6 +68,9 @@ class Controls extends FlxActionSet
     public var BACK(get, never):Bool;
     public var PAUSE(get, never):Bool;
     public var RESET(get, never):Bool;
+    public var FAVORITE(get, never):Bool;
+    public var SORT_LEFT(get, never):Bool;
+    public var SORT_RIGHT(get, never):Bool;
 
     inline function get_NOTE_LEFT():Bool
         return note_left.check();
@@ -123,6 +132,15 @@ class Controls extends FlxActionSet
     inline function get_RESET():Bool
         return reset.checkPressed();
 
+    inline function get_FAVORITE():Bool
+        return favorite.checkPressed();
+
+    inline function get_SORT_LEFT():Bool
+        return sort_left.checkPressed();
+
+    inline function get_SORT_RIGHT():Bool
+        return sort_right.checkPressed();
+
     public function new()
     {
         super('controls');
@@ -140,6 +158,9 @@ class Controls extends FlxActionSet
         add(back);
         add(pause);
         add(reset);
+        add(favorite);
+        add(sort_left);
+        add(sort_right);
 
         // Sets the keys
         setKeys(Control.NOTE_LEFT, [A, LEFT]);
@@ -154,6 +175,9 @@ class Controls extends FlxActionSet
         setKeys(Control.BACK, [X, ESCAPE]);
         setKeys(Control.PAUSE, [P, ENTER]);
         setKeys(Control.RESET, [R]);
+        setKeys(Control.FAVORITE, [F]);
+        setKeys(Control.SORT_LEFT, [Q]);
+        setKeys(Control.SORT_RIGHT, [E]);
     }
 
     public function setKeys(id:Control, keys:Array<FlxKey>)
@@ -187,6 +211,9 @@ class Controls extends FlxActionSet
             case BACK: func(back);
             case PAUSE: func(pause);
             case RESET: func(reset);
+            case FAVORITE: func(favorite);
+            case SORT_LEFT: func(sort_left);
+            case SORT_RIGHT: func(sort_right);
         }
     }
 }

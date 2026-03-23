@@ -14,6 +14,7 @@ typedef SongMetadata = {
     var artist:String;
     @:default([])
     var difficulties:Array<String>;
+    var rating:Map<String, Int>;
     var stage:String;
     var opponent:String;
     var player:String;

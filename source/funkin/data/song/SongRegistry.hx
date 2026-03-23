@@ -3,6 +3,7 @@ package funkin.data.song;
 import funkin.data.song.SongData;
 import funkin.play.song.Song;
 import funkin.util.FileUtil;
+import funkin.util.SortUtil;
 import json2object.JsonParser;
 
 /**
@@ -39,5 +40,38 @@ class SongRegistry extends BaseRegistry<Song>
 
             register(id, song);
         }
+    }
+
+    public function getDifficulties():Array<String>
+    {
+        var diffs:Array<String> = [];
+
+        for (song in entries)
+        {
+            for (diff in song.difficulties)
+            {
+                // Skip the difficulty if it's already in the list
+                if (diffs.contains(diff)) continue;
+
+                diffs.push(diff);
+            }
+        }
+
+        return diffs;
+    }
+
+    public function listWithDifficulty(diff:String)
+    {
+        var list:Array<String> = [];
+
+        for (song in entries)
+        {
+            if (!song.difficulties.contains(diff)) continue;
+            list.push(song.id);
+        }
+
+        list.sort(SortUtil.defaultsAlphabetically.bind(Constants.DEFAULT_SONGS));
+
+        return list;
     }
 }

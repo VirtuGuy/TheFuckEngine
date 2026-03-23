@@ -4,7 +4,7 @@ import flixel.FlxGame;
 import openfl.display.FPS;
 
 /**
- * The main project class where Flixel is initialized.
+ * The engine's main class where Flixel is initialized.
  */
 class Main extends FlxGame
 {

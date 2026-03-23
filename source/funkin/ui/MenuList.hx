@@ -13,11 +13,10 @@ import funkin.util.MathUtil;
 class MenuList extends FlxTypedGroup<FunkinText>
 {
     public var entries(default, set):Array<String>;
-    public var selected:Int = 0;
-
-    public var onSelected(default, null) = new FlxTypedSignal<String->Void>();
-
     public var size(get, never):Int;
+
+    public var selected:Int = 0;
+    public var onSelected(default, null) = new FlxTypedSignal<String->Void>();
 
     var controls(get, never):Controls;
 
@@ -51,8 +50,10 @@ class MenuList extends FlxTypedGroup<FunkinText>
 
         selected += change;
 
-        if (selected < 0) selected = size - 1;
-        if (selected >= size) selected = 0;
+        if (selected < 0)
+            selected = size - 1;
+        if (selected >= size)
+            selected = 0;
     }
 
     inline function getItemX(item:FunkinText):Float

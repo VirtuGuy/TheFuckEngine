@@ -10,5 +10,10 @@
 	"player": "bf",
 	"stage": "stage",
 	"bpm": 180,
-	"artist": "Kawai Sprite"
+	"artist": "Kawai Sprite",
+	"rating": {
+		"normal": 2,
+		"hard": 3,
+		"easy": 1
+	}
 }
