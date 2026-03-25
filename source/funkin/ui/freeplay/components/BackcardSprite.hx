@@ -29,15 +29,15 @@ class BackcardSprite extends FlxSpriteGroup
         card.active = false;
         add(card);
 
-        text1 = new ScrollingText(0, 150, 'coolswag', -5);
+        text1 = new ScrollingText(0, 180, 'coolswag', -5);
         text1.scrollWidth = card.width;
         add(text1);
 
-        text2 = new ScrollingText(0, 300, 'warmer than blood', 3);
+        text2 = new ScrollingText(0, 330, 'warmer than blood', 3);
         text2.scrollWidth = card.width;
         add(text2);
 
-        text3 = new ScrollingText(0, 450, 'coolswag', -5);
+        text3 = new ScrollingText(0, 480, 'coolswag', -5);
         text3.scrollWidth = card.width;
         add(text3);
 

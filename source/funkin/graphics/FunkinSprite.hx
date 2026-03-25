@@ -44,4 +44,29 @@ class FunkinSprite extends FlxSprite
 
     public function getCurrentAnimation():String
         return animation.curAnim?.name ?? '';
+
+    /**
+     * A better version of `FlxSprite`'s `clone` function.
+     */
+    public function copy():FunkinSprite
+    {
+        var sprite:FunkinSprite = new FunkinSprite();
+
+        sprite.loadGraphicFromSprite(this);
+        sprite.setGraphicSize(width, height);
+        sprite.updateHitbox();
+
+        sprite.animation.copyFrom(animation);
+        sprite.offset.copyFrom(offset);
+        sprite.origin.copyFrom(origin);
+
+        sprite.angle = angle;
+        sprite.flipX = flipX;
+        sprite.flipY = flipY;
+        
+        sprite.visible = visible;
+        sprite.active = active;
+
+        return sprite;
+    }
 }
