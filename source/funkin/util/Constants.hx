@@ -33,7 +33,7 @@ class Constants
     public static final DEFAULT_SPEED:Float = 1;
     public static final DEFAULT_CAMERA_ZOOM:Float = 1;
 
-    public static final RESYNC_THRESHOLD:Float = 40;
+    public static final RESYNC_THRESHOLD:Float = 30;
 
     public static final HIT_WINDOW_MS:Float = 160;
     public static final SICK_WINDOW_MS:Float = 45;

@@ -38,13 +38,6 @@ class Main extends FlxGame
 		//
 		// INIT
 		//
-		
-		// Flixel
-		FlxG.fixedTimestep = false;
-		FlxG.game.focusLostFramerate = 30;
-		FlxG.inputs.resetOnStateSwitch = false;
-		FlxG.mouse.visible = false;
-		FlxObject.defaultMoves = false;
 
 		// Instances
 		Conductor.instance = new Conductor();
@@ -69,5 +62,13 @@ class Main extends FlxGame
 		fpsCounter = new FPS(10, 10, 0xFFFFFF);
 		addChild(fpsCounter);
 		#end
+
+		// Flixel
+		// Yes this has to be done here
+		FlxG.fixedTimestep = false;
+		FlxG.game.focusLostFramerate = 30;
+		FlxG.inputs.resetOnStateSwitch = false;
+		FlxG.mouse.visible = false;
+		FlxObject.defaultMoves = false;
 	}
 }
