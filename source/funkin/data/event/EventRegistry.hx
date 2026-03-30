@@ -1,18 +1,14 @@
 package funkin.data.event;
 
-import funkin.play.event.BaseEvent;
-import funkin.play.event.FocusCameraEvent;
-import funkin.play.event.PlayAnimationEvent;
+import funkin.modding.ScriptBases.ScriptedSongEvent;
+import funkin.play.song.SongEvent;
 
 /**
  * A registry class for loading song events.
  */
-class EventRegistry extends BaseRegistry<BaseEvent>
+class EventRegistry extends BaseRegistry<SongEvent>
 {
     public static var instance:EventRegistry;
-
-    // TODO: Make this build automatically
-    final DEFAULT_EVENTS:Array<Class<BaseEvent>> = [FocusCameraEvent, PlayAnimationEvent];
 
     public function new()
     {
@@ -23,12 +19,20 @@ class EventRegistry extends BaseRegistry<BaseEvent>
     {
         super.load();
 
-        // Loads the engine's hardcoded events
-        for (event in DEFAULT_EVENTS)
-        {
-            var event:BaseEvent = Type.createInstance(event, []);
+        // Song events are loaded just like how scripted stuff is loaded in registries
+        // Song events are literally just code, so yeah
+        var scripts:Array<String> = ScriptedSongEvent.listScriptClasses();
 
-            register(event.id, event);
+        trace('Loading ${scripts.length} scripted song event(s)...');
+
+        for (script in scripts)
+        {
+            try {
+                var event:SongEvent = ScriptedSongEvent.scriptInit(script, '');
+                entries.set(event.id, event);
+            }
+            catch (e)
+                trace('Failed to load script $script.');
         }
     }
 

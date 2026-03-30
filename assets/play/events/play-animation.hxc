@@ -1,0 +1,16 @@
+import funkin.play.song.SongEvent;
+
+class PlayAnimationEvent extends SongEvent
+{
+    public function new()
+    {
+        super("play-animation");
+    }
+
+    override function handle(value:Dynamic)
+    {
+        super.handle(value);
+
+        getCharacter('c')?.playAnimation(getString('a'), getBool('f'));
+    }
+}

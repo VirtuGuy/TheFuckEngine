@@ -1,0 +1,20 @@
+import funkin.play.song.SongEvent;
+import funkin.play.PlayState;
+
+class FocusCameraEvent extends SongEvent
+{
+    public function new()
+    {
+        super("focus-camera");
+    }
+
+    override function handle(value:Dynamic)
+    {
+        super.handle(value);
+
+        var target:Character = getCharacter('c');
+        var instant:Bool = getBool('i');
+
+        PlayState.instance.setCameraTarget(target, instant);
+    }
+}

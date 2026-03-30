@@ -1,11 +1,11 @@
-package funkin.play.event;
+package funkin.play.song;
 
 import funkin.play.character.Character;
 
 /**
  * The base class for the engine's song events.
  */
-class BaseEvent
+class SongEvent
 {
     public var id:String;
 
@@ -55,4 +55,7 @@ class BaseEvent
 
     inline function hasValue(id:String):Bool
         return Reflect.hasField(currentValue, id);
+
+    public function toString():String
+        return id;
 }
