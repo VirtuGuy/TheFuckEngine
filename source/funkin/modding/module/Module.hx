@@ -2,6 +2,7 @@ package funkin.modding.module;
 
 import funkin.modding.IScriptedClass.IPlayStateScriptedClass;
 import funkin.modding.event.ScriptEvent;
+import funkin.play.components.Countdown;
 
 /**
  * A class that serves as an advanced script class for mods.
@@ -42,6 +43,8 @@ class Module implements IPlayStateScriptedClass
     public function onSongStart(event:ScriptEvent) {}
     public function onSongEnd(event:ScriptEvent) {}
     public function onSongRetry(event:ScriptEvent) {}
+    public function onCountdownStart(event:CountdownScriptEvent) {}
+    public function onCountdownStep(event:CountdownScriptEvent) {}
     public function onPause(event:ScriptEvent) {}
     public function onGameOver(event:ScriptEvent) {}
 

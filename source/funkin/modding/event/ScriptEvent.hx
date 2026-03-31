@@ -12,21 +12,15 @@ import funkin.play.note.NoteSprite;
 class ScriptEvent
 {
     public var type(default, null):ScriptEventType;
-    public var cancelable(default, null):Bool;
-
     public var cancelled(default, null):Bool = false;
 
-    public function new(type:ScriptEventType, cancelable:Bool)
+    public function new(type:ScriptEventType)
     {
         this.type = type;
-        this.cancelable = cancelable;
     }
 
     public function cancel()
-    {
-        if (!cancelable) return;
         cancelled = true;
-    }
 }
 
 /**
@@ -38,7 +32,7 @@ class UpdateScriptEvent extends ScriptEvent
 
     public function new(elapsed:Float)
     {
-        super(Update, false);
+        super(Update);
 
         this.elapsed = elapsed;
     }
@@ -55,7 +49,7 @@ class ConductorScriptEvent extends ScriptEvent
 
     public function new(type:ScriptEventType, step:Int, beat:Int, section:Int)
     {
-        super(type, false);
+        super(type);
 
         this.step = step;
         this.beat = beat;
@@ -73,7 +67,7 @@ class SongLoadScriptEvent extends ScriptEvent
 
     public function new(notes:Array<SongNoteData>, events:Array<EventData>)
     {
-        super(SongLoad, false);
+        super(SongLoad);
 
         this.notes = notes;
         this.events = events;
@@ -91,7 +85,7 @@ class NoteScriptEvent extends ScriptEvent
 
     public function new(type:ScriptEventType, note:NoteSprite)
     {
-        super(type, true);
+        super(type);
 
         this.note = note;
     }
@@ -108,7 +102,7 @@ class HoldNoteScriptEvent extends ScriptEvent
 
     public function new(type:ScriptEventType, holdNote:HoldNoteSprite)
     {
-        super(type, true);
+        super(type);
 
         this.holdNote = holdNote;
     }
@@ -125,8 +119,25 @@ class GhostMissScriptEvent extends ScriptEvent
 
     public function new(direction:NoteDirection)
     {
-        super(GhostMiss, true);
+        super(GhostMiss);
 
         this.direction = direction;
+    }
+}
+
+/**
+ * A script event that runs for the countdown.
+ * 
+ * This event is cancelable.
+ */
+class CountdownScriptEvent extends ScriptEvent
+{
+    public var step(default, null):Int;
+
+    public function new(type:ScriptEventType, step:Int)
+    {
+        super(type);
+
+        this.step = step;
     }
 }

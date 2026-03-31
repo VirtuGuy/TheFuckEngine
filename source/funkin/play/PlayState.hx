@@ -58,6 +58,7 @@ class PlayState extends FunkinState
 	var songLoaded:Bool;
 	var songStarted:Bool;
 	var songEnded:Bool;
+	var songActive:Bool;
 
 	var health:Float;
 	var healthLerp:Float;
@@ -168,7 +169,7 @@ class PlayState extends FunkinState
 		refresh();
 
 		// Runs the create script event
-		dispatch(new ScriptEvent(Create, false));
+		dispatch(new ScriptEvent(Create));
 	}
 
 	override public function update(elapsed:Float)
@@ -179,22 +180,25 @@ class PlayState extends FunkinState
 		// SONG
 		//
 
-		if (songLoaded)
+		if (songActive)
 		{
-			conductor.time += elapsed * Constants.MS_PER_SEC;
-			conductor.update();
+			if (songLoaded)
+			{
+				conductor.time += elapsed * Constants.MS_PER_SEC;
+				conductor.update();
 
-			if (conductor.time >= 0 && !songStarted)
-				startSong();
+				if (conductor.time >= 0 && !songStarted)
+					startSong();
 
-			checkSongTime();
+				checkSongTime();
+			}
+
+			opponentStrumline.process(false);
+			playerStrumline.process(!Preferences.botplay);
+
+			processEvents();
+			processInput();
 		}
-
-		opponentStrumline.process(false);
-		playerStrumline.process(!Preferences.botplay);
-
-		processEvents();
-		processInput();
 
 		//
 		// HUD
@@ -229,19 +233,10 @@ class PlayState extends FunkinState
 		FlxG.camera.zoom = MathUtil.lerp(FlxG.camera.zoom, stage.zoom, 0.03);
 		camHUD.zoom = MathUtil.lerp(camHUD.zoom, 1, 0.03);
 
-		if (controls.PAUSE)
-			pause();
-
-		if (controls.RESET)
-		{
-			health = 0;
-			healthLerp = 0;
-		}
-
 		// Death :(
 		if (health <= healthBar.min)
 		{
-			var event:ScriptEvent = new ScriptEvent(GameOver, true);
+			var event:ScriptEvent = new ScriptEvent(GameOver);
 			dispatch(event);
 
 			if (!event.cancelled)
@@ -259,7 +254,14 @@ class PlayState extends FunkinState
 		stage.player?.dance();
 		stage.gf?.dance();
 
-		countdown.advance();
+		if (countdown.step < 3)
+		{
+			var event:CountdownScriptEvent = new CountdownScriptEvent(CountdownStep, countdown.step + 1);
+			dispatch(event);
+
+			if (!event.cancelled)
+				countdown.advance();
+		}
 
 		// Don't bop all this stuff until the song starts
 		if (!songStarted) return;
@@ -282,7 +284,7 @@ class PlayState extends FunkinState
 
 		if (isRetry)
 		{
-			var event:ScriptEvent = new ScriptEvent(SongRetry, true);
+			var event:ScriptEvent = new ScriptEvent(SongRetry);
 			dispatch(event);
 
 			if (event.cancelled) return;
@@ -292,6 +294,7 @@ class PlayState extends FunkinState
 
 		songStarted = false;
 		songEnded = false;
+		songActive = false;
 
 		score = 0;
 		tallies.reset();
@@ -326,9 +329,20 @@ class PlayState extends FunkinState
 		conductor.reset(song.bpm);
 		conductor.time = -conductor.crotchet * 4;
 
-		countdown.start();
+		startCountdown();
 
 		FunkinSound.stopAllSounds(true);
+	}
+
+	public function startCountdown()
+	{
+		var event:CountdownScriptEvent = new CountdownScriptEvent(CountdownStart, -1);
+		dispatch(event);
+
+		if (event.cancelled) return;
+
+		songActive = true;
+		countdown.start();
 	}
 
 	public function setCameraTarget(target:Character, instant:Bool = false)
@@ -347,7 +361,7 @@ class PlayState extends FunkinState
 
 	public function pause()
 	{
-		var event:ScriptEvent = new ScriptEvent(Pause, true);
+		var event:ScriptEvent = new ScriptEvent(Pause);
 		dispatch(event);
 
 		if (event.cancelled) return;
@@ -399,7 +413,7 @@ class PlayState extends FunkinState
 
 	function startSong()
 	{
-		var event:ScriptEvent = new ScriptEvent(SongStart, false);
+		var event:ScriptEvent = new ScriptEvent(SongStart);
 		dispatch(event);
 
 		songStarted = true;
@@ -410,7 +424,7 @@ class PlayState extends FunkinState
 
 	function endSong()
 	{
-		var event:ScriptEvent = new ScriptEvent(SongEnd, true);
+		var event:ScriptEvent = new ScriptEvent(SongEnd);
 		dispatch(event);
 
 		if (event.cancelled) return;
@@ -530,6 +544,17 @@ class PlayState extends FunkinState
 			if (event.cancelled) continue;
 
 			opponentStrumline.hitNote(note);
+		}
+
+		// The misc stuff
+		// Pausing, resetting, etc.
+		if (controls.PAUSE)
+			pause();
+
+		if (controls.RESET)
+		{
+			health = 0;
+			healthLerp = 0;
 		}
 	}
 
@@ -703,6 +728,6 @@ class PlayState extends FunkinState
 		FunkinMemory.clearCache();
 
 		// Runs the destroy script event
-		dispatch(new ScriptEvent(Destroy, false));
+		dispatch(new ScriptEvent(Destroy));
 	}
 }
