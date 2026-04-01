@@ -1,12 +1,12 @@
-#if !interp
-package scripts;
-#end
-
 import haxe.Json;
 import sys.FileSystem;
 import sys.io.File;
 
 using StringTools;
+#if !interp
+package scripts;
+#end
+
 
 /**
  * A class for converting a V-Slice song to a song that the engine can take.
@@ -44,11 +44,13 @@ class SongConverter
         var meta:Dynamic = Json.parse(File.getContent(metaPath));
         var chart:Dynamic = Json.parse(File.getContent(chartPath));
 
+        var timeChanges:Array<Dynamic> = meta.timeChanges;
+
         var wtfMeta:Dynamic = {}
         var wtfChart:Dynamic = {}
 
         wtfMeta.name = meta.songName;
-        wtfMeta.bpm = meta.timeChanges[0].bpm;
+        wtfMeta.bpm = timeChanges[0].bpm;
         wtfMeta.artist = meta.artist;
         wtfMeta.difficulties = meta.playData.difficulties;
         wtfMeta.rating = meta.playData.ratings;
@@ -109,6 +111,19 @@ class SongConverter
 
             wtfChart.events.push(wtfEvent);
         }
+
+        for (timeChange in timeChanges)
+        {
+            // Don't include the first time change
+            if (timeChange.t == 0) continue;
+
+            var time:Float = timeChange.t;
+            var bpm:Float = timeChange.bpm;
+
+            wtfChart.events.push({ t: time, e: 'change-bpm', v: { b: bpm } });
+        }
+
+        wtfChart.events.sort((a, b) -> return a.t - b.t);
 
         // Saves the final song
         final output:String = '../assets/play/songs/$songName';

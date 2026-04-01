@@ -29,7 +29,8 @@ class Constants
      */
     public static final DEFAULT_LEVELS:Array<String> = [
         'tutorial',
-        'week1'
+        'week1',
+        'week2'
     ];
 
     public static final DEFAULT_NAME:String = 'Untitled';

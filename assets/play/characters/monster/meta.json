@@ -1,0 +1,30 @@
+{
+    "name": "Monster",
+    "frameWidth": 227,
+    "frameHeight": 274,
+    "globalOffset": [30, -400],
+    "cameraOffset": [100, -80],
+    "icon": {},
+    "animations": [
+        {
+            "name": "idle",
+            "frames": [0, 1, 2]
+        },
+        {
+            "name": "left",
+            "frames": [3, 4]
+        },
+        {
+            "name": "down",
+            "frames": [5, 6]
+        },
+        {
+            "name": "up",
+            "frames": [7, 8]
+        },
+        {
+            "name": "right",
+            "frames": [9, 10]
+        }
+    ]
+}

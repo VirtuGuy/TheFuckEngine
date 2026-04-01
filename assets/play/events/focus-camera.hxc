@@ -12,8 +12,8 @@ class FocusCameraEvent extends SongEvent
     {
         super.handle(value);
 
-        var target:Character = getCharacter('c');
-        var instant:Bool = getBool('i');
+        var target:Character = getCharacter("c");
+        var instant:Bool = getBool("i");
 
         PlayState.instance.setCameraTarget(target, instant);
     }

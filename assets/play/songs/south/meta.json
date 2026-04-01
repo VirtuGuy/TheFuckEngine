@@ -1,0 +1,19 @@
+{
+	"name": "South",
+	"gf": "gf",
+	"difficulties": [
+		"easy",
+		"normal",
+		"hard"
+	],
+	"opponent": "spooky",
+	"player": "bf",
+	"stage": "spooky",
+	"bpm": 165,
+	"artist": "Kawai Sprite",
+	"rating": {
+		"normal": 2,
+		"hard": 2,
+		"easy": 1
+	}
+}

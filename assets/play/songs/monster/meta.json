@@ -1,0 +1,19 @@
+{
+	"name": "Monster",
+	"gf": "gf",
+	"difficulties": [
+		"easy",
+		"normal",
+		"hard"
+	],
+	"opponent": "monster",
+	"player": "bf",
+	"stage": "spooky",
+	"bpm": 95,
+	"artist": "Bassetfilms",
+	"rating": {
+		"normal": 2,
+		"hard": 2,
+		"easy": 1
+	}
+}

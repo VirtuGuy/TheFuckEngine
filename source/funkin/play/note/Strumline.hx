@@ -67,6 +67,7 @@ class Strumline extends FlxGroup
             var noteData:SongNoteData = data[0];
             var time:Float = noteData.t;
             var direction:NoteDirection = NoteDirection.fromInt(noteData.d);
+            var kind:String = noteData.k;
             var length:Float = noteData.l;
 
             if (RhythmUtil.getDistance(time, speed) > FlxG.height) break;
@@ -84,6 +85,7 @@ class Strumline extends FlxGroup
 
             note.time = time;
             note.direction = direction;
+            note.kind = kind;
             note.data = noteData;
 
             // Creates a hold note
@@ -95,6 +97,7 @@ class Strumline extends FlxGroup
 
                 holdNote.time = time;
                 holdNote.direction = direction;
+                holdNote.kind = kind;
                 holdNote.length = length;
                 holdNote.fullLength = length;
 

@@ -1,0 +1,23 @@
+import funkin.play.song.SongEvent;
+import funkin.Conductor;
+
+class ChangeBPMEvent extends SongEvent
+{
+    public function new()
+    {
+        super("change-bpm");
+    }
+
+    override function handle(value:Dynamic)
+    {
+        super.handle(value);
+
+        var conductor:Conductor = Conductor.instance;
+        var lastBPM:Float = conductor.bpm;
+        var bpm:Float = getFloat("b");
+
+        conductor.bpm = bpm;
+
+        trace('Changed BPM from $lastBPM to $bpm.');
+    }
+}

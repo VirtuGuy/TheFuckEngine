@@ -12,6 +12,7 @@ class HoldNoteSprite extends FlxStrip
 
     public var time:Float;
     public var direction(default, set):NoteDirection;
+    public var kind:String;
     public var length(default, set):Float;
     public var speed(default, set):Float;
 
@@ -127,6 +128,7 @@ class HoldNoteSprite extends FlxStrip
 
         time = 0;
         direction = LEFT;
+        kind = '';
         length = 0;
         speed = 0;
 

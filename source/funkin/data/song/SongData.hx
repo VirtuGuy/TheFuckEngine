@@ -36,4 +36,5 @@ typedef SongNoteData = {
     var t:Float;
     var d:Int;
     var l:Float;
+    var k:String;
 }

@@ -1,0 +1,12 @@
+{
+    "name": "Spooky Kids",
+    "frameWidth": 218,
+    "frameHeight": 245,
+    "scale": 0.9,
+    "animations": [
+        {
+            "name": "idle",
+            "frames": [0, 1, 2]
+        }
+    ]
+}

@@ -1,0 +1,19 @@
+{
+	"name": "Spookeez",
+	"gf": "gf",
+	"difficulties": [
+		"easy",
+		"normal",
+		"hard"
+	],
+	"opponent": "spooky",
+	"player": "bf",
+	"stage": "spooky",
+	"bpm": 150,
+	"artist": "Kawai Sprite",
+	"rating": {
+		"normal": 1,
+		"hard": 2,
+		"easy": 1
+	}
+}

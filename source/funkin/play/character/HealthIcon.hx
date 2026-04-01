@@ -32,7 +32,7 @@ class HealthIcon extends FunkinSprite
         // Death icon check
         loadSprite(path, meta.scale);
 
-        if (graphic.width > size)
+        if (graphic?.width > size)
         {
             loadSprite(path, meta.scale, size, size);
 

@@ -10,6 +10,7 @@ class NoteSprite extends FunkinSprite
 {
     public var time:Float;
     public var direction(default, set):NoteDirection;
+    public var kind:String;
 
     public var mayHit:Bool;
     public var willMiss:Bool;
@@ -49,6 +50,7 @@ class NoteSprite extends FunkinSprite
 
         time = 0;
         direction = LEFT;
+        kind = '';
 
         mayHit = false;
         willMiss = false;

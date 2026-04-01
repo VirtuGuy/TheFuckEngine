@@ -11,6 +11,12 @@ class PlayAnimationEvent extends SongEvent
     {
         super.handle(value);
 
-        getCharacter('c')?.playAnimation(getString('a'), getBool('f'));
+        var target:Character = getCharacter("c");
+        var anim:String = getString("a");
+        var force:Bool = getBool("f");
+
+        if (target == null) return;
+
+        target.playAnimation(anim, force);
     }
 }

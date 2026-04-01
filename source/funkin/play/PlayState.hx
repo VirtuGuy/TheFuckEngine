@@ -581,7 +581,9 @@ class PlayState extends FunkinState
 				tallies.shits++;
 		}
 
-		stage.player?.sing(note.direction);
+		if (note.kind != 'noanim')
+			stage.player?.sing(note.direction);
+
 		voices.playerVolume = 1;
 
 		popups.popupJudgement(judgement);
@@ -598,7 +600,9 @@ class PlayState extends FunkinState
 		score += Constants.HOLD_SCORE_PER_SEC * FlxG.elapsed;
 		health += Constants.HOLD_HEALTH_PER_SEC * FlxG.elapsed;
 
-		stage.player?.resetSingTimer();
+		if (holdNote.kind != 'noanim')
+			stage.player?.resetSingTimer();
+
 		voices.playerVolume = 1;
 	}
 
@@ -656,12 +660,14 @@ class PlayState extends FunkinState
 
 	function opponentNoteHit(note:NoteSprite)
 	{
-		stage.opponent?.sing(note.direction);
+		if (note.kind != 'noanim')
+			stage.opponent?.sing(note.direction);
 	}
 
 	function opponentHoldNoteHit(holdNote:HoldNoteSprite)
 	{
-		stage.opponent?.resetSingTimer();
+		if (holdNote.kind != 'noanim')
+			stage.opponent?.resetSingTimer();
 	}
 
 	public function exit()
