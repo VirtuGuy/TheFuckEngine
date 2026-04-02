@@ -9,8 +9,17 @@ import funkin.ui.menu.MainMenuState;
  */
 class ReloadPlugin extends FlxBasic
 {
+	public static var instance:ReloadPlugin;
+
 	public static function init()
 		FlxG.plugins.addPlugin(new ReloadPlugin());
+
+	public function new()
+	{
+		super();
+
+		instance = this;
+	}
 
 	override public function update(elapsed:Float)
 	{

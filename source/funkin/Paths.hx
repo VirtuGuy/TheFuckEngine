@@ -10,6 +10,9 @@ class Paths
 	public static inline function path(id:String):String
 		return 'assets/$id';
 
+	public static inline function random(id:String, min:Int, max:Int):String
+		return '$id${FlxG.random.int(min, max)}';
+
 	public static inline function image(id:String):String
 		return path('$id.${Constants.IMAGE_EXT}');
 

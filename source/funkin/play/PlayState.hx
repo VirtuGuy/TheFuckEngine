@@ -31,6 +31,7 @@ import funkin.play.song.Voices;
 import funkin.save.Save;
 import funkin.ui.FunkinState;
 import funkin.ui.freeplay.FreeplaySubState;
+import funkin.ui.sticker.StickerSubState;
 import funkin.ui.story.StoryMenuSubState;
 import funkin.util.MathUtil;
 import funkin.util.RhythmUtil;
@@ -80,9 +81,6 @@ class PlayState extends FunkinState
 		super.create();
 
 		instance = this;
-
-		// Clear the cache because it's good
-		FunkinMemory.clearCache();
 
 		//
 		// CAMERAS
@@ -162,8 +160,6 @@ class PlayState extends FunkinState
 		tallies = new Tallies();
 
 		loadCharacters();
-		loadSong();
-
 		resetSong(false);
 
 		refresh();
@@ -284,6 +280,15 @@ class PlayState extends FunkinState
 		// Putting this before it to stop that from happening
 		health = Constants.STARTING_HEALTH;
 
+		if (!songLoaded)
+		{
+			songLoaded = true;
+			healthLerp = health;
+
+			FunkinSound.playMusic(song.instPath, 1, false, false);
+			voices = new Voices(song);
+		}
+
 		if (isRetry)
 		{
 			var event:ScriptEvent = new ScriptEvent(SongRetry);
@@ -292,8 +297,6 @@ class PlayState extends FunkinState
 			if (event.cancelled)
 				return;
 		}
-		else
-			healthLerp = health;
 
 		songStarted = false;
 		songEnded = false;
@@ -407,14 +410,6 @@ class PlayState extends FunkinState
 			playerIcon.y = healthBar.y - playerIcon.height / 2;
 			add(playerIcon);
 		}
-	}
-
-	function loadSong()
-	{
-		songLoaded = true;
-
-		FunkinSound.playMusic(song.instPath, 1, false, false);
-		voices = new Voices(song);
 	}
 
 	function startSong()
@@ -699,9 +694,9 @@ class PlayState extends FunkinState
 	public function exit()
 	{
 		if (Playlist.isStory)
-			FlxG.switchState(() -> StoryMenuSubState.build());
+			StickerSubState.switchState(() -> StoryMenuSubState.build());
 		else
-			FlxG.switchState(() -> FreeplaySubState.build());
+			StickerSubState.switchState(() -> FreeplaySubState.build());
 	}
 
 	override function dispatch(event:ScriptEvent)
@@ -721,8 +716,8 @@ class PlayState extends FunkinState
 	{
 		super.openSubState(subState);
 
-		FunkinSound.music.pause();
-		voices.pause();
+		FunkinSound.music?.pause();
+		voices?.pause();
 
 		FlxTween.globalManager.active = false;
 		FlxG.sound.defaultSoundGroup.pause();
@@ -755,9 +750,6 @@ class PlayState extends FunkinState
 		// Gonna want to reactivate this when the state is destroyed
 		// There are problems if this isn't done
 		FlxTween.globalManager.active = true;
-
-		// Clear the cache because it's good
-		FunkinMemory.clearCache();
 
 		// Runs the destroy script event
 		dispatch(new ScriptEvent(Destroy));

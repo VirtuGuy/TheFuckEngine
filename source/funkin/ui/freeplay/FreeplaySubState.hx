@@ -4,7 +4,6 @@ import flixel.FlxCamera;
 import flixel.util.FlxTimer;
 import funkin.audio.FunkinSound;
 import funkin.data.song.SongRegistry;
-import funkin.data.story.LevelRegistry;
 import funkin.graphics.FunkinSprite;
 import funkin.graphics.FunkinText;
 import funkin.graphics.shader.TextureSwap;
@@ -222,7 +221,7 @@ class FreeplaySubState extends FunkinSubState
 		if (capsule.song == null)
 		{
 			var list:Array<CapsuleSprite> = capsules.members.filter(capsule -> capsule.alive && capsule.song != null);
-			var random:CapsuleSprite = list[FlxG.random.int(0, list.length - 1)];
+			var random:CapsuleSprite = FlxG.random.getObject(list);
 
 			capsule = random;
 

@@ -34,12 +34,10 @@ class Conductor
 		final lastBeat:Int = beat;
 		final lastSection:Int = section;
 
-		// Calculates the current step
 		step = changeStep + Math.floor((time - changeTimestamp) / quaver);
 		beat = Math.floor(step / Constants.STEPS_PER_BEAT);
 		section = Math.floor(step / Constants.STEPS_PER_SECTION);
 
-		// Dispatches signals
 		if (lastStep != step)
 			stepHit.dispatch(step);
 		if (lastBeat != beat)
@@ -49,6 +47,7 @@ class Conductor
 
 		// Debug watching (for debugging purposes)
 		FlxG.watch.addQuick('time', time);
+		FlxG.watch.addQuick('bpm', bpm);
 		FlxG.watch.addQuick('step', step);
 		FlxG.watch.addQuick('beat', beat);
 		FlxG.watch.addQuick('section', section);

@@ -7,7 +7,6 @@ import funkin.graphics.FunkinText;
 import funkin.play.song.Song;
 import funkin.ui.FunkinSubState;
 import funkin.ui.MenuList;
-import funkin.ui.freeplay.FreeplaySubState;
 
 /**
  * The game's pause menu sub state.

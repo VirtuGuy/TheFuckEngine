@@ -1,9 +1,10 @@
 package funkin;
 
+import openfl.utils.Assets;
+import polymod.Polymod;
 #if cpp
 import cpp.vm.Gc;
 #end
-import openfl.utils.Assets;
 
 /**
  * A class for handling sound and image cache.
@@ -14,9 +15,12 @@ class FunkinMemory
 {
 	public static function clearCache()
 	{
-		Assets.cache.clear();
+		// Clears the polymore cache
+		// Yes that's right
+		// Clearing the polymore cache
+		Polymod.clearCache();
 
-		// Clear the bitmap cache
+		Assets.cache.clear();
 		FlxG.bitmap.clearCache();
 
 		// Run the garbage collector
