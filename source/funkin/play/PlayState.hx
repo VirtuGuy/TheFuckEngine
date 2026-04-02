@@ -490,18 +490,28 @@ class PlayState extends FunkinState
 				break;
 
 			// Skip the event if it's one second late
-			if (conductor.time - event.t > 1000)
+			if (conductor.time - event.t > Constants.MS_PER_SEC)
 			{
 				events.shift();
 				break;
 			}
 
 			// Handle the event
-			EventRegistry.instance.handleEvent(event.e, event.v);
+			// That's if the script event wasn't cancelled though
+			var event:SongEventScriptEvent = new SongEventScriptEvent(event.e, event.v);
+			dispatch(event);
+
+			if (event.cancelled)
+			{
+				events.shift();
+				break;
+			}
+
+			EventRegistry.instance.handleEvent(event.kind, event.value);
 
 			events.shift();
 
-			trace('Handling event ${event.e}.');
+			trace('Handling event ${event.kind}.');
 		}
 	}
 

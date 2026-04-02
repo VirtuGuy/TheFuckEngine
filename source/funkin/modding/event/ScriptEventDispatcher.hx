@@ -93,6 +93,8 @@ class ScriptEventDispatcher
                     target.onSongEnd(event);
                 case SongRetry:
                     target.onSongRetry(event);
+                case SongEvent:
+                    target.onSongEvent(cast event);
                 case CountdownStart:
                     target.onCountdownStart(cast event);
                 case CountdownStep:

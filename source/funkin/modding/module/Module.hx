@@ -43,6 +43,7 @@ class Module implements IPlayStateScriptedClass
     public function onSongStart(event:ScriptEvent) {}
     public function onSongEnd(event:ScriptEvent) {}
     public function onSongRetry(event:ScriptEvent) {}
+    public function onSongEvent(event:SongEventScriptEvent) {}
     public function onCountdownStart(event:CountdownScriptEvent) {}
     public function onCountdownStep(event:CountdownScriptEvent) {}
     public function onPause(event:ScriptEvent) {}

@@ -109,6 +109,25 @@ class HoldNoteScriptEvent extends ScriptEvent
 }
 
 /**
+ * A script event that runs when a song event occurs.
+ * 
+ * This event is cancelable.
+ */
+class SongEventScriptEvent extends ScriptEvent
+{
+    public var kind:String;
+    public var value:Dynamic;
+
+    public function new(kind:String, value:Dynamic)
+    {
+        super(SongEvent);
+
+        this.kind = kind;
+        this.value = value;
+    }
+}
+
+/**
  * A script event that runs when a ghost miss occurs.
  * 
  * This event is cancelable.
