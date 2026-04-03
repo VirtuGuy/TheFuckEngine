@@ -29,7 +29,7 @@ class StateMachine
 		previousState = currentState;
 		currentState = state;
 
-		trace('Transitioned from $previousState to $currentState.');
+		// trace('Transitioned from $previousState to $currentState.');
 
 		return true;
 	}

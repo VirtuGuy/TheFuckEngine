@@ -5,6 +5,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.util.FlxTimer;
 import flixel.util.typeLimit.NextState;
 import funkin.audio.FunkinSound;
+import funkin.data.sticker.StickerRegistry;
 
 /**
  * The sub state where the screen is filled with stickers.
@@ -18,14 +19,21 @@ class StickerSubState extends FunkinSubState
 	static var stickers:FlxTypedGroup<StickerSprite>;
 
 	public var nextState:NextState;
+	public var pack:String;
 
 	var persist:Bool = false;
 
-	public function new(?nextState:NextState)
+	public function new(?nextState:NextState, ?pack:String)
 	{
 		super();
 
+		// Fallback in case the specified pack doesn't exist
+		// BF should ALWAYS exist
+		if (!StickerRegistry.instance.exists(pack))
+			pack = 'bf';
+
 		this.nextState = nextState;
+		this.pack = pack;
 	}
 
 	override public function create()
@@ -45,11 +53,15 @@ class StickerSubState extends FunkinSubState
 			var x:Float = START_OFFSET;
 			var y:Float = START_OFFSET;
 
+			final pack:StickerPack = StickerRegistry.instance.fetch(pack);
+
 			while (x < FlxG.width)
 			{
-				final image:String = Paths.random('sticker', 1, 4);
+				if (pack.images.length == 0)
+					break;
 
-				var sticker:StickerSprite = new StickerSprite(x, y, image);
+				var sticker:StickerSprite = pack.buildSticker(pack.pickRandom());
+				sticker.setPosition(x, y);
 				stickers.add(sticker);
 
 				x += sticker.width / 2;
@@ -73,12 +85,16 @@ class StickerSubState extends FunkinSubState
 				sticker.visible = !sticker.visible;
 
 				// Plays a cool sticker sound :)
-				FunkinSound.playOnce(Paths.random('ui/stickers/sounds/sticker', 1, 5));
+				FunkinSound.playOnce(Paths.random('ui/sticker/sounds/sticker', 1, 5));
 
 				if (i == stickers.length - 1)
 					transition();
 			});
 		}
+
+		// Immediately transition if there are no stickers
+		if (stickers.length == 0)
+			transition();
 	}
 
 	function transition()
@@ -90,7 +106,7 @@ class StickerSubState extends FunkinSubState
 			FlxG.switchState(nextState);
 			FlxG.signals.preStateCreate.addOnce(state ->
 			{
-				var stickers:StickerSubState = new StickerSubState();
+				var stickers:StickerSubState = new StickerSubState(null, pack);
 
 				// This is so dumb :whattheangry:
 				@:privateAccess
@@ -123,9 +139,9 @@ class StickerSubState extends FunkinSubState
 		super.destroy();
 	}
 
-	public static function switchState(nextState:NextState)
+	public static function switchState(nextState:NextState, ?pack:String)
 	{
-		var stickers:StickerSubState = new StickerSubState(nextState);
+		var stickers:StickerSubState = new StickerSubState(nextState, pack);
 
 		if (FlxG.state.subState != null)
 			FlxG.state.subState.openSubState(stickers);

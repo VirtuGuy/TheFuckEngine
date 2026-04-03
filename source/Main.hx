@@ -9,6 +9,7 @@ import funkin.data.character.CharacterRegistry;
 import funkin.data.event.EventRegistry;
 import funkin.data.song.SongRegistry;
 import funkin.data.stage.StageRegistry;
+import funkin.data.sticker.StickerRegistry;
 import funkin.data.story.LevelRegistry;
 import funkin.input.Controls;
 import funkin.modding.ModHandler;
@@ -56,6 +57,7 @@ class Main extends FlxGame
 		SongRegistry.instance = new SongRegistry();
 		LevelRegistry.instance = new LevelRegistry();
 		EventRegistry.instance = new EventRegistry();
+		StickerRegistry.instance = new StickerRegistry();
 
 		// Load modules
 		ModuleHandler.load();

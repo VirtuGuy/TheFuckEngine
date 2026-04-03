@@ -7,15 +7,11 @@ import funkin.graphics.FunkinSprite;
  */
 class StickerSprite extends FunkinSprite
 {
-	public var id:String;
-
-	public function new(x:Float = 0, y:Float = 0, id:String)
+	public function new(pack:String, id:String)
 	{
-		super(x, y);
+		super();
 
-		this.id = id;
-
-		loadSprite('ui/stickers/$id', 2.65);
+		loadSprite('ui/sticker/packs/$pack/$id', 2.65);
 
 		visible = false;
 		active = false;

@@ -78,7 +78,7 @@ class Level implements IPlayStateScriptedClass
 
 	function get_name():String
 	{
-		var name:Null<String> = meta.name;
+		var name:String = meta.name;
 		if (name.isEmpty())
 			name = Constants.DEFAULT_NAME;
 		return name;

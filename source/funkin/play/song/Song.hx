@@ -20,9 +20,9 @@ class Song implements IPlayStateScriptedClass
 	public var bpm(get, never):Float;
 	public var artist(get, never):String;
 	public var difficulties(get, never):Array<String>;
+	public var stickerpack(get, never):String;
 
 	public var stage(get, never):String;
-
 	public var opponent(get, never):String;
 	public var player(get, never):String;
 	public var gf(get, never):String;
@@ -68,6 +68,9 @@ class Song implements IPlayStateScriptedClass
 
 	function get_difficulties():Array<String>
 		return meta.difficulties;
+
+	function get_stickerpack():String
+		return meta.stickerpack;
 
 	function get_stage():String
 		return meta.stage;
@@ -137,5 +140,5 @@ class Song implements IPlayStateScriptedClass
 	public function onGameOver(event:ScriptEvent) {}
 
 	public function toString():String
-		return name;
+		return '$id | $name | $bpm';
 }
