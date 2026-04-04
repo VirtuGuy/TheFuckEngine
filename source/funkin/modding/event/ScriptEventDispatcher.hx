@@ -108,5 +108,36 @@ class ScriptEventDispatcher
 					// Does literally nothing
 			}
 		}
+
+		//
+		// FREEPLAY
+		//
+
+		if (Std.isOfType(target, IFreeplayScriptedClass))
+		{
+			var target:IFreeplayScriptedClass = cast target;
+
+			switch (event.type)
+			{
+				case FreeplayEnter:
+					target.onFreeplayEnter(event);
+				case FreeplayExit:
+					target.onFreeplayExit(event);
+				case FreeplayIntro:
+					target.onFreeplayIntro(event);
+				case FreeplayOutro:
+					target.onFreeplayOutro(event);
+				case FreeplayIntroDone:
+					target.onFreeplayIntroDone(event);
+				case FreeplayOutroDone:
+					target.onFreeplayOutroDone(event);
+				case FreeplaySongSelected:
+					target.onFreeplaySongSelected(cast event);
+				case FreeplaySongFavorited:
+					target.onFreeplaySongFavorited(cast event);
+				default:
+					// Does literally nothing
+			}
+		}
 	}
 }

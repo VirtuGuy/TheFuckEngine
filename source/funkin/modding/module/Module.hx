@@ -1,14 +1,14 @@
 package funkin.modding.module;
 
+import funkin.modding.IScriptedClass.IFreeplayScriptedClass;
 import funkin.modding.IScriptedClass.IPlayStateScriptedClass;
 import funkin.modding.event.ScriptEvent;
-import funkin.play.components.Countdown;
 
 /**
  * A class that serves as an advanced script class for mods.
  * Unlike any scripted class, this runs globally.
  */
-class Module implements IPlayStateScriptedClass
+class Module implements IPlayStateScriptedClass implements IFreeplayScriptedClass
 {
 	public final id:String;
 
@@ -64,6 +64,22 @@ class Module implements IPlayStateScriptedClass
 	public function onPause(event:ScriptEvent) {}
 
 	public function onGameOver(event:ScriptEvent) {}
+
+	public function onFreeplayEnter(event:ScriptEvent) {}
+
+	public function onFreeplayExit(event:ScriptEvent) {}
+
+	public function onFreeplayIntro(event:ScriptEvent) {}
+
+	public function onFreeplayOutro(event:ScriptEvent) {}
+
+	public function onFreeplayIntroDone(event:ScriptEvent) {}
+
+	public function onFreeplayOutroDone(event:ScriptEvent) {}
+
+	public function onFreeplaySongSelected(event:FreeplaySongScriptEvent) {}
+
+	public function onFreeplaySongFavorited(event:FreeplaySongScriptEvent) {}
 
 	public function toString():String
 		return '$id | $active';

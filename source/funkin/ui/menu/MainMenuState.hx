@@ -5,6 +5,7 @@ import flixel.util.FlxTimer;
 import funkin.audio.FunkinSound;
 import funkin.graphics.FunkinSprite;
 import funkin.graphics.FunkinText;
+import funkin.modding.event.ScriptEvent;
 import funkin.ui.freeplay.FreeplaySubState;
 import funkin.ui.story.StoryMenuSubState;
 import funkin.ui.title.TitleState;
@@ -50,8 +51,8 @@ class MainMenuState extends FunkinState
 
 		items = new MenuItemGroup(selectedItem);
 		items.onChanged.add(change);
-		items.addItem('story', () -> openSubState(new StoryMenuSubState()));
-		items.addItem('freeplay', () -> openSubState(new FreeplaySubState()));
+		items.addItem('story', openStoryMenu);
+		items.addItem('freeplay', openFreeplayMenu);
 		add(items);
 
 		change(selectedItem);
@@ -89,6 +90,23 @@ class MainMenuState extends FunkinState
 
 		FunkinSound.playOnce('ui/sounds/confirm');
 		FlxTimer.wait(1, stateMachine.reset);
+	}
+
+	function openStoryMenu()
+	{
+		// Quite literally opens the story menu
+		openSubState(new StoryMenuSubState());
+	}
+
+	function openFreeplayMenu()
+	{
+		var event:ScriptEvent = new ScriptEvent(FreeplayEnter);
+		dispatch(event);
+
+		if (event.cancelled)
+			return;
+
+		openSubState(new FreeplaySubState());
 	}
 
 	public static function playMusic(fadeIn:Bool = false)

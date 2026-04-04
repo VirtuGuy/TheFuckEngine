@@ -49,3 +49,18 @@ interface IPlayStateScriptedClass extends IConductorScriptedClass extends INoteS
 	public function onPause(event:ScriptEvent):Void;
 	public function onGameOver(event:ScriptEvent):Void;
 }
+
+/**
+ * An interface for scripted classes that require FreeplaySubState events.
+ */
+interface IFreeplayScriptedClass extends IConductorScriptedClass
+{
+	public function onFreeplayEnter(event:ScriptEvent):Void;
+	public function onFreeplayExit(event:ScriptEvent):Void;
+	public function onFreeplayIntro(event:ScriptEvent):Void;
+	public function onFreeplayOutro(event:ScriptEvent):Void;
+	public function onFreeplayIntroDone(event:ScriptEvent):Void;
+	public function onFreeplayOutroDone(event:ScriptEvent):Void;
+	public function onFreeplaySongSelected(event:FreeplaySongScriptEvent):Void;
+	public function onFreeplaySongFavorited(event:FreeplaySongScriptEvent):Void;
+}

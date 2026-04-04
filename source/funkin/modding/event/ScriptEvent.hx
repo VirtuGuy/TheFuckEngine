@@ -5,6 +5,8 @@ import funkin.data.song.SongData.SongNoteData;
 import funkin.play.note.HoldNoteSprite;
 import funkin.play.note.NoteDirection;
 import funkin.play.note.NoteSprite;
+import funkin.play.song.Song;
+import funkin.ui.freeplay.capsule.CapsuleSprite;
 
 /**
  * The base class for all the engine's script events.
@@ -158,5 +160,24 @@ class CountdownScriptEvent extends ScriptEvent
 		super(type);
 
 		this.step = step;
+	}
+}
+
+/**
+ * A script event that runs for freeplay songs.
+ * 
+ * This event is cancelable.
+ */
+class FreeplaySongScriptEvent extends ScriptEvent
+{
+	public var capsule(default, null):CapsuleSprite;
+	public var song:Song;
+
+	public function new(type:ScriptEventType, capsule:CapsuleSprite)
+	{
+		super(type);
+
+		this.capsule = capsule;
+		this.song = capsule.song;
 	}
 }

@@ -319,8 +319,7 @@ class PlayState extends FunkinState
 		events = song.events.copy();
 		events.sort(SortUtil.byEventTime.bind(FlxSort.ASCENDING));
 
-		var event:SongLoadScriptEvent = new SongLoadScriptEvent(notes, events);
-		dispatch(event);
+		dispatch(new SongLoadScriptEvent(notes, events));
 
 		opponentStrumline.clean();
 		playerStrumline.clean();
@@ -414,8 +413,7 @@ class PlayState extends FunkinState
 
 	function startSong()
 	{
-		var event:ScriptEvent = new ScriptEvent(SongStart);
-		dispatch(event);
+		dispatch(new ScriptEvent(SongStart));
 
 		songStarted = true;
 

@@ -7,6 +7,7 @@ import funkin.data.song.SongRegistry;
 import funkin.graphics.FunkinSprite;
 import funkin.graphics.FunkinText;
 import funkin.graphics.shader.TextureSwap;
+import funkin.modding.event.ScriptEvent;
 import funkin.play.PlayState;
 import funkin.play.Playlist;
 import funkin.play.song.Song;
@@ -217,6 +218,12 @@ class FreeplaySubState extends FunkinSubState
 		if (!stateMachine.canInteract())
 			return;
 
+		var event:FreeplaySongScriptEvent = new FreeplaySongScriptEvent(FreeplaySongSelected, capsule);
+		dispatch(event);
+
+		if (event.cancelled)
+			return;
+
 		// The capsule's song is null, meaning that it's Random
 		if (capsule.song == null)
 		{
@@ -263,6 +270,13 @@ class FreeplaySubState extends FunkinSubState
 
 		if (!stateMachine.canInteract() || song == null)
 			return;
+
+		var event:FreeplaySongScriptEvent = new FreeplaySongScriptEvent(FreeplaySongFavorited, capsule);
+		dispatch(event);
+
+		if (event.cancelled)
+			return;
+
 		stateMachine.transition(Interacting);
 
 		if (song != null)
@@ -288,6 +302,17 @@ class FreeplaySubState extends FunkinSubState
 
 	function intro()
 	{
+		// Intro script event
+		// Skip the intro if cancelled
+		var event:ScriptEvent = new ScriptEvent(FreeplayIntro);
+		dispatch(event);
+
+		if (event.cancelled)
+		{
+			stateMachine.reset();
+			return;
+		}
+
 		backcard.hide();
 		exitMovers.intro();
 
@@ -295,6 +320,8 @@ class FreeplaySubState extends FunkinSubState
 		{
 			stateMachine.reset();
 			backcard.show();
+
+			dispatch(new ScriptEvent(FreeplayIntroDone));
 		}
 	}
 
@@ -302,11 +329,36 @@ class FreeplaySubState extends FunkinSubState
 	{
 		if (!stateMachine.canInteract())
 			return;
+
+		// Exit script event
+		// Prevent the player from exiting if cancelled
+		var event:ScriptEvent = new ScriptEvent(FreeplayExit);
+		dispatch(event);
+
+		if (event.cancelled)
+			return;
+
 		stateMachine.transition(Transitioning);
+
+		// Outro script event
+		// Skip the outro if cancelled
+		event = new ScriptEvent(FreeplayOutro);
+		dispatch(event);
+
+		if (event.cancelled)
+		{
+			close();
+			return;
+		}
 
 		backcard.hide();
 		exitMovers.outro();
-		exitMovers.onOutroDone = close;
+
+		exitMovers.onOutroDone = () ->
+		{
+			dispatch(new ScriptEvent(FreeplayOutroDone));
+			close();
+		}
 
 		FunkinSound.playOnce('ui/sounds/cancel');
 		FunkinSound.music.stop();

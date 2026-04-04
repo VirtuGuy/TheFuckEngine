@@ -30,16 +30,7 @@ class FunkinState extends FlxState
 		dispatch(new UpdateScriptEvent(elapsed));
 	}
 
-	function stepHit(step:Int)
-		dispatch(new ConductorScriptEvent(StepHit, step, conductor.beat, conductor.section));
-
-	function beatHit(beat:Int)
-		dispatch(new ConductorScriptEvent(BeatHit, conductor.step, beat, conductor.section));
-
-	function sectionHit(section:Int)
-		dispatch(new ConductorScriptEvent(SectionHit, conductor.step, conductor.beat, section));
-
-	function dispatch(event:ScriptEvent)
+	public function dispatch(event:ScriptEvent)
 	{
 		// Don't run the create, update, or destroy events for modules
 		// Modules handle these events on their own
@@ -48,6 +39,15 @@ class FunkinState extends FlxState
 
 		ModuleHandler.dispatch(event);
 	}
+
+	function stepHit(step:Int)
+		dispatch(new ConductorScriptEvent(StepHit, step, conductor.beat, conductor.section));
+
+	function beatHit(beat:Int)
+		dispatch(new ConductorScriptEvent(BeatHit, conductor.step, beat, conductor.section));
+
+	function sectionHit(section:Int)
+		dispatch(new ConductorScriptEvent(SectionHit, conductor.step, conductor.beat, section));
 
 	override public function destroy()
 	{
