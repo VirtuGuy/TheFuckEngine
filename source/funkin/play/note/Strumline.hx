@@ -128,7 +128,7 @@ class Strumline extends FlxGroup
 			note.x = strum.x;
 			note.y = strum.y + distance * (Preferences.downscroll ? -1 : 1);
 
-			if (distance <= -strum.y - note.height)
+			if (distance <= -strum.y - note.height && note.wasMissed)
 				note.kill();
 
 			RhythmUtil.processHitWindow(note, isPlayer);
