@@ -9,7 +9,7 @@ class SongEvent
 {
 	public var id:String;
 
-	var currentValue:Dynamic;
+	var value:Dynamic;
 
 	public function new(id:String)
 	{
@@ -18,7 +18,7 @@ class SongEvent
 
 	public function handle(value:Dynamic)
 	{
-		currentValue = value;
+		this.value = value;
 
 		// Override type shit
 	}
@@ -51,10 +51,10 @@ class SongEvent
 	}
 
 	function getValue(id:String):Dynamic
-		return Reflect.field(currentValue, id);
+		return Reflect.field(value, id);
 
 	inline function hasValue(id:String):Bool
-		return Reflect.hasField(currentValue, id);
+		return Reflect.hasField(value, id);
 
 	public function toString():String
 		return id;

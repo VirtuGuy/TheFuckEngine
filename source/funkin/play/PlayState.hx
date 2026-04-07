@@ -157,8 +157,6 @@ class PlayState extends FunkinState
 		popups = new Popups();
 		add(popups);
 
-		tallies = new Tallies();
-
 		loadCharacters();
 		resetSong(false);
 
@@ -283,7 +281,9 @@ class PlayState extends FunkinState
 		if (!songLoaded)
 		{
 			songLoaded = true;
+
 			healthLerp = health;
+			tallies = new Tallies();
 
 			FunkinSound.playMusic(song.instPath, 1, false, false);
 			voices = new Voices(song);
