@@ -90,6 +90,7 @@ class FreeplaySubState extends FunkinSubState
 		var blackbar:FunkinSprite = new FunkinSprite();
 		blackbar.makeSolidColor(FlxG.width, 50, 0xFF000000);
 		blackbar.zIndex = 1;
+		blackbar.active = false;
 		add(blackbar);
 
 		var freeplayText:FunkinText = new FunkinText(10, 0, 'freeplay');

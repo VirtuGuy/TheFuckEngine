@@ -13,8 +13,9 @@ class StickerSprite extends FunkinSprite
 
 		loadSprite('ui/sticker/packs/$pack/$id', 2.65);
 
+		angle = FlxG.random.float(-10, 10);
+
 		visible = false;
 		active = false;
-		angle = FlxG.random.float(-10, 10);
 	}
 }

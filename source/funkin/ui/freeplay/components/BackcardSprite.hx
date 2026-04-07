@@ -41,11 +41,7 @@ class BackcardSprite extends FlxSpriteGroup
 		text3.scrollWidth = card.width;
 		add(text3);
 
-		cardFlash = new FunkinSprite();
-		cardFlash.loadGraphicFromSprite(card);
-		cardFlash.setGraphicSize(card.width, card.height);
-		cardFlash.updateHitbox();
-		cardFlash.active = false;
+		cardFlash = card.copy();
 		cardFlash.visible = false;
 		add(cardFlash);
 	}
