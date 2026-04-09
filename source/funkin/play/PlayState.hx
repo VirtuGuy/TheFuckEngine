@@ -717,9 +717,14 @@ class PlayState extends FunkinState
 		FunkinSound.music?.pause();
 		voices?.pause();
 
-		FlxTween.globalManager.active = false;
-		FlxG.sound.defaultSoundGroup.pause();
+		FlxTween.globalManager.forEach(tween ->
+		{
+			if (!tween.active)
+				return;
+			tween.active = false;
+		});
 
+		FlxG.sound.defaultSoundGroup.pause();
 		FlxG.camera.active = false;
 	}
 
@@ -733,9 +738,14 @@ class PlayState extends FunkinState
 			voices.play();
 		}
 
-		FlxTween.globalManager.active = true;
-		FlxG.sound.defaultSoundGroup.resume();
+		FlxTween.globalManager.forEach(tween ->
+		{
+			if (tween.active)
+				return;
+			tween.active = true;
+		});
 
+		FlxG.sound.defaultSoundGroup.resume();
 		FlxG.camera.active = true;
 	}
 
@@ -744,10 +754,6 @@ class PlayState extends FunkinState
 		super.destroy();
 
 		FunkinSound.music.stop();
-
-		// Gonna want to reactivate this when the state is destroyed
-		// There are problems if this isn't done
-		FlxTween.globalManager.active = true;
 
 		// Runs the destroy script event
 		dispatch(new ScriptEvent(Destroy));
