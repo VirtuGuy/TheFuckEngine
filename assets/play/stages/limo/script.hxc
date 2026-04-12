@@ -1,10 +1,7 @@
-import funkin.play.stage.Stage;
-import funkin.audio.FunkinSound;
-import funkin.graphics.FunkinSprite;
-import funkin.Paths;
-
 import flixel.util.FlxTimer;
-import flixel.FlxG;
+import funkin.audio.FunkinSound;
+import funkin.play.stage.Stage;
+import funkin.play.stage.StageProp;
 
 class LimoStage extends Stage
 {
@@ -13,7 +10,7 @@ class LimoStage extends Stage
     var carActive:Bool;
     var carMoving:Bool;
 
-    var car:FunkinSprite;
+    var car:StageProp;
 
     public function new()
     {

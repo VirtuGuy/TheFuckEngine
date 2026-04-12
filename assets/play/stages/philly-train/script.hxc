@@ -1,12 +1,8 @@
-import funkin.play.stage.Stage;
-import funkin.audio.FunkinSound;
-import funkin.graphics.FunkinSprite;
-import funkin.util.Constants;
-import funkin.Conductor;
-
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import flixel.FlxG;
+import funkin.audio.FunkinSound;
+import funkin.play.stage.Stage;
+import funkin.play.stage.StageProp;
 
 class PhillyTrainStage extends Stage
 {
@@ -19,8 +15,8 @@ class PhillyTrainStage extends Stage
     var trainActive:Bool = false;
     var trainMoving:Bool = false;
 
-    var windows:FunkinSprite;
-    var train:FunkinSprite;
+    var windows:StageProp;
+    var train:StageProp;
 
     public function new()
     {

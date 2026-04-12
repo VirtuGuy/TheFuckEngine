@@ -41,6 +41,8 @@ class ModHandler
 			useScriptedClasses: true
 		});
 
+		loadImports();
+
 		#if HAS_MODDING
 		for (meta in Polymod.scan())
 			Polymod.loadMod(meta.dirName);
@@ -76,6 +78,19 @@ class ModHandler
 		}
 		if (Playlist.level != null)
 			Playlist.level = LevelRegistry.instance.fetch(Playlist.level.id);
+	}
+
+	static function loadImports()
+	{
+		// Imports Funkin' classes
+		Polymod.addDefaultImport(Constants);
+		Polymod.addDefaultImport(Conductor);
+		Polymod.addDefaultImport(FunkinMemory);
+		Polymod.addDefaultImport(Paths);
+		Polymod.addDefaultImport(Preferences);
+
+		// Imports Flixel classes
+		Polymod.addDefaultImport(flixel.FlxG);
 	}
 
 	static function onError(e:PolymodError)
