@@ -1,7 +1,7 @@
 package funkin.data.stage;
 
 import funkin.modding.ScriptBases.ScriptedStage;
-import funkin.play.components.Stage;
+import funkin.play.stage.Stage;
 import funkin.util.FileUtil;
 import haxe.ds.StringMap;
 import json2object.JsonParser;

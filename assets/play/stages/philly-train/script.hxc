@@ -1,4 +1,4 @@
-import funkin.play.components.Stage;
+import funkin.play.stage.Stage;
 import funkin.audio.FunkinSound;
 import funkin.graphics.FunkinSprite;
 import funkin.util.Constants;

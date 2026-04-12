@@ -12,7 +12,7 @@ class ScriptedSong extends funkin.play.song.Song implements HScriptedClass {}
 class ScriptedCharacter extends funkin.play.character.Character implements HScriptedClass {}
 
 @:hscriptClass
-class ScriptedStage extends funkin.play.components.Stage implements HScriptedClass {}
+class ScriptedStage extends funkin.play.stage.Stage implements HScriptedClass {}
 
 @:hscriptClass
 class ScriptedSongEvent extends funkin.play.song.SongEvent implements HScriptedClass {}

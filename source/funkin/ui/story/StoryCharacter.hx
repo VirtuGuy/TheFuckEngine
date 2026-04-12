@@ -48,14 +48,14 @@ class StoryCharacter extends FunkinSprite
 		flipX = meta.flipX;
 		flipY = meta.flipY;
 
-		dance(true);
+		bop(true);
 	}
 
-	public function dance(force:Bool = false)
+	public function bop(force:Bool = false)
 	{
 		// Don't bop if it's not the right time
 		// Luckily, the bop can be forced
-		if ((Conductor.instance.beat % meta?.danceEvery != 0 || getCurrentAnimation() != 'idle') && !force)
+		if ((Conductor.instance.beat % meta?.bopEvery != 0 || getCurrentAnimation() != 'idle') && !force)
 			return;
 
 		playAnimation('idle', true);

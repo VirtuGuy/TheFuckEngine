@@ -176,7 +176,7 @@ class FreeplaySubState extends FunkinSubState
 
 		// Make the DJ bop
 		// Without this line, freeplay would be shit
-		dj.dance();
+		dj.bop();
 	}
 
 	function changeSong(selected:Int)

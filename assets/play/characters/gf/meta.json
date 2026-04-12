@@ -5,7 +5,7 @@
     "globalOffset": [0, -400],
     "cameraOffset": [0, -60],
     "icon": {},
-    "danceEvery": 1,
+    "bopEvery": 1,
     "animations": [
         {
             "name": "idle",

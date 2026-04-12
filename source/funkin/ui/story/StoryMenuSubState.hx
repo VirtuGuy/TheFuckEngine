@@ -183,9 +183,9 @@ class StoryMenuSubState extends FunkinSubState
 	{
 		super.beatHit(beat);
 
-		opponent.dance();
-		player.dance();
-		gf.dance();
+		opponent.bop();
+		player.bop();
+		gf.bop();
 	}
 
 	function changeLevel(selected:Int)

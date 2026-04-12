@@ -1,6 +1,6 @@
 package funkin.data.stage;
 
-import funkin.data.character.CharacterData.CharacterAnimData;
+import funkin.data.stage.StageData.PropAnimData;
 
 /**
  * A structure object used for stage data.
@@ -48,5 +48,18 @@ typedef StagePropData =
 	var flipY:Bool;
 	var zIndex:Int;
 	@:default([])
-	var animations:Array<CharacterAnimData>;
+	var animations:Array<PropAnimData>;
+}
+
+/**
+ * A structure object used for the animation data of props.
+ */
+typedef PropAnimData =
+{
+	var name:String;
+	@:default([])
+	var frames:Array<Int>;
+	@:default(10)
+	var framerate:Int;
+	var looped:Bool;
 }

@@ -1,10 +1,9 @@
-package funkin.play.components;
+package funkin.play.stage;
 
 import flixel.group.FlxGroup;
 import flixel.math.FlxPoint;
 import funkin.data.character.CharacterRegistry;
 import funkin.data.stage.StageData;
-import funkin.graphics.FunkinSprite;
 import funkin.modding.IScriptedClass.IPlayStateScriptedClass;
 import funkin.modding.event.ScriptEvent;
 import funkin.play.character.Character;
@@ -14,12 +13,12 @@ import haxe.ds.StringMap;
 /**
  * A group containing stage props and characters.
  */
-class Stage extends FlxGroup implements IPlayStateScriptedClass
+class Stage extends FlxTypedGroup<StageProp> implements IPlayStateScriptedClass
 {
 	public var id:String;
 	public var meta:StageData;
 
-	public var props(default, null) = new StringMap<FunkinSprite>();
+	public var props(default, null) = new StringMap<StageProp>();
 	public var zoom(get, never):Float;
 
 	public var player:Character;
@@ -49,16 +48,16 @@ class Stage extends FlxGroup implements IPlayStateScriptedClass
 			final position:FlxPoint = MathUtil.arrayToPoint(prop.position);
 			final scroll:FlxPoint = MathUtil.arrayToPoint(prop.scroll, 1);
 
-			var sprite:FunkinSprite;
+			var sprite:StageProp;
 
 			if (props.exists(prop.prop))
-			{
 				sprite = props.get(prop.prop).copy();
-				sprite.setPosition(position.x, position.y);
-			}
 			else
 			{
-				sprite = FunkinSprite.create(position.x, position.y, image, prop.scale, prop.frameWidth, prop.frameHeight);
+				sprite = new StageProp(prop.id);
+
+				sprite.loadSprite(image, prop.scale, prop.frameWidth, prop.frameHeight);
+				sprite.loadAnimations(prop.animations);
 
 				sprite.scrollFactor.copyFrom(scroll);
 
@@ -66,11 +65,10 @@ class Stage extends FlxGroup implements IPlayStateScriptedClass
 				sprite.flipY = prop.flipY;
 				sprite.zIndex = prop.zIndex;
 
-				for (anim in prop.animations)
-					sprite.addAnimation(anim.name, anim.frames, anim.framerate, anim.looped);
-
 				sprite.active = prop.animations.length > 0;
 			}
+
+			sprite.setPosition(position.x, position.y);
 
 			// We're done with the points
 			position.put();
@@ -86,7 +84,7 @@ class Stage extends FlxGroup implements IPlayStateScriptedClass
 		refresh();
 	}
 
-	public function getProp(id:String):FunkinSprite
+	public function getProp(id:String):StageProp
 		return props.get(id);
 
 	public function setPlayer(id:String)
@@ -181,16 +179,9 @@ class Stage extends FlxGroup implements IPlayStateScriptedClass
 
 	public function onBeatHit(event:ConductorScriptEvent)
 	{
-		forEach(prop ->
-		{
-			// Character bopping is already handled
-			if (Std.isOfType(prop, Character) || !Std.isOfType(prop, FunkinSprite))
-				return;
-
-			var prop:FunkinSprite = cast prop;
-
-			prop.playAnimation('idle', true);
-		});
+		// Bops each and every living prop
+		// I dunno maybe someone kills a prop
+		forEachAlive(prop -> prop.bop());
 	}
 
 	public function onSectionHit(event:ConductorScriptEvent) {}

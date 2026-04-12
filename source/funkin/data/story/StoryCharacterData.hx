@@ -1,6 +1,6 @@
 package funkin.data.story;
 
-import funkin.data.character.CharacterData.CharacterAnimData;
+import funkin.data.stage.StageData.PropAnimData;
 
 /**
  * A structure object used for story character data.
@@ -15,7 +15,7 @@ typedef StoryCharacterData =
 	var flipX:Bool;
 	var flipY:Bool;
 	@:default(2)
-	var danceEvery:Int;
+	var bopEvery:Int;
 	@:default([])
-	var animations:Array<CharacterAnimData>;
+	var animations:Array<PropAnimData>;
 }

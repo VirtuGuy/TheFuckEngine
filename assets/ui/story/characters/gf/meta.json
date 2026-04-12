@@ -2,7 +2,7 @@
     "frameWidth": 262,
     "frameHeight": 290,
     "scale": 0.85,
-    "danceEvery": 1,
+    "bopEvery": 1,
     "animations": [
         {
             "name": "idle",

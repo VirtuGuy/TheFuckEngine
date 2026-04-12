@@ -1,5 +1,7 @@
 package funkin.data.character;
 
+import funkin.data.stage.StageData.PropAnimData;
+
 /**
  * A structure object used for... you guessed it... character data!
  */
@@ -18,24 +20,11 @@ typedef CharacterData =
 	var flipX:Bool;
 	var flipY:Bool;
 	@:default(2)
-	var danceEvery:Int;
+	var bopEvery:Int;
 	@:default(8)
 	var singDuration:Float;
 	@:default([])
-	var animations:Array<CharacterAnimData>;
-}
-
-/**
- * A structure object used for the animation data of characters.
- */
-typedef CharacterAnimData =
-{
-	var name:String;
-	@:default([])
-	var frames:Array<Int>;
-	@:default(10)
-	var framerate:Int;
-	var looped:Bool;
+	var animations:Array<PropAnimData>;
 }
 
 /**

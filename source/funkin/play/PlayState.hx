@@ -22,13 +22,13 @@ import funkin.play.character.Character;
 import funkin.play.character.HealthIcon;
 import funkin.play.components.Countdown;
 import funkin.play.components.Popups;
-import funkin.play.components.Stage;
 import funkin.play.note.HoldNoteSprite;
 import funkin.play.note.NoteDirection;
 import funkin.play.note.NoteSprite;
 import funkin.play.note.Strumline;
 import funkin.play.song.Song;
 import funkin.play.song.Voices;
+import funkin.play.stage.Stage;
 import funkin.save.Save;
 import funkin.ui.FunkinState;
 import funkin.ui.freeplay.FreeplaySubState;
@@ -261,10 +261,6 @@ class PlayState extends FunkinState
 
 		if (subState != null)
 			return;
-
-		stage.opponent?.dance();
-		stage.player?.dance();
-		stage.gf?.dance();
 
 		if (countdown.step < 3)
 		{

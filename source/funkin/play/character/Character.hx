@@ -1,28 +1,20 @@
 package funkin.play.character;
 
 import funkin.data.character.CharacterData;
-import funkin.graphics.FunkinSprite;
 import funkin.modding.IScriptedClass.IPlayStateScriptedClass;
 import funkin.modding.event.ScriptEvent;
 import funkin.play.note.NoteDirection;
+import funkin.play.stage.StageProp;
 
 /**
- * A `FunkinSprite` that sings and bops and all that.
+ * A `StageProp` that sings and bops and all that.
  */
-class Character extends FunkinSprite implements IPlayStateScriptedClass
+class Character extends StageProp implements IPlayStateScriptedClass
 {
-	public var id:String;
 	public var meta:CharacterData;
 	public var isPlayer:Bool;
 
 	var singTimer:Float;
-
-	public function new(id:String)
-	{
-		super();
-
-		this.id = id;
-	}
 
 	public function buildSprite()
 	{
@@ -33,10 +25,9 @@ class Character extends FunkinSprite implements IPlayStateScriptedClass
 		var image:String = meta.image ?? id;
 
 		loadSprite('play/characters/$image/image', meta.scale, meta.frameWidth, meta.frameHeight);
+		loadAnimations(meta.animations);
 
-		// Adds the animations
-		for (anim in meta.animations)
-			addAnimation(anim.name, anim.frames, anim.framerate, anim.looped);
+		bopEvery = meta.bopEvery;
 
 		flipX = meta.flipX != isPlayer;
 		flipY = meta.flipY;
@@ -44,7 +35,7 @@ class Character extends FunkinSprite implements IPlayStateScriptedClass
 		offset.set(-meta.globalOffset[0] ?? 0, -meta.globalOffset[1] ?? 0);
 
 		resetSingTimer();
-		dance(true);
+		bop(true);
 	}
 
 	override public function update(elapsed:Float)
@@ -54,10 +45,11 @@ class Character extends FunkinSprite implements IPlayStateScriptedClass
 		singTimer = Math.min(1, singTimer + elapsed * (Conductor.instance.quaver / 10 / meta.singDuration));
 	}
 
-	public function dance(force:Bool = false)
+	override public function bop(force:Bool = false)
 	{
-		if ((Conductor.instance.beat % meta.danceEvery == 0 && singTimer == 1) || force)
-			playAnimation('idle', true);
+		if (singTimer < 1 && !force)
+			return;
+		super.bop(force);
 	}
 
 	public function sing(direction:NoteDirection)
@@ -83,7 +75,7 @@ class Character extends FunkinSprite implements IPlayStateScriptedClass
 		super.playAnimation(name, force);
 
 		// Resets the sing timer
-		if (name != 'idle')
+		if (name != BOP_ANIMATION)
 			resetSingTimer();
 	}
 

@@ -18,10 +18,10 @@ class DJSprite extends FunkinSprite
 		addAnimation('idle', [0, 1, 2], 10, false);
 		addAnimation('confirm', [3, 4, 5], 10, false);
 
-		dance();
+		bop();
 	}
 
-	public function dance()
+	public function bop()
 	{
 		if (busy)
 			return;
