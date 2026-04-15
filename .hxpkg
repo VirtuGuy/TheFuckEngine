@@ -23,7 +23,7 @@
 			{
 				"name": "polymod",
 				"link": "https://github.com/FunkinCrew/polymod",
-				"branch": "5710886bde3b8902b6b0fe6a63c27476ae8b9932"
+				"branch": "453e161ac38ac73997b53bd74819bf52a77d985b"
 			},
 			{
 				"name": "jsonpath"
