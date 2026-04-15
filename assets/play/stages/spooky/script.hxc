@@ -1,0 +1,61 @@
+import funkin.audio.FunkinSound;
+import funkin.play.stage.Stage;
+import funkin.play.stage.StageProp;
+import funkin.play.PlayState;
+import flixel.FlxG;
+
+class SpookyStage extends Stage
+{
+    var lightningBeat:Int = 0;
+
+    var back:StageProp;
+    var window:StageProp;
+
+    public function new()
+    {
+        super("spooky");
+    }
+
+    override function onCreate(event:ScriptEvent)
+    {
+        super.onCreate(event);
+
+        back = getProp("back");
+
+        window = getProp("window");
+        window.alpha = 0;
+    }
+
+    override function onUpdate(event:UpdateScriptEvent)
+    {
+        super.onUpdate(event);
+
+        window.alpha = Math.max(0, window.alpha - event.elapsed / 2);
+        back.alpha = 1.15 - window.alpha;
+    }
+
+    override function onBeatHit(event:ConductorScriptEvent)
+    {
+        super.onBeatHit(event);
+
+        var syncedBeat:Bool = event.beat == 4 && PlayState.song.id == "spookeez";
+
+        if ((FlxG.random.bool(10) && event.beat > lightningBeat) || syncedBeat)
+        {
+            strikeLightning(!syncedBeat, event.beat);
+        }
+    }
+
+    function strikeLightning(playSound:Bool = true, beat:Int)
+    {
+        // This is so that the lightning doesn't occur all the time
+        lightningBeat = beat + 20;
+
+        window.alpha = 1;        
+
+        if (playSound)
+        {
+            FunkinSound.playOnce(Paths.random('$path/thunder', 1, 2));
+        }
+    }
+}

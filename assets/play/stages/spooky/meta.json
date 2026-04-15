@@ -12,8 +12,15 @@
     },
     "props": [
         {
+            "id": "back",
             "image": "back",
             "position": [-600, -400],
+            "scale": 1.1
+        },
+        {
+            "id": "window",
+            "image": "window",
+            "position": [-265, -287],
             "scale": 1.1
         }
     ]
