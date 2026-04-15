@@ -8,8 +8,8 @@ Below are steps to compiling WTF Engine. Y'know like the requirements and all th
 2. Install [Git](https://www.git-scm.com).
 3. Run `git clone https://github.com/VirtuGuy/WTF-Engine.git` from the folder where you want to store the repository.
 4. Run `cd WTF-Engine`.
-5. Run `haxelib --global install hxpkg` and `haxelib --global run hxpkg setup`.
-6. Run `hxpkg install --force`.
+5. Run `haxelib --global install hmm` and `haxelib --global run hmm setup`.
+6. Run `hmm install`.
 7. Run `haxelib run lime setup`.
 
 ## Platform Setup
@@ -25,3 +25,4 @@ Windows:
 
 - Run `lime test <platform>` to compile the engine.
 - Run `lime run <platform>` if you want to relaunch the engine.
+- If dependencies need updating, run `hmm install` from the repository folder.
