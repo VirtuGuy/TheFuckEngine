@@ -20,8 +20,6 @@ import sys.FileSystem;
 class ModHandler
 {
 	static final MOD_FOLDER:String = 'mods';
-	static final CORE_FOLDER:String = 'assets';
-
 	static final API_VERSION_RULE:String = '>=0.1.0';
 
 	public static function init()
