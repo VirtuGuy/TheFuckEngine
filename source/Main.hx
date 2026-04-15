@@ -3,6 +3,7 @@ package;
 import flixel.FlxG;
 import flixel.FlxGame;
 import flixel.FlxObject;
+import flixel.text.FlxText.FlxTextBorderStyle;
 import flixel.util.typeLimit.NextState.InitialState;
 import funkin.Conductor;
 import funkin.DiscordRPC;
@@ -19,7 +20,7 @@ import funkin.save.Save;
 import funkin.ui.title.TitleState;
 import funkin.util.plugins.ReloadPlugin;
 #if HAS_FPS_COUNTER
-import openfl.display.FPS;
+import funkin.ui.debug.FPSCounter;
 #end
 #if HAS_SCREENSHOTS
 import funkin.util.plugins.ScreenshotPlugin;
@@ -31,7 +32,7 @@ import funkin.util.plugins.ScreenshotPlugin;
 class Main extends FlxGame
 {
 	#if HAS_FPS_COUNTER
-	public static var fpsCounter:FPS;
+	public static var fpsCounter:FPSCounter;
 	#end
 
 	public function new()
@@ -74,8 +75,9 @@ class Main extends FlxGame
 		// Adds the FPS counter
 		// Only if it's enabled though
 		#if HAS_FPS_COUNTER
-		fpsCounter = new FPS(10, 10, 0xFFFFFF);
+		fpsCounter = new FPSCounter(10, 3, FlxTextBorderStyle.OUTLINE);
 		addChild(fpsCounter);
+		fpsCounter.createBackground();
 		#end
 
 		// Flixel

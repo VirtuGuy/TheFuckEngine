@@ -16,6 +16,7 @@ class Preferences
 
 	#if HAS_FPS_COUNTER
 	public static var showFPS(get, set):Bool;
+	public static var showFPSBGOpacity(get, set):Int;
 	#end
 
 	public static var fpsCap(get, set):Int;
@@ -68,12 +69,27 @@ class Preferences
 		Save.instance.flush();
 
 		Main.fpsCounter.visible = value;
+		Main.fpsCounter.set_backgroundOpacityVisible(value);
 
 		return value;
 	}
 
 	static inline function get_showFPS():Bool
 		return Save.instance.options.showFPS;
+
+	static inline function set_showFPSBGOpacity(value:Int):Int
+	{
+		Save.instance.options.showFPSBGOpacity = value;
+		Save.instance.flush();
+
+		Main.fpsCounter.backgroundOpacity = value / 100;
+		trace('showFPSBGOpacity set to $value, opacity: ${value / 100}');
+		
+		return value;
+	}
+
+	static inline function get_showFPSBGOpacity():Int
+		return Save.instance.options.showFPSBGOpacity;
 	#end
 
 	static inline function set_fpsCap(value:Int):Int

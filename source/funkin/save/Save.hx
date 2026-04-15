@@ -32,11 +32,12 @@ class Save
 		// LOAD
 		//
 
-		FlxG.updateFramerate = options.fpsCap;
 		FlxG.drawFramerate = options.fpsCap;
+		FlxG.updateFramerate = options.fpsCap;
 
 		#if HAS_FPS_COUNTER
 		Main.fpsCounter.visible = options.showFPS;
+		Main.fpsCounter.backgroundOpacity = options.showFPSBGOpacity / 100;
 		#end
 
 		#if HAS_DISCORD_RPC
@@ -178,6 +179,7 @@ class Save
 				ghostTapping: true,
 				showTimer: true,
 				showFPS: true,
+				showFPSBGOpacity: 50,
 				discordRPC: true,
 				fpsCap: 200
 			}

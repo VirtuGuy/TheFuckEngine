@@ -21,6 +21,7 @@ typedef SaveOptionsData =
 	var ghostTapping:Bool;
 	var showTimer:Bool;
 	var showFPS:Bool;
+	var showFPSBGOpacity:Int;
 	var fpsCap:Int;
 	var discordRPC:Bool;
 }

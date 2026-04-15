@@ -71,7 +71,8 @@ class OptionsSubState extends FunkinSubState
 		options.addOption('showTimer', 'show timer');
 
 		#if HAS_FPS_COUNTER
-		options.addOption('showFPS', 'show fps');
+		options.addOption('showFPS', 'debug display');
+		options.addOption('showFPSBGOpacity', 'debug display bg', 50, 0, 100);
 		#end
 		options.addOption('fpsCap', 'fps cap', 10, 60, 500);
 
