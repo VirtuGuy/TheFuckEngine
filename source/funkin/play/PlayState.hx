@@ -15,6 +15,7 @@ import funkin.data.event.EventRegistry;
 import funkin.data.song.SongData.SongNoteData;
 import funkin.data.stage.StageRegistry;
 import funkin.graphics.FunkinBar;
+import funkin.graphics.FunkinSprite;
 import funkin.graphics.FunkinText;
 import funkin.modding.event.ScriptEvent;
 import funkin.modding.event.ScriptEventDispatcher;
@@ -70,6 +71,7 @@ class PlayState extends FunkinState
 	var opponentStrumline:Strumline;
 	var playerStrumline:Strumline;
 	var healthBar:FunkinBar;
+	var healthBorder:FunkinSprite;
 	var opponentIcon:HealthIcon;
 	var playerIcon:HealthIcon;
 	var scoreText:FunkinText;
@@ -115,9 +117,15 @@ class PlayState extends FunkinState
 		playerStrumline.holdNoteDrop.add(playerHoldNoteDrop);
 		add(playerStrumline);
 
-		healthBar = new FunkinBar(0, 0, 500, 15, 0, 1, true);
+		healthBorder = FunkinSprite.create(0, 0, 'play/ui/bar');
+		healthBorder.screenCenter(X);
+		healthBorder.active = false;
+		healthBorder.camera = camHUD;
+		healthBorder.zIndex = 1;
+		add(healthBorder);
+
+		healthBar = new FunkinBar(0, 0, Std.int(healthBorder.width - 7), Std.int(healthBorder.height - 10), 0, 1, true);
 		healthBar.setColors(Constants.HEALTH_EMPTY_COLOR, Constants.HEALTH_FILL_COLOR);
-		healthBar.screenCenter(X);
 		healthBar.camera = camHUD;
 		add(healthBar);
 
@@ -131,7 +139,7 @@ class PlayState extends FunkinState
 		scoreText.size = 15;
 		scoreText.alignment = CENTER;
 		scoreText.camera = camHUD;
-		scoreText.zIndex = 1;
+		scoreText.zIndex = 2;
 		add(scoreText);
 
 		countdown = new Countdown();
@@ -236,15 +244,18 @@ class PlayState extends FunkinState
 		timeText.y = 35;
 		timeText.visible = Preferences.showTimer;
 
-		healthBar.y = FlxG.height - healthBar.height - 60;
+		healthBorder.y = FlxG.height - healthBorder.height - 60;
 
 		if (Preferences.downscroll)
 		{
 			timeText.y = FlxG.height - timeText.height - timeText.y;
-			healthBar.y = FlxG.height - healthBar.height - healthBar.y;
+			healthBorder.y = FlxG.height - healthBorder.height - healthBorder.y;
 		}
 
-		scoreText.y = healthBar.y + healthBar.height + 20;
+		healthBar.x = healthBorder.x + 3.5;
+		healthBar.y = healthBorder.y + 5;
+
+		scoreText.y = healthBorder.y + healthBorder.height + 20;
 
 		if (opponentIcon != null)
 			opponentIcon.y = healthBar.y - opponentIcon.height / 2;
@@ -414,12 +425,14 @@ class PlayState extends FunkinState
 		if (opponentIcon != null)
 		{
 			opponentIcon.camera = camHUD;
+			opponentIcon.zIndex = healthBorder.zIndex;
 			add(opponentIcon);
 		}
 
 		if (playerIcon != null)
 		{
 			playerIcon.camera = camHUD;
+			playerIcon.zIndex = healthBorder.zIndex;
 			add(playerIcon);
 		}
 	}
