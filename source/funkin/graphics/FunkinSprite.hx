@@ -1,6 +1,8 @@
 package funkin.graphics;
 
 import flixel.FlxSprite;
+import flixel.graphics.FlxGraphic;
+import flixel.math.FlxMath;
 import flixel.util.FlxColor;
 
 /**
@@ -13,12 +15,13 @@ class FunkinSprite extends FlxSprite
 
 	public function loadSprite(id:String, scale:Float = 1, width:Int = 0, height:Int = 0):FunkinSprite
 	{
+		final path:String = Paths.image(id);
+		final graphic:FlxGraphic = FlxGraphic.fromAssetKey(path);
+
 		// Validates the width and height
 		// Hooray no more crashy!!!
-		loadGraphic(Paths.image(id));
-
-		width = Std.int(Math.min(this.width, width));
-		height = Std.int(Math.min(this.height, height));
+		width = Std.int(FlxMath.bound(width, 0, graphic.width));
+		height = Std.int(FlxMath.bound(height, 0, graphic.height));
 
 		// Properly loads the graphic
 		loadGraphic(graphic, width > 0 || height > 0, width, height);
