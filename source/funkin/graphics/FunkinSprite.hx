@@ -1,7 +1,6 @@
 package funkin.graphics;
 
 import flixel.FlxSprite;
-import flixel.graphics.FlxGraphic;
 import flixel.util.FlxColor;
 
 /**
@@ -14,16 +13,17 @@ class FunkinSprite extends FlxSprite
 
 	public function loadSprite(id:String, scale:Float = 1, width:Int = 0, height:Int = 0):FunkinSprite
 	{
-		if (checkForCorrectFrameData(id, width, height))
-		{
-			loadGraphic(Paths.image(id), width > 0 || height > 0, width, height);
-			setGraphicSize(Std.int(this.width * Constants.ZOOM * scale));
-			updateHitbox();
-		}
-		else
-		{
-			trace('Incorrect Frame Width or Height for sprite: ${id}');
-		}
+		// Validates the width and height
+		// Hooray no more crashy!!!
+		loadGraphic(Paths.image(id));
+
+		width = Std.int(Math.min(this.width, width));
+		height = Std.int(Math.min(this.height, height));
+
+		// Properly loads the graphic
+		loadGraphic(graphic, width > 0 || height > 0, width, height);
+		setGraphicSize(Std.int(this.width * Constants.ZOOM * scale));
+		updateHitbox();
 
 		return this;
 	}
@@ -77,35 +77,5 @@ class FunkinSprite extends FlxSprite
 		sprite.zIndex = zIndex;
 
 		return sprite;
-	}
-
-	/**
-	 * Checks for correct frame data via checking
-	 * to see if rounding the division of
-	 * the image dimensions with the provided dimensions
-	 * has differences
-	 * 
-	 * @param id image ID
-	 * @param width frame width
-	 * @param height frame height
-	 * @return If the dimensions are correct (Auto-returns that they are if width or height is 0)
-	 */
-	public function checkForCorrectFrameData(id:String, width:Int = 0, height:Int = 0):Bool
-	{
-		var image:FlxGraphic = FlxG.bitmap.add(Paths.image(id));
-
-		if (width == 0 || height == 0)
-			return true;
-
-		var frameWidth:Float = image.width / width;
-		var frameHeight:Float = image.height / height;
-
-		if (Math.round(frameWidth) != (frameWidth))
-			return false;
-
-		if (Math.round(frameHeight) != (frameHeight))
-			return false;
-
-		return true;
 	}
 }
