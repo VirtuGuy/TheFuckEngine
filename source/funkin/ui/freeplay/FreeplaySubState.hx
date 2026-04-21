@@ -87,10 +87,9 @@ class FreeplaySubState extends FunkinSubState
 		capsules.onChanged.add(changeSong);
 		add(capsules);
 
-		var blackbar:FunkinSprite = new FunkinSprite();
-		blackbar.makeSolidColor(FlxG.width, 50, 0xFF000000);
-		blackbar.zIndex = 1;
+		var blackbar:FunkinSprite = FunkinSprite.createSolidColor(0, 0, FlxG.width, 50, 0xFF000000);
 		blackbar.active = false;
+		blackbar.zIndex = 1;
 		add(blackbar);
 
 		var freeplayText:FunkinText = new FunkinText(10, 0, 'freeplay');

@@ -52,8 +52,8 @@ class DialogueCutscene extends BaseCutscene
 		music = FunkinSound.load('play/dialogue/music/${data.music}');
 		music.fadeIn();
 
-		bg = new FunkinSprite();
-		bg.makeSolidColor(FlxG.width, FlxG.height, 0xFFFFFFFF);
+		bg = FunkinSprite.createSolidColor(0, 0, FlxG.width, FlxG.height, 0xFFFFFFFF);
+		bg.active = false;
 		bg.alpha = 0.5;
 		add(bg);
 

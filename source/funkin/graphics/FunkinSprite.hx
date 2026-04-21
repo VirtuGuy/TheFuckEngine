@@ -15,6 +15,11 @@ class FunkinSprite extends FlxSprite
 		return new FunkinSprite(x, y).loadSprite(id, scale, width, height);
 	}
 
+	public static function createSolidColor(x:Float, y:Float, width:Int, height:Int, color:FlxColor):FunkinSprite
+	{
+		return new FunkinSprite(x, y).makeSolidColor(width, height, color);
+	}
+
 	public function loadSprite(id:String, scale:Float = 1, width:Int = 0, height:Int = 0):FunkinSprite
 	{
 		var graphic:FlxGraphic = FlxGraphic.fromAssetKey(Paths.image(id));

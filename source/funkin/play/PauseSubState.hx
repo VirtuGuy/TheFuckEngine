@@ -49,8 +49,7 @@ class PauseSubState extends FunkinSubState
 		camera.bgColor = 0x0;
 		FlxG.cameras.add(camera, false);
 
-		bg = new FunkinSprite();
-		bg.makeSolidColor(FlxG.width, FlxG.height, 0xFF000000);
+		bg = FunkinSprite.createSolidColor(0, 0, FlxG.width, FlxG.height, 0xFF000000);
 		bg.alpha = 0;
 		bg.active = false;
 		add(bg);

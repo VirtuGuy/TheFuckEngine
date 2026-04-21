@@ -28,8 +28,7 @@ class FunkinBar extends FlxSpriteGroup
 		this.max = max;
 		this.isLeft = isLeft;
 
-		empty = new FunkinSprite();
-		empty.makeSolidColor(width, height, 0xFFFFFFFF);
+		empty = FunkinSprite.createSolidColor(0, 0, width, height, 0xFFFFFFFF);
 		empty.active = false;
 		add(empty);
 

@@ -69,20 +69,17 @@ class StoryMenuSubState extends FunkinSubState
 		camera.bgColor = 0x0;
 		FlxG.cameras.add(camera, false);
 
-		blackTop = new FunkinSprite();
-		blackTop.makeSolidColor(FlxG.width, 50, 0xFF000000);
+		blackTop = FunkinSprite.createSolidColor(0, 0, FlxG.width, 50, 0xFF000000);
 		blackTop.active = false;
 		blackTop.zIndex = 2;
 		add(blackTop);
 
-		blackBottom = new FunkinSprite();
-		blackBottom.makeSolidColor(FlxG.width, 280, 0xFF000000);
+		blackBottom = FunkinSprite.createSolidColor(0, 0, FlxG.width, 280, 0xFF000000);
 		blackBottom.y = FlxG.height - blackBottom.height;
 		blackBottom.active = false;
 		add(blackBottom);
 
-		bg = new FunkinSprite();
-		bg.makeSolidColor(FlxG.width, Std.int(FlxG.height - blackBottom.height - blackTop.height), 0xFFFFFFFF);
+		bg = FunkinSprite.createSolidColor(0, 0, FlxG.width, Std.int(FlxG.height - blackBottom.height - blackTop.height), 0xFFFFFFFF);
 		bg.y = blackTop.height;
 		bg.active = false;
 		bg.zIndex = 1;
