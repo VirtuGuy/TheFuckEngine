@@ -9,6 +9,7 @@ import openfl.text.TextFormat;
 
 /**
  * A simple FPS counter that displays your current FPS, and memory usage.
+ * Thank you AnimatingLegend :D
  */
 class FPSCounter extends TextField
 {
