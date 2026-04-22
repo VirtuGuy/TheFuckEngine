@@ -1,0 +1,170 @@
+import hxp.*;
+import lime.tools.*;
+import haxe.io.Bytes;
+
+/**
+ * The engine"s project class.
+ */
+class Project extends HXProject
+{
+    final TITLE:String = "Friday Night Funkin' WTF Engine";
+    final VERSION:String = "0.1.0";
+    final COMPANY:String = "VirtuGuy";
+    final PACKAGE:String = "com.virtuguy.wtfengine";
+
+    final MAIN_CLASS:String = "Main";
+    final FILE_NAME:String = "WTFEngine";
+    final PRELOADER:String = "flixel.system.FlxPreloader";
+
+    final WIDTH:Int = 1280;
+    final HEIGHT:Int = 720;
+
+    public function new()
+    {
+        super();
+
+        meta.title = TITLE;
+        meta.version = VERSION;
+        meta.company = COMPANY;
+        meta.packageName = PACKAGE;
+
+        app.main = MAIN_CLASS;
+        app.file = FILE_NAME;
+        app.preloader = PRELOADER;
+
+        window.width = WIDTH;
+        window.height = HEIGHT;
+        window.fps = 60;
+        window.background = 0x000000;
+        window.hardware = true;
+        window.vsync = false;
+
+        window.orientation = Orientation.LANDSCAPE;
+        window.fullscreen = false;
+        window.resizable = true;
+
+        sources.push("source");
+        icons.push(new Icon("art/icon.png"));
+        
+        includeAssets("assets");
+
+        setupBuildPath();
+        setupDefines();
+        setupMacros();
+        setupHaxelibs();
+
+        // Web error
+        // Funny
+        if (isWeb())
+            error("Web isn't supported you stupid bitch.");
+    }
+
+    function setupBuildPath()
+    {
+        var path:String = "release";
+
+        if (isDebug())
+            path = "debug";
+
+        // Sets the export path
+        // On debug, it"s "export/debug"
+        // On release, it"s "export/release"
+        app.path = 'export/$path';
+    }
+
+    function setupDefines()
+    {
+        // WTF Engine
+        setHaxedef("HAS_FPS_COUNTER");
+        setHaxedef("HAS_MODDING");
+        if (isCPP())
+            setHaxedef("HAS_DISCORD_RPC");
+        if (isDebug())
+            setHaxedef("HAS_SCREENSHOTS");
+        setHaxedef("HAS_TITLE_SCARE");
+
+        // Flixel
+        setHaxedef("FLX_NO_HEALTH");
+        setHaxedef("FLX_NO_FOCUS_LOST_SCREEN");
+        if (!isDebug())
+            setHaxedef("FLX_NO_DEBUG");
+        setHaxedef("NAPE_RELEASE_BUILD");
+
+        // Makes message reporting nice and pretty
+        // Remove this line if you"re lame
+        setHaxedef("message.reporting", "pretty");
+
+        // Polymod
+        setHaxedef("POLYMOD_MOD_METADATA_FILE", "meta.json");
+        setHaxedef("POLYMOD_MOD_ICON_FILE", "icon.png");
+        setHaxedef("hscriptPos");
+    }
+
+    function setupMacros()
+    {
+        addMacro("addMetadata('@:build(funkin.util.macro.ZIndexMacro.buildFlxBasic())', 'flixel.FlxBasic')");
+        addMacro("addMetadata('@:build(funkin.util.macro.ZIndexMacro.buildFlxGroup())', 'flixel.group.FlxTypedGroup')");
+
+        // Includes each and every funkin and flixel package
+        // Though we"re excluding ones that require extra dependencies
+        addMacro("include('funkin', true)");
+        addMacro("include('flixel', true, ['flixel.addons.editors.spine.*', 'flixel.addons.nape.*', 'flixel.system.macros.*', 'flixel.addons.tile.FlxRayCastTilemap'])");
+    }
+
+    function setupHaxelibs()
+    {
+        addHaxelib("flixel");
+        addHaxelib("flixel-addons");
+        addHaxelib("json2object");
+        addHaxelib("polymod");
+        addHaxelib("thx.core");
+        addHaxelib("thx.semver");
+        addHaxelib("jsonpath");
+        addHaxelib("jsonpatch");
+        addHaxelib("hxdiscord_rpc");
+    }
+
+    function setHaxedef(name:String, ?value:String)
+    {
+        haxedefs.set(name, value ?? "");
+    }
+
+    function addHaxelib(name:String)
+    {
+        haxelibs.push(new Haxelib(name));
+    }
+
+    function addMacro(name:String)
+    {
+        haxeflags.push('--macro $name');
+    }
+
+    //
+    // LOGGING
+    //
+
+    function error(message:String)
+    {
+        Sys.stderr().write(Bytes.ofString(message));
+        Sys.exit(1);
+    }
+
+    //
+    // CONDITIONALS
+    //
+
+    function isCPP():Bool
+    {
+        return defines.exists("cpp");
+    }
+
+    function isWeb():Bool
+    {
+        return platformType == PlatformType.WEB;
+    }
+
+    function isDebug():Bool
+    {
+        return debug;
+    }
+}
