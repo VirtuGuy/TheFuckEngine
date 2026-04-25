@@ -60,7 +60,7 @@ class LimoStage extends Stage
         car.x = FlxG.width;
         car.visible = true;
 
-        FunkinSound.playOnce(Paths.random('$path/car', 1, 2));
+        FunkinSound.playOnce(Paths.random('$path/sounds/car', 1, 2));
 
         FlxTimer.wait(1, () ->
         {

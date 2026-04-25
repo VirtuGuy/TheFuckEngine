@@ -55,7 +55,7 @@ class SpookyStage extends Stage
 
         if (playSound)
         {
-            FunkinSound.playOnce(Paths.random('$path/thunder', 1, 2));
+            FunkinSound.playOnce(Paths.random('$path/sounds/thunder', 1, 2));
         }
     }
 }

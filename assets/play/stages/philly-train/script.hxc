@@ -100,7 +100,7 @@ class PhillyTrainStage extends Stage
         train.visible = true;
         train.x = FlxG.width;
 
-        FunkinSound.playOnce('$path/train');
+        FunkinSound.playOnce('$path/sounds/train');
 
         FlxTimer.wait(5, () ->
         {
