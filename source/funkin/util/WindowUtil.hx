@@ -7,6 +7,14 @@ import openfl.Lib;
  */
 class WindowUtil
 {
+	public static function exit()
+	{
+		trace('Exiting the game...');
+		trace('This is NOT a crash.');
+
+		Sys.exit(0);
+	}
+
 	public static function alert(message:String)
 	{
 		Lib.application.window.alert(message);

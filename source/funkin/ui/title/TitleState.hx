@@ -1,13 +1,14 @@
 package funkin.ui.title;
 
 import flixel.effects.FlxFlicker;
-import flixel.tweens.FlxTween;
+import flixel.input.keyboard.FlxKey;
 import flixel.util.FlxTimer;
 import funkin.audio.FunkinSound;
 import funkin.graphics.FunkinSprite;
 import funkin.graphics.FunkinText;
 import funkin.ui.menu.MainMenuState;
 import funkin.util.MathUtil;
+import funkin.util.WindowUtil;
 
 /**
  * The engine's title screen state.
@@ -17,16 +18,22 @@ class TitleState extends FunkinState
 {
 	static var seenIntro:Bool = false;
 
+	#if HAS_TITLE_SCARE
 	final SCARE_TIME:Float = 40;
 
-	var started:Bool = false;
+	// Typing 1987 results in a jumpscare
+	// Only if HAS_TITLE_SCARE is defined though
+	var scareKeys:Array<FlxKey> = [ONE, NINE, EIGHT, SEVEN];
 	var scared:Bool = false;
-	var logoScale:Float;
-
 	var scareTimer:FlxTimer;
 
 	var gfSpooky:FunkinSprite;
 	var gfScare:FunkinSprite;
+	#end
+
+	var started:Bool = false;
+	var logoScale:Float;
+
 	var gf:FunkinSprite;
 	var logo:FunkinSprite;
 	var startText:FunkinText;
@@ -36,19 +43,6 @@ class TitleState extends FunkinState
 		super.create();
 
 		conductor.reset(100);
-
-		gfSpooky = FunkinSprite.create(0, 0, 'ui/title/gf-spooky');
-		gfSpooky.screenCenter();
-		gfSpooky.active = false;
-		gfSpooky.y += 50;
-		add(gfSpooky);
-
-		gfScare = FunkinSprite.create(0, 0, 'ui/title/scare/scare');
-		gfScare.screenCenter();
-		gfScare.active = false;
-		gfScare.visible = false;
-		gfScare.y -= 50;
-		add(gfScare);
 
 		gf = FunkinSprite.create(0, 0, 'ui/title/gf', 1.5, 268, 290);
 		gf.x = FlxG.width - gf.width - 30;
@@ -69,11 +63,26 @@ class TitleState extends FunkinState
 		startText.visible = false;
 		add(startText);
 
+		#if HAS_TITLE_SCARE
+		gfSpooky = FunkinSprite.create(0, 0, 'ui/title/gf-spooky');
+		gfSpooky.screenCenter();
+		gfSpooky.active = false;
+		gfSpooky.y += 50;
+		add(gfSpooky);
+
+		gfScare = FunkinSprite.create(0, 0, 'ui/title/scare/scare');
+		gfScare.screenCenter();
+		gfScare.active = false;
+		gfScare.visible = false;
+		gfScare.y -= 50;
+		add(gfScare);
+		#end
+
 		logoScale = logo.scale.x;
 
+		#if HAS_TITLE_SCARE
 		scareTimer = FlxTimer.wait(SCARE_TIME, jumpscare);
 
-		#if HAS_TITLE_SCARE
 		if (seenIntro)
 			skipIntro();
 		else
@@ -89,16 +98,17 @@ class TitleState extends FunkinState
 
 	function skipIntro()
 	{
+		#if HAS_TITLE_SCARE
 		if (scared)
 			return;
 		if (!seenIntro)
 			FunkinSound.music?.stop();
+
 		seenIntro = true;
 
 		scareTimer.cancel();
-
 		gfSpooky.destroy();
-		gfScare.destroy();
+		#end
 
 		gf.visible = true;
 		logo.visible = true;
@@ -108,8 +118,11 @@ class TitleState extends FunkinState
 		FlxG.camera.flash();
 	}
 
+	#if HAS_TITLE_SCARE
 	function jumpscare()
 	{
+		if (scared)
+			return;
 		scared = true;
 
 		gfSpooky.destroy();
@@ -118,8 +131,9 @@ class TitleState extends FunkinState
 		FunkinSound.playOnce('ui/title/scare/scare');
 		FunkinSound.music.stop();
 
-		FlxTimer.wait(0.5, () -> Sys.exit(0));
+		FlxTimer.wait(0.5, WindowUtil.exit);
 	}
+	#end
 
 	function start()
 	{
@@ -147,24 +161,35 @@ class TitleState extends FunkinState
 		logo.scale.x = MathUtil.lerp(logo.scale.x, logoScale, 0.15);
 		logo.scale.y = logo.scale.x;
 
+		#if HAS_TITLE_SCARE
 		if (scared)
 		{
 			gfScare.scale.x += 20 * elapsed;
 			gfScare.scale.y = gfScare.scale.x;
 		}
 
-		if (controls.BACK)
+		if (scareKeys.length == 0)
+			jumpscare();
+		else
 		{
-			trace('Pressed back. Quitting...');
-			Sys.exit(0);
+			if (FlxG.keys.anyJustPressed([scareKeys[0]]))
+				scareKeys.shift();
 		}
+		#end
+
+		if (controls.BACK)
+			WindowUtil.exit();
 
 		if (controls.ACCEPT)
 		{
+			#if HAS_TITLE_SCARE
 			if (seenIntro)
 				start();
 			else
 				skipIntro();
+			#else
+			start();
+			#end
 		}
 	}
 
@@ -183,10 +208,12 @@ class TitleState extends FunkinState
 		super.destroy();
 
 		// This is in case the player pressed F4
+		#if HAS_TITLE_SCARE
 		if (!seenIntro)
 		{
 			seenIntro = true;
 			FunkinSound.music.stop();
 		}
+		#end
 	}
 }
