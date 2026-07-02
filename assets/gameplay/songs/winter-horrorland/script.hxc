@@ -1,6 +1,7 @@
 import flixel.util.FlxTimer;
 import flixel.tweens.FlxTween;
 import funkin.audio.FunkinSound;
+import funkin.data.event.EventRegistry;
 import funkin.play.song.Song;
 import funkin.play.stage.StageProp;
 import funkin.play.Playlist;
@@ -37,8 +38,9 @@ class WinterHorrorlandSong extends Song
         
         FlxTimer.wait(2, () -> {
             PlayState.instance.camHUD.visible = true;
-            PlayState.instance.setCameraZoom();
             PlayState.instance.startCountdown();
+
+            EventRegistry.instance.handleEvent("zoom-camera", { z: 1, e: "quintOut", d: 40 });
         });
     }
 
