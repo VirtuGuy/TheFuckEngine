@@ -31,11 +31,25 @@
             "scale": 0.75
         },
         {
-            "image": "boppers-top",
-            "position": [-230, -45],
+            "image": "boppers-top-left",
+            "position": [-210, -45],
             "scroll": [0.5, 0.5],
             "scale": 0.8,
-            "width": 1050,
+            "width": 416,
+            "height": 122,
+            "animations": [
+                {
+                    "name": "idle",
+                    "frames": [0, 1, 2]
+                }
+            ]
+        },
+        {
+            "image": "boppers-top-right",
+            "position": [500, -45],
+            "scroll": [0.5, 0.5],
+            "scale": 0.8,
+            "width": 383,
             "height": 123,
             "animations": [
                 {
@@ -66,9 +80,21 @@
         },
         {
             "image": "boppers-bottom",
-            "position": [-180, -110],
-            "width": 810,
+            "position": [380, -110],
+            "width": 407,
             "height": 277,
+            "animations": [
+                {
+                    "name": "idle",
+                    "frames": [0, 1, 2]
+                }
+            ]
+        },
+        {
+            "image": "mighty",
+            "position": [-180, -110],
+            "width": 146,
+            "height": 256,
             "animations": [
                 {
                     "name": "idle",
