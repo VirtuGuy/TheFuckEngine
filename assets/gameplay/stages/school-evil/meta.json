@@ -12,9 +12,16 @@
     },
     "props": [
         {
-            "id": "back",
-            "image": "back",
-            "position": [-610, -350],
+            "id": "school",
+            "image": "school",
+            "position": [-300, -190],
+            "scroll": [0.75, 0.75],
+            "scale": 3
+        },
+        {
+            "id": "ground",
+            "image": "ground",
+            "position": [-720, 100],
             "scale": 3.5
         }
     ]
