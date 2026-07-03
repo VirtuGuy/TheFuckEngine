@@ -12,15 +12,28 @@
     },
     "props": [
         {
-            "image": "back",
-            "position": [-180, -250],
-            "scroll": [0.1, 0.1],
-            "scale": 0.8
+            "image": "back-top",
+            "position": [-260, -330],
+            "scroll": [0.3, 0.3],
+            "scale": 0.75
+        },
+        {
+            "image": "back-bottom",
+            "position": [-260, 150],
+            "scroll": [0.3, 0.3],
+            "scale": 0.75
+        },
+        {
+            "image": "back-bottom",
+            "position": [500, 150],
+            "scroll": [0.3, 0.3],
+            "flipX": true,
+            "scale": 0.75
         },
         {
             "image": "boppers-top",
-            "position": [-70, 10],
-            "scroll": [0.3, 0.3],
+            "position": [-230, -45],
+            "scroll": [0.5, 0.5],
             "scale": 0.8,
             "width": 1050,
             "height": 123,
@@ -33,19 +46,27 @@
         },
         {
             "image": "front",
-            "position": [-320, 100],
-            "scroll": [0.3, 0.3],
+            "position": [-460, 50],
+            "scroll": [0.5, 0.5],
+            "scale": 0.8
+        },
+        {
+            "image": "front",
+            "position": [340, 50],
+            "scroll": [0.5, 0.5],
+            "flipX": true,
             "scale": 0.8
         },
         {
             "id": "tree",
             "image": "tree",
-            "position": [50, -150],
-            "scroll": [0.5, 0.5]
+            "position": [30, -300],
+            "scroll": [0.7, 0.7],
+            "scale": 0.75
         },
         {
             "image": "boppers-bottom",
-            "position": [-180, -130],
+            "position": [-180, -110],
             "width": 810,
             "height": 277,
             "animations": [
@@ -57,7 +78,7 @@
         },
         {
             "image": "snow",
-            "position": [-800, 180]
+            "position": [-850, 200]
         },
         {
             "image": "santa",
