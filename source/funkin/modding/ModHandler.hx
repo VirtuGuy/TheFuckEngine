@@ -30,21 +30,7 @@ class ModHandler
 		if (!FileSystem.exists(MOD_FOLDER))
 			FileSystem.createDirectory(MOD_FOLDER);
 
-		// Initializes Polymod and its imports
-		buildImports();
-
-		Polymod.init({
-			modRoot: MOD_FOLDER,
-			framework: OPENFL,
-			errorCallback: onError,
-			apiVersionRule: API_VERSION_RULE,
-			skipDependencyErrors: true,
-			useScriptedClasses: true
-		});
-
-		#if HAS_MODDING
 		loadMods();
-		#end
 	}
 
 	public static function reload()
@@ -52,11 +38,7 @@ class ModHandler
 		Polymod.clearCache();
 		Polymod.clearScripts();
 
-		#if HAS_MODDING
 		loadMods();
-		#else
-		Polymod.reload();
-		#end
 
 		// Reloads the registries
 		// Not having this would ruin the point of hot-reloading
@@ -79,19 +61,30 @@ class ModHandler
 			PlayState.song = SongRegistry.instance.fetchSong(PlayState.song.id, PlayState.difficulty);
 		if (Playlist.level != null)
 			Playlist.level = LevelRegistry.instance.fetch(Playlist.level.id);
+
+		trace(Polymod.getLoadedModDirs());
 	}
 
-	#if HAS_MODDING
-	/**
-	 * TODO: Make this only load enabled mods.
-	 * Well uh after a mod menu gets added.
-	 */
 	static function loadMods()
 	{
+		buildImports();
+
+		Polymod.init({
+			modRoot: MOD_FOLDER,
+			framework: OPENFL,
+			errorCallback: onError,
+			apiVersionRule: API_VERSION_RULE,
+			skipDependencyErrors: true,
+			useScriptedClasses: true
+		});
+
+		#if HAS_MODDING
+		// TODO: Make this only load enabled mods
+		// Well uh after a mod menu gets added
 		for (meta in Polymod.scan())
 			Polymod.loadMod(meta.dirName);
+		#end
 	}
-	#end
 
 	static function buildImports()
 	{
