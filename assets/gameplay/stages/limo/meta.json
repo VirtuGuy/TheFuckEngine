@@ -5,7 +5,7 @@
         "position": [-250, 370]
     },
     "player": {
-        "position": [440, 230]
+        "position": [440, 240]
     },
     "gf": {
         "position": [0, 320]
@@ -13,20 +13,21 @@
     "props": [
         {
             "image": "sky",
-            "position": [0, 0],
-            "scroll": [0.02, 0.02]
+            "position": [-50, -100],
+            "scroll": [0.1, 0.1]
         },
         {
             "image": "back",
-            "position": [-200, 80],
-            "scroll": [0.6, 0.6]
+            "position": [-280, 100],
+            "scroll": [0.6, 0.6],
+            "scale": 0.85
         },
         {
             "id": "henchman",
             "image": "henchman",
             "width": 267,
             "height": 272,
-            "position": [50, -160],
+            "position": [50, -130],
             "scroll": [0.6, 0.6],
             "scale": 0.8,
             "animations": [
@@ -38,20 +39,19 @@
         },
         {
             "prop": "henchman",
-            "position": [350, -160]
+            "position": [350, -130]
         },
         {
             "prop": "henchman",
-            "position": [650, -160]
+            "position": [650, -130]
         },
         {
             "prop": "henchman",
-            "position": [950, -160]
+            "position": [950, -130]
         },
         {
             "image": "front",
-            "position": [-500, 60],
-            "scale": 1.1,
+            "position": [-380, 80],
             "zIndex": 2
         },
         {
