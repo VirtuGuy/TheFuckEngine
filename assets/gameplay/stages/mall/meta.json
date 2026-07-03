@@ -13,20 +13,20 @@
     "props": [
         {
             "image": "back-top",
-            "position": [-260, -330],
-            "scroll": [0.3, 0.3],
+            "position": [-260, -370],
+            "scroll": [0.3, 0.45],
             "scale": 0.75
         },
         {
             "image": "back-bottom",
-            "position": [-260, 150],
-            "scroll": [0.3, 0.3],
+            "position": [-260, 120],
+            "scroll": [0.3, 0.45],
             "scale": 0.75
         },
         {
             "image": "back-bottom",
-            "position": [500, 150],
-            "scroll": [0.3, 0.3],
+            "position": [500, 120],
+            "scroll": [0.3, 0.45],
             "flipX": true,
             "scale": 0.75
         },

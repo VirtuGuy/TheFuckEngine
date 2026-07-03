@@ -12,26 +12,47 @@
     },
     "props": [
         {
-            "image": "back",
-            "position": [-180, -250],
-            "scroll": [0.1, 0.1],
+            "image": "back-top",
+            "position": [-260, -370],
+            "scroll": [0.3, 0.45],
+            "scale": 0.75
+        },
+        {
+            "image": "back-bottom",
+            "position": [-260, 120],
+            "scroll": [0.3, 0.45],
+            "scale": 0.75
+        },
+        {
+            "image": "back-bottom",
+            "position": [500, 120],
+            "scroll": [0.3, 0.45],
+            "flipX": true,
+            "scale": 0.75
+        },
+        {
+            "image": "front",
+            "position": [-460, 50],
+            "scroll": [0.5, 0.5],
             "scale": 0.8
         },
         {
             "image": "front",
-            "position": [-320, 100],
-            "scroll": [0.3, 0.3],
+            "position": [340, 50],
+            "scroll": [0.5, 0.5],
+            "flipX": true,
             "scale": 0.8
         },
         {
             "id": "tree",
             "image": "tree",
-            "position": [50, -150],
-            "scroll": [0.5, 0.5]
+            "position": [30, -300],
+            "scroll": [0.7, 0.7],
+            "scale": 0.75
         },
         {
             "image": "snow",
-            "position": [-800, 180]
+            "position": [-850, 200]
         }
     ]
 }
