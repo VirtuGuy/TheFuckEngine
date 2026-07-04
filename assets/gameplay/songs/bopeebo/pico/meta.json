@@ -1,0 +1,22 @@
+{
+	"style": "funkin",
+	"name": "Bopeebo (Pico Mix)",
+	"gf": "nene",
+	"album": "volume4",
+	"difficulties": [
+		"easy",
+		"normal",
+		"hard"
+	],
+	"opponent": "dad",
+	"charter": "fabs + Spazkid",
+	"player": "pico",
+	"stage": "stage",
+	"bpm": 100,
+	"artist": "That Andy Guy (feat. Saruky)",
+	"rating": {
+		"normal": 2,
+		"hard": 3,
+		"easy": 1
+	}
+}
