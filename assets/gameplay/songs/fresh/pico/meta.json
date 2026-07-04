@@ -1,0 +1,22 @@
+{
+	"style": "funkin",
+	"name": "Fresh (Pico Mix)",
+	"gf": "nene",
+	"album": "volume4",
+	"difficulties": [
+		"easy",
+		"normal",
+		"hard"
+	],
+	"opponent": "dad",
+	"charter": "fabs + Spazkid",
+	"player": "pico",
+	"stage": "stage",
+	"bpm": 120,
+	"artist": "Xploshi (ft. Saster)",
+	"rating": {
+		"normal": 3,
+		"hard": 4,
+		"easy": 2
+	}
+}

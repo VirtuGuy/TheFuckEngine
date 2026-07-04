@@ -4,6 +4,7 @@ import funkin.data.song.SongData;
 import funkin.data.story.LevelRegistry;
 import funkin.modding.ScriptBases.ScriptedSong;
 import funkin.play.song.Song;
+import funkin.ui.freeplay.player.Player;
 import funkin.ui.story.Level;
 import funkin.util.FileUtil;
 import json2object.JsonParser;
@@ -145,7 +146,7 @@ class SongRegistry extends BaseRegistry<Song>
 		return diffs;
 	}
 
-	public function listWithDifficulty(diff:String):Array<String>
+	public function listWithDifficulty(diff:String, player:Player):Array<String>
 	{
 		var list:Array<String> = [];
 
@@ -158,7 +159,7 @@ class SongRegistry extends BaseRegistry<Song>
 			{
 				var song:Song = fetchSong(id);
 
-				if (list.contains(id) || !song.hasDifficulty(diff))
+				if (list.contains(id) || !song.hasDifficulty(diff) || song.getVariationFromPlayer(player) == null)
 					continue;
 				list.push(id);
 			}
@@ -170,7 +171,7 @@ class SongRegistry extends BaseRegistry<Song>
 		{
 			var song:Song = fetch(id);
 
-			if (list.contains(id) || !song.hasDifficulty(diff))
+			if (list.contains(id) || !song.hasDifficulty(diff) || song.getVariationFromPlayer(player) == null)
 				continue;
 			list.push(id);
 		}

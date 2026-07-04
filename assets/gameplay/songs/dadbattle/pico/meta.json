@@ -1,0 +1,22 @@
+{
+	"style": "funkin",
+	"name": "DadBattle (Pico Mix)",
+	"gf": "nene",
+	"album": "volume4",
+	"difficulties": [
+		"easy",
+		"normal",
+		"hard"
+	],
+	"opponent": "dad",
+	"charter": "fabs + Spazkid",
+	"player": "pico",
+	"stage": "stage",
+	"bpm": 180,
+	"artist": "TeraVex (ft. Saruky)",
+	"rating": {
+		"normal": 4,
+		"hard": 5,
+		"easy": 3
+	}
+}

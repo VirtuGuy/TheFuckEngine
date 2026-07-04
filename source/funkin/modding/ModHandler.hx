@@ -1,8 +1,9 @@
 package funkin.modding;
 
-import funkin.data.album.AlbumRegistry;
 import funkin.data.character.CharacterRegistry;
 import funkin.data.event.EventRegistry;
+import funkin.data.freeplay.album.AlbumRegistry;
+import funkin.data.freeplay.player.PlayerRegistry;
 import funkin.data.notekind.NoteKindRegistry;
 import funkin.data.song.SongRegistry;
 import funkin.data.stage.StageRegistry;
@@ -46,6 +47,7 @@ class ModHandler
 		StageRegistry.instance.load();
 		SongRegistry.instance.load();
 		LevelRegistry.instance.load();
+		PlayerRegistry.instance.load();
 		EventRegistry.instance.load();
 		NoteKindRegistry.instance.load();
 		StyleRegistry.instance.load();

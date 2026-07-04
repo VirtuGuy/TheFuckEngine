@@ -4,6 +4,7 @@ import funkin.data.event.EventData;
 import funkin.data.song.SongData;
 import funkin.modding.IScriptedClass.IPlayStateScriptedClass;
 import funkin.modding.event.ScriptEvent;
+import funkin.ui.freeplay.player.Player;
 import haxe.ds.StringMap;
 
 /**
@@ -86,6 +87,20 @@ class Song implements IPlayStateScriptedClass
 		if (variations.exists(id))
 			return variations.get(id);
 		return this;
+	}
+
+	public function getVariationFromPlayer(player:Player):Song
+	{
+		if (player.isOwner(this.player))
+			return this;
+
+		for (variation in variations)
+		{
+			if (player.isOwner(variation.player))
+				return variation;
+		}
+
+		return null;
 	}
 
 	@:noCompletion

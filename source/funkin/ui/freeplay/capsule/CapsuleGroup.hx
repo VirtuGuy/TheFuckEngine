@@ -6,6 +6,7 @@ import funkin.audio.FunkinSound;
 import funkin.data.song.SongRegistry;
 import funkin.input.Controls;
 import funkin.play.song.Song;
+import funkin.ui.freeplay.player.Player;
 import funkin.util.MathUtil;
 
 /**
@@ -80,7 +81,7 @@ class CapsuleGroup extends FlxTypedGroup<CapsuleSprite>
 		}
 	}
 
-	public function load(songs:Array<String>, diff:String)
+	public function load(songs:Array<String>, diff:String, player:Player)
 	{
 		final prevSong:Song = song;
 

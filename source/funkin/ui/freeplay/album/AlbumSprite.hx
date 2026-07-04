@@ -2,7 +2,7 @@ package funkin.ui.freeplay.album;
 
 import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxTimer;
-import funkin.data.album.AlbumRegistry;
+import funkin.data.freeplay.album.AlbumRegistry;
 import funkin.graphics.FunkinSprite;
 import funkin.graphics.FunkinText;
 

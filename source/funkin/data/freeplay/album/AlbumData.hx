@@ -1,4 +1,4 @@
-package funkin.data.album;
+package funkin.data.freeplay.album;
 
 /**
  * A structure object used for freeplay album data.

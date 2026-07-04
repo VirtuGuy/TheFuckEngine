@@ -2,6 +2,7 @@ package funkin.ui.freeplay;
 
 import flixel.util.FlxTimer;
 import funkin.audio.FunkinSound;
+import funkin.data.freeplay.player.PlayerRegistry;
 import funkin.data.song.SongRegistry;
 import funkin.graphics.FunkinSprite;
 import funkin.graphics.FunkinText;
@@ -17,6 +18,7 @@ import funkin.ui.freeplay.capsule.CapsuleSprite;
 import funkin.ui.freeplay.components.BackcardSprite;
 import funkin.ui.freeplay.components.DJSprite;
 import funkin.ui.freeplay.components.SortText;
+import funkin.ui.freeplay.player.Player;
 import funkin.ui.menu.MainMenuState;
 import funkin.ui.selector.DifficultyText;
 import funkin.util.MathUtil;
@@ -32,6 +34,8 @@ class FreeplaySubState extends FunkinSubState
 	static var selectedSong:Int = 1;
 	static var selectedDiff:Int = 1;
 	static var selectedSort:Int = 0;
+
+	static var player:Player;
 
 	var skipIntro:Bool;
 	var exitMovers:ExitMovers;
@@ -68,6 +72,9 @@ class FreeplaySubState extends FunkinSubState
 		super.create();
 
 		instance = this;
+
+		if (player == null)
+			player = PlayerRegistry.instance.fetch('bf');
 
 		FunkinSound.playMusic('menu/freeplay/music', 0);
 		FunkinSound.music.fadeIn(1, 0, 0.6);
@@ -162,6 +169,22 @@ class FreeplaySubState extends FunkinSubState
 			confirm(capsules.capsule);
 		if (controls.BACK)
 			exit();
+
+		// Player switching debug
+		// Pressing P switches between boyfriend and pico
+		if (FlxG.keys.justPressed.P && stateMachine.canInteract())
+		{
+			var id:String = 'bf';
+
+			if (player.id == id)
+				id = 'pico';
+
+			player = PlayerRegistry.instance.fetch(id);
+
+			trace('Changing player to $player');
+
+			changeDiff(selectedDiff);
+		}
 
 		_parentState.persistentDraw = stateMachine.transitioning();
 
@@ -317,7 +340,7 @@ class FreeplaySubState extends FunkinSubState
 
 	function loadCapsules()
 	{
-		var songs:Array<String> = SongRegistry.instance.listWithDifficulty(difficulty);
+		var songs:Array<String> = SongRegistry.instance.listWithDifficulty(difficulty, player);
 
 		// Song sorting
 		// Either sort by favorites, or sort by levels
@@ -333,7 +356,7 @@ class FreeplaySubState extends FunkinSubState
 		else if (selectedSort > 0)
 			songs = songs.filter(song -> return sortText.level.hasSong(song));
 
-		capsules.load(songs, difficulty);
+		capsules.load(songs, difficulty, player);
 		capsules.forEachAlive(capsule -> exitMovers.add(capsule, FlxG.width + capsule.x));
 	}
 

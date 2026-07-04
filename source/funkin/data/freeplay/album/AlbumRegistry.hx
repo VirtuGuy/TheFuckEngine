@@ -1,4 +1,4 @@
-package funkin.data.album;
+package funkin.data.freeplay.album;
 
 import funkin.modding.ScriptBases.ScriptedAlbum;
 import funkin.ui.freeplay.album.Album;

@@ -1,6 +1,6 @@
 package funkin.ui.freeplay.album;
 
-import funkin.data.album.AlbumData;
+import funkin.data.freeplay.album.AlbumData;
 
 /**
  * The engine's freeplay album class.
