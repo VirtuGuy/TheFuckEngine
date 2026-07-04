@@ -81,7 +81,7 @@ class CapsuleGroup extends FlxTypedGroup<CapsuleSprite>
 		}
 	}
 
-	public function load(songs:Array<String>, diff:String, player:Player)
+	public function load(songs:Array<Song>, diff:String)
 	{
 		final prevSong:Song = song;
 
@@ -95,7 +95,6 @@ class CapsuleGroup extends FlxTypedGroup<CapsuleSprite>
 
 		for (i => song in songs)
 		{
-			final song:Song = SongRegistry.instance.fetchSong(song, diff, player);
 			final index:Int = i + 1;
 
 			if (prevSong?.id == song.id)

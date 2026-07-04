@@ -7,6 +7,7 @@ import funkin.play.song.Song;
 import funkin.ui.freeplay.player.Player;
 import funkin.ui.story.Level;
 import funkin.util.FileUtil;
+import funkin.util.SortUtil;
 import json2object.JsonParser;
 
 /**
@@ -19,6 +20,7 @@ class SongRegistry extends BaseRegistry<Song>
 	var metaParser(default, null) = new JsonParser<SongMetadata>();
 	var chartParser(default, null) = new JsonParser<SongChartData>();
 
+	var sorted:Array<String>;
 	var diffs:Array<String>;
 
 	public function new()
@@ -30,6 +32,7 @@ class SongRegistry extends BaseRegistry<Song>
 	{
 		super.load();
 
+		sorted = null;
 		diffs = null;
 
 		//
@@ -146,37 +149,45 @@ class SongRegistry extends BaseRegistry<Song>
 		return diffs;
 	}
 
-	public function listWithDifficulty(diff:String, player:Player):Array<String>
+	public function listWithDifficulty(diff:String, player:Player):Array<Song>
 	{
-		var list:Array<String> = [];
+		final result:Array<Song> = [];
 
-		// List songs through levels to ensure proper order
+		for (id in listSorted())
+		{
+			final song:Song = SongRegistry.instance.fetchSong(id, diff, player);
+
+			if (song.hasDifficulty(diff) && player.isOwner(song.player))
+				result.push(song);
+		}
+
+		return result;
+	}
+
+	override public function listSorted():Array<String>
+	{
+		if (sorted != null)
+			return sorted;
+
+		sorted = list();
+
+		final songs:Array<String> = [];
+
 		for (id in LevelRegistry.instance.listSorted())
 		{
-			var level:Level = LevelRegistry.instance.fetch(id);
+			final level:Level = LevelRegistry.instance.fetch(id);
 
-			for (id in level.getSongs())
+			for (song in level.getSongs())
 			{
-				var song:Song = fetchSong(id);
-
-				if (list.contains(id) || !song.hasDifficulty(diff))
+				if (songs.contains(song))
 					continue;
-				list.push(id);
+				songs.push(song);
 			}
 		}
 
-		// List songs through the entries themselves
-		// Because not every song has a level
-		for (id in listSorted())
-		{
-			var song:Song = fetch(id);
+		sorted.sort(SortUtil.defaultsAlphabetically.bind(songs.concat(listDefaults())));
 
-			if (list.contains(id) || !song.hasDifficulty(diff))
-				continue;
-			list.push(id);
-		}
-
-		return list;
+		return sorted;
 	}
 
 	override public function listDefaults():Array<String>

@@ -340,23 +340,16 @@ class FreeplaySubState extends FunkinSubState
 
 	function loadCapsules()
 	{
-		var songs:Array<String> = SongRegistry.instance.listWithDifficulty(difficulty, player);
+		var songs:Array<Song> = SongRegistry.instance.listWithDifficulty(difficulty, player);
 
 		// Song sorting
 		// Either sort by favorites, or sort by levels
 		if (selectedSort == sortText.count - 1)
-		{
-			songs = songs.filter(song ->
-			{
-				var song:Song = SongRegistry.instance.fetchSong(song, difficulty, player);
-
-				return Save.instance.isSongFavorited(song.id, song.variation);
-			});
-		}
+			songs = songs.filter(song -> return Save.instance.isSongFavorited(song.id, song.variation));
 		else if (selectedSort > 0)
-			songs = songs.filter(song -> return sortText.level.hasSong(song));
+			songs = songs.filter(song -> return sortText.level.hasSong(song.id));
 
-		capsules.load(songs, difficulty, player);
+		capsules.load(songs, difficulty);
 		capsules.forEachAlive(capsule -> exitMovers.add(capsule, FlxG.width + capsule.x));
 	}
 
