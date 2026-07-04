@@ -25,6 +25,8 @@ class PlayerRegistry extends BaseRegistry<Player>
 	{
 		super.load();
 
+		owned.clear();
+
 		//
 		// VANILLA
 		//
