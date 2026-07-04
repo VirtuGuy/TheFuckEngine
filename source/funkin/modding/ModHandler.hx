@@ -61,8 +61,6 @@ class ModHandler
 			PlayState.song = SongRegistry.instance.fetchSong(PlayState.song.id, PlayState.difficulty);
 		if (Playlist.level != null)
 			Playlist.level = LevelRegistry.instance.fetch(Playlist.level.id);
-
-		trace(Polymod.getLoadedModDirs());
 	}
 
 	static function loadMods()
@@ -75,7 +73,8 @@ class ModHandler
 			errorCallback: onError,
 			apiVersionRule: API_VERSION_RULE,
 			skipDependencyErrors: true,
-			useScriptedClasses: true
+			useScriptedClasses: true,
+			ignoredFiles: []
 		});
 
 		#if HAS_MODDING
