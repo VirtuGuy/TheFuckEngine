@@ -1,0 +1,22 @@
+{
+	"style": "funkin",
+	"name": "Lit Up (BF Mix)",
+	"gf": "gf",
+	"album": "expansion2",
+	"difficulties": [
+		"easy",
+		"normal",
+		"hard"
+	],
+	"opponent": "darnell",
+	"charter": "fabs + Spazkid",
+	"player": "bf",
+	"stage": "philly-streets",
+	"bpm": 176,
+	"artist": "Saruky",
+	"rating": {
+		"normal": 5,
+		"hard": 6,
+		"easy": 4
+	}
+}

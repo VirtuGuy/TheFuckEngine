@@ -142,18 +142,22 @@ class SongRegistry extends BaseRegistry<Song>
 
 		for (id in listSorted())
 		{
+			// Check if the song fits the difficulty and player specified
 			final song:Song = SongRegistry.instance.fetch(id);
-			final variations:Array<Song> = song.variations.iterator().array();
 
-			variations.push(song);
-
-			for (variation in variations)
+			if (song.hasDifficulty(diff, false) && player.isOwner(song.player))
 			{
-				if (variation.hasDifficulty(diff, false) && player.isOwner(variation.player))
-				{
-					result.push(variation);
-					break;
-				}
+				result.push(song);
+				continue;
+			}
+
+			// If the song doesn't work, check for a variation that works
+			final variation:Song = song.variations.find(song -> return song.hasDifficulty(diff) && player.isOwner(song.player));
+
+			if (variation != null)
+			{
+				result.push(variation);
+				continue;
 			}
 		}
 

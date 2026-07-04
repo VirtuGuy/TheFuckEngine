@@ -1,0 +1,22 @@
+{
+	"style": "funkin",
+	"name": "Darnell (BF Mix)",
+	"gf": "gf",
+	"album": "volume4",
+	"difficulties": [
+		"easy",
+		"normal",
+		"hard"
+	],
+	"opponent": "darnell",
+	"charter": "fabs + Spazkid",
+	"player": "bf",
+	"stage": "philly-streets",
+	"bpm": 155,
+	"artist": "Saruky",
+	"rating": {
+		"normal": 4,
+		"hard": 5,
+		"easy": 3
+	}
+}
