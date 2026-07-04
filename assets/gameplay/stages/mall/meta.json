@@ -32,7 +32,7 @@
         },
         {
             "image": "boppers-top-left",
-            "position": [-210, -45],
+            "position": [-210, -40],
             "scroll": [0.5, 0.5],
             "scale": 0.8,
             "width": 416,
@@ -46,7 +46,7 @@
         },
         {
             "image": "boppers-top-right",
-            "position": [500, -45],
+            "position": [500, -40],
             "scroll": [0.5, 0.5],
             "scale": 0.8,
             "width": 383,
