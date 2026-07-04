@@ -63,11 +63,11 @@ class Song implements IPlayStateScriptedClass
 		return chart.speed?.get(diff) ?? Constants.DEFAULT_SPEED;
 	}
 
-	public function getDifficulties(checkVariations:Bool = true):Array<String>
+	public function getDifficulties(all:Bool = true):Array<String>
 	{
 		var result:Array<String> = meta.difficulties.copy();
 
-		if (!checkVariations)
+		if (!all)
 			return result;
 
 		for (variation in variations)
@@ -76,9 +76,9 @@ class Song implements IPlayStateScriptedClass
 		return result;
 	}
 
-	public function hasDifficulty(diff:String, checkVariations:Bool = true):Bool
+	public function hasDifficulty(diff:String, all:Bool = true):Bool
 	{
-		return getDifficulties(checkVariations).contains(diff);
+		return getDifficulties(all).contains(diff);
 	}
 
 	public function getVariation(id:String):Song
