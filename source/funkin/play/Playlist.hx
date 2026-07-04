@@ -27,11 +27,7 @@ class Playlist
 
 	public static function load()
 	{
-		var id:String = songs[0];
-		var diff:String = PlayState.difficulty;
-		var song:Song = SongRegistry.instance.fetchSong(id, diff);
-
-		PlayState.song = song;
+		PlayState.song = SongRegistry.instance.fetch(songs[0]);
 	}
 
 	public static function next():Bool

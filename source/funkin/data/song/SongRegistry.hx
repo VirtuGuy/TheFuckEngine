@@ -114,19 +114,6 @@ class SongRegistry extends BaseRegistry<Song>
 		}
 	}
 
-	public function fetchSong(id:String, ?diff:String, ?player:Player):Song
-	{
-		var song:Song = fetch(id);
-
-		for (variation in song.variations)
-		{
-			if (variation.hasDifficulty(diff) && player?.isOwner(variation.player))
-				return variation;
-		}
-
-		return song;
-	}
-
 	public function getDifficulties():Array<String>
 	{
 		// Use a cached array to make it real easy for the engine
@@ -152,13 +139,30 @@ class SongRegistry extends BaseRegistry<Song>
 	public function listWithDifficulty(diff:String, player:Player):Array<Song>
 	{
 		final result:Array<Song> = [];
+		final songs:Array<String> = [];
 
 		for (id in listSorted())
 		{
-			final song:Song = SongRegistry.instance.fetchSong(id, diff, player);
+			final song:Song = SongRegistry.instance.fetch(id);
 
-			if (song.hasDifficulty(diff) && player.isOwner(song.player))
+			for (variation in song.variations)
+			{
+				if (variation.hasDifficulty(diff) && player.isOwner(variation.player))
+				{
+					if (songs.contains(variation.id))
+						continue;
+					result.push(variation);
+					songs.push(variation.id);
+				}
+			}
+
+			if (song.hasDifficulty(diff, false) && player.isOwner(song.player))
+			{
+				if (songs.contains(song.id))
+					continue;
 				result.push(song);
+				songs.push(song.id);
+			}
 		}
 
 		return result;

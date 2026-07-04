@@ -98,7 +98,7 @@ class Save
 
 	public function isSongComplete(id:String):Bool
 	{
-		var song:Song = SongRegistry.instance.fetchSong(id);
+		var song:Song = SongRegistry.instance.fetch(id);
 
 		if (song == null)
 			return false;
