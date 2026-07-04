@@ -1,0 +1,22 @@
+{
+	"style": "funkin",
+	"name": "Spookeez (Pico Mix)",
+	"gf": "nene",
+	"album": "volume4",
+	"difficulties": [
+		"easy",
+		"normal",
+		"hard"
+	],
+	"opponent": "spooky",
+	"charter": "fabs + Spazkid",
+	"player": "pico",
+	"stage": "spooky",
+	"bpm": 150,
+	"artist": "six impala (feat. Saster)",
+	"rating": {
+		"normal": 2,
+		"hard": 3,
+		"easy": 1
+	}
+}

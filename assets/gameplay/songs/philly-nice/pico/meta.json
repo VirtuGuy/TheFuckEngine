@@ -1,0 +1,22 @@
+{
+	"style": "funkin",
+	"name": "Philly Nice (Pico Mix)",
+	"gf": "nene",
+	"album": "volume4",
+	"difficulties": [
+		"easy",
+		"normal",
+		"hard"
+	],
+	"opponent": "pico",
+	"charter": "Spazkid",
+	"player": "pico",
+	"stage": "philly-train",
+	"bpm": 175,
+	"artist": "tsuyunoshi (ft. Saruky)",
+	"rating": {
+		"normal": 3,
+		"hard": 4,
+		"easy": 2
+	}
+}

@@ -111,13 +111,13 @@ class SongRegistry extends BaseRegistry<Song>
 		}
 	}
 
-	public function fetchSong(id:String, ?diff:String):Song
+	public function fetchSong(id:String, ?diff:String, ?player:Player):Song
 	{
 		var song:Song = fetch(id);
 
 		for (variation in song.variations)
 		{
-			if (variation.hasDifficulty(diff))
+			if (variation.hasDifficulty(diff) && player?.isOwner(variation.player))
 				return variation;
 		}
 
@@ -159,7 +159,7 @@ class SongRegistry extends BaseRegistry<Song>
 			{
 				var song:Song = fetchSong(id);
 
-				if (list.contains(id) || !song.hasDifficulty(diff) || song.getVariationFromPlayer(player) == null)
+				if (list.contains(id) || !song.hasDifficulty(diff))
 					continue;
 				list.push(id);
 			}
@@ -171,7 +171,7 @@ class SongRegistry extends BaseRegistry<Song>
 		{
 			var song:Song = fetch(id);
 
-			if (list.contains(id) || !song.hasDifficulty(diff) || song.getVariationFromPlayer(player) == null)
+			if (list.contains(id) || !song.hasDifficulty(diff))
 				continue;
 			list.push(id);
 		}

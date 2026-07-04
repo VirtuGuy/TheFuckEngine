@@ -1,0 +1,22 @@
+{
+	"style": "funkin",
+	"name": "South (Pico Mix)",
+	"gf": "nene",
+	"album": "volume4",
+	"difficulties": [
+		"easy",
+		"normal",
+		"hard"
+	],
+	"opponent": "spooky",
+	"charter": "fabs + Spazkid",
+	"player": "pico",
+	"stage": "spooky",
+	"bpm": 165,
+	"artist": "six impala (feat. Saster)",
+	"rating": {
+		"normal": 3,
+		"hard": 4,
+		"easy": 2
+	}
+}

@@ -1,0 +1,22 @@
+{
+	"style": "funkin",
+	"name": "Blammed (Pico Mix)",
+	"gf": "nene",
+	"album": "volume4",
+	"difficulties": [
+		"easy",
+		"normal",
+		"hard"
+	],
+	"opponent": "pico",
+	"charter": "fabs + Spazkid",
+	"player": "pico",
+	"stage": "philly-train",
+	"bpm": 165,
+	"artist": "Metaroom (feat. Saruky)",
+	"rating": {
+		"normal": 4,
+		"hard": 5,
+		"easy": 3
+	}
+}

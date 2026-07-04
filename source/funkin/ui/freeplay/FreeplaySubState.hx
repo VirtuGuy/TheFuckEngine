@@ -348,7 +348,7 @@ class FreeplaySubState extends FunkinSubState
 		{
 			songs = songs.filter(song ->
 			{
-				var song:Song = SongRegistry.instance.fetchSong(song, difficulty);
+				var song:Song = SongRegistry.instance.fetchSong(song, difficulty, player);
 
 				return Save.instance.isSongFavorited(song.id, song.variation);
 			});

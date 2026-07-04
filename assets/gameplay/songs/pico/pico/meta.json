@@ -1,0 +1,22 @@
+{
+	"style": "funkin",
+	"name": "Pico (Pico Mix)",
+	"gf": "nene",
+	"album": "expansion2",
+	"difficulties": [
+		"easy",
+		"normal",
+		"hard"
+	],
+	"opponent": "pico",
+	"charter": "fabs",
+	"player": "pico",
+	"stage": "philly-train",
+	"bpm": 150,
+	"artist": "Metaroom (ft. Saster)",
+	"rating": {
+		"normal": 3,
+		"hard": 4,
+		"easy": 2
+	}
+}

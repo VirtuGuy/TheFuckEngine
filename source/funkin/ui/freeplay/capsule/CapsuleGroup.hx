@@ -95,7 +95,7 @@ class CapsuleGroup extends FlxTypedGroup<CapsuleSprite>
 
 		for (i => song in songs)
 		{
-			final song:Song = SongRegistry.instance.fetchSong(song, diff);
+			final song:Song = SongRegistry.instance.fetchSong(song, diff, player);
 			final index:Int = i + 1;
 
 			if (prevSong?.id == song.id)
