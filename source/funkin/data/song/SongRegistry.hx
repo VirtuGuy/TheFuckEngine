@@ -139,29 +139,21 @@ class SongRegistry extends BaseRegistry<Song>
 	public function listWithDifficulty(diff:String, player:Player):Array<Song>
 	{
 		final result:Array<Song> = [];
-		final songs:Array<String> = [];
 
 		for (id in listSorted())
 		{
 			final song:Song = SongRegistry.instance.fetch(id);
+			final variations:Array<Song> = song.variations.iterator().array();
 
-			for (variation in song.variations)
+			variations.push(song);
+
+			for (variation in variations)
 			{
-				if (variation.hasDifficulty(diff) && player.isOwner(variation.player))
+				if (variation.hasDifficulty(diff, false) && player.isOwner(variation.player))
 				{
-					if (songs.contains(variation.id))
-						continue;
 					result.push(variation);
-					songs.push(variation.id);
+					break;
 				}
-			}
-
-			if (song.hasDifficulty(diff, false) && player.isOwner(song.player))
-			{
-				if (songs.contains(song.id))
-					continue;
-				result.push(song);
-				songs.push(song.id);
 			}
 		}
 
