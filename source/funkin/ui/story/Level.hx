@@ -46,10 +46,12 @@ class Level implements IPlayStateScriptedClass
 			if (songs.contains(song))
 				continue;
 
+			final song:Song = SongRegistry.instance.fetchSong(song);
+
 			// Push the song if it exists
 			// There's no point of keeping null songs
-			if (SongRegistry.instance.exists(song))
-				songs.push(song);
+			if (song?.getDifficulties(false)?.length > 0)
+				songs.push(song.id);
 		}
 
 		return songs;
@@ -86,11 +88,11 @@ class Level implements IPlayStateScriptedClass
 			final song:Song = SongRegistry.instance.fetchSong(song);
 
 			if (i == 0)
-				diffs = song.difficulties.copy();
+				diffs = song.getDifficulties(false);
 
 			for (diff in diffs.copy())
 			{
-				if (!song.hasDifficulty(diff))
+				if (!song.hasDifficulty(diff, false))
 					diffs.remove(diff);
 			}
 		}

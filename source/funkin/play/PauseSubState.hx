@@ -40,7 +40,7 @@ class PauseSubState extends FunkinSubState
 
 		instance = this;
 
-		if (song.difficulties.length > 1)
+		if (song.getDifficulties(false).length > 1)
 			DEFAULT_ENTRIES.insert(2, 'difficulty');
 
 		final player:Character = PlayState.instance.stage.player;
@@ -136,7 +136,7 @@ class PauseSubState extends FunkinSubState
 				case 'exit to menu':
 					PlayState.instance.exit();
 				case 'difficulty':
-					var entries:Array<String> = song.difficulties.copy();
+					var entries:Array<String> = song.getDifficulties(false);
 
 					entries.remove(difficulty);
 					entries.push('back');

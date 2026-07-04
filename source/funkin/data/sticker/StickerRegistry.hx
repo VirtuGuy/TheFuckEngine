@@ -56,6 +56,9 @@ class StickerRegistry extends BaseRegistry<StickerPack>
 				var pack:StickerPack = ScriptedStickerPack.scriptInit(script, '');
 				var ogPack:StickerPack = fetch(pack.id);
 
+				if (ogPack == null)
+					continue;
+
 				pack.meta = ogPack.meta;
 
 				entries.set(pack.id, pack);

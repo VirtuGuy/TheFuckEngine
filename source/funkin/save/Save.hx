@@ -103,7 +103,7 @@ class Save
 		if (song == null)
 			return false;
 
-		for (diff in song.difficulties)
+		for (diff in song.getDifficulties())
 		{
 			if (getSongScore(song.id, diff) > 0)
 				return true;

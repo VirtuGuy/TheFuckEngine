@@ -85,6 +85,9 @@ class SongRegistry extends BaseRegistry<Song>
 				var song:Song = ScriptedSong.scriptInit(script, '');
 				var ogSong:Song = fetch(song.id);
 
+				if (ogSong == null)
+					continue;
+
 				if (song.variation == null || song.variation.isEmpty())
 					song.variation = Constants.DEFAULT_VARIATION;
 
@@ -167,7 +170,7 @@ class SongRegistry extends BaseRegistry<Song>
 		{
 			var song:Song = fetch(id);
 
-			if (list.contains(id) || !song.difficulties.contains(diff))
+			if (list.contains(id) || !song.hasDifficulty(diff))
 				continue;
 			list.push(id);
 		}

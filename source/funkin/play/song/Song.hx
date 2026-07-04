@@ -24,7 +24,6 @@ class Song implements IPlayStateScriptedClass
 	public var bpm(get, never):Float;
 	public var artist(get, never):String;
 	public var charter(get, never):String;
-	public var difficulties(get, never):Array<String>;
 
 	public var album(get, never):String;
 	public var style(get, never):String;
@@ -39,7 +38,6 @@ class Song implements IPlayStateScriptedClass
 	public var opponentPath(get, never):String;
 	public var playerPath(get, never):String;
 
-	var diffs:Array<String>;
 	var path(get, never):String;
 
 	public function new(id:String, ?variation:String)
@@ -65,22 +63,22 @@ class Song implements IPlayStateScriptedClass
 		return chart.speed?.get(diff) ?? Constants.DEFAULT_SPEED;
 	}
 
-	public function getDifficulties():Array<String>
+	public function getDifficulties(checkVariations:Bool = true):Array<String>
 	{
-		if (diffs != null)
-			return diffs;
+		var result:Array<String> = meta.difficulties.copy();
 
-		diffs = difficulties.copy();
+		if (!checkVariations)
+			return result;
 
 		for (variation in variations)
-			diffs = diffs.concat(variation.difficulties);
+			result = result.concat(variation.getDifficulties());
 
-		return diffs;
+		return result;
 	}
 
-	public function hasDifficulty(diff:String):Bool
+	public function hasDifficulty(diff:String, checkVariations:Bool = true):Bool
 	{
-		return getDifficulties().contains(diff);
+		return getDifficulties(checkVariations).contains(diff);
 	}
 
 	public function getVariation(id:String):Song
@@ -121,12 +119,6 @@ class Song implements IPlayStateScriptedClass
 		if (charter == null || charter.trim() == '')
 			charter = Constants.DEFAULT_CHARTER;
 		return charter;
-	}
-
-	@:noCompletion
-	function get_difficulties():Array<String>
-	{
-		return meta.difficulties;
 	}
 
 	@:noCompletion

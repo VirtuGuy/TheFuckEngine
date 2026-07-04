@@ -57,6 +57,9 @@ class LevelRegistry extends BaseRegistry<Level>
 				var level:Level = ScriptedLevel.scriptInit(script, '');
 				var ogLevel:Level = fetch(level.id);
 
+				if (ogLevel == null)
+					continue;
+
 				level.meta = ogLevel.meta;
 
 				entries.set(level.id, level);

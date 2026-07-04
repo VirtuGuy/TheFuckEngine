@@ -56,6 +56,9 @@ class AlbumRegistry extends BaseRegistry<Album>
 				var album:Album = ScriptedAlbum.scriptInit(script, '');
 				var ogAlbum:Album = fetch(album.id);
 
+				if (ogAlbum == null)
+					continue;
+
 				album.meta = ogAlbum.meta;
 
 				entries.set(album.id, album);

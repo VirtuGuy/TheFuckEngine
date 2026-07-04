@@ -56,6 +56,9 @@ class StyleRegistry extends BaseRegistry<Style>
 				var style:Style = ScriptedStyle.scriptInit(script, '');
 				var ogStyle:Style = fetch(style.id);
 
+				if (ogStyle == null)
+					continue;
+
 				style.meta = ogStyle.meta;
 
 				entries.set(style.id, style);
