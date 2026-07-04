@@ -1,0 +1,22 @@
+{
+	"style": "funkin",
+	"name": "Cocoa (Pico Mix)",
+	"gf": "nene",
+	"album": "expansion2",
+	"difficulties": [
+		"easy",
+		"normal",
+		"hard"
+	],
+	"opponent": "parents",
+	"charter": "fabs + Spazkid",
+	"player": "pico",
+	"stage": "mall",
+	"bpm": 100,
+	"artist": "six impala (feat. Saruky)",
+	"rating": {
+		"normal": 3,
+		"hard": 4,
+		"easy": 2
+	}
+}

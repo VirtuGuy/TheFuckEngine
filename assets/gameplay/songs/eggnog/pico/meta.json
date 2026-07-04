@@ -1,0 +1,22 @@
+{
+	"style": "funkin",
+	"name": "Eggnog (Pico Mix)",
+	"gf": "nene",
+	"album": "volume4",
+	"difficulties": [
+		"easy",
+		"normal",
+		"hard"
+	],
+	"opponent": "parents",
+	"charter": "fabs + Spazkid",
+	"player": "pico",
+	"stage": "mall",
+	"bpm": 150,
+	"artist": "Teravex (ft. Saruky)",
+	"rating": {
+		"normal": 4,
+		"hard": 5,
+		"easy": 3
+	}
+}
