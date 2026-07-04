@@ -60,7 +60,7 @@ class ModHandler
 		// Reload the current song and level
 		// This is so dumb
 		if (PlayState.song != null)
-			PlayState.song = SongRegistry.instance.fetch(PlayState.song.id);
+			PlayState.song = SongRegistry.instance.fetch(PlayState.song.id).getVariation(PlayState.song.variation);
 		if (Playlist.level != null)
 			Playlist.level = LevelRegistry.instance.fetch(Playlist.level.id);
 	}
