@@ -19,7 +19,7 @@ class CursorSprite extends FunkinSprite
 	{
 		super();
 
-		loadSprite('menu/charselect/cursor', 1.25);
+		loadSprite('menu/character-select/cursor', 1.25);
 
 		active = false;
 	}

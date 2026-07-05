@@ -13,6 +13,7 @@ class Player
 
 	public var name(get, never):String;
 	public var players(get, never):Array<String>;
+	public var slot(get, never):Int;
 
 	public var showUnowned(get, never):Bool;
 
@@ -29,6 +30,7 @@ class Player
 			return PlayerRegistry.instance.getOwner(id) == this.id;
 	}
 
+	@:noCompletion
 	function get_name():String
 	{
 		var name:Null<String> = meta.name;
@@ -37,11 +39,19 @@ class Player
 		return name;
 	}
 
+	@:noCompletion
 	function get_players():Array<String>
 	{
 		return meta.players ?? [];
 	}
 
+	@:noCompletion
+	function get_slot():Int
+	{
+		return meta.slot;
+	}
+
+	@:noCompletion
 	function get_showUnowned():Bool
 	{
 		return players.length == 0;

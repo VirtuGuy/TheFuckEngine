@@ -1,14 +1,15 @@
-package funkin.ui.charselect;
+package funkin.ui.charselect.icon;
 
 import flixel.group.FlxSpriteGroup;
 import funkin.audio.FunkinSound;
 import funkin.graphics.FunkinSprite;
 import funkin.input.Controls;
+import funkin.ui.freeplay.player.Player;
 
 /**
  * A group of icons used for selecting players in the character select menu.
  */
-class IconGroup extends FlxSpriteGroup
+class IconGroup extends FlxTypedSpriteGroup<IconSprite>
 {
 	static final SPACING:Float = 120;
 	static final COLUMNS:Int = 3;
@@ -19,9 +20,9 @@ class IconGroup extends FlxSpriteGroup
 
 	public var busy:Bool = false;
 
-	public var icon(get, never):FunkinSprite;
+	public var icon(get, never):IconSprite;
 
-	public function new(selected:Int)
+	public function new(slots:Map<Int, Player>, selected:Int)
 	{
 		super();
 
@@ -33,11 +34,11 @@ class IconGroup extends FlxSpriteGroup
 
 		for (i in 0...count)
 		{
-			var lock:LockSprite = new LockSprite();
-			lock.ID = i;
-			lock.x = (i % COLUMNS) * SPACING;
-			lock.y = Math.floor(i / COLUMNS) * SPACING;
-			add(lock);
+			var icon:IconSprite = new IconSprite(slots.get(i));
+			icon.ID = i;
+			icon.x = (i % COLUMNS) * SPACING;
+			icon.y = Math.floor(i / COLUMNS) * SPACING;
+			add(icon);
 		}
 	}
 
@@ -77,12 +78,12 @@ class IconGroup extends FlxSpriteGroup
 		else if (cursorY >= ROWS)
 			cursorY = 0;
 
-		FunkinSound.playOnce('menu/charselect/sounds/scroll');
+		FunkinSound.playOnce('menu/character-select/sounds/scroll');
 	}
 
 	@:noCompletion
-	inline function get_icon():FunkinSprite
+	inline function get_icon():IconSprite
 	{
-		return cast members[cursorX + cursorY * COLUMNS];
+		return members[cursorX + cursorY * COLUMNS];
 	}
 }

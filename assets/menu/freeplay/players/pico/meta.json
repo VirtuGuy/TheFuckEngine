@@ -3,5 +3,6 @@
     "players": [
         "pico",
         "pico-blazin"
-    ]
+    ],
+    "slot": 5
 }

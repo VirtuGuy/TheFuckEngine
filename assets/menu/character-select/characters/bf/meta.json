@@ -1,0 +1,11 @@
+{
+    "name": "Boyfriend",
+    "width": 150,
+    "height": 207,
+    "animations": [
+        {
+            "name": "idle",
+            "frames": [0, 1, 2]
+        }
+    ]
+}

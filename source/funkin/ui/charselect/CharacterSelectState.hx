@@ -2,8 +2,12 @@ package funkin.ui.charselect;
 
 import flixel.FlxObject;
 import funkin.audio.FunkinSound;
+import funkin.data.freeplay.player.PlayerRegistry;
 import funkin.graphics.FunkinSprite;
+import funkin.ui.charselect.icon.IconGroup;
+import funkin.ui.charselect.icon.IconSprite;
 import funkin.ui.freeplay.FreeplaySubState;
+import funkin.ui.freeplay.player.Player;
 
 /**
  * A menu where the player is able to select a character to play as.
@@ -12,15 +16,17 @@ class CharacterSelectState extends FunkinState
 {
 	public static var instance:CharacterSelectState;
 
+	static final PATH:String = 'menu/character-select';
+
 	static var selected:Int = 4;
 
-	var camFollow:FlxObject;
+	var slots(default, null) = new Map<Int, Player>();
 
+	var camFollow:FlxObject;
 	var crowd:FunkinSprite;
 
 	var bar:FunkinSprite;
 	var icons:IconGroup;
-
 	var cursor:CursorSprite;
 
 	override public function create()
@@ -29,35 +35,37 @@ class CharacterSelectState extends FunkinState
 
 		instance = this;
 
-		FunkinSound.playMusic('menu/charselect/music');
+		FunkinSound.playMusic('$PATH/music');
 
 		conductor.reset(90);
+
+		initSlots();
 
 		//
 		// PROPS
 		//
 
-		var back:FunkinSprite = FunkinSprite.create(0, -5, 'menu/charselect/props/back', 1.5);
+		var back:FunkinSprite = FunkinSprite.create(0, -5, '$PATH/props/back', 1.5);
 		back.scrollFactor.set(0.06, 0.06);
 		back.active = false;
 		back.screenCenter(X);
 		add(back);
 
-		crowd = FunkinSprite.create(0, 0, 'menu/charselect/props/crowd', 1.5, 594, 129);
+		crowd = FunkinSprite.create(0, 0, '$PATH/props/crowd', 1.5, 594, 129);
 		crowd.scrollFactor.set(0.05, 0.05);
 		crowd.y = FlxG.height - crowd.height * 2;
 		crowd.addAnimation('idle', [0, 1, 2], 10, false);
 		crowd.screenCenter(X);
 		add(crowd);
 
-		var floor:FunkinSprite = FunkinSprite.create(0, 0, 'menu/charselect/props/floor', 1.5);
+		var floor:FunkinSprite = FunkinSprite.create(0, 0, '$PATH/props/floor', 1.5);
 		floor.scrollFactor.set(0.04, 0.04);
 		floor.active = false;
 		floor.y = FlxG.height - floor.height + 5;
 		floor.screenCenter(X);
 		add(floor);
 
-		var curtain1:FunkinSprite = FunkinSprite.create(-5, -5, 'menu/charselect/props/curtain', 1.5);
+		var curtain1:FunkinSprite = FunkinSprite.create(-5, -5, '$PATH/props/curtain', 1.5);
 		curtain1.scrollFactor.set(0.03, 0.03);
 		curtain1.active = false;
 		add(curtain1);
@@ -68,7 +76,7 @@ class CharacterSelectState extends FunkinState
 		curtain2.y = curtain1.y;
 		add(curtain2);
 
-		var front1:FunkinSprite = FunkinSprite.create(-5, 0, 'menu/charselect/props/front', 1.5);
+		var front1:FunkinSprite = FunkinSprite.create(-5, 0, '$PATH/props/front', 1.5);
 		front1.scrollFactor.set(0.02, 0.02);
 		front1.active = false;
 		front1.y = FlxG.height - front1.height + 5;
@@ -90,13 +98,13 @@ class CharacterSelectState extends FunkinState
 		bar.alpha = 0.8;
 		add(bar);
 
-		var hud:FunkinSprite = FunkinSprite.create(0, 0, 'menu/charselect/hud', 1.5);
+		var hud:FunkinSprite = FunkinSprite.create(0, 0, '$PATH/hud', 1.5);
 		hud.scrollFactor.copyFrom(floor.scrollFactor);
 		hud.active = false;
 		hud.screenCenter(X);
 		add(hud);
 
-		icons = new IconGroup(selected);
+		icons = new IconGroup(slots, selected);
 		icons.x = (FlxG.width - icons.width) / 2;
 		icons.y = 135;
 		icons.scrollFactor.set(0.03, 0.03);
@@ -144,9 +152,26 @@ class CharacterSelectState extends FunkinState
 		crowd.playAnimation('idle', true);
 	}
 
+	function initSlots()
+	{
+		// Instead of overriding slots, we add to the slot index until it works
+		// Of course, we prioritize vanilla characters
+		for (id in PlayerRegistry.instance.listSorted())
+		{
+			final player:Player = PlayerRegistry.instance.fetch(id);
+
+			var slot:Int = player.slot;
+
+			while (slots.exists(slot))
+				slot++;
+
+			slots.set(slot, player);
+		}
+	}
+
 	function updateSelection()
 	{
-		final icon:FunkinSprite = icons.icon;
+		final icon:IconSprite = icons.icon;
 		final x:Float = icon.x + icon.width / 2;
 		final y:Float = icon.y + icon.height / 2;
 
