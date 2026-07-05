@@ -383,6 +383,8 @@ class FreeplaySubState extends FunkinSubState
 
 	function enterCharSelect()
 	{
+		if (!stateMachine.canInteract())
+			return;
 		FlxG.switchState(() -> new CharacterSelectState());
 	}
 
