@@ -20,4 +20,5 @@ enum Control
 	FAVORITE;
 	SORT_LEFT;
 	SORT_RIGHT;
+	CHAR_SELECT;
 }

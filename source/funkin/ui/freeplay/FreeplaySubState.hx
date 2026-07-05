@@ -12,6 +12,7 @@ import funkin.play.PlayState;
 import funkin.play.Playlist;
 import funkin.play.song.Song;
 import funkin.save.Save;
+import funkin.ui.charselect.CharacterSelectState;
 import funkin.ui.freeplay.album.AlbumSprite;
 import funkin.ui.freeplay.capsule.CapsuleGroup;
 import funkin.ui.freeplay.capsule.CapsuleSprite;
@@ -167,6 +168,8 @@ class FreeplaySubState extends FunkinSubState
 			favorite(capsules.capsule);
 		if (controls.ACCEPT_P)
 			confirm(capsules.capsule);
+		if (controls.CHAR_SELECT)
+			enterCharSelect();
 		if (controls.BACK)
 			exit();
 
@@ -376,6 +379,11 @@ class FreeplaySubState extends FunkinSubState
 
 			dispatch(new ScriptEvent(FREEPLAY_INTRO_DONE));
 		}
+	}
+
+	function enterCharSelect()
+	{
+		FlxG.switchState(() -> new CharacterSelectState());
 	}
 
 	function exit()

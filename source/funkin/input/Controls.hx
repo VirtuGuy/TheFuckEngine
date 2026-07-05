@@ -27,7 +27,8 @@ class Controls
 		Control.RESET => new FunkinAction([R], []),
 		Control.FAVORITE => new FunkinAction([F], [Y]),
 		Control.SORT_LEFT => new FunkinAction([Q], [LEFT_SHOULDER]),
-		Control.SORT_RIGHT => new FunkinAction([E], [RIGHT_SHOULDER])
+		Control.SORT_RIGHT => new FunkinAction([E], [RIGHT_SHOULDER]),
+		Control.CHAR_SELECT => new FunkinAction([TAB], [X])
 	];
 
 	public var NOTE_LEFT(get, never):Bool;
@@ -54,6 +55,7 @@ class Controls
 	public var FAVORITE(get, never):Bool;
 	public var SORT_LEFT(get, never):Bool;
 	public var SORT_RIGHT(get, never):Bool;
+	public var CHAR_SELECT(get, never):Bool;
 
 	@:noCompletion
 	inline function get_NOTE_LEFT():Bool
@@ -197,6 +199,12 @@ class Controls
 	inline function get_SORT_RIGHT():Bool
 	{
 		return getAction(Control.SORT_RIGHT).justPressed;
+	}
+
+	@:noCompletion
+	inline function get_CHAR_SELECT():Bool
+	{
+		return getAction(Control.CHAR_SELECT).justPressed;
 	}
 
 	var gamepadConnected:Bool = false;
