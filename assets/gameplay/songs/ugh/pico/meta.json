@@ -1,0 +1,22 @@
+{
+	"style": "funkin",
+	"name": "Ugh (Pico Mix)",
+	"gf": "nene",
+	"album": "volume4",
+	"difficulties": [
+		"easy",
+		"normal",
+		"hard"
+	],
+	"opponent": "tankman",
+	"charter": "fabs + Spazkid",
+	"player": "pico",
+	"stage": "tank",
+	"bpm": 160,
+	"artist": "tsuyunoshi (ft. Saruky)",
+	"rating": {
+		"normal": 3,
+		"hard": 4,
+		"easy": 2
+	}
+}

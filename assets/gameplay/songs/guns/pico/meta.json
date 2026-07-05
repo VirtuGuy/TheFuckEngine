@@ -1,0 +1,22 @@
+{
+	"style": "funkin",
+	"name": "Guns (Pico Mix)",
+	"gf": "nene",
+	"album": "volume4",
+	"difficulties": [
+		"easy",
+		"normal",
+		"hard"
+	],
+	"opponent": "tankman",
+	"charter": "fabs + Spazkid",
+	"player": "pico",
+	"stage": "tank",
+	"bpm": 185,
+	"artist": "tsuyunoshi (ft. Saruky)",
+	"rating": {
+		"normal": 4,
+		"hard": 5,
+		"easy": 3
+	}
+}

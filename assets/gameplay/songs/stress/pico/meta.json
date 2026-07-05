@@ -1,0 +1,22 @@
+{
+	"style": "funkin",
+	"name": "Stress (Pico Mix)",
+	"gf": "pico-speaker",
+	"album": "expansion2",
+	"difficulties": [
+		"easy",
+		"normal",
+		"hard"
+	],
+	"opponent": "tankman",
+	"charter": "fabs + Spazkid",
+	"player": "pico",
+	"stage": "tank",
+	"bpm": 178,
+	"artist": "Saruky",
+	"rating": {
+		"normal": 5,
+		"hard": 6,
+		"easy": 4
+	}
+}
