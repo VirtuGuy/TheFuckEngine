@@ -1,7 +1,6 @@
 package funkin.ui.charselect;
 
 import flixel.group.FlxSpriteGroup;
-import flixel.util.FlxSignal.FlxTypedSignal;
 import funkin.audio.FunkinSound;
 import funkin.graphics.FunkinSprite;
 import funkin.input.Controls;
@@ -13,21 +12,26 @@ class IconGroup extends FlxSpriteGroup
 {
 	static final SPACING:Float = 120;
 	static final COLUMNS:Int = 3;
+	static final ROWS:Int = 3;
 
-	public var selected:Int;
+	public var cursorX:Int;
+	public var cursorY:Int;
+
 	public var busy:Bool = false;
 
 	public var icon(get, never):FunkinSprite;
-
-	public var onChanged(default, null) = new FlxTypedSignal<Int->Void>();
 
 	public function new(selected:Int)
 	{
 		super();
 
-		this.selected = selected;
+		cursorX = selected % COLUMNS;
+		cursorY = Math.floor(selected / COLUMNS);
 
-		for (i in 0...9)
+		// Loads the icons
+		final count:Int = COLUMNS * ROWS;
+
+		for (i in 0...count)
 		{
 			var lock:LockSprite = new LockSprite();
 			lock.ID = i;
@@ -50,21 +54,28 @@ class IconGroup extends FlxSpriteGroup
 		final down:Bool = Controls.instance.UI_DOWN_P;
 
 		if (left || right)
-			scroll(left ? -1 : 1);
+			scroll(left ? -1 : 1, 0);
 		else if (up || down)
-			scroll(up ? -COLUMNS : COLUMNS);
+			scroll(0, up ? -1 : 1);
 	}
 
-	public function scroll(change:Int)
+	public function scroll(x:Int, y:Int)
 	{
-		selected += change;
+		// Horizontal
+		cursorX += x;
 
-		if (selected < 0)
-			selected = length - 1;
-		else if (selected >= length)
-			selected = 0;
+		if (cursorX < 0)
+			cursorX = COLUMNS - 1;
+		else if (cursorX >= COLUMNS)
+			cursorX = 0;
 
-		onChanged.dispatch(selected);
+		// Vertical
+		cursorY += y;
+
+		if (cursorY < 0)
+			cursorY = ROWS - 1;
+		else if (cursorY >= ROWS)
+			cursorY = 0;
 
 		FunkinSound.playOnce('menu/charselect/sounds/scroll');
 	}
@@ -72,6 +83,6 @@ class IconGroup extends FlxSpriteGroup
 	@:noCompletion
 	inline function get_icon():FunkinSprite
 	{
-		return cast members[selected];
+		return cast members[cursorX + cursorY * COLUMNS];
 	}
 }

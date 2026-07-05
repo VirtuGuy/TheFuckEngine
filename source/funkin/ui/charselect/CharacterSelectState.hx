@@ -1,6 +1,5 @@
 package funkin.ui.charselect;
 
-import flixel.FlxCamera;
 import flixel.FlxObject;
 import funkin.audio.FunkinSound;
 import funkin.graphics.FunkinSprite;
@@ -19,7 +18,9 @@ class CharacterSelectState extends FunkinState
 
 	var crowd:FunkinSprite;
 
+	var bar:FunkinSprite;
 	var icons:IconGroup;
+
 	var cursor:CursorSprite;
 
 	override public function create()
@@ -63,7 +64,8 @@ class CharacterSelectState extends FunkinState
 
 		var curtain2:FunkinSprite = curtain1.clone();
 		curtain2.flipX = true;
-		curtain2.x = FlxG.width - curtain2.width + 5;
+		curtain2.x = FlxG.width - curtain2.width - curtain1.x;
+		curtain2.y = curtain1.y;
 		add(curtain2);
 
 		var front1:FunkinSprite = FunkinSprite.create(-5, 0, 'menu/charselect/props/front', 1.5);
@@ -74,13 +76,19 @@ class CharacterSelectState extends FunkinState
 
 		var front2:FunkinSprite = front1.clone();
 		front2.flipX = true;
-		front2.x = FlxG.width - front2.width + 5;
+		front2.x = FlxG.width - front2.width - front1.x;
 		front2.y = front1.y;
 		add(front2);
 
 		//
 		// HUD
 		//
+
+		bar = FunkinSprite.createSolidColor(0, 70, FlxG.width, 90, 0xFF070C21);
+		bar.scrollFactor.set();
+		bar.active = false;
+		bar.alpha = 0.8;
+		add(bar);
 
 		var hud:FunkinSprite = FunkinSprite.create(0, 0, 'menu/charselect/hud', 1.5);
 		hud.scrollFactor.copyFrom(floor.scrollFactor);
@@ -91,12 +99,11 @@ class CharacterSelectState extends FunkinState
 		icons = new IconGroup(selected);
 		icons.x = (FlxG.width - icons.width) / 2;
 		icons.y = 135;
-		icons.onChanged.add(scroll);
-		icons.scrollFactor.copyFrom(floor.scrollFactor);
+		icons.scrollFactor.set(0.03, 0.03);
 		add(icons);
 
 		cursor = new CursorSprite();
-		cursor.scrollFactor.copyFrom(floor.scrollFactor);
+		cursor.scrollFactor.copyFrom(icons.scrollFactor);
 		add(cursor);
 
 		//
@@ -104,13 +111,13 @@ class CharacterSelectState extends FunkinState
 		//
 
 		camFollow = new FlxObject();
+		FlxG.camera.follow(camFollow, null, 0.015);
 
-		scroll(selected);
+		updateSelection();
+
+		FlxG.camera.snapToTarget();
 
 		cursor.snap();
-
-		FlxG.camera.follow(camFollow, null, 0.015);
-		FlxG.camera.snapToTarget();
 	}
 
 	override public function update(elapsed:Float)
@@ -119,6 +126,10 @@ class CharacterSelectState extends FunkinState
 
 		conductor.time = FunkinSound.music.time;
 		conductor.update();
+
+		bar.offset.y = FlxG.random.int(-1, 1);
+
+		updateSelection();
 
 		if (controls.BACK)
 			exit();
@@ -133,10 +144,8 @@ class CharacterSelectState extends FunkinState
 		crowd.playAnimation('idle', true);
 	}
 
-	function scroll(index:Int)
+	function updateSelection()
 	{
-		selected = index;
-
 		final icon:FunkinSprite = icons.icon;
 		final x:Float = icon.x + icon.width / 2;
 		final y:Float = icon.y + icon.height / 2;
@@ -145,6 +154,8 @@ class CharacterSelectState extends FunkinState
 		cursor.targetY = y - cursor.height / 2;
 
 		camFollow.setPosition(x, y);
+
+		selected = icon.ID;
 	}
 
 	function exit()
