@@ -56,14 +56,24 @@ class Save
 	// SONG
 	//
 
-	public function setSongScore(id:String, diff:String, score:Int, force:Bool = true)
+	public function setSongScore(id:String, diff:String, ?variation:String, score:Int, force:Bool = true)
 	{
-		return setScore('song-$id', diff, score, force);
+		if (variation?.isEmpty())
+			variation = null;
+
+		variation ??= Constants.DEFAULT_VARIATION;
+
+		return setScore('song-$id:$variation', diff, score, force);
 	}
 
-	public function getSongScore(id:String, diff:String)
+	public function getSongScore(id:String, diff:String, ?variation:String)
 	{
-		return getScore('song-$id', diff);
+		if (variation?.isEmpty())
+			variation = null;
+
+		variation ??= Constants.DEFAULT_VARIATION;
+
+		return getScore('song-$id:$variation', diff);
 	}
 
 	public function setFavorite(id:String, ?variation:String, favorite:Bool)
@@ -98,15 +108,20 @@ class Save
 
 	public function isSongComplete(id:String):Bool
 	{
-		var song:Song = SongRegistry.instance.fetch(id);
+		final song:Song = SongRegistry.instance.fetch(id);
 
 		if (song == null)
 			return false;
 
 		for (diff in song.getDifficulties())
 		{
-			if (getSongScore(song.id, diff) > 0)
+			if (getSongScore(song.id, diff, null) > 0)
 				return true;
+			for (variation in song.variations.keys())
+			{
+				if (getSongScore(song.id, diff, variation) > 0)
+					return true;
+			}
 		}
 
 		return false;

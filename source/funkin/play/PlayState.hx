@@ -545,7 +545,7 @@ class PlayState extends FunkinState
 		// Saves the song score
 		final score:Int = Std.int(score);
 
-		Save.instance.setSongScore(song.id, difficulty, score, false);
+		Save.instance.setSongScore(song.id, difficulty, song.variation, score, false);
 
 		Playlist.tallies.combine(tallies);
 		Playlist.score += score;

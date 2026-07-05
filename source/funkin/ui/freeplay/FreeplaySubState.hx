@@ -212,7 +212,7 @@ class FreeplaySubState extends FunkinSubState
 	{
 		selectedSong = selected;
 
-		songScore = Save.instance.getSongScore(song?.id, difficulty);
+		songScore = Save.instance.getSongScore(song?.id, difficulty, song?.variation);
 
 		album.load(song?.album);
 		album.screenCenter(Y);
