@@ -1,0 +1,22 @@
+{
+	"style": "pixel",
+	"name": "Roses (Pico Mix)",
+	"gf": "nene",
+	"album": "expansion2",
+	"difficulties": [
+		"easy",
+		"normal",
+		"hard"
+	],
+	"opponent": "senpai-angry",
+	"charter": "fabs + Spazkid",
+	"player": "pico",
+	"stage": "school",
+	"bpm": 120,
+	"artist": "Xploshi (ft. Saruky)",
+	"rating": {
+		"normal": 3,
+		"hard": 4,
+		"easy": 2
+	}
+}

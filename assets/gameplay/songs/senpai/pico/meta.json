@@ -1,0 +1,22 @@
+{
+	"style": "pixel",
+	"name": "Senpai (Pico Mix)",
+	"gf": "nene",
+	"album": "expansion2",
+	"difficulties": [
+		"easy",
+		"normal",
+		"hard"
+	],
+	"opponent": "senpai",
+	"charter": "fabs + Spazkid",
+	"player": "pico",
+	"stage": "school",
+	"bpm": 144,
+	"artist": "Tee Lopes (Feat. Saruky)",
+	"rating": {
+		"normal": 2,
+		"hard": 3,
+		"easy": 1
+	}
+}
