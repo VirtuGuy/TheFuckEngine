@@ -15,11 +15,11 @@ class IconGroup extends FlxTypedSpriteGroup<IconSprite>
 	static final COLUMNS:Int = 3;
 	static final ROWS:Int = 3;
 
+	public var selected(get, set):Int;
 	public var busy:Bool = false;
 
 	public var onChanged(default, null) = new FlxTypedSignal<Int->Void>();
 
-	public var selected(get, set):Int;
 	public var icon(get, never):IconSprite;
 
 	var cursorX:Int;

@@ -4,6 +4,7 @@ import flixel.FlxObject;
 import funkin.audio.FunkinSound;
 import funkin.data.freeplay.player.PlayerRegistry;
 import funkin.graphics.FunkinSprite;
+import funkin.graphics.FunkinText;
 import funkin.ui.charselect.icon.IconGroup;
 import funkin.ui.freeplay.FreeplaySubState;
 import funkin.ui.freeplay.player.Player;
@@ -27,6 +28,9 @@ class CharacterSelectState extends FunkinState
 	var bar:FunkinSprite;
 	var icons:IconGroup;
 	var cursor:CursorSprite;
+	var nameText:FunkinText;
+
+	var player(get, never):Player;
 
 	override public function create()
 	{
@@ -94,7 +98,7 @@ class CharacterSelectState extends FunkinState
 		// HUD
 		//
 
-		bar = FunkinSprite.createSolidColor(0, 70, FlxG.width, 90, 0xFF070C21);
+		bar = FunkinSprite.createSolidColor(0, 20, FlxG.width, 90, 0xFF070C21);
 		bar.scrollFactor.set();
 		bar.active = false;
 		bar.alpha = 0.8;
@@ -117,6 +121,12 @@ class CharacterSelectState extends FunkinState
 		cursor.scrollFactor.copyFrom(icons.scrollFactor);
 		add(cursor);
 
+		nameText = new FunkinText();
+		nameText.scrollFactor.set();
+		nameText.alignment = CENTER;
+		nameText.size = 40;
+		add(nameText);
+
 		// Doing this so that everything can snap into place
 		change(selected);
 
@@ -131,8 +141,6 @@ class CharacterSelectState extends FunkinState
 
 		conductor.time = FunkinSound.music.time;
 		conductor.update();
-
-		bar.offset.y = FlxG.random.int(-1, 1);
 
 		if (controls.BACK)
 			exit();
@@ -170,6 +178,10 @@ class CharacterSelectState extends FunkinState
 
 		camFollow.setPosition(icons.icon.x, icons.icon.y);
 		cursor.target = icons.icon;
+
+		nameText.text = player?.name;
+		nameText.x = FlxG.width - nameText.width / 2 - 220;
+		nameText.y = bar.y + (bar.height - nameText.height) / 2;
 	}
 
 	function exit()
@@ -182,5 +194,11 @@ class CharacterSelectState extends FunkinState
 		super.destroy();
 
 		instance = null;
+	}
+
+	@:noCompletion
+	inline function get_player():Player
+	{
+		return available.get(selected);
 	}
 }
