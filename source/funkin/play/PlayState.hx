@@ -604,27 +604,26 @@ class PlayState extends FunkinState
 	{
 		// Player input
 		var directionNotes:Array<Array<NoteSprite>> = [[], [], [], []];
+		var direction:NoteDirection = LEFT;
 
 		for (note in playerStrumline.getMayHitNotes())
 			directionNotes[note.direction].push(note);
 
-		for (i in 0...directionNotes.length)
+		while (directionNotes.length > 0)
 		{
-			final note:NoteSprite = directionNotes[i][0];
-			final direction:NoteDirection = NoteDirection.fromInt(i);
+			final note:NoteSprite = directionNotes[0][0];
 			final pressed:Bool = direction.justPressed || Preferences.botplay;
 
-			// Miss if ghost tapping is disabled
+			// Ghost missing
 			// Don't count the miss if botplay is enabled though
 			if (note == null && pressed && !Preferences.ghostTapping && !Preferences.botplay)
 				playerGhostMiss(direction);
 
-			// Don't hit the note if nothing's being pressed
-			// Especially don't hit the note if it's null
-			if (!pressed || note == null)
-				continue;
+			if (note != null && pressed)
+				playerNoteHit(note);
 
-			playerNoteHit(note);
+			directionNotes.shift();
+			direction++;
 		}
 
 		// Opponent input
