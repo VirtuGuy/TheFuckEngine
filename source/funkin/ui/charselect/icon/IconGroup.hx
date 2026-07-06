@@ -1,8 +1,8 @@
 package funkin.ui.charselect.icon;
 
 import flixel.group.FlxSpriteGroup;
+import flixel.util.FlxSignal.FlxTypedSignal;
 import funkin.audio.FunkinSound;
-import funkin.graphics.FunkinSprite;
 import funkin.input.Controls;
 import funkin.ui.freeplay.player.Player;
 
@@ -15,26 +15,28 @@ class IconGroup extends FlxTypedSpriteGroup<IconSprite>
 	static final COLUMNS:Int = 3;
 	static final ROWS:Int = 3;
 
-	public var cursorX:Int;
-	public var cursorY:Int;
-
 	public var busy:Bool = false;
 
+	public var onChanged(default, null) = new FlxTypedSignal<Int->Void>();
+
+	public var selected(get, set):Int;
 	public var icon(get, never):IconSprite;
 
-	public function new(slots:Map<Int, Player>, selected:Int)
+	var cursorX:Int;
+	var cursorY:Int;
+
+	public function new(available:Map<Int, Player>, selected:Int)
 	{
 		super();
 
-		cursorX = selected % COLUMNS;
-		cursorY = Math.floor(selected / COLUMNS);
+		this.selected = selected;
 
 		// Loads the icons
 		final count:Int = COLUMNS * ROWS;
 
 		for (i in 0...count)
 		{
-			var icon:IconSprite = new IconSprite(slots.get(i));
+			var icon:IconSprite = new IconSprite(available.get(i));
 			icon.ID = i;
 			icon.x = (i % COLUMNS) * SPACING;
 			icon.y = Math.floor(i / COLUMNS) * SPACING;
@@ -60,7 +62,7 @@ class IconGroup extends FlxTypedSpriteGroup<IconSprite>
 			scroll(0, up ? -1 : 1);
 	}
 
-	public function scroll(x:Int, y:Int)
+	function scroll(x:Int, y:Int)
 	{
 		// Horizontal
 		cursorX += x;
@@ -78,12 +80,29 @@ class IconGroup extends FlxTypedSpriteGroup<IconSprite>
 		else if (cursorY >= ROWS)
 			cursorY = 0;
 
+		onChanged.dispatch(selected);
+
 		FunkinSound.playOnce('menu/character-select/sounds/scroll');
+	}
+
+	@:noCompletion
+	inline function set_selected(value:Int):Int
+	{
+		cursorX = value % COLUMNS;
+		cursorY = Math.floor(value / COLUMNS);
+
+		return value;
+	}
+
+	@:noCompletion
+	inline function get_selected():Int
+	{
+		return cursorX + cursorY * COLUMNS;
 	}
 
 	@:noCompletion
 	inline function get_icon():IconSprite
 	{
-		return members[cursorX + cursorY * COLUMNS];
+		return members[selected];
 	}
 }

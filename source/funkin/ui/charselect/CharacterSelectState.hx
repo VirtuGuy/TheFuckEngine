@@ -5,7 +5,6 @@ import funkin.audio.FunkinSound;
 import funkin.data.freeplay.player.PlayerRegistry;
 import funkin.graphics.FunkinSprite;
 import funkin.ui.charselect.icon.IconGroup;
-import funkin.ui.charselect.icon.IconSprite;
 import funkin.ui.freeplay.FreeplaySubState;
 import funkin.ui.freeplay.player.Player;
 
@@ -20,7 +19,7 @@ class CharacterSelectState extends FunkinState
 
 	static var selected:Int = 4;
 
-	var slots(default, null) = new Map<Int, Player>();
+	var available(default, null) = new Map<Int, Player>();
 
 	var camFollow:FlxObject;
 	var crowd:FunkinSprite;
@@ -39,7 +38,10 @@ class CharacterSelectState extends FunkinState
 
 		conductor.reset(90);
 
-		initSlots();
+		camFollow = new FlxObject();
+		FlxG.camera.follow(camFollow, null, 0.015);
+
+		loadAvailable();
 
 		//
 		// PROPS
@@ -104,24 +106,19 @@ class CharacterSelectState extends FunkinState
 		hud.screenCenter(X);
 		add(hud);
 
-		icons = new IconGroup(slots, selected);
+		icons = new IconGroup(available, selected);
+		icons.scrollFactor.set(0.03, 0.03);
 		icons.x = (FlxG.width - icons.width) / 2;
 		icons.y = 135;
-		icons.scrollFactor.set(0.03, 0.03);
+		icons.onChanged.add(change);
 		add(icons);
 
 		cursor = new CursorSprite();
 		cursor.scrollFactor.copyFrom(icons.scrollFactor);
 		add(cursor);
 
-		//
-		// SETUP
-		//
-
-		camFollow = new FlxObject();
-		FlxG.camera.follow(camFollow, null, 0.015);
-
-		updateSelection();
+		// Doing this so that everything can snap into place
+		change(selected);
 
 		FlxG.camera.snapToTarget();
 
@@ -137,8 +134,6 @@ class CharacterSelectState extends FunkinState
 
 		bar.offset.y = FlxG.random.int(-1, 1);
 
-		updateSelection();
-
 		if (controls.BACK)
 			exit();
 	}
@@ -152,7 +147,7 @@ class CharacterSelectState extends FunkinState
 		crowd.playAnimation('idle', true);
 	}
 
-	function initSlots()
+	function loadAvailable()
 	{
 		// Instead of overriding slots, we add to the slot index until it works
 		// Of course, we prioritize vanilla characters
@@ -160,27 +155,21 @@ class CharacterSelectState extends FunkinState
 		{
 			final player:Player = PlayerRegistry.instance.fetch(id);
 
-			var slot:Int = player.slot;
+			var position:Int = player.position;
 
-			while (slots.exists(slot))
-				slot++;
+			while (available.exists(position))
+				position++;
 
-			slots.set(slot, player);
+			available.set(position, player);
 		}
 	}
 
-	function updateSelection()
+	function change(index:Int)
 	{
-		final icon:IconSprite = icons.icon;
-		final x:Float = icon.x + icon.width / 2;
-		final y:Float = icon.y + icon.height / 2;
+		selected = index;
 
-		cursor.targetX = x - cursor.width / 2;
-		cursor.targetY = y - cursor.height / 2;
-
-		camFollow.setPosition(x, y);
-
-		selected = icon.ID;
+		camFollow.setPosition(icons.icon.x, icons.icon.y);
+		cursor.target = icons.icon;
 	}
 
 	function exit()

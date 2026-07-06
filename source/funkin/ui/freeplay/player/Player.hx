@@ -13,7 +13,7 @@ class Player
 
 	public var name(get, never):String;
 	public var players(get, never):Array<String>;
-	public var slot(get, never):Int;
+	public var position(get, never):Int;
 
 	public var showUnowned(get, never):Bool;
 
@@ -46,9 +46,9 @@ class Player
 	}
 
 	@:noCompletion
-	function get_slot():Int
+	function get_position():Int
 	{
-		return meta.slot;
+		return meta.position;
 	}
 
 	@:noCompletion

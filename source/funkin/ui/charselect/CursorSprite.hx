@@ -1,5 +1,6 @@
 package funkin.ui.charselect;
 
+import flixel.FlxObject;
 import funkin.graphics.FunkinSprite;
 import funkin.util.MathUtil;
 
@@ -9,8 +10,10 @@ import funkin.util.MathUtil;
  */
 class CursorSprite extends FunkinSprite
 {
-	public var targetX:Float = 0;
-	public var targetY:Float = 0;
+	public var target:FlxObject;
+
+	public var targetX(get, never):Float;
+	public var targetY(get, never):Float;
 
 	var _backX:Float = 0;
 	var _backY:Float = 0;
@@ -26,8 +29,7 @@ class CursorSprite extends FunkinSprite
 
 	public function snap()
 	{
-		x = targetX;
-		y = targetY;
+		setPosition(targetX, targetY);
 
 		_backX = x;
 		_backY = y;
@@ -57,5 +59,17 @@ class CursorSprite extends FunkinSprite
 		color = 0xFFFFEE00;
 
 		super.draw();
+	}
+
+	@:noCompletion
+	inline function get_targetX():Float
+	{
+		return target.x + (target.width - width) / 2;
+	}
+
+	@:noCompletion
+	inline function get_targetY():Float
+	{
+		return target.y + (target.height - height) / 2;
 	}
 }
