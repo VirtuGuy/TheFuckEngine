@@ -73,8 +73,7 @@ class ModHandler
 			errorCallback: onError,
 			apiVersionRule: API_VERSION_RULE,
 			skipDependencyErrors: true,
-			useScriptedClasses: true,
-			ignoredFiles: []
+			useScriptedClasses: true
 		});
 
 		#if HAS_MODDING
