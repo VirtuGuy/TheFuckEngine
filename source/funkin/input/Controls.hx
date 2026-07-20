@@ -1,5 +1,7 @@
 package funkin.input;
 
+import flixel.util.FlxSignal.FlxTypedSignal;
+import funkin.play.note.NoteDirection;
 import lime.app.Application;
 import lime.ui.Gamepad;
 import lime.ui.KeyCode;
@@ -30,6 +32,9 @@ class Controls
 		Control.SORT_RIGHT => new FunkinAction([E], [RIGHT_SHOULDER]),
 		Control.CHAR_SELECT => new FunkinAction([TAB], [X])
 	];
+
+	public var directionDown(default, null) = new FlxTypedSignal<NoteDirection->Void>();
+	public var directionUp(default, null) = new FlxTypedSignal<NoteDirection->Void>();
 
 	public var NOTE_LEFT(get, never):Bool;
 	public var NOTE_DOWN(get, never):Bool;
@@ -225,19 +230,54 @@ class Controls
 
 	function keyDown(keyCode:KeyCode, modifier:KeyModifier)
 	{
-		for (action in actions)
+		for (id => action in actions)
 		{
-			if (action.hasKey(keyCode))
-				action.press();
+			if (!action.hasKey(keyCode))
+				continue;
+
+			if (!action.pressed)
+			{
+				switch (id)
+				{
+					case NOTE_LEFT:
+						directionDown.dispatch(LEFT);
+					case NOTE_DOWN:
+						directionDown.dispatch(DOWN);
+					case NOTE_UP:
+						directionDown.dispatch(UP);
+					case NOTE_RIGHT:
+						directionDown.dispatch(RIGHT);
+					default:
+						// Does literally nothing
+				}
+			}
+
+			action.press();
 		}
 	}
 
 	function keyUp(keyCode:KeyCode, modifier:KeyModifier)
 	{
-		for (action in actions)
+		for (id => action in actions)
 		{
-			if (action.hasKey(keyCode))
-				action.release();
+			if (!action.hasKey(keyCode))
+				continue;
+
+			switch (id)
+			{
+				case NOTE_LEFT:
+					directionUp.dispatch(LEFT);
+				case NOTE_DOWN:
+					directionUp.dispatch(DOWN);
+				case NOTE_UP:
+					directionUp.dispatch(UP);
+				case NOTE_RIGHT:
+					directionUp.dispatch(RIGHT);
+				default:
+					// Does literally nothing
+			}
+
+			action.release();
 		}
 	}
 

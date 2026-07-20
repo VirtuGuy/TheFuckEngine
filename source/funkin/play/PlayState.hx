@@ -127,15 +127,11 @@ class PlayState extends FunkinState
 		opponentStrumline = new Strumline(style, false);
 		opponentStrumline.x = 325;
 		opponentStrumline.camera = camHUD;
-		opponentStrumline.holdNoteHit.add(opponentHoldNoteHit);
 		add(opponentStrumline);
 
 		playerStrumline = new Strumline(style, true);
 		playerStrumline.x = FlxG.width - opponentStrumline.x;
 		playerStrumline.camera = camHUD;
-		playerStrumline.noteMiss.add(playerNoteMiss);
-		playerStrumline.holdNoteHit.add(playerHoldNoteHit);
-		playerStrumline.holdNoteDrop.add(playerHoldNoteDrop);
 		add(playerStrumline);
 
 		healthBorder = FunkinSprite.create(0, 0, 'gameplay/healthbar');
@@ -600,36 +596,70 @@ class PlayState extends FunkinState
 		}
 	}
 
-	function processInput()
+	override function directionDown(direction:NoteDirection)
 	{
-		// Player input
-		var directionNotes:Array<Array<NoteSprite>> = [[], [], [], []];
+		super.directionDown(direction);
 
-		for (note in playerStrumline.getMayHitNotes())
-			directionNotes[note.direction].push(note);
+		if (Preferences.botplay || subState != null)
+			return;
 
-		for (i in 0...directionNotes.length)
+		var notes:Array<NoteSprite> = playerStrumline.getMayHitNotes();
+		var note:NoteSprite = notes.find(note -> return note.direction == direction);
+
+		if (note == null)
 		{
-			final note:NoteSprite = directionNotes[i][0];
-			final direction:NoteDirection = NoteDirection.fromInt(i);
-			final pressed:Bool = direction.justPressed || Preferences.botplay;
-
-			// Miss if ghost tapping is disabled
-			// Don't count the miss if botplay is enabled though
-			if (note == null && pressed && !Preferences.ghostTapping && !Preferences.botplay)
+			if (!Preferences.ghostTapping)
 				playerGhostMiss(direction);
-
-			// Don't hit the note if nothing's being pressed
-			// Especially don't hit the note if it's null
-			if (!pressed || note == null)
-				continue;
-
-			playerNoteHit(note);
+			return;
 		}
 
-		// Opponent input
+		playerNoteHit(note);
+	}
+
+	function processInput()
+	{
+		//
+		// PLAYER
+		//
+
+		if (Preferences.botplay)
+		{
+			for (note in playerStrumline.getMayHitNotes())
+				playerNoteHit(note);
+		}
+
+		for (holdNote in playerStrumline.getHeldHoldNotes())
+		{
+			if (holdNote.direction.pressed || Preferences.botplay)
+				playerHoldNoteHeld(holdNote);
+			else if (holdNote.length > 100)
+				playerHoldNoteDrop(holdNote);
+		}
+
+		for (note in playerStrumline.getMissedNotes())
+			playerNoteMiss(note);
+
+		if (!Preferences.botplay)
+		{
+			playerStrumline.strums.forEach(strum ->
+			{
+				if (strum.confirmTime > 0)
+					return;
+				if (strum.direction.pressed)
+					strum.playPress();
+				else
+					strum.playStatic();
+			});
+		}
+
+		//
+		// OPPONENT
+		//
+
 		for (note in opponentStrumline.getMayHitNotes())
 			opponentNoteHit(note);
+		for (holdNote in opponentStrumline.getHeldHoldNotes())
+			opponentHoldNoteHeld(holdNote);
 
 		// The misc stuff
 		// Pausing, resetting, etc.
@@ -680,7 +710,7 @@ class PlayState extends FunkinState
 		playerStrumline.hitNote(note);
 	}
 
-	function playerHoldNoteHit(holdNote:HoldNoteSprite)
+	function playerHoldNoteHeld(holdNote:HoldNoteSprite)
 	{
 		var event:HoldNoteScriptEvent = new HoldNoteScriptEvent(HOLD_NOTE_HOLD, holdNote);
 		dispatch(event);
@@ -696,6 +726,8 @@ class PlayState extends FunkinState
 
 	function playerNoteMiss(note:NoteSprite)
 	{
+		note.wasMissed = true;
+
 		var event:NoteScriptEvent = new NoteScriptEvent(NOTE_MISS, note);
 		dispatch(event);
 
@@ -739,6 +771,8 @@ class PlayState extends FunkinState
 		if (event.cancelled)
 			return;
 
+		holdNote.kill();
+
 		// Takes away score based on how long the hold note is
 		score += Constants.MISS_SCORE * (holdNote.length / 500);
 		health += Constants.MISS_HEALTH;
@@ -757,7 +791,7 @@ class PlayState extends FunkinState
 		opponentStrumline.hitNote(note);
 	}
 
-	function opponentHoldNoteHit(holdNote:HoldNoteSprite)
+	function opponentHoldNoteHeld(holdNote:HoldNoteSprite)
 	{
 		var event:HoldNoteScriptEvent = new HoldNoteScriptEvent(HOLD_NOTE_HOLD, holdNote);
 		dispatch(event);

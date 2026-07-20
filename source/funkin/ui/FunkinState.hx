@@ -4,6 +4,7 @@ import flixel.FlxState;
 import funkin.input.Controls;
 import funkin.modding.event.ScriptEvent;
 import funkin.modding.module.ModuleHandler;
+import funkin.play.note.NoteDirection;
 
 /**
  * A class used as the base for all the game's states.
@@ -17,9 +18,11 @@ class FunkinState extends FlxState
 	{
 		super();
 
-		// Adds conductor callbacks
 		conductor.stepHit.add(stepHit);
 		conductor.beatHit.add(beatHit);
+
+		controls.directionDown.add(directionDown);
+		controls.directionUp.add(directionUp);
 	}
 
 	override public function create()
@@ -56,13 +59,19 @@ class FunkinState extends FlxState
 		dispatch(new ConductorScriptEvent(BEAT_HIT, conductor.step, beat));
 	}
 
+	function directionDown(direction:NoteDirection) {}
+
+	function directionUp(direction:NoteDirection) {}
+
 	override public function destroy()
 	{
 		super.destroy();
 
-		// Removes conductor callbacks
 		conductor.stepHit.remove(stepHit);
 		conductor.beatHit.remove(beatHit);
+
+		controls.directionDown.remove(directionDown);
+		controls.directionUp.remove(directionUp);
 
 		// Clears the asset cache
 		// This is pretty good ngl

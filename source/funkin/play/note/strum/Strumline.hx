@@ -2,7 +2,6 @@ package funkin.play.note.strum;
 
 import flixel.group.FlxGroup;
 import flixel.group.FlxSpriteGroup;
-import flixel.util.FlxSignal.FlxTypedSignal;
 import flixel.util.FlxSort;
 import funkin.data.song.SongData;
 import funkin.play.note.hold.HoldNoteCover;
@@ -27,10 +26,6 @@ class Strumline extends FlxGroup
 	public var holdNotes:FlxTypedGroup<HoldNoteSprite>;
 	public var noteSplashes:FlxTypedGroup<NoteSplash>;
 	public var holdCovers:FlxTypedGroup<HoldNoteCover>;
-
-	public var noteMiss(default, null) = new FlxTypedSignal<NoteSprite->Void>();
-	public var holdNoteHit(default, null) = new FlxTypedSignal<HoldNoteSprite->Void>();
-	public var holdNoteDrop(default, null) = new FlxTypedSignal<HoldNoteSprite->Void>();
 
 	var nextNoteIndex:Int;
 	var style:Style;
@@ -140,54 +135,20 @@ class Strumline extends FlxGroup
 				note.kill();
 
 			RhythmUtil.processHitWindow(note, isPlayer);
-
-			// Miss the note if the note misses
-			// No shit lol
-			if (note.willMiss && !note.wasMissed)
-			{
-				note.wasMissed = true;
-				noteMiss.dispatch(note);
-			}
 		});
 
 		// Hold note processing
 		holdNotes.forEachAlive(holdNote ->
 		{
-			if (holdNote.distance <= -holdNote.strum.middle - holdNote.height && !holdNote.wasHit)
-				holdNote.kill();
-
-			// Hold note input
 			if (holdNote.wasHit)
 			{
-				// Drops the hold note
-				if (!holdNote.direction.pressed && isPlayer && holdNote.length > 100)
-				{
-					holdNote.kill();
-					holdNoteDrop.dispatch(holdNote);
-					return;
-				}
+				getStrum(holdNote.direction).playConfirm();
 
-				holdNote.strum.playConfirm();
-				holdNoteHit.dispatch(holdNote);
-
-				// Kill the hold note if it's short enough
 				if (holdNote.length <= 10)
 					holdNote.kill();
 			}
-		});
-
-		// Strum processing
-		strums.forEach(strum ->
-		{
-			final pressed:Bool = strum.direction.pressed;
-
-			if (strum.confirmTime > 0)
-				return;
-
-			if (pressed && isPlayer)
-				strum.playPress();
-			else
-				strum.playStatic();
+			else if (holdNote.distance <= -holdNote.strum.middle - holdNote.height)
+				holdNote.kill();
 		});
 	}
 
@@ -285,6 +246,16 @@ class Strumline extends FlxGroup
 		return notes.members.filter(note -> return note.alive && note.mayHit && !note.willMiss);
 	}
 
+	public function getHeldHoldNotes():Array<HoldNoteSprite>
+	{
+		return holdNotes.members.filter(holdNote -> return holdNote.alive && holdNote.wasHit);
+	}
+
+	public function getMissedNotes():Array<NoteSprite>
+	{
+		return notes.members.filter(note -> return note.alive && note.willMiss && !note.wasMissed);
+	}
+
 	public function getStrum(direction:NoteDirection):StrumSprite
 	{
 		return strums.members[direction];
@@ -308,8 +279,7 @@ class Strumline extends FlxGroup
 	@:noCompletion
 	inline function set_x(value:Float):Float
 	{
-		strums.x = value;
-		return value;
+		return strums.x = value;
 	}
 
 	@:noCompletion

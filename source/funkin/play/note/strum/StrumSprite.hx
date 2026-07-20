@@ -24,6 +24,9 @@ class StrumSprite extends FunkinSprite
 		super.update(elapsed);
 
 		confirmTime = Math.max(0, confirmTime - elapsed * 10);
+
+		if (confirmTime == 0 && getCurrentAnimation() == 'confirm')
+			playStatic();
 	}
 
 	public function buildSprite(style:Style)
@@ -50,6 +53,7 @@ class StrumSprite extends FunkinSprite
 	public function playConfirm()
 	{
 		playAnimation('confirm');
+
 		confirmTime = 1;
 	}
 
