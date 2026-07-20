@@ -32,6 +32,7 @@ class Strumline extends FlxGroup
 	public var holdNoteHit(default, null) = new FlxTypedSignal<HoldNoteSprite->Void>();
 	public var holdNoteDrop(default, null) = new FlxTypedSignal<HoldNoteSprite->Void>();
 
+	var nextNoteIndex:Int;
 	var style:Style;
 
 	public function new(style:Style, isPlayer:Bool)
@@ -62,23 +63,29 @@ class Strumline extends FlxGroup
 	public function process()
 	{
 		// Spawns the notes
-		while (data[0] != null)
+		for (i in nextNoteIndex...data.length)
 		{
-			final noteData:SongNoteData = data[0];
+			final noteData:SongNoteData = data[i];
+
+			// Skip the note if it's null
+			if (noteData == null)
+				continue;
+
 			final time:Float = noteData.t;
 			final direction:NoteDirection = NoteDirection.fromInt(noteData.d);
 			final kind:String = noteData.k;
 			final length:Float = noteData.l;
 
-			if (RhythmUtil.getDistance(time, speed) > FlxG.height)
-				break;
-
 			// Skip the note if it's in the past
 			if (RhythmUtil.getDistance(time, speed) < 0)
 			{
-				data.shift();
-				break;
+				nextNoteIndex = i + 1;
+				continue;
 			}
+
+			// The note is too far away to spawn
+			if (RhythmUtil.getDistance(time, speed) > FlxG.height)
+				break;
 
 			// Creates a note
 			var note:NoteSprite = notes.recycle(NoteSprite);
@@ -123,7 +130,7 @@ class Strumline extends FlxGroup
 			notes.sort((i, a, b) -> return SortUtil.byTime(FlxSort.ASCENDING, a.data, b.data));
 			holdNotes.sort((i, a, b) -> return SortUtil.byTime(FlxSort.ASCENDING, a.data, b.data));
 
-			data.shift();
+			nextNoteIndex = i + 1;
 		}
 
 		// Note processing
@@ -215,6 +222,8 @@ class Strumline extends FlxGroup
 		// Notes NEED to be sorted
 		notes.sort(SortUtil.byTime.bind(FlxSort.ASCENDING));
 
+		nextNoteIndex = 0;
+
 		this.data = notes;
 		this.speed = speed;
 	}
@@ -267,6 +276,8 @@ class Strumline extends FlxGroup
 		// Clears the note data because we're cleaning, aren't we?
 		data = [];
 		speed = 0;
+
+		nextNoteIndex = -1;
 	}
 
 	public function getMayHitNotes():Array<NoteSprite>
