@@ -156,15 +156,10 @@ class Strumline extends FlxGroup
 	{
 		for (direction in 0...Constants.NOTE_COUNT)
 		{
-			final off:Float = (direction - Constants.NOTE_COUNT / 2);
-			final spacing:Float = 2;
-
 			var strum:StrumSprite = new StrumSprite(direction);
 
 			strum.buildSprite(style);
-
-			strum.x = off * (strum.width + spacing);
-			strum.x += spacing / 2;
+			strum.x = (direction - Constants.NOTE_COUNT / 2) * strum.width;
 
 			strums.add(strum);
 		}
