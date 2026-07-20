@@ -53,7 +53,13 @@ class Style
 
 	public function getNoteFrames(data:StyleAnimData, direction:NoteDirection):Array<Int>
 	{
-		return Reflect.field(data, direction.name);
+		return switch (direction)
+		{
+			case LEFT: return data.left;
+			case DOWN: return data.down;
+			case UP: return data.up;
+			case RIGHT: return data.right;
+		}
 	}
 
 	@:noCompletion
