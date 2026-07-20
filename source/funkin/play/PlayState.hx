@@ -62,6 +62,7 @@ class PlayState extends FunkinState
 	public var playbackRate(default, set):Float = 1;
 
 	public var events:Array<EventData>;
+	public var nextEventIndex:Int = -1;
 
 	public var voices:Voices;
 	public var style:Style;
@@ -179,7 +180,7 @@ class PlayState extends FunkinState
 		stageZoom = stage.zoom;
 
 		loadCharacters();
-		resetSong();
+		loadSong();
 
 		refresh();
 
@@ -297,7 +298,7 @@ class PlayState extends FunkinState
 			camBopMultiplier = intensity;
 	}
 
-	public function resetSong()
+	public function loadSong()
 	{
 		// Canceling the retry event causes a softlock when dying
 		// Putting this before it to stop that from happening
@@ -355,6 +356,8 @@ class PlayState extends FunkinState
 
 		events = song.events.copy();
 		events.sort(SortUtil.byEventTime.bind(FlxSort.ASCENDING));
+
+		nextEventIndex = 0;
 
 		dispatch(new SongLoadScriptEvent(notes, events));
 
@@ -562,20 +565,20 @@ class PlayState extends FunkinState
 
 	function processEvents()
 	{
-		while (events.length > 0)
+		for (i in nextEventIndex...events.length)
 		{
-			var event:EventData = events[0];
+			var event:EventData = events[i];
+
+			// Skip the note if it's null or in the past
+			if (event == null || conductor.time - event.t > Constants.MS_PER_SEC)
+			{
+				nextEventIndex = i + 1;
+				continue;
+			}
 
 			// Don't handle the event until it's the right time
 			if (event.t > conductor.time)
 				break;
-
-			// Skip the event if it's one second late
-			if (conductor.time - event.t > Constants.MS_PER_SEC)
-			{
-				events.shift();
-				break;
-			}
 
 			// Handle the event
 			// That's if the script event wasn't cancelled though
@@ -584,15 +587,15 @@ class PlayState extends FunkinState
 
 			if (event.cancelled)
 			{
-				events.shift();
-				break;
+				nextEventIndex = i + 1;
+				continue;
 			}
 
 			EventRegistry.instance.handleEvent(event.kind, event.value);
 
-			events.shift();
-
 			trace('Handling event ${event.kind}.');
+
+			nextEventIndex = i + 1;
 		}
 	}
 

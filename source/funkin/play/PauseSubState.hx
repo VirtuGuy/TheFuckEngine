@@ -114,7 +114,7 @@ class PauseSubState extends FunkinSubState
 			else
 			{
 				PlayState.difficulty = item;
-				PlayState.instance.resetSong();
+				PlayState.instance.loadSong();
 				close();
 			}
 		}
@@ -129,7 +129,7 @@ class PauseSubState extends FunkinSubState
 					if (!event.cancelled)
 						close();
 				case 'restart':
-					PlayState.instance.resetSong();
+					PlayState.instance.loadSong();
 					close();
 				case 'options':
 					openSubState(new OptionsSubState());

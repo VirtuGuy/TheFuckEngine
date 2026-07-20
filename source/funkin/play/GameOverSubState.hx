@@ -182,7 +182,7 @@ class GameOverSubState extends FunkinSubState
 
 		FlxG.camera.fade(0xFF000000, 1, true);
 
-		PlayState.instance.resetSong();
+		PlayState.instance.loadSong();
 	}
 
 	override public function destroy()

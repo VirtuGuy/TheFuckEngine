@@ -64,7 +64,10 @@ class Strumline extends FlxGroup
 
 			// Skip the note if it's null
 			if (noteData == null)
+			{
+				nextNoteIndex = i + 1;
 				continue;
+			}
 
 			final time:Float = noteData.t;
 			final direction:NoteDirection = NoteDirection.fromInt(noteData.d);
