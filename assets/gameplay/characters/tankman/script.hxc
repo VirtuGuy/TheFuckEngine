@@ -1,5 +1,5 @@
 import flixel.util.FlxTimer;
-import flixel.sound.FlxSound;
+import funkin.audio.FunkinSound;
 import funkin.audio.FunkinSound;
 import funkin.play.character.Character;
 import funkin.play.GameOverSubState;
@@ -54,13 +54,13 @@ class TankmanCharacter extends Character
     {
         super.onGameOverLoop(event);
 
-        var music:FlxSound = GameOverSubState.instance.music;
+        var music:FunkinSound = GameOverSubState.instance.music;
 
         music.volume = 0.3;
 
         // Jeff gameover voicelines
         // Yes Jeff is his name
-        var deathQuote:FlxSound = FunkinSound.playOnce(Paths.random('$charPath/sounds/gameover', 1, 7));
+        var deathQuote:FunkinSound = FunkinSound.playOnce(Paths.random('$charPath/sounds/gameover', 1, 7));
         deathQuote.onComplete = () -> music.fadeIn(1, music.volume);
     }
 }

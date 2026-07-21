@@ -1,8 +1,8 @@
 package funkin.play.cutscene.dialogue;
 
-import flixel.sound.FlxSound;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
+import funkin.audio.FunkinSound;
 import funkin.audio.FunkinSound;
 import funkin.data.dialogue.DialogueData;
 import funkin.graphics.FunkinSprite;
@@ -26,7 +26,7 @@ class DialogueCutscene extends BaseCutscene
 	var line:DialogueLineData;
 
 	var typeTimer:FlxTimer;
-	var music:FlxSound;
+	var music:FunkinSound;
 
 	var bg:FunkinSprite;
 	var speaker:DialogueSpeaker;

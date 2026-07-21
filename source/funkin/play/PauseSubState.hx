@@ -1,7 +1,7 @@
 package funkin.play;
 
-import flixel.sound.FlxSound;
 import flixel.tweens.FlxTween;
+import funkin.audio.FunkinSound;
 import funkin.audio.FunkinSound;
 import funkin.graphics.FunkinSprite;
 import funkin.graphics.FunkinText;
@@ -28,7 +28,7 @@ class PauseSubState extends FunkinSubState
 	var justOpened:Bool = true;
 	var changingDiff:Bool = false;
 
-	var music:FlxSound;
+	var music:FunkinSound;
 
 	var bg:FunkinSprite;
 	var songText:FunkinText;
@@ -165,9 +165,6 @@ class PauseSubState extends FunkinSubState
 
 		instance = null;
 
-		// Destroys the music as it isn't needed anymore
-		// If you remove this line, great things will happen
-		music.fadeTween.cancel();
 		music.destroy();
 	}
 

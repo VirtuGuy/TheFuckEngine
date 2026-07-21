@@ -1,14 +1,14 @@
 package funkin;
 
+import lime.utils.Assets as LimeAssets;
+import openfl.utils.Assets as OpenFlAssets;
+import polymod.Polymod;
 #if cpp
 import cpp.vm.Gc;
 #end
 #if hl
 import hl.Gc;
 #end
-import lime.utils.Assets as LimeAssets;
-import openfl.utils.Assets as OpenFlAssets;
-import polymod.Polymod;
 
 /**
  * A class for handling sound and image cache.

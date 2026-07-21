@@ -1,7 +1,7 @@
 package funkin.play;
 
-import flixel.sound.FlxSound;
 import flixel.util.FlxTimer;
+import funkin.audio.FunkinSound;
 import funkin.audio.FunkinSound;
 import funkin.data.character.CharacterRegistry;
 import funkin.modding.event.ScriptEvent;
@@ -21,8 +21,8 @@ class GameOverSubState extends FunkinSubState
 
 	var menuConductor:Conductor;
 
-	var music:FlxSound;
-	var startSound:FlxSound;
+	var music:FunkinSound;
+	var startSound:FunkinSound;
 
 	var player:Character;
 	var character:Character;

@@ -1,23 +1,52 @@
 package funkin.audio;
 
 import flixel.FlxG;
+import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.sound.FlxSound;
+import flixel.tweens.FlxTween;
 
 /**
  * A helper class for handling the engine's audio.
  * 
  * TODO: Change `playMusic` to use streamed audio.
  */
-class FunkinSound
+class FunkinSound extends FlxSound
 {
-	public static var music(get, never):FlxSound;
+	public static var music(default, null):FunkinSound;
 
-	public static inline function load(id:String, volume:Float = 1, looped:Bool = true, autoDestroy:Bool = true, autoPlay:Bool = true):FlxSound
+	static var pool(default, null) = new FlxTypedGroup<FunkinSound>();
+
+	override public function destroy()
 	{
-		return FlxG.sound.load(Paths.sound(id), volume, looped, null, autoDestroy, autoPlay);
+		super.destroy();
+
+		fadeTween?.cancel();
+		fadeTween = null;
+
+		FlxTween.cancelTweensOf(this);
 	}
 
-	public static inline function playOnce(id:String, volume:Float = 1):FlxSound
+	//
+	// FunkinSound
+	//
+
+	public static inline function load(id:String, volume:Float = 1, looped:Bool = true, autoDestroy:Bool = true, autoPlay:Bool = true):FunkinSound
+	{
+		var sound:FunkinSound = pool.recycle(FunkinSound);
+
+		sound.loadEmbedded(Paths.sound(id), looped, autoDestroy);
+		sound.volume = volume;
+		sound.persist = false;
+
+		if (autoPlay)
+			sound.play();
+
+		FlxG.sound.list.add(sound);
+
+		return sound;
+	}
+
+	public static inline function playOnce(id:String, volume:Float = 1):FunkinSound
 	{
 		return load(id, volume, false);
 	}
@@ -27,22 +56,39 @@ class FunkinSound
 		if (music?.playing && !overrideMusic)
 			return;
 
-		FlxG.sound.playMusic(Paths.sound(id), volume, looped);
+		music?.stop();
 
-		if (!autoPlay)
-			music.stop();
+		music = load(id, volume, looped, false, autoPlay);
+		music.persist = true;
+	}
+
+	public static function pauseAllSounds(stopMusic:Bool = false)
+	{
+		FlxG.sound.list.forEachAlive(sound ->
+		{
+			if (sound == music && !stopMusic)
+				return;
+			sound.pause();
+		});
+	}
+
+	public static function resumeAllSounds(stopMusic:Bool = false)
+	{
+		FlxG.sound.list.forEachAlive(sound ->
+		{
+			if (sound == music && !stopMusic)
+				return;
+			sound.resume();
+		});
 	}
 
 	public static function stopAllSounds(stopMusic:Bool = false)
 	{
-		if (stopMusic)
-			music?.stop();
-		FlxG.sound.list.forEachAlive(sound -> sound.stop());
-	}
-
-	@:noCompletion
-	static inline function get_music():FlxSound
-	{
-		return FlxG.sound.music;
+		FlxG.sound.list.forEachAlive(sound ->
+		{
+			if (sound == music && !stopMusic)
+				return;
+			sound.stop();
+		});
 	}
 }

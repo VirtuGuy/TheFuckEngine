@@ -839,8 +839,7 @@ class PlayState extends FunkinState
 			tween.active = false;
 		});
 
-		FlxG.sound.defaultMusicGroup.pause();
-		FlxG.sound.defaultSoundGroup.pause();
+		FunkinSound.pauseAllSounds(true);
 
 		camera.active = false;
 	}
@@ -863,8 +862,7 @@ class PlayState extends FunkinState
 			tween.active = true;
 		});
 
-		FlxG.sound.defaultMusicGroup.resume();
-		FlxG.sound.defaultSoundGroup.resume();
+		FunkinSound.pauseAllSounds(true);
 
 		camera.active = true;
 	}

@@ -1,6 +1,6 @@
 package funkin.play.song;
 
-import flixel.sound.FlxSound;
+import funkin.audio.FunkinSound;
 import funkin.audio.FunkinSound;
 
 /**
@@ -8,8 +8,8 @@ import funkin.audio.FunkinSound;
  */
 class Voices
 {
-	public var opponent:FlxSound;
-	public var player:FlxSound;
+	public var opponent:FunkinSound;
+	public var player:FunkinSound;
 
 	public var opponentVolume(get, set):Float;
 	public var playerVolume(get, set):Float;
