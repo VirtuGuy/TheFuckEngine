@@ -839,7 +839,7 @@ class PlayState extends FunkinState
 			tween.active = false;
 		});
 
-		FunkinSound.pauseAllSounds(true);
+		FunkinSound.pauseAllSounds();
 
 		camera.active = false;
 	}
@@ -862,7 +862,7 @@ class PlayState extends FunkinState
 			tween.active = true;
 		});
 
-		FunkinSound.pauseAllSounds(true);
+		FunkinSound.resumeAllSounds();
 
 		camera.active = true;
 	}

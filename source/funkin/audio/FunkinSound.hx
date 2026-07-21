@@ -56,30 +56,28 @@ class FunkinSound extends FlxSound
 		if (music?.playing && !overrideMusic)
 			return;
 
-		music?.stop();
+		if (music == null)
+			music = load(id, volume, looped, false, false);
+		else
+			music.loadEmbedded(Paths.sound(id), looped, false);
 
-		music = load(id, volume, looped, false, autoPlay);
+		music.volume = volume;
 		music.persist = true;
+
+		if (autoPlay)
+			music.play();
+
+		FlxG.sound.list.add(music);
 	}
 
-	public static function pauseAllSounds(stopMusic:Bool = false)
+	public static function pauseAllSounds()
 	{
-		FlxG.sound.list.forEachAlive(sound ->
-		{
-			if (sound == music && !stopMusic)
-				return;
-			sound.pause();
-		});
+		FlxG.sound.list.forEachAlive(sound -> sound.pause());
 	}
 
-	public static function resumeAllSounds(stopMusic:Bool = false)
+	public static function resumeAllSounds()
 	{
-		FlxG.sound.list.forEachAlive(sound ->
-		{
-			if (sound == music && !stopMusic)
-				return;
-			sound.resume();
-		});
+		FlxG.sound.list.forEachAlive(sound -> sound.resume());
 	}
 
 	public static function stopAllSounds(stopMusic:Bool = false)
