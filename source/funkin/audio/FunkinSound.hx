@@ -36,7 +36,6 @@ class FunkinSound extends FlxSound
 
 		sound.loadEmbedded(Paths.sound(id), looped, autoDestroy);
 		sound.volume = volume;
-		sound.persist = false;
 
 		if (autoPlay)
 			sound.play();
