@@ -11,7 +11,6 @@ import funkin.save.Save;
 class Preferences
 {
 	public static var downscroll(get, set):Bool;
-	public static var ghostTapping(get, set):Bool;
 	public static var showTimer(get, set):Bool;
 
 	#if HAS_FPS_COUNTER
@@ -40,21 +39,6 @@ class Preferences
 	static inline function get_downscroll():Bool
 	{
 		return Save.instance.options.downscroll;
-	}
-
-	@:noCompletion
-	static inline function set_ghostTapping(value:Bool):Bool
-	{
-		Save.instance.options.ghostTapping = value;
-		Save.instance.flush();
-
-		return value;
-	}
-
-	@:noCompletion
-	static inline function get_ghostTapping():Bool
-	{
-		return Save.instance.options.ghostTapping;
 	}
 
 	@:noCompletion

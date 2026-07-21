@@ -611,7 +611,7 @@ class PlayState extends FunkinState
 
 		if (note == null)
 		{
-			if (!Preferences.ghostTapping)
+			if (playerStrumline.getCurrentNotes().length > 0)
 				playerGhostMiss(direction);
 			return;
 		}

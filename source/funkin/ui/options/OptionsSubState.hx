@@ -61,7 +61,6 @@ class OptionsSubState extends FunkinSubState
 	function loadOptions()
 	{
 		options.addOption('downscroll');
-		options.addOption('ghostTapping', 'ghost tapping');
 		options.addOption('showTimer', 'show timer');
 
 		#if HAS_FPS_COUNTER

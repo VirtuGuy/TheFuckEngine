@@ -239,6 +239,11 @@ class Strumline extends FlxGroup
 		nextNoteIndex = -1;
 	}
 
+	public function getCurrentNotes():Array<NoteSprite>
+	{
+		return notes.members.filter(note -> return note.alive);
+	}
+
 	public function getMayHitNotes():Array<NoteSprite>
 	{
 		return notes.members.filter(note -> return note.alive && note.mayHit && !note.willMiss);

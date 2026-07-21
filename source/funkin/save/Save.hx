@@ -210,7 +210,6 @@ class Save
 			favorites: new StringMap<Bool>(),
 			options: {
 				downscroll: false,
-				ghostTapping: true,
 				showTimer: true,
 				showFPS: true,
 				fpsBGOpacity: 50,
