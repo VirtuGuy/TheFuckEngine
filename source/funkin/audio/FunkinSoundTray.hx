@@ -10,10 +10,12 @@ import openfl.utils.Assets;
  */
 class FunkinSoundTray extends FlxSoundTray
 {
-	static final SCALE:Float = 0.6;
+	static final SCALE:Float = 1.25;
 
 	var isSilent:Bool;
 	var lerpPos:Float;
+
+	var back:Bitmap;
 
 	public function new()
 	{
@@ -21,9 +23,9 @@ class FunkinSoundTray extends FlxSoundTray
 
 		removeChildren();
 
-		var back:Bitmap = new Bitmap(Assets.getBitmapData(Paths.image(getPath('back'))));
-		back.width *= SCALE;
-		back.height *= SCALE;
+		back = new Bitmap(Assets.getBitmapData(Paths.image(getPath('back'))));
+		back.x = -back.width / 2;
+		back.y = -back.height / 2;
 		addChild(back);
 
 		var bars:Bitmap = buildBar(10);
@@ -53,7 +55,11 @@ class FunkinSoundTray extends FlxSoundTray
 			}
 		}
 
+		x = FlxG.width / 2;
 		y = MathUtil.lerp(y, lerpPos, 0.25);
+
+		scaleX = MathUtil.lerp(scaleX, SCALE, 0.3);
+		scaleY = MathUtil.lerp(scaleY, SCALE, 0.3);
 	}
 
 	override function showIncrement()
@@ -77,7 +83,10 @@ class FunkinSoundTray extends FlxSoundTray
 		_timer = 0;
 
 		isSilent = volume == 0;
-		lerpPos = 10;
+		lerpPos = 70;
+
+		scaleX = SCALE * 1.25;
+		scaleY = SCALE * 0.75;
 
 		visible = true;
 		active = true;
@@ -89,10 +98,8 @@ class FunkinSoundTray extends FlxSoundTray
 	function buildBar(index:Int):Bitmap
 	{
 		var bar:Bitmap = new Bitmap(Assets.getBitmapData(Paths.image(getPath('bars/bar$index'))));
-		bar.width *= SCALE;
-		bar.height *= SCALE;
-		bar.x = 8;
-		bar.y = 8;
+		bar.x = -bar.width / 2;
+		bar.y = back.y + bar.height / 2 - 2;
 
 		addChild(bar);
 
