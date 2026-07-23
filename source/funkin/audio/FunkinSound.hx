@@ -62,16 +62,21 @@ class FunkinSound extends FlxSound
 
 		music.volume = volume;
 		music.persist = true;
+
+		FlxG.sound.defaultMusicGroup.add(music);
+		FlxG.sound.defaultSoundGroup.remove(music);
 	}
 
 	public static function pauseAllSounds()
 	{
 		FlxG.sound.defaultSoundGroup.pause();
+		FlxG.sound.defaultMusicGroup.pause();
 	}
 
 	public static function resumeAllSounds()
 	{
 		FlxG.sound.defaultSoundGroup.resume();
+		FlxG.sound.defaultMusicGroup.resume();
 	}
 
 	public static function stopAllSounds(stopMusic:Bool = false)
