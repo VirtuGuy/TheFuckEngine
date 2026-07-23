@@ -40,6 +40,7 @@ class FunkinSound extends FlxSound
 		if (autoPlay)
 			sound.play();
 
+		FlxG.sound.defaultSoundGroup.add(sound);
 		FlxG.sound.list.add(sound);
 
 		return sound;
@@ -65,12 +66,12 @@ class FunkinSound extends FlxSound
 
 	public static function pauseAllSounds()
 	{
-		FlxG.sound.list.forEachAlive(sound -> sound.pause());
+		FlxG.sound.defaultSoundGroup.pause();
 	}
 
 	public static function resumeAllSounds()
 	{
-		FlxG.sound.list.forEachAlive(sound -> sound.resume());
+		FlxG.sound.defaultSoundGroup.resume();
 	}
 
 	public static function stopAllSounds(stopMusic:Bool = false)
