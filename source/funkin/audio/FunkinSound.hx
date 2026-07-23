@@ -51,10 +51,10 @@ class FunkinSound extends FlxSound
 		return load(id, volume, false);
 	}
 
-	public static function playMusic(id:String, volume:Float = 1, looped:Bool = true, autoPlay:Bool = true, overrideMusic:Bool = true)
+	public static function playMusic(id:String, volume:Float = 1, looped:Bool = true, autoPlay:Bool = true, overrideMusic:Bool = true):FunkinSound
 	{
 		if (music?.playing && !overrideMusic)
-			return;
+			return music;
 
 		music?.destroy();
 
@@ -65,6 +65,8 @@ class FunkinSound extends FlxSound
 
 		FlxG.sound.defaultMusicGroup.add(music);
 		FlxG.sound.defaultSoundGroup.remove(music);
+
+		return music;
 	}
 
 	public static function pauseAllSounds()
