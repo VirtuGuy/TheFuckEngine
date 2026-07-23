@@ -77,7 +77,7 @@
       "name": "lime",
       "type": "git",
       "dir": null,
-      "ref": "b1a1f32ccfabbc822a791db3488aadcdd25d49e8",
+      "ref": "5a7932d24aa8f22d4192f357934cf1dcf2ed98aa",
       "url": "https://github.com/FunkinCrew/lime"
     },
     {
@@ -105,8 +105,8 @@
       "name": "thx.semver",
       "type": "git",
       "dir": null,
-      "ref": "bdb191fe7cf745c02a980749906dbf22719e200b",
-      "url": "https://github.com/fponticelli/thx.semver"
+      "ref": "7714c5ed3547cc996c9ee318aa360abbd7f85f74",
+      "url": "https://github.com/FunkinCrew/thx.semver"
     },
     {
       "name": "tink_core",
