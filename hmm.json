@@ -4,7 +4,7 @@
       "name": "flixel",
       "type": "git",
       "dir": null,
-      "ref": "a05db74b890a711d877384b4bb87b54fa519a4c6",
+      "ref": "0744c7dce3513df4bb814e301679e4c9c41857ee",
       "url": "https://github.com/FunkinCrew/flixel"
     },
     {
@@ -32,7 +32,7 @@
       "name": "hxcpp",
       "type": "git",
       "dir": null,
-      "ref": "2e969d0154ac536c1b5a5c89d2c2b73d7126bd2e",
+      "ref": "9a86ccf33a951fc54ff2e75720eb3b62eaab523a",
       "url": "https://github.com/FunkinCrew/hxcpp"
     },
     {
@@ -77,21 +77,21 @@
       "name": "lime",
       "type": "git",
       "dir": null,
-      "ref": "5a7932d24aa8f22d4192f357934cf1dcf2ed98aa",
+      "ref": "954eefd806ce57ebb899c4f94d2a0b799ea8d555",
       "url": "https://github.com/FunkinCrew/lime"
     },
     {
       "name": "openfl",
       "type": "git",
       "dir": null,
-      "ref": "0c5a3c6ac50987c4d0c32b562bbdcb5bf1346db5",
+      "ref": "640efd4b4939f07c9a47c421ead7d766cb91ba8c",
       "url": "https://github.com/FunkinCrew/openfl"
     },
     {
       "name": "polymod",
       "type": "git",
       "dir": null,
-      "ref": "ad65352b665b25cd711090fe87e19e998a535573",
+      "ref": "04bf8a28e79bc46270fea0f7fb002075917f4a71",
       "url": "https://github.com/FunkinCrew/polymod"
     },
     {
