@@ -10,7 +10,7 @@ import funkin.util.MathUtil;
 /**
  * A list of `FunkinText` objects that the player can scroll through.
  */
-class MenuList extends FlxTypedGroup< #if hl Dynamic #else FunkinText #end>
+class MenuList extends FlxTypedGroup<FunkinText>
 {
 	public var entries(default, set):Array<String>;
 	public var size(get, never):Int;
@@ -40,8 +40,8 @@ class MenuList extends FlxTypedGroup< #if hl Dynamic #else FunkinText #end>
 		forEachAlive(item ->
 		{
 			item.alpha = item.ID == selected ? 1 : 0.6;
-			item.x = MathUtil.lerp(item.x, getItemX(#if hl cast #end item), 0.2);
-			item.y = MathUtil.lerp(item.y, getItemY(#if hl cast #end item), 0.2);
+			item.x = MathUtil.lerp(item.x, getItemX(item), 0.2);
+			item.y = MathUtil.lerp(item.y, getItemY(item), 0.2);
 		});
 	}
 
@@ -80,8 +80,7 @@ class MenuList extends FlxTypedGroup< #if hl Dynamic #else FunkinText #end>
 
 		for (i => item in value)
 		{
-			var text:FunkinText = #if hl cast #end
-			recycle(FunkinText);
+			var text:FunkinText = recycle(FunkinText);
 			text.text = item;
 			text.size = 56;
 			text.ID = i;

@@ -87,9 +87,7 @@ class FPSCounter extends TextField
 	function updateDisplay()
 	{
 		text = 'FPS: $currentFPS';
-		#if !hl
 		text += '\nMEM: ${formatMemory(systemMemory)} / ${formatMemory(maxMemory)}';
-		#end
 
 		textColor = 0xFFFFFFFF;
 

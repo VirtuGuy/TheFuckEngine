@@ -1,14 +1,9 @@
 package funkin;
 
+import cpp.vm.Gc;
 import lime.utils.Assets as LimeAssets;
 import openfl.utils.Assets as OpenFlAssets;
 import polymod.Polymod;
-#if cpp
-import cpp.vm.Gc;
-#end
-#if hl
-import hl.Gc;
-#end
 
 /**
  * A class for handling sound and image cache.
@@ -28,13 +23,7 @@ class FunkinMemory
 		OpenFlAssets.cache.clear();
 
 		// Runs garbage collector
-		// Hashlink uses a separate one :serious_car:
-		#if cpp
 		Gc.compact();
-		#end
-		#if hl
-		Gc.major();
-		#end
 
 		trace('Done clearing cache.');
 	}
