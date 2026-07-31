@@ -19,6 +19,7 @@ class SongConverter
 	static var variation:String;
 
 	static var song:String;
+	static var stage:String;
 
 	static function main()
 	{
@@ -68,6 +69,8 @@ class SongConverter
 		var meta:Dynamic = Json.parse(File.getContent(metaPath));
 		var chart:Dynamic = Json.parse(File.getContent(chartPath));
 
+		stage = meta.playData.stage;
+
 		chart = convertChart(chart, meta.timeChanges.copy());
 		meta = convertMeta(meta);
 
@@ -88,7 +91,7 @@ class SongConverter
 			rating: meta.playData.ratings,
 			album: meta.playData.album,
 			style: meta.playData.noteStyle,
-			stage: convertStage(meta.playData.stage),
+			stage: convertStage(stage),
 			player: convertCharacter(meta.playData.characters.player),
 			opponent: convertCharacter(meta.playData.characters.opponent),
 			gf: convertCharacter(meta.playData.characters.girlfriend)
@@ -149,6 +152,8 @@ class SongConverter
 		{
 			case 'gf-tankmen':
 				'gf-tankman';
+			case 'nene-tankmen':
+				'nene';
 			case 'parents-christmas':
 				'parents';
 			default:
@@ -264,6 +269,22 @@ class SongConverter
 				value.z = event.v.zoom;
 				value.e = event.v.ease;
 
+				if (event.v.mode == 'direct')
+				{
+					// Multiply WTF stage zoom
+					value.z *= switch (stage)
+					{
+						case 'mainStage' | 'mainStageErect': 1.25;
+						case 'spookyMansion' | 'spookyMansionErect': 1.35;
+						case 'phillyTrain' | 'phillyTrainErect': 1.4;
+						case 'limoRide' | 'limoRideErect' | 'school' | 'schoolErect' | 'schoolEvil' | 'schoolEvilErect': 1.15;
+						case 'mallXmas' | 'mallXmasErect' | 'mallEvil': 1.125;
+						case 'tankmanBattlefield' | 'tankmanBattlefieldErect': 1.3;
+						case 'phillyStreets' | 'phillyStreetsErect' | 'phillyBlazin': 1.2;
+						default: 1;
+					}
+				}
+
 				if (event.v.duration != null)
 					value.d = event.v.duration;
 
@@ -288,6 +309,9 @@ class SongConverter
 				value.c = c;
 				value.a = event.v.anim;
 				value.f = event.v.force;
+
+				if (value.a == 'hehPrettyGood')
+					value.a = 'heh';
 			default:
 				return;
 		}

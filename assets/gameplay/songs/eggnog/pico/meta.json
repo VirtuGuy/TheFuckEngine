@@ -1,7 +1,7 @@
 {
 	"style": "funkin",
 	"name": "Eggnog (Pico Mix)",
-	"gf": "nene",
+	"gf": "nene-christmas",
 	"album": "volume4",
 	"difficulties": [
 		"easy",
@@ -10,7 +10,7 @@
 	],
 	"opponent": "parents",
 	"charter": "fabs + Spazkid",
-	"player": "pico",
+	"player": "pico-christmas",
 	"stage": "mall",
 	"bpm": 150,
 	"artist": "Teravex (ft. Saruky)",

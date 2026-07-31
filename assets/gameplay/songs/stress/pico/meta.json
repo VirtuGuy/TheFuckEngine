@@ -1,16 +1,16 @@
 {
 	"style": "funkin",
 	"name": "Stress (Pico Mix)",
-	"gf": "pico-speaker",
+	"gf": "otis-speaker",
 	"album": "expansion2",
 	"difficulties": [
 		"easy",
 		"normal",
 		"hard"
 	],
-	"opponent": "tankman",
+	"opponent": "tankman-bloody",
 	"charter": "fabs + Spazkid",
-	"player": "pico",
+	"player": "pico-holding-nene",
 	"stage": "tank",
 	"bpm": 178,
 	"artist": "Saruky",
