@@ -5,6 +5,7 @@ import flixel.group.FlxGroup;
 import flixel.math.FlxPoint;
 import funkin.data.character.CharacterRegistry;
 import funkin.data.stage.StageData;
+import funkin.data.stage.StageRegistry;
 import funkin.modding.IScriptedClass;
 import funkin.modding.event.ScriptEvent;
 import funkin.modding.event.ScriptEventDispatcher;
@@ -167,7 +168,7 @@ class Stage extends FlxGroup implements IPlayStateScriptedClass
 	@:noCompletion
 	inline function get_path():String
 	{
-		return 'gameplay/stages/$id';
+		return '${StageRegistry.instance.path}/$id';
 	}
 
 	public function onCreate(event:ScriptEvent) {}

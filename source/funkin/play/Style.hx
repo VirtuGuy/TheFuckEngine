@@ -1,6 +1,7 @@
 package funkin.play;
 
 import funkin.data.style.StyleData;
+import funkin.data.style.StyleRegistry;
 import funkin.play.note.NoteDirection;
 import funkin.util.RhythmUtil.Judgement;
 
@@ -107,7 +108,7 @@ class Style
 	@:noCompletion
 	inline function get_path():String
 	{
-		return 'gameplay/styles/$id';
+		return '${StyleRegistry.instance.path}/$id';
 	}
 
 	public function toString():String

@@ -1,6 +1,7 @@
 package funkin.play.character;
 
 import funkin.data.character.CharacterData;
+import funkin.data.character.CharacterRegistry;
 import funkin.modding.IScriptedClass.IPlayStateScriptedClass;
 import funkin.modding.event.ScriptEvent;
 import funkin.play.note.NoteDirection;
@@ -107,7 +108,7 @@ class Character extends StageProp implements IPlayStateScriptedClass
 	@:noCompletion
 	inline function get_charPath():String
 	{
-		return 'gameplay/characters/$id';
+		return '${CharacterRegistry.instance.path}/$id';
 	}
 
 	@:noCompletion

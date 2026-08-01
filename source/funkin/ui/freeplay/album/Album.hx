@@ -1,6 +1,7 @@
 package funkin.ui.freeplay.album;
 
 import funkin.data.freeplay.album.AlbumData;
+import funkin.data.freeplay.album.AlbumRegistry;
 
 /**
  * The engine's freeplay album class.
@@ -50,7 +51,7 @@ class Album
 	@:noCompletion
 	inline function get_path():String
 	{
-		return 'menu/freeplay/albums/$id';
+		return '${AlbumRegistry.instance.path}/$id';
 	}
 
 	public function toString():String

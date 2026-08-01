@@ -1,6 +1,7 @@
 package funkin.play.character;
 
 import funkin.data.character.CharacterData.CharacterIconData;
+import funkin.data.character.CharacterRegistry;
 import funkin.graphics.FunkinSprite;
 import funkin.util.MathUtil;
 
@@ -26,7 +27,7 @@ class HealthIcon extends FunkinSprite
 		this.isPlayer = isPlayer;
 
 		final image:String = meta.id ?? id;
-		final path:String = 'gameplay/characters/$image/icon';
+		final path:String = '${CharacterRegistry.instance.path}/$image/icon';
 
 		// The sprite needs to be loaded in order to get the size
 		loadSprite(path);

@@ -2,7 +2,7 @@ package funkin.play;
 
 import flixel.tweens.FlxTween;
 import funkin.audio.FunkinSound;
-import funkin.audio.FunkinSound;
+import funkin.data.character.CharacterRegistry;
 import funkin.graphics.FunkinSprite;
 import funkin.graphics.FunkinText;
 import funkin.modding.event.ScriptEvent;
@@ -44,7 +44,7 @@ class PauseSubState extends FunkinSubState
 			DEFAULT_ENTRIES.insert(2, 'difficulty');
 
 		final player:Character = PlayState.instance.stage.player;
-		final musicPath:String = 'gameplay/characters/${player?.meta?.pause ?? player?.id}/pause';
+		final musicPath:String = '${CharacterRegistry.instance.path}/${player?.meta?.pause ?? player?.id}/pause';
 
 		music = FunkinSound.load(musicPath, 0);
 		music.fadeIn(2);

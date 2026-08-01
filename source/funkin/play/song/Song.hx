@@ -2,6 +2,7 @@ package funkin.play.song;
 
 import funkin.data.event.EventData;
 import funkin.data.song.SongData;
+import funkin.data.song.SongRegistry;
 import funkin.modding.IScriptedClass.IPlayStateScriptedClass;
 import funkin.modding.event.ScriptEvent;
 import haxe.ds.StringMap;
@@ -190,7 +191,7 @@ class Song implements IPlayStateScriptedClass
 	@:noCompletion
 	inline function get_path():String
 	{
-		var path:String = 'gameplay/songs/$id';
+		var path:String = '${SongRegistry.instance.path}/$id';
 		if (variation != Constants.DEFAULT_VARIATION)
 			path += '/$variation';
 		return path;

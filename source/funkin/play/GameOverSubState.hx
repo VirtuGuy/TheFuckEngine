@@ -2,7 +2,6 @@ package funkin.play;
 
 import flixel.util.FlxTimer;
 import funkin.audio.FunkinSound;
-import funkin.audio.FunkinSound;
 import funkin.data.character.CharacterRegistry;
 import funkin.modding.event.ScriptEvent;
 import funkin.play.character.Character;
@@ -152,14 +151,14 @@ class GameOverSubState extends FunkinSubState
 	{
 		final path:String = player?.meta?.death?.music ?? player?.id;
 
-		return 'gameplay/characters/$path-death/music';
+		return '${CharacterRegistry.instance.path}/$path-death/music';
 	}
 
 	function getDeathSound(id:String)
 	{
 		final path:String = player?.meta?.death?.sounds ?? player?.id;
 
-		return 'gameplay/characters/$path-death/$id';
+		return '${CharacterRegistry.instance.path}/$path-death/$id';
 	}
 
 	override function beatHit(beat:Int)
