@@ -48,8 +48,11 @@ import funkin.util.SortUtil;
 class PlayState extends FunkinState
 {
 	public static var instance:PlayState;
-	public static var difficulty:String;
-	public static var song:Song;
+
+	static var lastParams:PlayParams;
+
+	public var difficulty(get, set):String;
+	public var song(get, set):Song;
 
 	public var songLoaded:Bool;
 	public var songStarted:Bool;
@@ -101,6 +104,23 @@ class PlayState extends FunkinState
 	public var popups:Popups;
 
 	public var stage:Stage;
+
+	public function new(?params:PlayParams)
+	{
+		super();
+
+		params ??= lastParams;
+
+		if (params == null)
+			throw 'PlayState constructed without any parameters.';
+		if (params.song == null)
+			throw 'PlayState constructed with a null song.';
+
+		lastParams = params;
+
+		song = params.song;
+		difficulty = params.difficulty;
+	}
 
 	override public function create()
 	{
@@ -175,15 +195,13 @@ class PlayState extends FunkinState
 		//
 
 		stage = StageRegistry.instance.fetchStage(song.stage);
-		add(stage);
-
 		stageZoom = stage.zoom;
+		add(stage);
 
 		loadCharacters();
 		loadSong();
 
 		refresh();
-
 		updatePreferences();
 
 		// Runs the create script event
@@ -550,15 +568,10 @@ class PlayState extends FunkinState
 		Playlist.score += score;
 
 		// Exits or switches to the next song
-		if (Playlist.next())
-			FlxG.resetState();
-		else
+		if (!Playlist.next())
 		{
-			// Saves the level score
 			if (Playlist.isStory)
 				Save.instance.setLevelScore(Playlist.level.id, difficulty, Playlist.score, false);
-
-			// Exits the state
 			exit();
 		}
 	}
@@ -883,6 +896,30 @@ class PlayState extends FunkinState
 		FunkinSound.music.stop();
 
 		super.destroy();
+	}
+
+	@:noCompletion
+	function get_song():Song
+	{
+		return lastParams.song;
+	}
+
+	@:noCompletion
+	function set_song(value:Song):Song
+	{
+		return lastParams.song = value;
+	}
+
+	@:noCompletion
+	function get_difficulty():String
+	{
+		return lastParams.difficulty;
+	}
+
+	@:noCompletion
+	function set_difficulty(value:String):String
+	{
+		return lastParams.difficulty = value;
 	}
 
 	@:noCompletion

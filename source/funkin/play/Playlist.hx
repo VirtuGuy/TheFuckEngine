@@ -1,7 +1,6 @@
 package funkin.play;
 
 import funkin.data.song.SongRegistry;
-import funkin.play.song.Song;
 import funkin.ui.story.Level;
 
 /**
@@ -10,24 +9,35 @@ import funkin.ui.story.Level;
 class Playlist
 {
 	public static var level:Level;
+	public static var difficulty:String;
+
 	public static var isStory(get, never):Bool;
 
 	public static var songs:Array<String>;
 	public static var score:Int;
 	public static var tallies:Tallies;
 
-	public static function reset(?level:Level)
+	public static function reset(?level:Level, ?difficulty:String)
 	{
 		Playlist.level = level;
+		Playlist.difficulty = difficulty;
 
-		songs = [];
+		songs = level?.getSongs()?.copy() ?? [];
+
 		score = 0;
 		tallies = new Tallies();
 	}
 
 	public static function load()
 	{
-		PlayState.song = SongRegistry.instance.fetch(songs[0]);
+		// Yes it has to be done like this
+		// Um fuck you Flixel
+		final params:PlayParams = {
+			song: SongRegistry.instance.fetch(songs[0]),
+			difficulty: difficulty
+		}
+
+		FlxG.switchState(() -> new PlayState(params));
 	}
 
 	public static function next():Bool

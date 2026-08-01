@@ -262,13 +262,8 @@ class StoryMenuSubState extends FunkinSubState
 		{
 			camera.fade(0xFF000000, 0.25, false, () ->
 			{
-				PlayState.difficulty = difficulty;
-
-				Playlist.reset(level);
-				Playlist.songs = level.getSongs().copy();
+				Playlist.reset(level, difficulty);
 				Playlist.load();
-
-				FlxG.switchState(() -> new PlayState());
 			});
 		});
 	}

@@ -38,7 +38,7 @@ class SpookyStage extends Stage
     {
         super.onBeatHit(event);
 
-        var syncedBeat:Bool = event.beat == 4 && PlayState.song.id == "spookeez";
+        var syncedBeat:Bool = event.beat == 4 && PlayState.instance.song.id == "spookeez";
 
         if ((FlxG.random.bool(10) && event.beat > lightningBeat) || syncedBeat)
         {

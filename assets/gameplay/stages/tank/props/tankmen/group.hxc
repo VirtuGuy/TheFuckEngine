@@ -73,7 +73,7 @@ class TankmenGroup extends FlxTypedGroup
 
     function clean()
     {
-        data = PlayState.song.getNotes("picospeaker").copy();
+        data = PlayState.instance.song.getNotes("picospeaker").copy();
 
         killMembers();
     }

@@ -17,7 +17,7 @@ class SchoolStage extends Stage
         var girls2:StageProp = getProp("girls2");
 
         // Make the background freaks scared for Roses
-        if (PlayState.song.id == "roses")
+        if (PlayState.instance.song.id == "roses")
         {
             girls1.idleSuffix = "-scared";
             girls2.idleSuffix = "-scared";

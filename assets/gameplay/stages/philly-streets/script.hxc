@@ -14,7 +14,7 @@ class PhillyStreetsStage extends Stage
 
         // Blazin' unique stuff
         // Spray can removal, character positioning, etc.
-        if (PlayState.song.id == "blazin")
+        if (PlayState.instance.song.id == "blazin")
         {
             getProp("cans").destroy();
 

@@ -42,7 +42,7 @@ class PicoSpeakerCharacter extends Character
     {
         super.onSongLoaded(event);
 
-        data = PlayState.song.getNotes("picospeaker").copy();
+        data = PlayState.instance.song.getNotes("picospeaker").copy();
     }
 
     function shoot(direction:Int)

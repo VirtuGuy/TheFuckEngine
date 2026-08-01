@@ -113,7 +113,7 @@ class PauseSubState extends FunkinSubState
 			}
 			else
 			{
-				PlayState.difficulty = item;
+				PlayState.instance.difficulty = item;
 				PlayState.instance.loadSong();
 				close();
 			}
@@ -171,13 +171,13 @@ class PauseSubState extends FunkinSubState
 	@:noCompletion
 	inline function get_song():Song
 	{
-		return PlayState.song;
+		return PlayState.instance.song;
 	}
 
 	@:noCompletion
 	inline function get_difficulty():String
 	{
-		return PlayState.difficulty;
+		return PlayState.instance.difficulty;
 	}
 
 	@:noCompletion
