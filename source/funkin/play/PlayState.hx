@@ -36,11 +36,13 @@ import funkin.play.stage.Stage;
 import funkin.save.Save;
 import funkin.ui.FunkinState;
 import funkin.ui.freeplay.FreeplaySubState;
+import funkin.ui.menu.MainMenuState;
 import funkin.ui.sticker.StickerSubState;
 import funkin.ui.story.StoryMenuSubState;
 import funkin.util.MathUtil;
 import funkin.util.RhythmUtil;
 import funkin.util.SortUtil;
+import funkin.util.WindowUtil;
 
 /**
  * A state where the gameplay occurs. Kinda like a "play" state. Hah! I said the thing!
@@ -105,6 +107,8 @@ class PlayState extends FunkinState
 
 	public var stage:Stage;
 
+	var criticalError:Bool = false;
+
 	public function new(?params:PlayParams)
 	{
 		super();
@@ -113,8 +117,14 @@ class PlayState extends FunkinState
 
 		if (params == null)
 			throw 'PlayState constructed without any parameters.';
+
+		// Force exit to menu instead of crashing the game
 		if (params.song == null)
-			throw 'PlayState constructed with a null song.';
+		{
+			criticalError = true;
+
+			WindowUtil.alert('PlayState constructed with a null song.');
+		}
 
 		lastParams = params;
 
@@ -125,6 +135,9 @@ class PlayState extends FunkinState
 	override public function create()
 	{
 		super.create();
+
+		if (criticalError)
+			return FlxG.switchState(() -> new MainMenuState());
 
 		instance = this;
 		style = StyleRegistry.instance.fetch(song.style);
@@ -210,6 +223,9 @@ class PlayState extends FunkinState
 
 	override public function update(elapsed:Float)
 	{
+		if (criticalError)
+			return;
+
 		super.update(elapsed);
 
 		//
@@ -281,6 +297,9 @@ class PlayState extends FunkinState
 
 	override public function draw()
 	{
+		if (criticalError)
+			return;
+
 		// Score text is updated here so that toggling botplay does its changes
 		// I'm so friggin smart
 		if (Preferences.botplay)

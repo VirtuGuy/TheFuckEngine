@@ -28,7 +28,7 @@ class NeneCharacter extends Character
     {
         super.onSongStart(event);
 
-        abot.start();
+        // abot.start();
     }
 
     override function onSongRetry(event:ScriptEvent)
