@@ -613,8 +613,10 @@ class PlayState extends FunkinState
 
 		if (note == null)
 		{
+			#if HAS_ANTI_MASH
 			if (playerStrumline.getCurrentNotes().length > 0)
 				playerGhostMiss(direction);
+			#end
 			return;
 		}
 
