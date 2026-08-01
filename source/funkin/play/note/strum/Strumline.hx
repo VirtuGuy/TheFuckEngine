@@ -134,7 +134,9 @@ class Strumline extends FlxGroup
 		// Note processing
 		notes.forEachAlive(note ->
 		{
-			if (note.distance <= -note.strum.y - note.height && note.wasMissed)
+			final isOffscreen:Bool = Preferences.downscroll ? note.y > FlxG.height : note.y < -note.height;
+
+			if (isOffscreen && note.wasMissed)
 				note.kill();
 
 			RhythmUtil.processHitWindow(note, isPlayer);
@@ -150,7 +152,10 @@ class Strumline extends FlxGroup
 				if (holdNote.length <= 10)
 					holdNote.kill();
 			}
-			else if (holdNote.distance <= -holdNote.strum.middle - holdNote.height)
+
+			final isOffscreen:Bool = Preferences.downscroll ? holdNote.y > FlxG.height : holdNote.y < -holdNote.height;
+
+			if (isOffscreen)
 				holdNote.kill();
 		});
 	}
