@@ -946,7 +946,7 @@ class PlayState extends FunkinState
 	@:noCompletion
 	function get_instrumental():String
 	{
-		return lastParams.instrumental ?? Constants.DEFAULT_VARIATION;
+		return lastParams.instrumental ?? song.variation;
 	}
 
 	@:noCompletion
