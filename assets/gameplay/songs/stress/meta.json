@@ -10,6 +10,9 @@
 	],
 	"opponent": "tankman",
 	"charter": "MtH + Spazkid + Hundrec",
+	"instrumentals": [
+		"pico"
+	],
 	"player": "bf-holding-gf",
 	"stage": "tank",
 	"bpm": 178,

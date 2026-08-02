@@ -314,7 +314,7 @@ class FreeplaySubState extends FunkinSubState
 
 				// Yes it has to be done like this
 				// Um fuck you Flixel
-				final params:PlayParams = {song: song, difficulty: difficulty, instrumental: 'pico'};
+				final params:PlayParams = {song: song, difficulty: difficulty};
 
 				FlxG.switchState(() -> new PlayState(params));
 			});

@@ -88,6 +88,7 @@ class SongConverter
 			artist: meta.artist,
 			charter: meta.charter,
 			difficulties: meta.playData.difficulties,
+			instrumentals: meta.playData.characters.altInstrumentals ?? [],
 			rating: meta.playData.ratings,
 			album: meta.playData.album,
 			style: meta.playData.noteStyle,
@@ -97,8 +98,14 @@ class SongConverter
 			gf: convertCharacter(meta.playData.characters.girlfriend)
 		}
 
-		if (song == 'tutorial')
-			meta.gf = meta.opponent;
+		switch (song)
+		{
+			case 'tutorial':
+				meta.gf = meta.opponent;
+			case 'roses':
+				// I don't feel like doing offsets :3
+				meta.instrumentals.remove('pico');
+		}
 
 		return meta;
 	}

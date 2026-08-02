@@ -10,6 +10,9 @@
 	],
 	"opponent": "tankman",
 	"charter": "MtH",
+	"instrumentals": [
+		"pico"
+	],
 	"player": "bf",
 	"stage": "tank",
 	"bpm": 160,

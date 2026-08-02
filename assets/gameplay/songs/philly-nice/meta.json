@@ -10,6 +10,9 @@
 	],
 	"opponent": "pico",
 	"charter": "ninjamuffin99 + MtH + Spazkid",
+	"instrumentals": [
+		"pico"
+	],
 	"player": "bf",
 	"stage": "philly-train",
 	"bpm": 175,
