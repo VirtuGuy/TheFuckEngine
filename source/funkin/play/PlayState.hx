@@ -153,8 +153,8 @@ class PlayState extends FunkinState
 		FlxG.cameras.add(camHUD, false);
 
 		camFollow = new FlxObject();
-		camFollow.active = false;
-		FlxG.camera.follow(camFollow, LOCKON, Constants.CAMERA_FOLLOW_RATE);
+
+		camera.follow(camFollow, LOCKON, Constants.CAMERA_FOLLOW_RATE);
 
 		//
 		// HUD

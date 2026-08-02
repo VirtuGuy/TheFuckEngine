@@ -43,7 +43,7 @@ class CharacterSelectState extends FunkinState
 		conductor.reset(90);
 
 		camFollow = new FlxObject();
-		FlxG.camera.follow(camFollow, null, 0.015);
+		camera.follow(camFollow, null, 0.015);
 
 		loadAvailable();
 
@@ -130,7 +130,7 @@ class CharacterSelectState extends FunkinState
 		// Doing this so that everything can snap into place
 		change(selected);
 
-		FlxG.camera.snapToTarget();
+		camera.snapToTarget();
 
 		cursor.snap();
 	}

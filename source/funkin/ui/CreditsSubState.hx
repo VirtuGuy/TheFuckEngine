@@ -45,7 +45,6 @@ class CreditsSubState extends FunkinSubState
 
 		camFollow = new FlxObject();
 		camFollow.screenCenter();
-		camFollow.active = false;
 
 		camera.follow(camFollow);
 

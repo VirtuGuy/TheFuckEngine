@@ -65,7 +65,7 @@ class GameOverSubState extends FunkinSubState
 		if (character != null)
 		{
 			PlayState.instance.setCameraTarget(character);
-			FlxG.camera.active = true;
+			camera.active = true;
 		}
 	}
 
@@ -118,7 +118,7 @@ class GameOverSubState extends FunkinSubState
 
 		FunkinSound.playOnce(getDeathSound('end'));
 
-		FlxTimer.wait(1, () -> FlxG.camera.fade(0xFF000000, 2, false, close));
+		FlxTimer.wait(1, () -> camera.fade(0xFF000000, 2, false, close));
 	}
 
 	function exit()
@@ -179,7 +179,7 @@ class GameOverSubState extends FunkinSubState
 
 		_parentState.persistentDraw = true;
 
-		FlxG.camera.fade(0xFF000000, 1, true);
+		camera.fade(0xFF000000, 1, true);
 
 		PlayState.instance.loadSong();
 	}

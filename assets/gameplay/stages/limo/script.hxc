@@ -65,7 +65,7 @@ class LimoStage extends Stage
         FlxTimer.wait(1, () ->
         {
             // Shakes the camera for the cool
-            FlxG.camera.shake(0.003, 0.3);
+            camera.shake(0.003, 0.3);
 
             carMoving = true;
         });

@@ -33,9 +33,9 @@ class MainMenuState extends FunkinState
 		stateMachine = new StateMachine();
 
 		camFollow = new FlxObject();
-		camFollow.active = false;
 		camFollow.screenCenter();
-		FlxG.camera.follow(camFollow, LOCKON, 0.06);
+
+		camera.follow(camFollow, LOCKON, 0.06);
 
 		var bg:FunkinSprite = FunkinSprite.create(0, 0, 'menu/back', 1.5);
 		bg.scale.add(0.15, 0.15);
@@ -61,7 +61,7 @@ class MainMenuState extends FunkinState
 
 		change(selectedItem);
 
-		FlxG.camera.snapToTarget();
+		camera.snapToTarget();
 
 		#if HAS_DISCORD_RPC
 		DiscordRPC.updatePresenceMenu();

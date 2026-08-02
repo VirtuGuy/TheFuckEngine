@@ -29,6 +29,7 @@ class WinterHorrorlandSong extends Song
         var tree:StageProp = PlayState.instance.stage.getProp("tree");
 
         PlayState.instance.camFollow.setPosition(tree?.x + 100, tree?.y - 200);
+
         FlxG.camera.snapToTarget();
 
         PlayState.instance.camHUD.visible = false;

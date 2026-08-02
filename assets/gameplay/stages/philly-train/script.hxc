@@ -105,7 +105,7 @@ class PhillyTrainStage extends Stage
         FlxTimer.wait(5, () ->
         {
             // Shakes the camera for the cool
-            FlxG.camera.shake(0.005, 0.6);
+            camera.shake(0.005, 0.6);
 
             trainMoving = true;
         });
