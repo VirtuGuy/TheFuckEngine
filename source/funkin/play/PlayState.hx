@@ -53,9 +53,9 @@ class PlayState extends FunkinState
 
 	static var lastParams:PlayParams;
 
-	public var difficulty(get, set):String;
 	public var song(get, set):Song;
-	public var instrumental:Null<String>;
+	public var difficulty(get, set):String;
+	public var instrumental(get, set):String;
 
 	public var songLoaded:Bool;
 	public var songStarted:Bool;
@@ -352,10 +352,6 @@ class PlayState extends FunkinState
 
 			voices = new Voices(song);
 			voices.pitch = playbackRate;
-
-			FunkinSound.playMusic(song.getInstrumentalPath(instrumental), 1, false, false);
-			FunkinSound.music.pitch = playbackRate;
-			FunkinSound.music.onComplete = endSong;
 		}
 		else
 		{
@@ -365,6 +361,10 @@ class PlayState extends FunkinState
 			if (event.cancelled)
 				return;
 		}
+
+		FunkinSound.playMusic(song.getInstrumentalPath(instrumental), 1, false, false);
+		FunkinSound.music.pitch = playbackRate;
+		FunkinSound.music.onComplete = endSong;
 
 		songStarted = false;
 		songEnded = false;
@@ -941,6 +941,18 @@ class PlayState extends FunkinState
 	function set_difficulty(value:String):String
 	{
 		return lastParams.difficulty = value;
+	}
+
+	@:noCompletion
+	function get_instrumental():String
+	{
+		return lastParams.instrumental ?? Constants.DEFAULT_VARIATION;
+	}
+
+	@:noCompletion
+	function set_instrumental(value:String):String
+	{
+		return lastParams.instrumental = value;
 	}
 
 	@:noCompletion

@@ -23,10 +23,11 @@ class PauseSubState extends FunkinSubState
 
 	var song(get, never):Song;
 	var difficulty(get, never):String;
+	var instrumental(get, never):String;
 	var deaths(get, never):Int;
 
 	var justOpened:Bool = true;
-	var changingDiff:Bool = false;
+	var mode:PauseMode = DEFAULT;
 
 	var music:FunkinSound;
 
@@ -42,6 +43,8 @@ class PauseSubState extends FunkinSubState
 
 		if (song.getDifficulties(false).length > 1)
 			DEFAULT_ENTRIES.insert(2, 'difficulty');
+		if (song.getInstrumentals().length > 0)
+			DEFAULT_ENTRIES.insert(3, 'instrumental');
 
 		final player:Character = PlayState.instance.stage.player;
 		final musicPath:String = '${CharacterRegistry.instance.path}/${player?.meta?.pause ?? player?.id}/pause';
@@ -102,51 +105,65 @@ class PauseSubState extends FunkinSubState
 		if (justOpened)
 			return;
 
-		if (changingDiff)
+		switch (mode)
 		{
-			// Checks if back was pressed
-			// I mean, you never know if someone makes a BACK difficulty
-			if (menuList.selected == menuList.size - 1)
-			{
-				menuList.entries = DEFAULT_ENTRIES;
-				changingDiff = false;
-			}
-			else
-			{
-				PlayState.instance.difficulty = item;
-				PlayState.instance.loadSong();
-				close();
-			}
-		}
-		else
-		{
-			switch (item)
-			{
-				case 'resume':
-					var event:ScriptEvent = new ScriptEvent(RESUME);
-					dispatch(event);
+			case DIFFICULTY | INSTRUMENTAL:
+				// Checks if back was pressed
+				if (menuList.selected == menuList.size - 1)
+				{
+					menuList.entries = DEFAULT_ENTRIES;
+					mode = DEFAULT;
+				}
+				else
+				{
+					if (mode == INSTRUMENTAL)
+						PlayState.instance.instrumental = item;
+					else
+						PlayState.instance.difficulty = item;
 
-					if (!event.cancelled)
-						close();
-				case 'restart':
 					PlayState.instance.loadSong();
+
 					close();
-				case 'options':
-					openSubState(new OptionsSubState());
-				case 'exit to menu':
-					PlayState.instance.exit();
-				case 'difficulty':
-					var entries:Array<String> = song.getDifficulties(false);
+				}
+			default:
+				switch (item)
+				{
+					case 'resume':
+						var event:ScriptEvent = new ScriptEvent(RESUME);
+						dispatch(event);
 
-					entries.remove(difficulty);
-					entries.push('back');
+						if (!event.cancelled) close();
+					case 'restart':
+						PlayState.instance.loadSong();
+						close();
+					case 'options':
+						openSubState(new OptionsSubState());
+					case 'exit to menu':
+						PlayState.instance.exit();
+					case 'difficulty':
+						var entries:Array<String> = song.getDifficulties(false);
 
-					menuList.entries = entries;
-					changingDiff = true;
-				case 'botplay':
-					Preferences.botplay = !Preferences.botplay;
-					updateSongText();
-			}
+						entries.remove(difficulty);
+						entries.push('back');
+
+						menuList.entries = entries;
+
+						mode = DIFFICULTY;
+					case 'instrumental':
+						var entries:Array<String> = song.getInstrumentals();
+
+						entries.insert(0, Constants.DEFAULT_VARIATION);
+
+						entries.remove(instrumental);
+						entries.push('back');
+
+						menuList.entries = entries;
+
+						mode = INSTRUMENTAL;
+					case 'botplay':
+						Preferences.botplay = !Preferences.botplay;
+						updateSongText();
+				}
 		}
 	}
 
@@ -181,8 +198,24 @@ class PauseSubState extends FunkinSubState
 	}
 
 	@:noCompletion
+	inline function get_instrumental():String
+	{
+		return PlayState.instance.instrumental;
+	}
+
+	@:noCompletion
 	inline function get_deaths():Int
 	{
 		return PlayState.instance.deaths;
 	}
+}
+
+/**
+ * An enum used for determining the entries displayed in the pause menu.
+ */
+enum PauseMode
+{
+	DEFAULT;
+	DIFFICULTY;
+	INSTRUMENTAL;
 }
