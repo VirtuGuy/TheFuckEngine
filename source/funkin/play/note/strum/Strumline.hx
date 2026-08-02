@@ -17,7 +17,7 @@ class Strumline extends FlxGroup
 	public var isPlayer:Bool;
 
 	public var data:Array<SongNoteData> = [];
-	public var speed(default, set):Float;
+	public var speed:Float;
 
 	public var x(get, set):Float;
 
@@ -61,72 +61,23 @@ class Strumline extends FlxGroup
 		for (i in nextNoteIndex...data.length)
 		{
 			final noteData:SongNoteData = data[i];
+			final distance:Float = RhythmUtil.getDistance(noteData?.t, speed);
 
 			// Skip the note if it's null
-			if (noteData == null)
-			{
-				nextNoteIndex = i + 1;
-				continue;
-			}
-
-			final time:Float = noteData.t;
-			final direction:NoteDirection = NoteDirection.fromInt(noteData.d);
-			final kind:String = noteData.k;
-			final length:Float = noteData.l;
-
-			// Skip the note if it's in the past
-			if (RhythmUtil.getDistance(time, speed) < 0)
+			if (noteData == null || distance < 0)
 			{
 				nextNoteIndex = i + 1;
 				continue;
 			}
 
 			// The note is too far away to spawn
-			if (RhythmUtil.getDistance(time, speed) > FlxG.height)
+			if (distance > FlxG.height)
 				break;
 
-			// Creates a note
-			var note:NoteSprite = notes.recycle(NoteSprite);
+			var note:NoteSprite = buildNote(noteData);
 
-			if (note.graphic == null)
-				note.buildSprite(style);
-
-			note.strum = getStrum(direction);
-
-			note.time = time;
-			note.direction = direction;
-			note.kind = kind;
-
-			note.data = noteData;
-			note.speed = speed;
-
-			// Creates a hold note
-			// However, its length has to be lengthy enough to be considered length
-			if (length > 25)
-			{
-				var holdNote:HoldNoteSprite = holdNotes.recycle(HoldNoteSprite);
-
-				if (holdNote.graphic == null)
-					holdNote.buildSprite(style);
-
-				holdNote.strum = note.strum;
-
-				holdNote.time = time;
-				holdNote.direction = direction;
-				holdNote.kind = kind;
-				holdNote.length = length;
-				holdNote.fullLength = length;
-
-				holdNote.data = noteData;
-				holdNote.speed = speed;
-
-				note.holdNote = holdNote;
-			}
-
-			// Sorts the notes
-			// Not doing this will mess up the input
-			notes.sort((i, a, b) -> return SortUtil.byTime(FlxSort.ASCENDING, a.data, b.data));
-			holdNotes.sort((i, a, b) -> return SortUtil.byTime(FlxSort.ASCENDING, a.data, b.data));
+			if (noteData.l > 25)
+				note.holdNote = buildHoldNote(noteData);
 
 			nextNoteIndex = i + 1;
 		}
@@ -134,6 +85,12 @@ class Strumline extends FlxGroup
 		// Note processing
 		notes.forEachAlive(note ->
 		{
+			final strum:StrumSprite = getStrum(note.direction);
+			final distance:Float = RhythmUtil.getDistance(note.time, speed);
+
+			note.x = strum.x;
+			note.y = strum.y + distance * (Preferences.downscroll ? -1 : 1);
+
 			final isOffscreen:Bool = Preferences.downscroll ? note.y > FlxG.height : note.y < -note.height;
 
 			if (isOffscreen && note.wasMissed)
@@ -145,15 +102,27 @@ class Strumline extends FlxGroup
 		// Hold note processing
 		holdNotes.forEachAlive(holdNote ->
 		{
+			final strum:StrumSprite = getStrum(holdNote.direction);
+			final distance:Float = RhythmUtil.getDistance(holdNote.time, speed);
+
+			holdNote.x = strum.x + (strum.width - holdNote.width) / 2;
+			holdNote.y = strum.middle + distance * (Preferences.downscroll ? -1 : 1);
+
+			holdNote.flipY = Preferences.downscroll;
+			holdNote.speed = speed;
+
 			if (holdNote.wasHit)
 			{
+				holdNote.y = strum.middle;
+				holdNote.length = holdNote.time - Conductor.instance.time + holdNote.fullLength;
+
 				getStrum(holdNote.direction).playConfirm();
 
 				if (holdNote.length <= 10)
 					holdNote.kill();
 			}
 
-			final isOffscreen:Bool = Preferences.downscroll ? holdNote.y > FlxG.height : holdNote.y < -holdNote.height;
+			final isOffscreen:Bool = Preferences.downscroll ? holdNote.y > FlxG.height + holdNote.height : holdNote.y < -holdNote.height;
 
 			if (isOffscreen && holdNote.wasMissed)
 				holdNote.kill();
@@ -179,6 +148,8 @@ class Strumline extends FlxGroup
 
 		if (Preferences.downscroll)
 			strums.y = FlxG.height - strums.height - strums.y;
+
+		process();
 	}
 
 	public function load(notes:Array<SongNoteData>, speed:Float)
@@ -277,19 +248,35 @@ class Strumline extends FlxGroup
 		return strums.members[direction];
 	}
 
-	@:noCompletion
-	function set_speed(value:Float):Float
+	function buildNote(data:SongNoteData):NoteSprite
 	{
-		value = Math.max(0, value);
+		var note:NoteSprite = notes.recycle(NoteSprite);
 
-		if (this.speed == value)
-			return value;
-		this.speed = value;
+		if (note.graphic == null)
+			note.buildSprite(style);
 
-		notes.forEachAlive(note -> note.speed = value);
-		holdNotes.forEachAlive(holdNote -> holdNote.speed = value);
+		note.y = 9999;
+		note.data = data;
 
-		return value;
+		notes.sort((i, a, b) -> return SortUtil.byTime(FlxSort.ASCENDING, a.data, b.data));
+
+		return note;
+	}
+
+	function buildHoldNote(data:SongNoteData):HoldNoteSprite
+	{
+		var holdNote:HoldNoteSprite = holdNotes.recycle(HoldNoteSprite);
+
+		if (holdNote.graphic == null)
+			holdNote.buildSprite(style);
+
+		holdNote.y = 9999;
+		holdNote.data = data;
+		holdNote.speed = speed;
+
+		holdNotes.sort((i, a, b) -> return SortUtil.byTime(FlxSort.ASCENDING, a.data, b.data));
+
+		return holdNote;
 	}
 
 	@:noCompletion

@@ -2,8 +2,6 @@ package funkin.play.note.hold;
 
 import flixel.FlxStrip;
 import funkin.data.song.SongData.SongNoteData;
-import funkin.play.note.strum.StrumSprite;
-import funkin.util.RhythmUtil;
 
 /**
  * A sprite used as a sustain note that the player must hold.
@@ -12,22 +10,20 @@ class HoldNoteSprite extends FlxStrip
 {
 	final HOLD_HEIGHT:Int = 1;
 
-	public var time:Float;
-	public var direction(default, set):NoteDirection;
-	public var kind:String;
-	public var length(default, set):Float;
+	public var data(default, set):SongNoteData;
 	public var speed(default, set):Float;
 
-	public var fullLength:Float;
+	public var time(get, never):Float;
+	public var direction(get, never):NoteDirection;
+	public var kind(get, never):String;
+	public var length(default, set):Float;
+
+	public var fullLength(default, null):Float;
+
+	public var isPlayer(get, never):Bool;
 
 	public var wasHit:Bool;
 	public var wasMissed:Bool;
-
-	public var data:SongNoteData;
-	public var strum:StrumSprite;
-
-	public var isPlayer(get, never):Bool;
-	public var distance(get, never):Float;
 
 	var holdHeight:Float;
 	var endHeight:Float;
@@ -72,9 +68,9 @@ class HoldNoteSprite extends FlxStrip
 		holdHeight = length * Constants.PIXELS_PER_MS * speed;
 		endHeight = (graphicHeight - HOLD_HEIGHT) * scale.y;
 
-		var endClip:Float = Math.min(0, holdHeight - endHeight);
-		var flipOff:Float = flipY ? holdHeight : 0;
-		var flip:Int = flipY ? -1 : 1;
+		final endClip:Float = Math.min(0, holdHeight - endHeight);
+		final flipOff:Float = flipY ? holdHeight : 0;
+		final flip:Int = flipY ? -1 : 1;
 
 		// Order:
 		// Top left, top right, bottom left, bottom right
@@ -129,59 +125,49 @@ class HoldNoteSprite extends FlxStrip
 		origin.set();
 	}
 
-	override public function draw()
-	{
-		if (strum != null)
-		{
-			x = strum.x + (strum.width - width) / 2;
-			y = strum.middle + distance * (Preferences.downscroll ? -1 : 1);
-
-			flipY = Preferences.downscroll;
-
-			if (wasHit)
-			{
-				length = time - Conductor.instance.time + fullLength;
-				y = strum.middle;
-			}
-		}
-
-		super.draw();
-	}
-
 	override public function revive()
 	{
 		super.revive();
 
-		time = 0;
-		direction = LEFT;
-		kind = '';
-		length = 0;
+		data = null;
 		speed = 0;
-
-		fullLength = 0;
 
 		wasHit = false;
 		wasMissed = false;
-
-		data = null;
-		strum = null;
 
 		holdHeight = 0;
 		endHeight = 0;
 	}
 
 	@:noCompletion
-	function set_direction(value:NoteDirection):NoteDirection
+	function set_data(value:SongNoteData):SongNoteData
 	{
-		value %= Constants.NOTE_COUNT;
+		if (data == value)
+			return data;
+		data = value;
 
-		if (this.direction == value)
-			return value;
-		this.direction = value;
+		length = data?.l;
+		fullLength = length;
 
-		redraw();
+		return data;
+	}
 
-		return value;
+	@:noCompletion
+	inline function get_time():Float
+	{
+		return data?.t;
+	}
+
+	@:noCompletion
+	inline function get_direction():NoteDirection
+	{
+		return NoteDirection.fromInt(data?.d);
+	}
+
+	@:noCompletion
+	inline function get_kind():String
+	{
+		return data?.k;
 	}
 
 	@:noCompletion
@@ -189,48 +175,42 @@ class HoldNoteSprite extends FlxStrip
 	{
 		value = Math.max(0, value);
 
-		if (this.length == value)
-			return value;
-		this.length = value;
+		if (length == value)
+			return length;
+		length = value;
 
 		redraw();
 
-		return value;
+		return length;
 	}
 
 	@:noCompletion
 	function set_speed(value:Float):Float
 	{
-		if (this.speed == value)
-			return value;
-		this.speed = value;
+		if (speed == value)
+			return speed;
+		speed = value;
 
 		redraw();
 
-		return value;
+		return speed;
 	}
 
 	@:noCompletion
 	override function set_flipY(value:Bool):Bool
 	{
-		if (this.flipY == value)
-			return super.set_flipY(value);
-		this.flipY = super.set_flipY(value);
+		if (flipY == value)
+			return flipY;
+		flipY = super.set_flipY(value);
 
 		redraw();
 
-		return value;
+		return flipY;
 	}
 
 	@:noCompletion
 	inline function get_isPlayer():Bool
 	{
 		return data.d < Constants.NOTE_COUNT;
-	}
-
-	@:noCompletion
-	inline function get_distance():Float
-	{
-		return RhythmUtil.getDistance(time, speed);
 	}
 }
