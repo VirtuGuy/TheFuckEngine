@@ -55,6 +55,7 @@ class PlayState extends FunkinState
 
 	public var difficulty(get, set):String;
 	public var song(get, set):Song;
+	public var instrumental:Null<String>;
 
 	public var songLoaded:Bool;
 	public var songStarted:Bool;
@@ -130,6 +131,7 @@ class PlayState extends FunkinState
 
 		song = params.song;
 		difficulty = params.difficulty;
+		instrumental = params.instrumental;
 	}
 
 	override public function create()
@@ -351,7 +353,7 @@ class PlayState extends FunkinState
 			voices = new Voices(song);
 			voices.pitch = playbackRate;
 
-			FunkinSound.playMusic(song.instPath, 1, false, false);
+			FunkinSound.playMusic(song.getInstPath(instrumental), 1, false, false);
 			FunkinSound.music.pitch = playbackRate;
 			FunkinSound.music.onComplete = endSong;
 		}
@@ -765,7 +767,7 @@ class PlayState extends FunkinState
 
 	function playerNoteMiss(note:NoteSprite)
 	{
-		note.wasMissed = true;
+		playerStrumline.missNote(note);
 
 		var event:NoteScriptEvent = new NoteScriptEvent(NOTE_MISS, note);
 		dispatch(event);

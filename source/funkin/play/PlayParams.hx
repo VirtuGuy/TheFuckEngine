@@ -9,4 +9,6 @@ typedef PlayParams =
 {
 	var song:Song;
 	var difficulty:String;
+	@:optional
+	var instrumental:String;
 }

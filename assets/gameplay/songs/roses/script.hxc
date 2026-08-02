@@ -22,7 +22,7 @@ class RosesSong extends Song
 
         event.cancel();
 
-        FunkinSound.playOnce('$path/sounds/angry');
+        FunkinSound.playOnce(getPath('sounds/angry'));
 
         PlayState.instance.startCutscene(new DialogueCutscene(id, () ->
         {

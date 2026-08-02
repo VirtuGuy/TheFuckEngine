@@ -25,12 +25,12 @@ class TwoHotSong extends Song
         cans = PlayState.instance.stage.getProp("cans");
 
         can = new StageProp("can");
-        can.loadSprite('$path/props/can');
+        can.loadSprite(getPath('props/can'));
         can.zIndex = cans.zIndex - 1;
         can.moves = true;
 
         explosion = new StageProp("explosion");
-        explosion.loadSprite('$path/props/explosion', 1, 258, 267);
+        explosion.loadSprite(getPath('props/explosion'), 1, 258, 267);
         explosion.addAnimation("explode", [0, 1, 2], 12, false);
         explosion.animation.onFinish.add(_ -> resetExplosion());
         explosion.zIndex = 100;
@@ -74,7 +74,7 @@ class TwoHotSong extends Song
             case "cock-gun":
                 gunPrepped = true;
                 
-                FunkinSound.playOnce('$path/sounds/cock');
+                FunkinSound.playOnce(getPath('sounds/cock'));
             case "fire-gun":
                 // Can't fire the gun when it isn't prepped
                 if (!gunPrepped)
@@ -82,7 +82,7 @@ class TwoHotSong extends Song
 
                 explodeCan();
 
-                FunkinSound.playOnce('$path/sounds/shoot');
+                FunkinSound.playOnce(getPath('sounds/shoot'));
         }
     }
 
@@ -99,7 +99,7 @@ class TwoHotSong extends Song
             // Why not lose more?
             PlayState.instance.health -= 0.2;
 
-            FunkinSound.playOnce('$path/sounds/bonk');
+            FunkinSound.playOnce(getPath('sounds/bonk'));
         }
     }
 

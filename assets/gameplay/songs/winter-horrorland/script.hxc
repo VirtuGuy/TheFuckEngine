@@ -34,7 +34,7 @@ class WinterHorrorlandSong extends Song
         PlayState.instance.camHUD.visible = false;
         PlayState.instance.setCameraZoom(2, true);
 
-        FunkinSound.playOnce('$path/sounds/intro');
+        FunkinSound.playOnce(getPath('sounds/intro'));
         
         FlxTimer.wait(2, () -> {
             PlayState.instance.camHUD.visible = true;

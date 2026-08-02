@@ -35,12 +35,6 @@ class Song implements IPlayStateScriptedClass
 	public var player(get, never):String;
 	public var gf(get, never):String;
 
-	public var instPath(get, never):String;
-	public var opponentPath(get, never):String;
-	public var playerPath(get, never):String;
-
-	var path(get, never):String;
-
 	public function new(id:String, ?variation:String)
 	{
 		this.id = id;
@@ -56,7 +50,7 @@ class Song implements IPlayStateScriptedClass
 
 	public function getNotes(diff:String):Array<SongNoteData>
 	{
-		return chart.notes?.get(diff) ?? [];
+		return chart.notes?.get(diff)?.copy() ?? [];
 	}
 
 	public function getSpeed(diff:String):Float
@@ -87,6 +81,28 @@ class Song implements IPlayStateScriptedClass
 		if (variations.exists(id))
 			return variations.get(id);
 		return this;
+	}
+
+	public function getInstPath(?id:String):String
+	{
+		return getPath('inst', id);
+	}
+
+	public function getVoicePath(player:Bool):String
+	{
+		return getPath(player ? 'player' : 'opponent');
+	}
+
+	public function getPath(id:String, ?variation:String):String
+	{
+		variation ??= this.variation;
+
+		var path:String = '${SongRegistry.instance.path}/${this.id}';
+
+		if (variation != Constants.DEFAULT_VARIATION)
+			path += '/$variation';
+
+		return '$path/$id';
 	}
 
 	@:noCompletion
@@ -168,33 +184,6 @@ class Song implements IPlayStateScriptedClass
 	function get_events():Array<EventData>
 	{
 		return chart.events;
-	}
-
-	@:noCompletion
-	inline function get_instPath():String
-	{
-		return '$path/inst';
-	}
-
-	@:noCompletion
-	inline function get_opponentPath():String
-	{
-		return '$path/opponent';
-	}
-
-	@:noCompletion
-	inline function get_playerPath():String
-	{
-		return '$path/player';
-	}
-
-	@:noCompletion
-	inline function get_path():String
-	{
-		var path:String = '${SongRegistry.instance.path}/$id';
-		if (variation != Constants.DEFAULT_VARIATION)
-			path += '/$variation';
-		return path;
 	}
 
 	public function onCreate(event:ScriptEvent) {}

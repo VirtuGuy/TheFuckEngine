@@ -19,7 +19,9 @@ class HoldNoteSprite extends FlxStrip
 	public var speed(default, set):Float;
 
 	public var fullLength:Float;
+
 	public var wasHit:Bool;
+	public var wasMissed:Bool;
 
 	public var data:SongNoteData;
 	public var strum:StrumSprite;
@@ -157,7 +159,9 @@ class HoldNoteSprite extends FlxStrip
 		speed = 0;
 
 		fullLength = 0;
+
 		wasHit = false;
+		wasMissed = false;
 
 		data = null;
 		strum = null;

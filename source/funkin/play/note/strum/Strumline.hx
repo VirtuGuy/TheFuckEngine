@@ -155,7 +155,7 @@ class Strumline extends FlxGroup
 
 			final isOffscreen:Bool = Preferences.downscroll ? holdNote.y > FlxG.height : holdNote.y < -holdNote.height;
 
-			if (isOffscreen)
+			if (isOffscreen && holdNote.wasMissed)
 				holdNote.kill();
 		});
 	}
@@ -205,6 +205,14 @@ class Strumline extends FlxGroup
 		}
 
 		note.kill();
+	}
+
+	public function missNote(note:NoteSprite)
+	{
+		note.wasMissed = true;
+
+		if (note.holdNote != null)
+			note.holdNote.wasMissed = true;
 	}
 
 	public function playSplash(direction:NoteDirection)

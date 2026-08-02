@@ -18,8 +18,8 @@ class Voices
 
 	public function new(song:Song)
 	{
-		opponent = FunkinSound.load(song.opponentPath, 1, false, false, false);
-		player = FunkinSound.load(song.playerPath, 1, false, false, false);
+		opponent = FunkinSound.load(song.getVoicePath(false), 1, false, false, false);
+		player = FunkinSound.load(song.getVoicePath(true), 1, false, false, false);
 	}
 
 	public function play()
