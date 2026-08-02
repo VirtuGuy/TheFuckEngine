@@ -288,9 +288,7 @@ class PlayState extends FunkinState
 		}
 
 		camBopMultiplier = MathUtil.lerp(camBopMultiplier, 1, 0.03);
-
 		camera.zoom = camZoom * camBopMultiplier;
-		camHUD.zoom = camBopMultiplier;
 
 		// Death :(
 		if (health <= healthBar.min)
