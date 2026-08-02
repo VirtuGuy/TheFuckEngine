@@ -22,8 +22,8 @@ class SortText extends SelectorText
 	{
 		super.update(elapsed);
 
-		var left:Bool = Controls.instance.SORT_LEFT;
-		var right:Bool = Controls.instance.SORT_RIGHT;
+		final left:Bool = Controls.instance.SORT_LEFT;
+		final right:Bool = Controls.instance.SORT_RIGHT;
 
 		if (left || right)
 			change(left ? -1 : 1);

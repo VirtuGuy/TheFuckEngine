@@ -353,7 +353,7 @@ class PlayState extends FunkinState
 			voices = new Voices(song);
 			voices.pitch = playbackRate;
 
-			FunkinSound.playMusic(song.getInstPath(instrumental), 1, false, false);
+			FunkinSound.playMusic(song.getInstrumentalPath(instrumental), 1, false, false);
 			FunkinSound.music.pitch = playbackRate;
 			FunkinSound.music.onComplete = endSong;
 		}

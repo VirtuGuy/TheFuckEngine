@@ -25,8 +25,8 @@ class DifficultyText extends SelectorText
 	{
 		super.update(elapsed);
 
-		var left:Bool = Controls.instance.UI_LEFT_P;
-		var right:Bool = Controls.instance.UI_RIGHT_P;
+		final left:Bool = Controls.instance.UI_LEFT_P;
+		final right:Bool = Controls.instance.UI_RIGHT_P;
 
 		if (left || right)
 			change(left ? -1 : 1);

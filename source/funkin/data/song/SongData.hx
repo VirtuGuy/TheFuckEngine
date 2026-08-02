@@ -14,6 +14,8 @@ typedef SongMetadata =
 	var charter:String;
 	@:default([])
 	var difficulties:Array<String>;
+	@:default([])
+	var instrumentals:Array<String>;
 	var rating:Map<String, Int>;
 	var album:String;
 	@:default('funkin')

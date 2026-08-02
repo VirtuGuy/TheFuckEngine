@@ -83,7 +83,12 @@ class Song implements IPlayStateScriptedClass
 		return this;
 	}
 
-	public function getInstPath(?id:String):String
+	public function getInstrumentals():Array<String>
+	{
+		return meta.instrumentals.copy();
+	}
+
+	public function getInstrumentalPath(?id:String):String
 	{
 		return getPath('inst', id);
 	}
