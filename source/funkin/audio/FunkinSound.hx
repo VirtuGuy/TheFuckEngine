@@ -12,7 +12,7 @@ import flixel.tweens.FlxTween;
  */
 class FunkinSound extends FlxSound
 {
-	public static var music(default, null):FunkinSound;
+	public static var music(get, set):FunkinSound;
 
 	static var pool(default, null) = new FlxTypedGroup<FunkinSound>();
 
@@ -63,6 +63,8 @@ class FunkinSound extends FlxSound
 		music.volume = volume;
 		music.persist = true;
 
+		FlxG.sound.list.remove(music);
+
 		FlxG.sound.defaultMusicGroup.add(music);
 		FlxG.sound.defaultSoundGroup.remove(music);
 
@@ -83,11 +85,20 @@ class FunkinSound extends FlxSound
 
 	public static function stopAllSounds(stopMusic:Bool = false)
 	{
-		FlxG.sound.list.forEachAlive(sound ->
-		{
-			if (sound == music && !stopMusic)
-				return;
-			sound.stop();
-		});
+		if (stopMusic)
+			music?.stop();
+		FlxG.sound.list.forEachAlive(sound -> sound.stop());
+	}
+
+	@:noCompletion
+	inline static function get_music():FunkinSound
+	{
+		return cast FlxG.sound.music;
+	}
+
+	@:noCompletion
+	inline static function set_music(value:FunkinSound):FunkinSound
+	{
+		return cast FlxG.sound.music = value;
 	}
 }
