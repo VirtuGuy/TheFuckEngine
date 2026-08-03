@@ -17,6 +17,10 @@ import funkin.ui.title.TitleState;
  */
 class MainMenuState extends FunkinState
 {
+	#if HAS_TRANS_SECRET
+	static var transOverlay:TransOverlay;
+	#end
+
 	static var selectedItem:Int = 0;
 
 	var stateMachine:StateMachine;
@@ -29,6 +33,12 @@ class MainMenuState extends FunkinState
 		super.create();
 
 		playMusic();
+
+		#if HAS_TRANS_SECRET
+		// 1/1000 chance of the game becoming trans
+		if (FlxG.random.bool(0.1))
+			buildTransOverlay();
+		#end
 
 		stateMachine = new StateMachine();
 
@@ -133,6 +143,19 @@ class MainMenuState extends FunkinState
 	{
 		openSubState(new CreditsSubState());
 	}
+
+	#if HAS_TRANS_SECRET
+	function buildTransOverlay()
+	{
+		if (transOverlay != null)
+			return;
+
+		transOverlay = new TransOverlay();
+
+		FlxG.addChildBelowMouse(transOverlay, 1);
+		FunkinSound.playOnce('general/trans/cheer');
+	}
+	#end
 
 	public static function playMusic(fadeIn:Bool = false)
 	{
