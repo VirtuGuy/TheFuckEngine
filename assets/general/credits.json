@@ -3,6 +3,7 @@
         "header": "WTF Engine",
         "body": [
             { "name": "Virtu", "role": "Everything" },
+            { "name": "Funkin Crew", "role": "Funkin'" },
             { "name": "Kaivara", "role": "Tundrec" }
         ]
     },
@@ -13,7 +14,8 @@
     {
         "header": "Special Thanks",
         "body": [
-            { "name": "The Funkin' Crew Inc." },
+            { "name": "Hundrec" },
+            { "name": "AbnormalPoof" },
             { "name": "NotHyper474" },
             { "name": "KoloInDaCrib" },
             { "name": "Anysad" },
@@ -33,6 +35,7 @@
             { "name": "MightyTheArmiddilo" },
             { "name": "Milkk" },
             { "name": "MOEFUN" },
+            { "name": "OwenTheMC" },
             { "name": "PurSnake" },
             { "name": "Requazar" },
             { "name": "Rodney528" },
