@@ -58,7 +58,7 @@
       "name": "json2object",
       "type": "git",
       "dir": null,
-      "ref": "dc945d58c1239a6ab6e37e0a6c128387193c9af5",
+      "ref": "316eaefbbe6ea4aad9726611662a75605c2f6b20",
       "url": "https://github.com/FunkinCrew/json2object"
     },
     {
@@ -69,29 +69,30 @@
     },
     {
       "name": "jsonpath",
-      "type": "haxelib",
+      "type": "git",
       "dir": null,
-      "version": "1.1.0"
+      "ref": "23f5821ed0a5241c10afe2fa12bfb6ae4fb8f17f",
+      "url": "https://github.com/EliteMasterEric/jsonpath"
     },
     {
       "name": "lime",
       "type": "git",
       "dir": null,
-      "ref": "9bfb81dffb33bcc482a6f61b3b1991ba479dfce8",
+      "ref": "8a34b090faf9cd6a0d7b06a049e559d51dfc9c68",
       "url": "https://github.com/FunkinCrew/lime"
     },
     {
       "name": "openfl",
       "type": "git",
       "dir": null,
-      "ref": "c7b500b5dbac782f80304cc62e28ca998a459d1a",
+      "ref": "f18bcd63bcfa794bcd3ee3354143a175e5ab009e",
       "url": "https://github.com/FunkinCrew/openfl"
     },
     {
       "name": "polymod",
       "type": "git",
       "dir": null,
-      "ref": "b40697ff6e1a02d1f5ede38850dfabd9ecf00717",
+      "ref": "cf9c9cb8632402c107be1f14b7a4908c23bd54a8",
       "url": "https://github.com/FunkinCrew/polymod"
     },
     {
@@ -110,9 +111,10 @@
     },
     {
       "name": "tink_core",
-      "type": "haxelib",
+      "type": "git",
       "dir": null,
-      "version": "1.26.0"
+      "ref": "2bf2b992e06159510f595554e6b952e47922f128",
+      "url": "https://github.com/fponticelli/thx.core"
     }
   ]
 }
