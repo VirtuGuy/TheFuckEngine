@@ -19,9 +19,9 @@ import funkin.ui.freeplay.capsule.CapsuleGroup;
 import funkin.ui.freeplay.capsule.CapsuleSprite;
 import funkin.ui.freeplay.components.BackcardSprite;
 import funkin.ui.freeplay.components.DJSprite;
-import funkin.ui.freeplay.components.DifficultySelector;
 import funkin.ui.freeplay.components.SortSelector;
 import funkin.ui.freeplay.player.Player;
+import funkin.ui.freeplay.selector.DifficultySelector;
 import funkin.ui.menu.MainMenuState;
 import funkin.util.MathUtil;
 
@@ -128,8 +128,9 @@ class FreeplaySubState extends FunkinSubState
 		add(scoreText);
 
 		diffText = new DifficultySelector(selectedDiff, SongRegistry.instance.getDifficulties());
-		diffText.y = scoreText.y;
 		diffText.onChanged.add(changeDiff);
+		diffText.x = 220;
+		diffText.y = scoreText.y;
 		add(diffText);
 
 		sortText = new SortSelector(selectedSort);
@@ -244,7 +245,6 @@ class FreeplaySubState extends FunkinSubState
 	function changeDiff(selected:Int)
 	{
 		selectedDiff = selected;
-		diffText.x = (440 - diffText.width) / 2;
 
 		loadCapsules();
 		changeSong(capsules.selected);

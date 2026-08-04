@@ -7,6 +7,8 @@ import funkin.ui.story.Level;
 
 /**
  * A selector for sorting songs in the freeplay menu.
+ * 
+ * TODO: Recode this
  */
 class SortSelector extends SelectorText
 {

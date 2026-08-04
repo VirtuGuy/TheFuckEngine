@@ -66,7 +66,14 @@ class Song implements IPlayStateScriptedClass
 			return result;
 
 		for (variation in variations)
-			result = result.concat(variation.getDifficulties());
+		{
+			for (diff in variation.getDifficulties())
+			{
+				if (result.contains(diff))
+					continue;
+				result.push(diff);
+			}
+		}
 
 		return result;
 	}

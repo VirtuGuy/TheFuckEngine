@@ -9,6 +9,8 @@ import funkin.graphics.FunkinText;
 
 /**
  * A sprite group that's literally just text with arrows on the sides.
+ * 
+ * TODO: Remove this
  */
 class SelectorText extends FlxSpriteGroup
 {
