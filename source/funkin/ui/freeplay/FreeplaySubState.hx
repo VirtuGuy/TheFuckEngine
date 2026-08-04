@@ -78,7 +78,7 @@ class FreeplaySubState extends FunkinSubState
 		if (player == null)
 			player = PlayerRegistry.instance.fetch('bf');
 
-		FunkinSound.playMusic('menu/freeplay/music', 0);
+		FunkinSound.playMusic('ui/freeplay/music', 0);
 		FunkinSound.music.fadeIn(1, 0, 0.6);
 
 		exitMovers = new ExitMovers();
@@ -89,8 +89,8 @@ class FreeplaySubState extends FunkinSubState
 		backcard = new BackcardSprite();
 		add(backcard);
 
-		backingImage = FunkinSprite.create(0, 0, 'menu/freeplay/card/right', 1.5);
-		backingImage.shader = new TextureSwap('menu/freeplay/card/image');
+		backingImage = FunkinSprite.create(0, 0, 'ui/freeplay/card/right', 1.5);
+		backingImage.shader = new TextureSwap('ui/freeplay/card/image');
 		backingImage.active = false;
 		backingImage.x = FlxG.width - backingImage.width;
 		add(backingImage);

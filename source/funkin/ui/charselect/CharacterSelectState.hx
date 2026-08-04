@@ -16,7 +16,7 @@ class CharacterSelectState extends FunkinState
 {
 	public static var instance:CharacterSelectState;
 
-	static final PATH:String = 'menu/character-select';
+	static final PATH:String = 'ui/character-select';
 
 	static var selected:Int = 4;
 

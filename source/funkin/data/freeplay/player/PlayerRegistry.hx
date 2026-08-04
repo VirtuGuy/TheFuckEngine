@@ -18,7 +18,7 @@ class PlayerRegistry extends BaseRegistry<Player>
 
 	public function new()
 	{
-		super('players', 'menu/freeplay/players');
+		super('players', 'ui/freeplay/players');
 	}
 
 	override public function load()

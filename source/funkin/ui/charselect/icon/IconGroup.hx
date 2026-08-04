@@ -82,7 +82,7 @@ class IconGroup extends FlxTypedSpriteGroup<IconSprite>
 
 		onChanged.dispatch(selected);
 
-		FunkinSound.playOnce('menu/character-select/sounds/scroll');
+		FunkinSound.playOnce('ui/character-select/sounds/scroll');
 	}
 
 	@:noCompletion

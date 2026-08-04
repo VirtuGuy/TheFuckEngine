@@ -26,7 +26,7 @@ class OptionsSubState extends FunkinSubState
 		stateMachine = new StateMachine();
 		exitMovers = new ExitMovers();
 
-		bg = FunkinSprite.create(0, 0, 'menu/back', 1.5);
+		bg = FunkinSprite.create(0, 0, 'ui/menu/bg', 1.5);
 		bg.color = 0xFFD400FF;
 		bg.active = false;
 		add(bg);

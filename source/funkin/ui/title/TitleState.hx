@@ -39,13 +39,13 @@ class TitleState extends FunkinState
 		bg.velocity.set(GRID_SPEED, GRID_SPEED);
 		add(bg);
 
-		gf = FunkinSprite.create(0, 0, 'menu/title/gf', 1.5, 268, 290);
+		gf = FunkinSprite.create(0, 0, 'ui/title/gf', 1.5, 268, 290);
 		gf.x = FlxG.width - gf.width - 30;
 		gf.y = FlxG.height - gf.height - 30;
 		gf.addAnimation('idle', [0, 1, 2], 10, false);
 		add(gf);
 
-		logo = FunkinSprite.create(60, 60, 'menu/title/logo', 1.75);
+		logo = FunkinSprite.create(60, 60, 'ui/title/logo', 1.75);
 		logo.active = false;
 		add(logo);
 

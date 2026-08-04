@@ -17,7 +17,7 @@ class IconSprite extends FunkinSprite
 		this.player = player;
 
 		// TODO: Add support for player icons
-		loadSprite('menu/character-select/lock', 1.5);
+		loadSprite('ui/character-select/lock', 1.5);
 
 		if (player != null)
 			flipY = true;

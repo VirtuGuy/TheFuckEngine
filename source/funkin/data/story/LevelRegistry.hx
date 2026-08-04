@@ -16,7 +16,7 @@ class LevelRegistry extends BaseRegistry<Level>
 
 	public function new()
 	{
-		super('levels', 'menu/story/levels');
+		super('levels', 'ui/story/levels');
 	}
 
 	override public function load()

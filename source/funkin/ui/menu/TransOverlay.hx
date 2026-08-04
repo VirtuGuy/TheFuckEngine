@@ -13,7 +13,7 @@ class TransOverlay extends Bitmap
 {
 	public function new()
 	{
-		super(Assets.getBitmapData(Paths.image('general/trans/flag')));
+		super(Assets.getBitmapData(Paths.image('ui/menu/trans/flag')));
 
 		scrollRect = new Rectangle();
 		alpha = 0.5;
