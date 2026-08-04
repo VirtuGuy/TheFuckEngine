@@ -83,7 +83,7 @@ class MainMenuState extends FunkinState
 		super.update(elapsed);
 
 		if (controls.BACK)
-			FlxG.switchState(() -> new TitleState());
+			exit();
 		if (controls.ACCEPT_P)
 			confirm();
 
@@ -142,6 +142,13 @@ class MainMenuState extends FunkinState
 	function openCreditsMenu()
 	{
 		openSubState(new CreditsSubState());
+	}
+
+	function exit()
+	{
+		if (!stateMachine.canInteract())
+			return;
+		FlxG.switchState(() -> new TitleState());
 	}
 
 	#if HAS_TRANS_SECRET
