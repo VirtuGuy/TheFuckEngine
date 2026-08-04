@@ -44,13 +44,15 @@ class DifficultySelector extends FlxSpriteGroup
 		arrowRight = arrowLeft.clone();
 		arrowRight.flipX = true;
 		add(arrowRight);
+
+		updateText();
 	}
 
 	override public function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
-		off = MathUtil.lerp(off, 0, 0.5);
+		updateText();
 
 		if (busy)
 			return;
@@ -62,10 +64,11 @@ class DifficultySelector extends FlxSpriteGroup
 			change(left ? -1 : 1);
 	}
 
-	override public function draw()
+	function updateText()
 	{
-		if (difficulties.length == 0)
-			return;
+		visible = difficulties.length > 0;
+
+		off = MathUtil.lerp(off, 0, 0.5);
 
 		// TODO: Find a way to softcode this
 		text.text = switch (difficulty)
@@ -86,12 +89,12 @@ class DifficultySelector extends FlxSpriteGroup
 
 		arrowRight.x = x + text.width + 10;
 		arrowRight.y = arrowLeft.y;
-
-		super.draw();
 	}
 
 	function change(change:Int)
 	{
+		final lastSelected:Int = selected;
+
 		selected += change;
 
 		if (selected >= difficulties.length)
@@ -99,11 +102,12 @@ class DifficultySelector extends FlxSpriteGroup
 		else if (selected < 0)
 			selected = difficulties.length - 1;
 
-		onChanged.dispatch(selected);
-
-		off = 50 * -change;
-
-		FunkinSound.playOnce('general/sounds/scroll');
+		if (selected != lastSelected)
+		{
+			onChanged.dispatch(selected);
+			off = 50 * -change;
+			FunkinSound.playOnce('general/sounds/scroll');
+		}
 	}
 
 	@:noCompletion
