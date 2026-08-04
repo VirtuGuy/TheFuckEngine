@@ -9,7 +9,7 @@ import funkin.modding.event.ScriptEvent;
 import funkin.play.character.Character;
 import funkin.play.song.Song;
 import funkin.ui.FunkinSubState;
-import funkin.ui.MenuList;
+import funkin.ui.TextMenuList;
 import funkin.ui.options.OptionsSubState;
 
 /**
@@ -19,32 +19,22 @@ class PauseSubState extends FunkinSubState
 {
 	public static var instance:PauseSubState;
 
-	final DEFAULT_ENTRIES:Array<String> = ['resume', 'restart', 'options', 'botplay', 'exit to menu'];
-
 	var song(get, never):Song;
 	var difficulty(get, never):String;
 	var instrumental(get, never):String;
 	var deaths(get, never):Int;
 
-	var justOpened:Bool = true;
-	var mode:PauseMode = DEFAULT;
-
 	var music:FunkinSound;
 
 	var bg:FunkinSprite;
 	var songText:FunkinText;
-	var menuList:MenuList;
+	var menuList:TextMenuList;
 
 	override public function create()
 	{
 		super.create();
 
 		instance = this;
-
-		if (song.getDifficulties(false).length > 1)
-			DEFAULT_ENTRIES.insert(2, 'difficulty');
-		if (song.getInstrumentals().length > 0)
-			DEFAULT_ENTRIES.insert(3, 'instrumental');
 
 		final player:Character = PlayState.instance.stage.player;
 		final musicPath:String = '${CharacterRegistry.instance.path}/${player?.meta?.pause ?? player?.id}/pause';
@@ -62,11 +52,12 @@ class PauseSubState extends FunkinSubState
 		songText.alignment = RIGHT;
 		add(songText);
 
-		menuList = new MenuList(DEFAULT_ENTRIES);
-		menuList.onSelected.add(select);
+		menuList = new TextMenuList();
+		menuList.busy = true;
 		add(menuList);
 
 		updateSongText();
+		load();
 
 		FlxTween.tween(bg, {alpha: 0.8}, 0.15);
 
@@ -79,7 +70,102 @@ class PauseSubState extends FunkinSubState
 	{
 		super.update(elapsed);
 
-		justOpened = false;
+		menuList.busy = false;
+	}
+
+	function load(mode:PauseMode = DEFAULT)
+	{
+		menuList.clearItems();
+
+		switch (mode)
+		{
+			case DIFFICULTY:
+				for (diff in song.getDifficulties(false))
+				{
+					if (difficulty == diff)
+						continue;
+					menuList.addItem(diff, changeDifficulty.bind(diff));
+				}
+				menuList.addItem('back', () -> load());
+
+			case INSTRUMENTAL:
+				final instrumentals:Array<String> = song.getInstrumentals();
+
+				instrumentals.push(Constants.DEFAULT_VARIATION);
+
+				for (inst in instrumentals)
+				{
+					if (instrumental == inst)
+						continue;
+					menuList.addItem(inst, changeInstrumental.bind(inst));
+				}
+
+				menuList.addItem('back', () -> load());
+
+			default:
+				menuList.addItem('resume', resumeSong);
+				menuList.addItem('restart', restartSong);
+
+				if (song.getDifficulties(false).length > 1)
+					menuList.addItem('difficulty', () -> load(DIFFICULTY));
+				if (song.getInstrumentals().length > 0)
+					menuList.addItem('instrumental', () -> load(INSTRUMENTAL));
+
+				menuList.addItem('options', openOptions);
+				menuList.addItem('botplay', toggleBotplay);
+				menuList.addItem('exit to menu', exitSong);
+		}
+	}
+
+	function resumeSong()
+	{
+		var event:ScriptEvent = new ScriptEvent(RESUME);
+		dispatch(event);
+
+		if (event.cancelled)
+			return;
+
+		close();
+	}
+
+	function restartSong()
+	{
+		PlayState.instance.loadSong();
+
+		close();
+	}
+
+	function openOptions()
+	{
+		openSubState(new OptionsSubState());
+	}
+
+	function toggleBotplay()
+	{
+		Preferences.botplay = !Preferences.botplay;
+
+		updateSongText();
+	}
+
+	function exitSong()
+	{
+		PlayState.instance.exit();
+	}
+
+	function changeDifficulty(diff:String)
+	{
+		PlayState.instance.difficulty = diff;
+		PlayState.instance.loadSong();
+
+		close();
+	}
+
+	function changeInstrumental(inst:String)
+	{
+		PlayState.instance.instrumental = inst;
+		PlayState.instance.loadSong();
+
+		close();
 	}
 
 	function updateSongText()
@@ -98,73 +184,6 @@ class PauseSubState extends FunkinSubState
 			songText.text += '\nbotplay';
 
 		songText.x = FlxG.width - songText.width - 20;
-	}
-
-	function select(item:String)
-	{
-		if (justOpened)
-			return;
-
-		switch (mode)
-		{
-			case DIFFICULTY | INSTRUMENTAL:
-				// Checks if back was pressed
-				if (menuList.selected == menuList.size - 1)
-				{
-					menuList.entries = DEFAULT_ENTRIES;
-					mode = DEFAULT;
-				}
-				else
-				{
-					if (mode == INSTRUMENTAL)
-						PlayState.instance.instrumental = item;
-					else
-						PlayState.instance.difficulty = item;
-
-					PlayState.instance.loadSong();
-
-					close();
-				}
-			default:
-				switch (item)
-				{
-					case 'resume':
-						var event:ScriptEvent = new ScriptEvent(RESUME);
-						dispatch(event);
-
-						if (!event.cancelled) close();
-					case 'restart':
-						PlayState.instance.loadSong();
-						close();
-					case 'options':
-						openSubState(new OptionsSubState());
-					case 'exit to menu':
-						PlayState.instance.exit();
-					case 'difficulty':
-						var entries:Array<String> = song.getDifficulties(false);
-
-						entries.remove(difficulty);
-						entries.push('back');
-
-						menuList.entries = entries;
-
-						mode = DIFFICULTY;
-					case 'instrumental':
-						var entries:Array<String> = song.getInstrumentals();
-
-						entries.insert(0, Constants.DEFAULT_VARIATION);
-
-						entries.remove(instrumental);
-						entries.push('back');
-
-						menuList.entries = entries;
-
-						mode = INSTRUMENTAL;
-					case 'botplay':
-						Preferences.botplay = !Preferences.botplay;
-						updateSongText();
-				}
-		}
 	}
 
 	override public function close()

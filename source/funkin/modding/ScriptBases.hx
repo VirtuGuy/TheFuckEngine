@@ -62,7 +62,7 @@ class ScriptedFunkinState extends funkin.ui.FunkinState implements HScriptedClas
 class ScriptedFunkinSubState extends funkin.ui.FunkinSubState implements HScriptedClass {}
 
 @:hscriptClass
-class ScriptedMenuList extends funkin.ui.MenuList implements HScriptedClass {}
+class ScriptedMenuList extends funkin.ui.TextMenuList implements HScriptedClass {}
 
 @:hscriptClass
 class ScriptedStateMachine extends funkin.ui.StateMachine implements HScriptedClass {}
