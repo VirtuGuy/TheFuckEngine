@@ -56,9 +56,6 @@ class ScriptedFunkinSprite extends funkin.graphics.FunkinSprite implements HScri
 class ScriptedFunkinText extends funkin.graphics.FunkinText implements HScriptedClass {}
 
 @:hscriptClass
-class ScriptedSelectorText extends funkin.ui.freeplay.components.SelectorText implements HScriptedClass {}
-
-@:hscriptClass
 class ScriptedFunkinState extends funkin.ui.FunkinState implements HScriptedClass {}
 
 @:hscriptClass

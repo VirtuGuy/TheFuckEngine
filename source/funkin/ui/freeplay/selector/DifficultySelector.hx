@@ -83,7 +83,7 @@ class DifficultySelector extends FlxSpriteGroup
 
 		final x:Float = x - text.width / 2;
 
-		text.x = x + off;
+		text.x = x - off;
 
 		arrowLeft.x = x - arrowLeft.width - 10;
 		arrowRight.x = x + text.width + 10;
@@ -103,7 +103,7 @@ class DifficultySelector extends FlxSpriteGroup
 		if (selected != lastSelected)
 		{
 			onChanged.dispatch(selected);
-			off = 50 * -change;
+			off = 50 * change;
 			FunkinSound.playOnce('general/sounds/scroll');
 		}
 	}

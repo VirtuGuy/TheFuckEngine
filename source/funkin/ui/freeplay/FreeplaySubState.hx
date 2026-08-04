@@ -19,9 +19,9 @@ import funkin.ui.freeplay.capsule.CapsuleGroup;
 import funkin.ui.freeplay.capsule.CapsuleSprite;
 import funkin.ui.freeplay.components.BackcardSprite;
 import funkin.ui.freeplay.components.DJSprite;
-import funkin.ui.freeplay.components.SortSelector;
 import funkin.ui.freeplay.player.Player;
 import funkin.ui.freeplay.selector.DifficultySelector;
+import funkin.ui.freeplay.selector.SortSelector;
 import funkin.ui.menu.MainMenuState;
 import funkin.util.MathUtil;
 
@@ -45,8 +45,6 @@ class FreeplaySubState extends FunkinSubState
 
 	var song(get, never):Song;
 	var difficulty(get, never):String;
-
-	var lastSong:Song;
 
 	var songScore:Int;
 	var lerpScore:Float;
@@ -134,8 +132,8 @@ class FreeplaySubState extends FunkinSubState
 		add(diffText);
 
 		sortText = new SortSelector(selectedSort);
-		sortText.screenCenter(X);
-		sortText.y = blackbar.height + 30;
+		sortText.x = FlxG.width / 2;
+		sortText.y = blackbar.height + 20;
 		sortText.onChanged.add(changeSort);
 		add(sortText);
 
@@ -230,16 +228,6 @@ class FreeplaySubState extends FunkinSubState
 		// Album width is so dumb
 		// The exit mover has to be applied like this :omg_bruh:
 		exitMovers.add(album, FlxG.width + album.width);
-
-		// TODO: Song previews
-		// Streamed audio was removed from Lime's Funkin' fork
-		// so this has to wait :(
-		if (lastSong != song)
-		{
-			// Song preview logic
-		}
-
-		lastSong = song;
 	}
 
 	function changeDiff(selected:Int)
@@ -259,7 +247,6 @@ class FreeplaySubState extends FunkinSubState
 	function changeSort(selected:Int)
 	{
 		selectedSort = selected;
-		sortText.screenCenter(X);
 
 		changeDiff(selectedDiff);
 
@@ -347,12 +334,15 @@ class FreeplaySubState extends FunkinSubState
 	{
 		var songs:Array<Song> = SongRegistry.instance.listWithDifficulty(difficulty, player);
 
-		// Song sorting
-		// Either sort by favorites, or sort by levels
-		if (selectedSort == sortText.count - 1)
-			songs = songs.filter(song -> return Save.instance.isSongFavorited(song.id, song.variation));
-		else if (selectedSort > 0)
-			songs = songs.filter(song -> return sortText.level.hasSong(song.id));
+		switch (sortText.mode)
+		{
+			case FAVORITES:
+				songs = songs.filter(song -> return Save.instance.isSongFavorited(song.id, song.variation));
+			case LEVEL:
+				songs = songs.filter(song -> return sortText.level.hasSong(song.id));
+			default:
+				// Literally nothing
+		}
 
 		capsules.load(songs, difficulty);
 		capsules.forEachAlive(capsule -> exitMovers.add(capsule, FlxG.width + capsule.x));
