@@ -1,4 +1,4 @@
-package funkin.ui.selector;
+package funkin.ui.freeplay.components;
 
 import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxSignal.FlxTypedSignal;

@@ -11,8 +11,8 @@ import funkin.graphics.FunkinText;
 import funkin.play.PlayState;
 import funkin.play.Playlist;
 import funkin.save.Save;
+import funkin.ui.freeplay.components.DifficultySelector;
 import funkin.ui.menu.MainMenuState;
-import funkin.ui.selector.DifficultyText;
 import funkin.ui.story.Level;
 import funkin.util.MathUtil;
 
@@ -43,7 +43,7 @@ class StoryMenuSubState extends FunkinSubState
 	var levelText:FunkinText;
 	var titleGroup:TitleGroup;
 	var songsText:FunkinText;
-	var diffText:DifficultyText;
+	var diffText:DifficultySelector;
 	var opponent:StoryCharacter;
 	var player:StoryCharacter;
 	var gf:StoryCharacter;
@@ -112,7 +112,7 @@ class StoryMenuSubState extends FunkinSubState
 
 		// TODO: Replace this with a much better system
 		// Erect and Nightmare shouldn't be selectable difficulties
-		diffText = new DifficultyText(selectedDiff, level.getDifficulties());
+		diffText = new DifficultySelector(selectedDiff, level.getDifficulties());
 		diffText.size = 56;
 		diffText.onChanged.add(changeDiff);
 		diffText.y = blackBottom.y + 50;

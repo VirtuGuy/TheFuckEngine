@@ -1,11 +1,11 @@
-package funkin.ui.selector;
+package funkin.ui.freeplay.components;
 
 import funkin.input.Controls;
 
 /**
- * Text that displays the current difficulty in the freeplay menu.
+ * A selector for choosing which difficulty to play in the freeplay menu.
  */
-class DifficultyText extends SelectorText
+class DifficultySelector extends SelectorText
 {
 	public var difficulties(default, set):Array<String>;
 	public var difficulty(get, never):String;
@@ -16,7 +16,7 @@ class DifficultyText extends SelectorText
 		// Setting this after the super will CRASH
 		this.difficulties = difficulties;
 
-		super(selected, 'ui/arrow/default');
+		super(selected, 'ui/freeplay/selector/difficulty');
 
 		size = 48;
 	}

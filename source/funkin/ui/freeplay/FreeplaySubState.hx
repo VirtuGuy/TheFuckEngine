@@ -19,10 +19,10 @@ import funkin.ui.freeplay.capsule.CapsuleGroup;
 import funkin.ui.freeplay.capsule.CapsuleSprite;
 import funkin.ui.freeplay.components.BackcardSprite;
 import funkin.ui.freeplay.components.DJSprite;
-import funkin.ui.freeplay.components.SortText;
+import funkin.ui.freeplay.components.DifficultySelector;
+import funkin.ui.freeplay.components.SortSelector;
 import funkin.ui.freeplay.player.Player;
 import funkin.ui.menu.MainMenuState;
-import funkin.ui.selector.DifficultyText;
 import funkin.util.MathUtil;
 
 /**
@@ -59,8 +59,8 @@ class FreeplaySubState extends FunkinSubState
 	var freeplayText:FunkinText;
 	var ostText:FunkinText;
 	var scoreText:FunkinText;
-	var diffText:DifficultyText;
-	var sortText:SortText;
+	var diffText:DifficultySelector;
+	var sortText:SortSelector;
 
 	public function new(skipIntro:Bool = false)
 	{
@@ -127,12 +127,12 @@ class FreeplaySubState extends FunkinSubState
 		scoreText.alignment = RIGHT;
 		add(scoreText);
 
-		diffText = new DifficultyText(selectedDiff, SongRegistry.instance.getDifficulties());
+		diffText = new DifficultySelector(selectedDiff, SongRegistry.instance.getDifficulties());
 		diffText.y = scoreText.y;
 		diffText.onChanged.add(changeDiff);
 		add(diffText);
 
-		sortText = new SortText(selectedSort);
+		sortText = new SortSelector(selectedSort);
 		sortText.screenCenter(X);
 		sortText.y = blackbar.height + 30;
 		sortText.onChanged.add(changeSort);

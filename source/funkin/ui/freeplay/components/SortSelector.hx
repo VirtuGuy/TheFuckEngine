@@ -2,20 +2,20 @@ package funkin.ui.freeplay.components;
 
 import funkin.data.story.LevelRegistry;
 import funkin.input.Controls;
-import funkin.ui.selector.SelectorText;
+import funkin.ui.freeplay.components.SelectorText;
 import funkin.ui.story.Level;
 
 /**
- * Text that displays how freeplay songs are currently being sorted.
+ * A selector for sorting songs in the freeplay menu.
  */
-class SortText extends SelectorText
+class SortSelector extends SelectorText
 {
 	public var count(get, never):Int;
 	public var level(get, never):Level;
 
 	public function new(selected:Int = 0)
 	{
-		super(selected, 'ui/arrow/small');
+		super(selected, 'ui/freeplay/selector/sort');
 	}
 
 	override public function update(elapsed:Float)
