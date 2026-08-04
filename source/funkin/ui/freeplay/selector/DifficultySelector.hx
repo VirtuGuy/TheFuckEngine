@@ -39,9 +39,11 @@ class DifficultySelector extends FlxSpriteGroup
 		add(text);
 
 		arrowLeft = FunkinSprite.create(0, 0, 'ui/freeplay/selector/difficulty');
+		arrowLeft.y = y + (text.height - arrowLeft.height) / 2;
 		add(arrowLeft);
 
 		arrowRight = arrowLeft.clone();
+		arrowRight.y = arrowLeft.y;
 		arrowRight.flipX = true;
 		add(arrowRight);
 
@@ -80,15 +82,11 @@ class DifficultySelector extends FlxSpriteGroup
 		}
 
 		final x:Float = x - text.width / 2;
-		final y:Float = y + text.height / 2;
 
 		text.x = x + off;
 
 		arrowLeft.x = x - arrowLeft.width - 10;
-		arrowLeft.y = y - arrowLeft.height / 2;
-
 		arrowRight.x = x + text.width + 10;
-		arrowRight.y = arrowLeft.y;
 	}
 
 	function change(change:Int)
