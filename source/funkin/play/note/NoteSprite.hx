@@ -22,7 +22,7 @@ class NoteSprite extends FunkinSprite
 	public var willMiss:Bool;
 	public var wasMissed:Bool;
 
-	public function buildSprite(style:Style)
+	public function buildSprite(style:NoteStyle)
 	{
 		active = false;
 

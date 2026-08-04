@@ -1,24 +1,24 @@
-package funkin.play;
+package funkin.play.note;
 
-import funkin.data.style.StyleData;
-import funkin.data.style.StyleRegistry;
+import funkin.data.note.style.NoteStyleData;
+import funkin.data.note.style.NoteStyleRegistry;
 import funkin.play.note.NoteDirection;
 import funkin.util.RhythmUtil.Judgement;
 
 /**
  * The note style class that gives the gameplay its lovely appearance.
  */
-class Style
+class NoteStyle
 {
 	public var id:String;
-	public var meta:StyleData;
+	public var meta:NoteStyleData;
 
 	public var name(get, never):String;
 	public var artist(get, never):String;
 	public var scale(get, never):Float;
-	public var note(get, never):StyleNoteData;
-	public var noteSplash(get, never):StyleNoteData;
-	public var holdCover(get, never):StyleNoteData;
+	public var note(get, never):NoteStyleNoteData;
+	public var noteSplash(get, never):NoteStyleNoteData;
+	public var holdCover(get, never):NoteStyleNoteData;
 
 	public var path(get, never):String;
 
@@ -52,7 +52,7 @@ class Style
 		return getPath('combo/num$number');
 	}
 
-	public function getNoteFrames(data:StyleAnimData, direction:NoteDirection):Array<Int>
+	public function getNoteFrames(data:NoteStyleAnimData, direction:NoteDirection):Array<Int>
 	{
 		return switch (direction)
 		{
@@ -88,19 +88,19 @@ class Style
 	}
 
 	@:noCompletion
-	function get_note():StyleNoteData
+	function get_note():NoteStyleNoteData
 	{
 		return meta.note;
 	}
 
 	@:noCompletion
-	function get_noteSplash():StyleNoteData
+	function get_noteSplash():NoteStyleNoteData
 	{
 		return meta.noteSplash;
 	}
 
 	@:noCompletion
-	function get_holdCover():StyleNoteData
+	function get_holdCover():NoteStyleNoteData
 	{
 		return meta.holdCover;
 	}
@@ -108,7 +108,7 @@ class Style
 	@:noCompletion
 	inline function get_path():String
 	{
-		return '${StyleRegistry.instance.path}/$id';
+		return '${NoteStyleRegistry.instance.path}/$id';
 	}
 
 	public function toString():String

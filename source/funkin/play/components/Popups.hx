@@ -5,6 +5,7 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 import funkin.graphics.FunkinSprite;
+import funkin.play.note.NoteStyle;
 import funkin.util.RhythmUtil.Judgement;
 
 /**
@@ -12,9 +13,9 @@ import funkin.util.RhythmUtil.Judgement;
  */
 class Popups extends FlxTypedGroup<FunkinSprite>
 {
-	var style:Style;
+	var style:NoteStyle;
 
-	public function new(style:Style)
+	public function new(style:NoteStyle)
 	{
 		super();
 

@@ -1,17 +1,15 @@
-package funkin.data.style;
-
-import funkin.data.stage.StageData.PropAnimData;
+package funkin.data.note.style;
 
 /**
  * A structure object used for style data.
  */
-typedef StyleData =
+typedef NoteStyleData =
 {
 	var name:String;
 	var artist:String;
-	var note:StyleNoteData;
-	var noteSplash:StyleNoteData;
-	var holdCover:StyleNoteData;
+	var note:NoteStyleNoteData;
+	var noteSplash:NoteStyleNoteData;
+	var holdCover:NoteStyleNoteData;
 	@:default(1)
 	var scale:Float;
 }
@@ -19,7 +17,7 @@ typedef StyleData =
 /**
  * A structure object used for style note data.
  */
-typedef StyleNoteData =
+typedef NoteStyleNoteData =
 {
 	var width:Int;
 	var height:Int;
@@ -27,13 +25,13 @@ typedef StyleNoteData =
 	var scale:Float;
 	@:default(10)
 	var framerate:Int;
-	var animations:StyleAnimData;
+	var animations:NoteStyleAnimData;
 }
 
 /**
  * A structure object used for style note animation data.
  */
-typedef StyleAnimData =
+typedef NoteStyleAnimData =
 {
 	@:default([])
 	var left:Array<Int>;

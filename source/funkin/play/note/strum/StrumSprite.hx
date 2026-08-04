@@ -29,7 +29,7 @@ class StrumSprite extends FunkinSprite
 			playStatic();
 	}
 
-	public function buildSprite(style:Style)
+	public function buildSprite(style:NoteStyle)
 	{
 		loadSprite(style.getNote('image'), style.note.scale, style.note.width, style.note.height);
 

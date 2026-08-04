@@ -6,6 +6,7 @@ import flixel.util.FlxTimer;
 import funkin.audio.FunkinSound;
 import funkin.graphics.FunkinSprite;
 import funkin.modding.event.ScriptEvent;
+import funkin.play.note.NoteStyle;
 import funkin.ui.FunkinState;
 
 /**
@@ -14,9 +15,9 @@ import funkin.ui.FunkinState;
 class Countdown extends FunkinSprite
 {
 	var timer:FlxTimer;
-	var style:Style;
+	var style:NoteStyle;
 
-	public function new(style:Style)
+	public function new(style:NoteStyle)
 	{
 		super();
 

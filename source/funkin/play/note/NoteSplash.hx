@@ -10,7 +10,7 @@ class NoteSplash extends FunkinSprite
 {
 	public var strum:StrumSprite;
 
-	public function buildSprite(style:Style)
+	public function buildSprite(style:NoteStyle)
 	{
 		loadSprite(style.getNote('splashes'), style.noteSplash.scale, style.noteSplash.width, style.noteSplash.height);
 

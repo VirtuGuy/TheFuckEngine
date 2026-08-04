@@ -28,7 +28,7 @@ class ScriptedSongEvent extends funkin.play.song.SongEvent implements HScriptedC
 class ScriptedNoteKind extends funkin.play.note.NoteKind implements HScriptedClass {}
 
 @:hscriptClass
-class ScriptedStyle extends funkin.play.Style implements HScriptedClass {}
+class ScriptedNoteStyle extends funkin.play.note.NoteStyle implements HScriptedClass {}
 
 @:hscriptClass
 class ScriptedBaseCutscene extends funkin.play.cutscene.BaseCutscene implements HScriptedClass {}

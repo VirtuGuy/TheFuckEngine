@@ -53,7 +53,7 @@ class HoldNoteSprite extends FlxStrip
 		indices[11] = 6;
 	}
 
-	public function buildSprite(style:Style)
+	public function buildSprite(style:NoteStyle)
 	{
 		loadGraphic(Paths.image(style.getNote('hold/image')));
 		setGraphicSize(Std.int(width * Constants.ZOOM * style.note.scale));

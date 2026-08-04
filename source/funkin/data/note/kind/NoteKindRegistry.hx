@@ -1,4 +1,4 @@
-package funkin.data.notekind;
+package funkin.data.note.kind;
 
 import funkin.modding.ScriptBases.ScriptedNoteKind;
 import funkin.modding.event.ScriptEvent;

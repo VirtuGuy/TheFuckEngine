@@ -12,10 +12,10 @@ import flixel.util.FlxTimer;
 import funkin.audio.FunkinSound;
 import funkin.data.event.EventData;
 import funkin.data.event.EventRegistry;
-import funkin.data.notekind.NoteKindRegistry;
+import funkin.data.note.kind.NoteKindRegistry;
+import funkin.data.note.style.NoteStyleRegistry;
 import funkin.data.song.SongData.SongNoteData;
 import funkin.data.stage.StageRegistry;
-import funkin.data.style.StyleRegistry;
 import funkin.graphics.FunkinBar;
 import funkin.graphics.FunkinSprite;
 import funkin.graphics.FunkinText;
@@ -28,6 +28,7 @@ import funkin.play.components.Popups;
 import funkin.play.cutscene.BaseCutscene;
 import funkin.play.note.NoteDirection;
 import funkin.play.note.NoteSprite;
+import funkin.play.note.NoteStyle;
 import funkin.play.note.hold.HoldNoteSprite;
 import funkin.play.note.strum.Strumline;
 import funkin.play.song.Song;
@@ -71,7 +72,7 @@ class PlayState extends FunkinState
 	public var nextEventIndex:Int = -1;
 
 	public var voices:Voices;
-	public var style:Style;
+	public var style:NoteStyle;
 	public var tallies:Tallies;
 
 	public var score:Float;
@@ -142,7 +143,8 @@ class PlayState extends FunkinState
 			return FlxG.switchState(() -> new MainMenuState());
 
 		instance = this;
-		style = StyleRegistry.instance.fetch(song.style);
+
+		style = NoteStyleRegistry.instance.fetch(song.style);
 
 		//
 		// CAMERAS

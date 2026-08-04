@@ -1,22 +1,22 @@
-package funkin.data.style;
+package funkin.data.note.style;
 
-import funkin.modding.ScriptBases.ScriptedStyle;
-import funkin.play.Style;
+import funkin.modding.ScriptBases.ScriptedNoteStyle;
+import funkin.play.note.NoteStyle;
 import funkin.util.FileUtil;
 import json2object.JsonParser;
 
 /**
- * A registry class for loading styles.
+ * A registry class for loading note styles.
  */
-class StyleRegistry extends BaseRegistry<Style>
+class NoteStyleRegistry extends BaseRegistry<NoteStyle>
 {
-	public static var instance:StyleRegistry;
+	public static var instance:NoteStyleRegistry;
 
-	var parser(default, null) = new JsonParser<StyleData>();
+	var parser(default, null) = new JsonParser<NoteStyleData>();
 
 	public function new()
 	{
-		super('styles', 'gameplay/styles');
+		super('notestyles', 'gameplay/notestyles');
 	}
 
 	override public function load()
@@ -35,7 +35,7 @@ class StyleRegistry extends BaseRegistry<Style>
 			if (!Paths.exists(metaPath))
 				continue;
 
-			var style:Style = new Style(id);
+			var style:NoteStyle = new NoteStyle(id);
 			style.meta = parser.fromJson(FileUtil.getText(metaPath));
 
 			register(id, style);
@@ -45,7 +45,7 @@ class StyleRegistry extends BaseRegistry<Style>
 		// SCRIPTED
 		//
 
-		final scripts:Array<String> = ScriptedStyle.listScriptClasses();
+		final scripts:Array<String> = ScriptedNoteStyle.listScriptClasses();
 
 		trace('Loading ${scripts.length} scripted style(s)...');
 
@@ -53,8 +53,8 @@ class StyleRegistry extends BaseRegistry<Style>
 		{
 			try
 			{
-				var style:Style = ScriptedStyle.scriptInit(script, '');
-				var ogStyle:Style = fetch(style.id);
+				var style:NoteStyle = ScriptedNoteStyle.scriptInit(script, '');
+				var ogStyle:NoteStyle = fetch(style.id);
 
 				if (ogStyle == null)
 					continue;

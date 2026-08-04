@@ -8,12 +8,12 @@ import funkin.data.character.CharacterRegistry;
 import funkin.data.event.EventRegistry;
 import funkin.data.freeplay.album.AlbumRegistry;
 import funkin.data.freeplay.player.PlayerRegistry;
-import funkin.data.notekind.NoteKindRegistry;
+import funkin.data.note.kind.NoteKindRegistry;
+import funkin.data.note.style.NoteStyleRegistry;
 import funkin.data.song.SongRegistry;
 import funkin.data.stage.StageRegistry;
 import funkin.data.sticker.StickerRegistry;
 import funkin.data.story.LevelRegistry;
-import funkin.data.style.StyleRegistry;
 import funkin.input.Controls;
 import funkin.modding.ModHandler;
 import funkin.modding.module.ModuleHandler;
@@ -70,7 +70,7 @@ class InitState extends FlxState
 		PlayerRegistry.instance = new PlayerRegistry();
 		EventRegistry.instance = new EventRegistry();
 		NoteKindRegistry.instance = new NoteKindRegistry();
-		StyleRegistry.instance = new StyleRegistry();
+		NoteStyleRegistry.instance = new NoteStyleRegistry();
 		StickerRegistry.instance = new StickerRegistry();
 		AlbumRegistry.instance = new AlbumRegistry();
 

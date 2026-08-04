@@ -28,9 +28,9 @@ class Strumline extends FlxGroup
 	public var holdCovers:FlxTypedGroup<HoldNoteCover>;
 
 	var nextNoteIndex:Int;
-	var style:Style;
+	var style:NoteStyle;
 
-	public function new(style:Style, isPlayer:Bool)
+	public function new(style:NoteStyle, isPlayer:Bool)
 	{
 		super();
 

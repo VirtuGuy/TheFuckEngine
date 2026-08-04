@@ -21,7 +21,7 @@ class HoldNoteCover extends FunkinSprite
 			kill();
 	}
 
-	public function buildSprite(style:Style)
+	public function buildSprite(style:NoteStyle)
 	{
 		loadSprite(style.getNote('hold/covers'), style.holdCover.scale, style.holdCover.width, style.holdCover.height);
 
