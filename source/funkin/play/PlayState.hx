@@ -844,6 +844,9 @@ class PlayState extends FunkinState
 			return;
 
 		opponentStrumline.hitNote(note);
+
+		if (song.hasLegacyVoices())
+			voices.playerVolume = 1;
 	}
 
 	function opponentHoldNoteHeld(holdNote:HoldNoteSprite)

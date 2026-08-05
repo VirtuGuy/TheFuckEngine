@@ -105,6 +105,16 @@ class Song implements IPlayStateScriptedClass
 		return getPath(player ? 'player' : 'opponent');
 	}
 
+	public function getLegacyVoicePath():String
+	{
+		return getPath('voices');
+	}
+
+	public function hasLegacyVoices():Bool
+	{
+		return Paths.exists(Paths.sound(getLegacyVoicePath()));
+	}
+
 	public function getPath(id:String, ?variation:String):String
 	{
 		variation ??= this.variation;
