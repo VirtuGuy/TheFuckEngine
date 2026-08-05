@@ -1,4 +1,4 @@
-package funkin;
+package funkin.api;
 
 #if HAS_DISCORD_RPC
 import cpp.ConstCharStar;

@@ -1,5 +1,8 @@
 package funkin;
 
+#if HAS_DISCORD_RPC
+import funkin.api.DiscordRPC;
+#end
 import funkin.play.PlayState;
 import funkin.save.Save;
 

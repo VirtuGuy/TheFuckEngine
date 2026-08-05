@@ -11,6 +11,9 @@ import funkin.play.song.Song;
 import funkin.ui.FunkinSubState;
 import funkin.ui.TextMenuList;
 import funkin.ui.options.OptionsSubState;
+#if HAS_DISCORD_RPC
+import funkin.api.DiscordRPC;
+#end
 
 /**
  * The game's pause menu sub state.

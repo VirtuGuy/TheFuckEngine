@@ -2,8 +2,6 @@ package funkin;
 
 import flixel.FlxObject;
 import flixel.FlxState;
-import funkin.Conductor;
-import funkin.DiscordRPC;
 import funkin.data.character.CharacterRegistry;
 import funkin.data.event.EventRegistry;
 import funkin.data.freeplay.album.AlbumRegistry;
@@ -20,6 +18,9 @@ import funkin.modding.module.ModuleHandler;
 import funkin.save.Save;
 import funkin.ui.title.TitleState;
 import funkin.util.plugins.ReloadPlugin;
+#if HAS_DISCORD_RPC
+import funkin.api.DiscordRPC;
+#end
 #if HAS_SCREENSHOTS
 import funkin.util.plugins.ScreenshotPlugin;
 #end

@@ -10,6 +10,9 @@ import funkin.graphics.FunkinText;
 import funkin.ui.menu.MainMenuState;
 import funkin.util.MathUtil;
 import funkin.util.WindowUtil;
+#if HAS_DISCORD_RPC
+import funkin.api.DiscordRPC;
+#end
 
 /**
  * The engine's title screen state.

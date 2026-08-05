@@ -1,4 +1,4 @@
-package funkin;
+package funkin.ui.debug;
 
 #if HAS_FPS_COUNTER
 import flixel.math.FlxMath;

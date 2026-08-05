@@ -10,6 +10,9 @@ import funkin.ui.freeplay.FreeplaySubState;
 import funkin.ui.options.OptionsSubState;
 import funkin.ui.story.StoryMenuSubState;
 import funkin.ui.title.TitleState;
+#if HAS_DISCORD_RPC
+import funkin.api.DiscordRPC;
+#end
 
 /**
  * The engine's main menu state.

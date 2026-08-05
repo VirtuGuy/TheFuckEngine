@@ -5,7 +5,7 @@ import flixel.util.typeLimit.NextState.InitialState;
 import funkin.InitState;
 import funkin.audio.FunkinSoundTray;
 #if HAS_FPS_COUNTER
-import funkin.FPSCounter;
+import funkin.ui.debug.FPSCounter;
 #end
 
 /**

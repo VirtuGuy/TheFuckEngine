@@ -44,6 +44,9 @@ import funkin.util.MathUtil;
 import funkin.util.RhythmUtil;
 import funkin.util.SortUtil;
 import funkin.util.WindowUtil;
+#if HAS_DISCORD_RPC
+import funkin.api.DiscordRPC;
+#end
 
 /**
  * A state where the gameplay occurs. Kinda like a "play" state. Hah! I said the thing!

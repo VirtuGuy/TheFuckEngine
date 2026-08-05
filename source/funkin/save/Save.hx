@@ -6,6 +6,9 @@ import funkin.play.song.Song;
 import funkin.save.SaveData.SaveOptionsData;
 import funkin.ui.story.Level;
 import haxe.ds.StringMap;
+#if HAS_DISCORD_RPC
+import funkin.api.DiscordRPC;
+#end
 
 /**
  * A class for saving and loading data.
