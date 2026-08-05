@@ -24,8 +24,8 @@ class MenuItem extends FunkinSprite
 
 		loadSprite(image);
 
-		var width:Int = graphic.width;
-		var height:Int = Std.int(graphic.height / 2);
+		final width:Int = graphic.width;
+		final height:Int = Std.int(graphic.height / 2);
 
 		loadSprite(image, 1.25, width, height);
 		addAnimation('idle', [0]);
