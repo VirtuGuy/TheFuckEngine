@@ -28,7 +28,7 @@ class SongRegistry extends BaseRegistry<Song>
 		super('songs', 'gameplay/songs');
 	}
 
-	override public function load()
+	override function load()
 	{
 		super.load();
 
@@ -164,7 +164,7 @@ class SongRegistry extends BaseRegistry<Song>
 		return result;
 	}
 
-	override public function listSorted():Array<String>
+	override function listSorted():Array<String>
 	{
 		if (sorted != null)
 			return sorted;
@@ -190,7 +190,7 @@ class SongRegistry extends BaseRegistry<Song>
 		return sorted;
 	}
 
-	override public function listDefaults():Array<String>
+	override function listDefaults():Array<String>
 	{
 		return ['test', 't'];
 	}

@@ -19,7 +19,7 @@ class AlbumRegistry extends BaseRegistry<Album>
 		super('albums', 'ui/freeplay/albums');
 	}
 
-	override public function load()
+	override function load()
 	{
 		super.load();
 

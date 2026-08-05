@@ -31,7 +31,7 @@ class MainMenuState extends FunkinState
 	var camFollow:FlxObject;
 	var items:MenuItemGroup;
 
-	override public function create()
+	override function create()
 	{
 		super.create();
 
@@ -81,7 +81,7 @@ class MainMenuState extends FunkinState
 		#end
 	}
 
-	override public function update(elapsed:Float)
+	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 

@@ -51,7 +51,7 @@ class TitleGroup extends FlxTypedGroup<TitleText>
 		}
 	}
 
-	override public function update(elapsed:Float)
+	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 

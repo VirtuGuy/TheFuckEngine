@@ -29,7 +29,7 @@ class OptionList extends FlxTypedGroup<Option>
 		this.selected = selected;
 	}
 
-	override public function update(elapsed:Float)
+	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 

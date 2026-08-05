@@ -16,7 +16,7 @@ class FunkinSound extends FlxSound
 
 	static var pool(default, null) = new FlxTypedGroup<FunkinSound>();
 
-	override public function destroy()
+	override function destroy()
 	{
 		super.destroy();
 

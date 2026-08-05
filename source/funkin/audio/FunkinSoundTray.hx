@@ -37,7 +37,7 @@ class FunkinSoundTray extends FlxSoundTray
 			_bars.push(buildBar(i));
 	}
 
-	override public function update(elapsed:Float)
+	override function update(elapsed:Float)
 	{
 		if (!isSilent)
 		{

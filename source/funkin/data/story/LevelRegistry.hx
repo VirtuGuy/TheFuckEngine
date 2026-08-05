@@ -19,7 +19,7 @@ class LevelRegistry extends BaseRegistry<Level>
 		super('levels', 'ui/story/levels');
 	}
 
-	override public function load()
+	override function load()
 	{
 		super.load();
 
@@ -69,7 +69,7 @@ class LevelRegistry extends BaseRegistry<Level>
 		}
 	}
 
-	override public function listDefaults():Array<String>
+	override function listDefaults():Array<String>
 	{
 		return [
 			'tutorial',

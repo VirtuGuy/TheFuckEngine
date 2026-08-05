@@ -35,7 +35,7 @@ class CursorSprite extends FunkinSprite
 		_backY = y;
 	}
 
-	override public function draw()
+	override function draw()
 	{
 		// Draws the light blue cursor
 		// or I guess the back cursor

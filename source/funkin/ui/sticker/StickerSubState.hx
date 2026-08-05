@@ -35,7 +35,7 @@ class StickerSubState extends FunkinSubState
 		this.pack = pack;
 	}
 
-	override public function create()
+	override function create()
 	{
 		super.create();
 
@@ -115,7 +115,7 @@ class StickerSubState extends FunkinSubState
 			close();
 	}
 
-	override public function destroy()
+	override function destroy()
 	{
 		// The stickers are removed so that they aren't destroyed
 		if (persist)

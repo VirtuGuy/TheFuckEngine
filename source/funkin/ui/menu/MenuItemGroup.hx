@@ -27,7 +27,7 @@ class MenuItemGroup extends FlxTypedGroup<MenuItem>
 		this.selected = selected;
 	}
 
-	override public function update(elapsed:Float)
+	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 

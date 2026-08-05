@@ -25,14 +25,14 @@ class FunkinState extends FlxState
 		controls.directionUp.add(directionUp);
 	}
 
-	override public function create()
+	override function create()
 	{
 		super.create();
 
 		dispatch(new StateScriptEvent(STATE_CREATE, this));
 	}
 
-	override public function update(elapsed:Float)
+	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
@@ -63,7 +63,7 @@ class FunkinState extends FlxState
 
 	function directionUp(direction:NoteDirection) {}
 
-	override public function destroy()
+	override function destroy()
 	{
 		super.destroy();
 

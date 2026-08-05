@@ -33,7 +33,7 @@ class CreditsSubState extends FunkinSubState
 	var bg:FunkinSprite;
 	var credits:FlxTypedGroup<FunkinText>;
 
-	override public function create()
+	override function create()
 	{
 		super.create();
 
@@ -70,7 +70,7 @@ class CreditsSubState extends FunkinSubState
 		intro();
 	}
 
-	override public function update(elapsed:Float)
+	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
@@ -175,7 +175,7 @@ class CreditsSubState extends FunkinSubState
 		FunkinSound.music.stop();
 	}
 
-	override public function destroy()
+	override function destroy()
 	{
 		FunkinSound.music.stop();
 		@:privateAccess

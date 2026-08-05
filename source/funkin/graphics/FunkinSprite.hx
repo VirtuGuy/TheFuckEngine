@@ -73,7 +73,7 @@ class FunkinSprite extends FlxSprite
 		return animation.curAnim?.name ?? '';
 	}
 
-	override public function clone():FunkinSprite
+	override function clone():FunkinSprite
 	{
 		var sprite:FunkinSprite = new FunkinSprite();
 

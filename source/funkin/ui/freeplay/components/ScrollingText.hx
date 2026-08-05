@@ -23,7 +23,7 @@ class ScrollingText extends FunkinText
 		active = true;
 	}
 
-	override public function update(elapsed:Float)
+	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
@@ -33,7 +33,7 @@ class ScrollingText extends FunkinText
 			scroll = 0;
 	}
 
-	override public function draw()
+	override function draw()
 	{
 		var lastX:Float = x;
 		var count:Int = Math.ceil(scrollWidth / width) + 2;

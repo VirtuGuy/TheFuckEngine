@@ -21,7 +21,7 @@ class TextMenuList extends FlxTypedGroup<FunkinText>
 
 	var callbacks(default, null) = new Map<Int, Void->Void>();
 
-	override public function update(elapsed:Float)
+	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 

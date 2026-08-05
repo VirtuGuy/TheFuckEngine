@@ -19,7 +19,7 @@ class NoteStyleRegistry extends BaseRegistry<NoteStyle>
 		super('notestyles', 'gameplay/notestyles');
 	}
 
-	override public function load()
+	override function load()
 	{
 		super.load();
 

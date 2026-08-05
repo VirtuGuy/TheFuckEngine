@@ -76,14 +76,14 @@ class DialogueCutscene extends BaseCutscene
 		add(text);
 	}
 
-	override public function start()
+	override function start()
 	{
 		super.start();
 
 		nextLine();
 	}
 
-	override public function update(elapsed:Float)
+	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
@@ -157,7 +157,7 @@ class DialogueCutscene extends BaseCutscene
 		FlxTween.tween(bg, {alpha: 0}, FADE_SPEED, {onComplete: _ -> close()});
 	}
 
-	override public function destroy()
+	override function destroy()
 	{
 		super.destroy();
 

@@ -19,7 +19,7 @@ class StickerRegistry extends BaseRegistry<StickerPack>
 		super('stickers', 'general/sticker/packs');
 	}
 
-	override public function load()
+	override function load()
 	{
 		super.load();
 

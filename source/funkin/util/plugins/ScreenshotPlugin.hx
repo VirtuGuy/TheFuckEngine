@@ -22,7 +22,7 @@ class ScreenshotPlugin extends FlxBasic
 		FlxG.plugins.addPlugin(new ScreenshotPlugin());
 	}
 
-	override public function update(elapsed:Float)
+	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 

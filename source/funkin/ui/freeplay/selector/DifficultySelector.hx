@@ -50,7 +50,7 @@ class DifficultySelector extends FlxSpriteGroup
 		updateText();
 	}
 
-	override public function update(elapsed:Float)
+	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 

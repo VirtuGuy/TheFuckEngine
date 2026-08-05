@@ -44,7 +44,7 @@ class HealthIcon extends FunkinSprite
 		isDead = false;
 	}
 
-	override public function update(elapsed:Float)
+	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 

@@ -31,7 +31,7 @@ class TitleState extends FunkinState
 	var logo:FunkinSprite;
 	var startText:FunkinText;
 
-	override public function create()
+	override function create()
 	{
 		super.create();
 
@@ -83,7 +83,7 @@ class TitleState extends FunkinState
 		FlxG.switchState(() -> new MainMenuState());
 	}
 
-	override public function update(elapsed:Float)
+	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 

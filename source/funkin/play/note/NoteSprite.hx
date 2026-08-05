@@ -37,7 +37,7 @@ class NoteSprite extends FunkinSprite
 		}
 	}
 
-	override public function revive()
+	override function revive()
 	{
 		super.revive();
 

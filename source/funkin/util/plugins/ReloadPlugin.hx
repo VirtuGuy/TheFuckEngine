@@ -23,7 +23,7 @@ class ReloadPlugin extends FlxBasic
 		instance = this;
 	}
 
-	override public function update(elapsed:Float)
+	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 

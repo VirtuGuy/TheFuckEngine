@@ -31,7 +31,7 @@ import funkin.util.plugins.ScreenshotPlugin;
  */
 class InitState extends FlxState
 {
-	override public function create()
+	override function create()
 	{
 		super.create();
 

@@ -35,7 +35,7 @@ class CapsuleSprite extends FlxSpriteGroup
 	var ratingText:CapsuleText;
 	var heart:FunkinSprite;
 
-	override public function new()
+	override function new()
 	{
 		super();
 
@@ -107,7 +107,7 @@ class CapsuleSprite extends FlxSpriteGroup
 		songText.pendingTextBitmapChange = true;
 	}
 
-	override public function revive()
+	override function revive()
 	{
 		super.revive();
 
@@ -121,7 +121,7 @@ class CapsuleSprite extends FlxSpriteGroup
 		moveTween = null;
 	}
 
-	override public function destroy()
+	override function destroy()
 	{
 		super.destroy();
 

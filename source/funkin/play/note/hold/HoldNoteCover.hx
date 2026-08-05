@@ -11,7 +11,7 @@ class HoldNoteCover extends FunkinSprite
 	public var holdNote:HoldNoteSprite;
 	public var strum:StrumSprite;
 
-	override public function update(elapsed:Float)
+	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
@@ -46,7 +46,7 @@ class HoldNoteCover extends FunkinSprite
 		playAnimation(strum.direction.name);
 	}
 
-	override public function draw()
+	override function draw()
 	{
 		if (strum != null)
 		{
@@ -57,7 +57,7 @@ class HoldNoteCover extends FunkinSprite
 		super.draw();
 	}
 
-	override public function revive()
+	override function revive()
 	{
 		super.revive();
 

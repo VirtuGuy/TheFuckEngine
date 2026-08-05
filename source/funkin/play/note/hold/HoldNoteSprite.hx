@@ -116,7 +116,7 @@ class HoldNoteSprite extends FlxStrip
 		updateHitbox();
 	}
 
-	override public function updateHitbox()
+	override function updateHitbox()
 	{
 		width = graphicWidth * scale.x / Constants.NOTE_COUNT;
 		height = holdHeight;
@@ -125,7 +125,7 @@ class HoldNoteSprite extends FlxStrip
 		origin.set();
 	}
 
-	override public function revive()
+	override function revive()
 	{
 		super.revive();
 

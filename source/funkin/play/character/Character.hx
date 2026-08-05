@@ -50,7 +50,7 @@ class Character extends StageProp implements IPlayStateScriptedClass
 		bop();
 	}
 
-	override public function update(elapsed:Float)
+	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
@@ -59,7 +59,7 @@ class Character extends StageProp implements IPlayStateScriptedClass
 		singTimer = Math.min(MAX_SING_TIME, singTimer + elapsed * singSeconds);
 	}
 
-	override public function bop(force:Bool = false)
+	override function bop(force:Bool = false)
 	{
 		if (singTimer < MAX_SING_TIME && !force)
 			return;
@@ -94,7 +94,7 @@ class Character extends StageProp implements IPlayStateScriptedClass
 		return new HealthIcon(id, meta.icon, type == PLAYER);
 	}
 
-	override public function playAnimation(name:String, force:Bool = false)
+	override function playAnimation(name:String, force:Bool = false)
 	{
 		if (!hasAnimation(name))
 			return;
@@ -135,7 +135,7 @@ class Character extends StageProp implements IPlayStateScriptedClass
 		return getCurrentAnimation().endsWith('-miss');
 	}
 
-	override public function onNoteHit(event:NoteScriptEvent)
+	override function onNoteHit(event:NoteScriptEvent)
 	{
 		super.onNoteHit(event);
 
@@ -145,7 +145,7 @@ class Character extends StageProp implements IPlayStateScriptedClass
 		sing(event.note.direction, event.suffix);
 	}
 
-	override public function onNoteMiss(event:NoteScriptEvent)
+	override function onNoteMiss(event:NoteScriptEvent)
 	{
 		super.onNoteMiss(event);
 
@@ -155,7 +155,7 @@ class Character extends StageProp implements IPlayStateScriptedClass
 		miss(event.note.direction, event.suffix);
 	}
 
-	override public function onHoldNoteHold(event:HoldNoteScriptEvent)
+	override function onHoldNoteHold(event:HoldNoteScriptEvent)
 	{
 		super.onHoldNoteHold(event);
 
@@ -166,7 +166,7 @@ class Character extends StageProp implements IPlayStateScriptedClass
 			singTimer = 0;
 	}
 
-	override public function onHoldNoteDrop(event:HoldNoteScriptEvent)
+	override function onHoldNoteDrop(event:HoldNoteScriptEvent)
 	{
 		super.onHoldNoteDrop(event);
 
@@ -176,7 +176,7 @@ class Character extends StageProp implements IPlayStateScriptedClass
 		miss(event.holdNote.direction, event.suffix);
 	}
 
-	override public function onGhostMiss(event:GhostMissScriptEvent)
+	override function onGhostMiss(event:GhostMissScriptEvent)
 	{
 		super.onGhostMiss(event);
 
@@ -186,7 +186,7 @@ class Character extends StageProp implements IPlayStateScriptedClass
 		miss(event.direction, event.suffix);
 	}
 
-	override public function onSongRetry(event:ScriptEvent)
+	override function onSongRetry(event:ScriptEvent)
 	{
 		super.onSongRetry(event);
 

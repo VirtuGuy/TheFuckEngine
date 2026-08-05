@@ -33,7 +33,7 @@ class PauseSubState extends FunkinSubState
 	var songText:FunkinText;
 	var menuList:TextMenuList;
 
-	override public function create()
+	override function create()
 	{
 		super.create();
 
@@ -69,7 +69,7 @@ class PauseSubState extends FunkinSubState
 		#end
 	}
 
-	override public function update(elapsed:Float)
+	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
@@ -189,7 +189,7 @@ class PauseSubState extends FunkinSubState
 		songText.x = FlxG.width - songText.width - 20;
 	}
 
-	override public function close()
+	override function close()
 	{
 		super.close();
 
@@ -198,7 +198,7 @@ class PauseSubState extends FunkinSubState
 		#end
 	}
 
-	override public function destroy()
+	override function destroy()
 	{
 		super.destroy();
 

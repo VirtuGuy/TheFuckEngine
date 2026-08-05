@@ -21,7 +21,7 @@ class PlayerRegistry extends BaseRegistry<Player>
 		super('players', 'ui/freeplay/players');
 	}
 
-	override public function load()
+	override function load()
 	{
 		super.load();
 
@@ -60,7 +60,7 @@ class PlayerRegistry extends BaseRegistry<Player>
 		return owned.exists(id);
 	}
 
-	override public function listDefaults():Array<String>
+	override function listDefaults():Array<String>
 	{
 		return ['bf', 'pico'];
 	}

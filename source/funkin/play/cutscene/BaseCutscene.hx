@@ -49,7 +49,7 @@ class BaseCutscene extends FlxGroup
 		trace('Ended cutscene $id.');
 	}
 
-	override public function destroy()
+	override function destroy()
 	{
 		if (FlxG.cameras.list.contains(camera))
 			FlxG.cameras.remove(camera);

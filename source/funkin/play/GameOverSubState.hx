@@ -27,7 +27,7 @@ class GameOverSubState extends FunkinSubState
 	var character:Character;
 	var id:String;
 
-	override public function create()
+	override function create()
 	{
 		super.create();
 
@@ -69,7 +69,7 @@ class GameOverSubState extends FunkinSubState
 		}
 	}
 
-	override public function update(elapsed:Float)
+	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
@@ -173,7 +173,7 @@ class GameOverSubState extends FunkinSubState
 		PlayState.instance.beatHit(beat);
 	}
 
-	override public function close()
+	override function close()
 	{
 		super.close();
 
@@ -184,7 +184,7 @@ class GameOverSubState extends FunkinSubState
 		PlayState.instance.loadSong();
 	}
 
-	override public function destroy()
+	override function destroy()
 	{
 		super.destroy();
 

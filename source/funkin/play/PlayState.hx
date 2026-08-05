@@ -149,7 +149,7 @@ class PlayState extends FunkinState
 		instrumental = params.instrumental;
 	}
 
-	override public function create()
+	override function create()
 	{
 		super.create();
 
@@ -239,7 +239,7 @@ class PlayState extends FunkinState
 		dispatch(new ScriptEvent(CREATE));
 	}
 
-	override public function update(elapsed:Float)
+	override function update(elapsed:Float)
 	{
 		if (criticalError)
 			return;
@@ -311,7 +311,7 @@ class PlayState extends FunkinState
 			openSubState(new GameOverSubState());
 	}
 
-	override public function draw()
+	override function draw()
 	{
 		if (criticalError)
 			return;
@@ -876,7 +876,7 @@ class PlayState extends FunkinState
 		ScriptEventDispatcher.dispatch(stage, event);
 	}
 
-	override public function openSubState(subState:FlxSubState)
+	override function openSubState(subState:FlxSubState)
 	{
 		super.openSubState(subState);
 
@@ -899,7 +899,7 @@ class PlayState extends FunkinState
 		camera.active = false;
 	}
 
-	override public function closeSubState()
+	override function closeSubState()
 	{
 		super.closeSubState();
 
@@ -922,7 +922,7 @@ class PlayState extends FunkinState
 		camera.active = true;
 	}
 
-	override public function destroy()
+	override function destroy()
 	{
 		// Runs the destroy script event
 		dispatch(new ScriptEvent(DESTROY));

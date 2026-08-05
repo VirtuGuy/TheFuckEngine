@@ -36,7 +36,7 @@ class NoteSplash extends FunkinSprite
 		playAnimation(strum.direction.name);
 	}
 
-	override public function draw()
+	override function draw()
 	{
 		if (strum != null)
 		{
@@ -47,7 +47,7 @@ class NoteSplash extends FunkinSprite
 		super.draw();
 	}
 
-	override public function revive()
+	override function revive()
 	{
 		super.revive();
 

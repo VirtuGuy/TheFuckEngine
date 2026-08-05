@@ -44,7 +44,7 @@ class IconGroup extends FlxTypedSpriteGroup<IconSprite>
 		}
 	}
 
-	override public function update(elapsed:Float)
+	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 

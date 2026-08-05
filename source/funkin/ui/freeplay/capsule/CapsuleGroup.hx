@@ -34,7 +34,7 @@ class CapsuleGroup extends FlxTypedGroup<CapsuleSprite>
 		this.selected = selected;
 	}
 
-	override public function update(elapsed:Float)
+	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 

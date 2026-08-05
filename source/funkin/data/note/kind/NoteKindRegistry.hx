@@ -21,7 +21,7 @@ class NoteKindRegistry extends BaseRegistry<NoteKind>
 		super('notekinds');
 	}
 
-	override public function load()
+	override function load()
 	{
 		super.load();
 
@@ -66,7 +66,7 @@ class NoteKindRegistry extends BaseRegistry<NoteKind>
 		}
 	}
 
-	override public function fetch(id:String):NoteKind
+	override function fetch(id:String):NoteKind
 	{
 		if (!exists(id))
 			return defaultKind;

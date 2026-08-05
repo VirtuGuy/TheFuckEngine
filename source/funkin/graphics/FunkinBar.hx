@@ -43,7 +43,7 @@ class FunkinBar extends FunkinSprite
 		this.fillColor = fillColor;
 	}
 
-	override public function draw()
+	override function draw()
 	{
 		scale.x = width;
 		color = emptyColor;

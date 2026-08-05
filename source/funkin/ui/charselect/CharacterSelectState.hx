@@ -32,7 +32,7 @@ class CharacterSelectState extends FunkinState
 
 	var player(get, never):Player;
 
-	override public function create()
+	override function create()
 	{
 		super.create();
 
@@ -135,7 +135,7 @@ class CharacterSelectState extends FunkinState
 		cursor.snap();
 	}
 
-	override public function update(elapsed:Float)
+	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
@@ -189,7 +189,7 @@ class CharacterSelectState extends FunkinState
 		FlxG.switchState(() -> FreeplaySubState.build());
 	}
 
-	override public function destroy()
+	override function destroy()
 	{
 		super.destroy();
 

@@ -17,7 +17,7 @@ class EventRegistry extends BaseRegistry<SongEvent>
 		super('events');
 	}
 
-	override public function load()
+	override function load()
 	{
 		super.load();
 

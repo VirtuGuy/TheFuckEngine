@@ -19,7 +19,7 @@ class StrumSprite extends FunkinSprite
 		this.direction = direction;
 	}
 
-	override public function update(elapsed:Float)
+	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 

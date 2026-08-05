@@ -21,7 +21,7 @@ class OptionsSubState extends FunkinSubState
 	var bg:FunkinSprite;
 	var options:OptionList;
 
-	override public function create()
+	override function create()
 	{
 		super.create();
 
@@ -47,7 +47,7 @@ class OptionsSubState extends FunkinSubState
 		intro();
 	}
 
-	override public function update(elapsed:Float)
+	override function update(elapsed:Float)
 	{
 		_parentState.persistentDraw = stateMachine.transitioning();
 

@@ -55,7 +55,7 @@ class StoryMenuSubState extends FunkinSubState
 		this.skipIntro = skipIntro;
 	}
 
-	override public function create()
+	override function create()
 	{
 		super.create();
 
@@ -151,7 +151,7 @@ class StoryMenuSubState extends FunkinSubState
 			intro();
 	}
 
-	override public function update(elapsed:Float)
+	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
@@ -284,7 +284,7 @@ class StoryMenuSubState extends FunkinSubState
 		FunkinSound.playOnce('general/sounds/cancel');
 	}
 
-	override public function destroy()
+	override function destroy()
 	{
 		super.destroy();
 

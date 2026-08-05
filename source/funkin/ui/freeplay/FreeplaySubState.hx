@@ -66,7 +66,7 @@ class FreeplaySubState extends FunkinSubState
 		this.skipIntro = skipIntro;
 	}
 
-	override public function create()
+	override function create()
 	{
 		super.create();
 
@@ -156,7 +156,7 @@ class FreeplaySubState extends FunkinSubState
 			intro();
 	}
 
-	override public function update(elapsed:Float)
+	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
@@ -418,7 +418,7 @@ class FreeplaySubState extends FunkinSubState
 		FunkinSound.music.stop();
 	}
 
-	override public function destroy()
+	override function destroy()
 	{
 		FunkinSound.music.stop();
 		@:privateAccess
