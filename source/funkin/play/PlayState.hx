@@ -840,10 +840,13 @@ class PlayState extends FunkinState
 
 	public function exit()
 	{
-		if (Playlist.isStory)
-			StickerSubState.switchState(() -> StoryMenuSubState.build(), song.stickerpack);
-		else
-			StickerSubState.switchState(() -> FreeplaySubState.build(), song.stickerpack);
+		StickerSubState.switchState(() ->
+		{
+			if (Playlist.isStory)
+				StoryMenuSubState.build();
+			else
+				FreeplaySubState.build();
+		}, song.stickerpack);
 	}
 
 	override function dispatch(event:ScriptEvent)
