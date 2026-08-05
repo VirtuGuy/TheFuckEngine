@@ -91,7 +91,7 @@ class FPSCounter extends TextField
 
 		textColor = 0xFFFFFFFF;
 
-		if (maxMemory > 3000 || currentFPS <= Preferences.fpsCap / 2)
+		if (maxMemory > 3000)
 			textColor = 0xFFFF0000;
 	}
 
