@@ -8,7 +8,6 @@ import funkin.graphics.FunkinSprite;
 import funkin.graphics.FunkinText;
 import funkin.graphics.shader.TextureSwap;
 import funkin.modding.event.ScriptEvent;
-import funkin.play.PlayParams;
 import funkin.play.PlayState;
 import funkin.play.Playlist;
 import funkin.play.song.Song;
@@ -301,7 +300,7 @@ class FreeplaySubState extends FunkinSubState
 
 				// Yes it has to be done like this
 				// Um fuck you Flixel
-				final params:PlayParams = {song: song, difficulty: difficulty};
+				final params:PlayStateParams = {song: song, difficulty: difficulty};
 
 				FlxG.switchState(() -> new PlayState(params));
 			});

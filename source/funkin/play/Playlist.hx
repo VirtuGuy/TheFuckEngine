@@ -1,6 +1,7 @@
 package funkin.play;
 
 import funkin.data.song.SongRegistry;
+import funkin.play.PlayState.PlayStateParams;
 import funkin.ui.story.Level;
 
 /**
@@ -32,7 +33,7 @@ class Playlist
 	{
 		// Yes it has to be done like this
 		// Um fuck you Flixel
-		final params:PlayParams = {
+		final params:PlayStateParams = {
 			song: SongRegistry.instance.fetch(songs[0]),
 			difficulty: difficulty
 		}

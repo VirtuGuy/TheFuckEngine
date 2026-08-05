@@ -49,13 +49,24 @@ import funkin.api.DiscordRPC;
 #end
 
 /**
+ * A structure object containing parameters used for loading `PlayState`.
+ */
+typedef PlayStateParams =
+{
+	var song:Song;
+	var difficulty:String;
+	@:optional
+	var instrumental:String;
+}
+
+/**
  * A state where the gameplay occurs. Kinda like a "play" state. Hah! I said the thing!
  */
 class PlayState extends FunkinState
 {
 	public static var instance:PlayState;
 
-	static var lastParams:PlayParams;
+	static var lastParams:PlayStateParams;
 
 	public var song(get, set):Song;
 	public var difficulty(get, set):String;
@@ -114,7 +125,7 @@ class PlayState extends FunkinState
 
 	var criticalError:Bool = false;
 
-	public function new(?params:PlayParams)
+	public function new(?params:PlayStateParams)
 	{
 		super();
 
