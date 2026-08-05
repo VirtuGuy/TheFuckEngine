@@ -16,7 +16,7 @@ import funkin.ui.freeplay.capsule.CapsuleSprite;
 class ScriptEvent
 {
 	public var type(default, null):ScriptEventType;
-	public var cancelled(default, null):Bool = false;
+	public var cancelled(default, null):Bool;
 
 	public function new(type:ScriptEventType)
 	{

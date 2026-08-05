@@ -4,6 +4,8 @@ package funkin.util.macro;
 import haxe.macro.Context;
 import haxe.macro.Expr;
 
+using thx.Arrays;
+
 /**
  * A macro class for implementing z-ordering features.
  */
@@ -14,29 +16,22 @@ class ZIndexMacro
 		if (Context.defined('display'))
 			return [];
 
-		var fields = Context.getBuildFields();
-		var has:Bool = false;
+		var fields:Array<Field> = Context.getBuildFields();
+		var pos:Position = Context.currentPos();
 
-		for (field in fields)
-		{
-			if (field.name != 'refresh')
-				continue;
-			has = true;
-		}
+		if (fields.find(field -> return field.name == 'refresh') != null)
+			return fields;
 
-		if (!has)
-		{
-			fields.push({
-				name: 'refresh',
-				access: [APublic],
-				kind: FieldType.FFun({
-					args: [],
-					expr: macro
-					{sort(funkin.util.SortUtil.byZIndex);}
-				}),
-				pos: Context.currentPos()
-			});
-		}
+		fields.push({
+			name: 'refresh',
+			access: [APublic],
+			kind: FieldType.FFun({
+				args: [],
+				expr: macro
+				{sort(funkin.util.SortUtil.byZIndex);}
+			}),
+			pos: pos
+		});
 
 		return fields;
 	}
