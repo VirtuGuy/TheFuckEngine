@@ -50,11 +50,11 @@ class TankmenGroup extends FlxTypedGroup
                 var off:Float = FlxG.random.int(300, 500);
 
                 tankmen.x = 9999;
-                tankmen.y = stage.gf.y - stage.gf.offset.y;
+                tankmen.y = stage.gf?.y - stage.gf?.offset?.y;
                 tankmen.flipX = fromRight;
 
                 tankmen.time = note.t;
-                tankmen.endPos = stage.gf.x + off * (fromRight ? 1 : -1);
+                tankmen.endPos = stage.gf?.x + off * (fromRight ? 1 : -1);
 
                 data.shift();
             }
