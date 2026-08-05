@@ -8,6 +8,8 @@ import funkin.graphics.FunkinText;
 
 /**
  * The sub state where the player is able to customize their settings and preferences.
+ * 
+ * TODO: Redesign this menu.
  */
 class OptionsSubState extends FunkinSubState
 {
@@ -67,7 +69,10 @@ class OptionsSubState extends FunkinSubState
 		options.addOption('showFPS', 'show fps');
 		options.addOption('fpsBGOpacity', 'fps background', 10, 0, 100);
 		#end
+
 		options.addOption('fpsCap', 'fps cap', 10, 60, 500);
+		options.addOption('vsync', 'vsync');
+		options.addOption('unlockedFPS', 'unlocked fps');
 
 		#if HAS_DISCORD_RPC
 		options.addOption('discordRPC', 'discord rpc');

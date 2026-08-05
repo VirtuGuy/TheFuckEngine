@@ -1,10 +1,11 @@
 package funkin;
 
+import funkin.play.PlayState;
+import funkin.save.Save;
+import funkin.util.WindowUtil;
 #if HAS_DISCORD_RPC
 import funkin.api.DiscordRPC;
 #end
-import funkin.play.PlayState;
-import funkin.save.Save;
 
 /**
  * A class containing the player's preferences.
@@ -22,10 +23,18 @@ class Preferences
 	#end
 
 	public static var fpsCap(get, set):Int;
+	public static var vsync(get, set):Bool;
+	public static var unlockedFPS(get, set):Bool;
 
 	#if HAS_DISCORD_RPC
 	public static var discordRPC(get, set):Bool;
 	#end
+
+	@:noCompletion
+	static inline function get_downscroll():Bool
+	{
+		return Save.instance.options.downscroll;
+	}
 
 	@:noCompletion
 	static inline function set_downscroll(value:Bool):Bool
@@ -39,9 +48,9 @@ class Preferences
 	}
 
 	@:noCompletion
-	static inline function get_downscroll():Bool
+	static inline function get_showTimer():Bool
 	{
-		return Save.instance.options.downscroll;
+		return Save.instance.options.showTimer;
 	}
 
 	@:noCompletion
@@ -55,13 +64,13 @@ class Preferences
 		return value;
 	}
 
+	#if HAS_FPS_COUNTER
 	@:noCompletion
-	static inline function get_showTimer():Bool
+	static inline function get_showFPS():Bool
 	{
-		return Save.instance.options.showTimer;
+		return Save.instance.options.showFPS;
 	}
 
-	#if HAS_FPS_COUNTER
 	@:noCompletion
 	static inline function set_showFPS(value:Bool):Bool
 	{
@@ -74,9 +83,9 @@ class Preferences
 	}
 
 	@:noCompletion
-	static inline function get_showFPS():Bool
+	static inline function get_fpsBGOpacity():Int
 	{
-		return Save.instance.options.showFPS;
+		return Save.instance.options.fpsBGOpacity;
 	}
 
 	@:noCompletion
@@ -89,25 +98,7 @@ class Preferences
 
 		return value;
 	}
-
-	@:noCompletion
-	static inline function get_fpsBGOpacity():Int
-	{
-		return Save.instance.options.fpsBGOpacity;
-	}
 	#end
-
-	@:noCompletion
-	static inline function set_fpsCap(value:Int):Int
-	{
-		Save.instance.options.fpsCap = value;
-		Save.instance.flush();
-
-		FlxG.updateFramerate = value;
-		FlxG.drawFramerate = value;
-
-		return value;
-	}
 
 	@:noCompletion
 	static inline function get_fpsCap():Int
@@ -115,7 +106,58 @@ class Preferences
 		return Save.instance.options.fpsCap;
 	}
 
+	@:noCompletion
+	static inline function set_fpsCap(value:Int):Int
+	{
+		Save.instance.options.fpsCap = value;
+		Save.instance.flush();
+
+		FlxG.drawFramerate = FlxG.updateFramerate = unlockedFPS ? 0 : value;
+
+		return value;
+	}
+
+	@:noCompletion
+	static inline function get_vsync():Bool
+	{
+		return Save.instance.options.vsync;
+	}
+
+	@:noCompletion
+	static inline function set_vsync(value:Bool):Bool
+	{
+		Save.instance.options.vsync = value;
+		Save.instance.flush();
+
+		WindowUtil.setVSync(value);
+
+		return value;
+	}
+
+	@:noCompletion
+	static inline function get_unlockedFPS():Bool
+	{
+		return Save.instance.options.unlockedFPS;
+	}
+
+	@:noCompletion
+	static inline function set_unlockedFPS(value:Bool):Bool
+	{
+		Save.instance.options.unlockedFPS = value;
+		Save.instance.flush();
+
+		FlxG.drawFramerate = FlxG.updateFramerate = value ? 0 : fpsCap;
+
+		return value;
+	}
+
 	#if HAS_DISCORD_RPC
+	@:noCompletion
+	static inline function get_discordRPC():Bool
+	{
+		return Save.instance.options.discordRPC;
+	}
+
 	@:noCompletion
 	static inline function set_discordRPC(value:Bool):Bool
 	{
@@ -128,12 +170,6 @@ class Preferences
 			DiscordRPC.shutdown(0);
 
 		return value;
-	}
-
-	@:noCompletion
-	static inline function get_discordRPC():Bool
-	{
-		return Save.instance.options.discordRPC;
 	}
 	#end
 

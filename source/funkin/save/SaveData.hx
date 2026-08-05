@@ -22,5 +22,7 @@ typedef SaveOptionsData =
 	var showFPS:Bool;
 	var fpsBGOpacity:Int;
 	var fpsCap:Int;
+	var vsync:Bool;
+	var unlockedFPS:Bool;
 	var discordRPC:Bool;
 }

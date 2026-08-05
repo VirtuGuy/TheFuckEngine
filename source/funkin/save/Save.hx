@@ -5,7 +5,9 @@ import funkin.data.story.LevelRegistry;
 import funkin.play.song.Song;
 import funkin.save.SaveData.SaveOptionsData;
 import funkin.ui.story.Level;
+import funkin.util.WindowUtil;
 import haxe.ds.StringMap;
+import lime.system.System;
 #if HAS_DISCORD_RPC
 import funkin.api.DiscordRPC;
 #end
@@ -35,8 +37,9 @@ class Save
 		// LOAD
 		//
 
-		FlxG.drawFramerate = options.fpsCap;
-		FlxG.updateFramerate = options.fpsCap;
+		FlxG.drawFramerate = FlxG.updateFramerate = options.unlockedFPS ? 0 : options.fpsCap;
+
+		WindowUtil.setVSync(options.vsync);
 
 		#if HAS_FPS_COUNTER
 		Main.fpsCounter.visible = options.showFPS;
@@ -216,8 +219,10 @@ class Save
 				showTimer: true,
 				showFPS: true,
 				fpsBGOpacity: 50,
+				fpsCap: 200,
+				vsync: false,
+				unlockedFPS: false,
 				discordRPC: true,
-				fpsCap: 200
 			}
 		}
 	}

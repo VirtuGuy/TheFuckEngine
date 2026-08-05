@@ -1,6 +1,6 @@
 package funkin.util;
 
-import openfl.Lib;
+import lime.app.Application;
 
 /**
  * A utility class for handling window-related things.
@@ -15,8 +15,13 @@ class WindowUtil
 		Sys.exit(0);
 	}
 
+	public static function setVSync(vsync:Bool)
+	{
+		Application.current.window.setVSyncMode(vsync ? ON : OFF);
+	}
+
 	public static function alert(message:String)
 	{
-		Lib.application.window.alert(message);
+		Application.current.window.alert(message);
 	}
 }
