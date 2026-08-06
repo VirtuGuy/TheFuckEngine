@@ -14,23 +14,23 @@ class Controls
 {
 	public static var instance:Controls;
 
-	var actions:Map<Control, FunkinAction> = [
-		Control.NOTE_LEFT => new FunkinAction([A, LEFT], [DPAD_LEFT, X]),
-		Control.NOTE_DOWN => new FunkinAction([S, DOWN], [DPAD_DOWN, A]),
-		Control.NOTE_UP => new FunkinAction([W, UP], [DPAD_UP, Y]),
-		Control.NOTE_RIGHT => new FunkinAction([D, RIGHT], [DPAD_RIGHT, B]),
-		Control.UI_LEFT => new FunkinAction([A, LEFT], [DPAD_LEFT]),
-		Control.UI_DOWN => new FunkinAction([S, DOWN], [DPAD_DOWN]),
-		Control.UI_UP => new FunkinAction([W, UP], [DPAD_UP]),
-		Control.UI_RIGHT => new FunkinAction([D, RIGHT], [DPAD_RIGHT]),
-		Control.ACCEPT => new FunkinAction([Z, SPACE, RETURN], [START, A]),
-		Control.BACK => new FunkinAction([X, ESCAPE, BACKSPACE], [B]),
-		Control.PAUSE => new FunkinAction([P, RETURN, ESCAPE], [START]),
-		Control.RESET => new FunkinAction([R], []),
-		Control.FAVORITE => new FunkinAction([F], [Y]),
-		Control.SORT_LEFT => new FunkinAction([Q], [LEFT_SHOULDER]),
-		Control.SORT_RIGHT => new FunkinAction([E], [RIGHT_SHOULDER]),
-		Control.CHAR_SELECT => new FunkinAction([TAB], [X])
+	final actions:Array<FunkinAction> = [
+		new FunkinAction(Control.NOTE_LEFT, [A, LEFT], [DPAD_LEFT, X]),
+		new FunkinAction(Control.NOTE_DOWN, [S, DOWN], [DPAD_DOWN, A]),
+		new FunkinAction(Control.NOTE_UP, [W, UP], [DPAD_UP, Y]),
+		new FunkinAction(Control.NOTE_RIGHT, [D, RIGHT], [DPAD_RIGHT, B]),
+		new FunkinAction(Control.UI_LEFT, [A, LEFT], [DPAD_LEFT]),
+		new FunkinAction(Control.UI_DOWN, [S, DOWN], [DPAD_DOWN]),
+		new FunkinAction(Control.UI_UP, [W, UP], [DPAD_UP]),
+		new FunkinAction(Control.UI_RIGHT, [D, RIGHT], [DPAD_RIGHT]),
+		new FunkinAction(Control.ACCEPT, [Z, SPACE, RETURN], [START, A]),
+		new FunkinAction(Control.BACK, [X, ESCAPE, BACKSPACE], [B]),
+		new FunkinAction(Control.PAUSE, [P, RETURN, ESCAPE], [START]),
+		new FunkinAction(Control.RESET, [R], []),
+		new FunkinAction(Control.FAVORITE, [F], [Y]),
+		new FunkinAction(Control.SORT_LEFT, [Q], [LEFT_SHOULDER]),
+		new FunkinAction(Control.SORT_RIGHT, [E], [RIGHT_SHOULDER]),
+		new FunkinAction(Control.CHAR_SELECT, [TAB], [X])
 	];
 
 	public var directionDown(default, null) = new FlxTypedSignal<NoteDirection->Void>();
@@ -227,24 +227,16 @@ class Controls
 		Gamepad.onConnect.add(gamepadConnect);
 	}
 
-	function keyDown(keyCode:KeyCode, modifier:KeyModifier)
+	function keyDown(key:KeyCode, modifier:KeyModifier)
 	{
-		for (id => action in actions)
-		{
-			if (!action.hasKey(keyCode))
-				continue;
-			handleActionPress(id, action);
-		}
+		for (action in actions.filter(action -> return action.hasKey(key)))
+			handlePress(action);
 	}
 
-	function keyUp(keyCode:KeyCode, modifier:KeyModifier)
+	function keyUp(key:KeyCode, modifier:KeyModifier)
 	{
-		for (id => action in actions)
-		{
-			if (!action.hasKey(keyCode))
-				continue;
-			handleActionRelease(id, action);
-		}
+		for (action in actions.filter(action -> return action.hasKey(key)))
+			handleRelease(action);
 	}
 
 	function gamepadConnect(gamepad:Gamepad)
@@ -256,22 +248,14 @@ class Controls
 
 		gamepad.onButtonDown.add(button ->
 		{
-			for (id => action in actions)
-			{
-				if (!action.hasButton(button))
-					continue;
-				handleActionPress(id, action);
-			}
+			for (action in actions.filter(action -> return action.hasButton(button)))
+				handlePress(action);
 		});
 
 		gamepad.onButtonUp.add(button ->
 		{
-			for (id => action in actions)
-			{
-				if (!action.hasButton(button))
-					continue;
-				handleActionRelease(id, action);
-			}
+			for (action in actions.filter(action -> return action.hasButton(button)))
+				handleRelease(action);
 		});
 
 		gamepad.onDisconnect.add(() ->
@@ -284,12 +268,12 @@ class Controls
 		trace('Connected gamepad device.');
 	}
 
-	function handleActionPress(id:Control, action:FunkinAction)
+	function handlePress(action:FunkinAction)
 	{
 		if (action.pressed)
 			return;
 
-		switch (id)
+		switch (action.id)
 		{
 			case NOTE_LEFT:
 				directionDown.dispatch(LEFT);
@@ -306,12 +290,12 @@ class Controls
 		action.press();
 	}
 
-	function handleActionRelease(id:Control, action:FunkinAction)
+	function handleRelease(action:FunkinAction)
 	{
 		if (!action.pressed)
 			return;
 
-		switch (id)
+		switch (action.id)
 		{
 			case NOTE_LEFT:
 				directionUp.dispatch(LEFT);
@@ -330,6 +314,6 @@ class Controls
 
 	inline function getAction(id:Control):FunkinAction
 	{
-		return actions.get(id);
+		return actions.find(action -> return action.id == id);
 	}
 }

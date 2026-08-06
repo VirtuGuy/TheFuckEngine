@@ -10,6 +10,8 @@ import openfl.events.Event;
  */
 class FunkinAction
 {
+	public final id:Control;
+
 	public var pressed:Bool = false;
 	public var justPressed(get, never):Bool;
 
@@ -21,8 +23,10 @@ class FunkinAction
 	var lastTime:Float;
 	var elapsed:Float;
 
-	public function new(keys:Array<KeyCode>, buttons:Array<GamepadButton>)
+	public function new(id:Control, keys:Array<KeyCode>, buttons:Array<GamepadButton>)
 	{
+		this.id = id;
+
 		this.keys = keys;
 		this.buttons = buttons;
 
