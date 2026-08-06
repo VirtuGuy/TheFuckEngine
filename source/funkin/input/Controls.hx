@@ -222,8 +222,7 @@ class Controls
 		// Connects any gamepad devices that are already connected
 		// This is need so that controllers don't have to be plugged in AFTER the game starts
 		// So basically, this makes the game less annoying
-		for (device in Gamepad.devices)
-			gamepadConnect(device);
+		gamepadConnect(Gamepad.devices[0]);
 
 		Gamepad.onConnect.add(gamepadConnect);
 	}
@@ -234,25 +233,7 @@ class Controls
 		{
 			if (!action.hasKey(keyCode))
 				continue;
-
-			if (!action.pressed)
-			{
-				switch (id)
-				{
-					case NOTE_LEFT:
-						directionDown.dispatch(LEFT);
-					case NOTE_DOWN:
-						directionDown.dispatch(DOWN);
-					case NOTE_UP:
-						directionDown.dispatch(UP);
-					case NOTE_RIGHT:
-						directionDown.dispatch(RIGHT);
-					default:
-						// Does literally nothing
-				}
-			}
-
-			action.press();
+			handleActionPress(id, action);
 		}
 	}
 
@@ -262,50 +243,34 @@ class Controls
 		{
 			if (!action.hasKey(keyCode))
 				continue;
-
-			switch (id)
-			{
-				case NOTE_LEFT:
-					directionUp.dispatch(LEFT);
-				case NOTE_DOWN:
-					directionUp.dispatch(DOWN);
-				case NOTE_UP:
-					directionUp.dispatch(UP);
-				case NOTE_RIGHT:
-					directionUp.dispatch(RIGHT);
-				default:
-					// Does literally nothing
-			}
-
-			action.release();
+			handleActionRelease(id, action);
 		}
 	}
 
 	function gamepadConnect(gamepad:Gamepad)
 	{
-		// No point of allowing multiple devices
-		// Do you even need more than one to play the game??
-		if (gamepadConnected)
+		if (gamepad == null || gamepadConnected)
 			return;
-		gamepadConnected = true;
 
-		trace('Connected gamepad device.');
+		gamepadConnected = true;
 
 		gamepad.onButtonDown.add(button ->
 		{
-			for (action in actions)
+			for (id => action in actions)
 			{
-				if (action.hasButton(button))
-					action.press();
+				if (!action.hasButton(button))
+					continue;
+				handleActionPress(id, action);
 			}
 		});
 
 		gamepad.onButtonUp.add(button ->
 		{
-			for (action in actions)
+			for (id => action in actions)
 			{
-				if (action.hasButton(button))
-					action.release();
+				if (!action.hasButton(button))
+					continue;
+				handleActionRelease(id, action);
 			}
 		});
 
@@ -315,6 +280,52 @@ class Controls
 
 			gamepadConnected = false;
 		});
+
+		trace('Connected gamepad device.');
+	}
+
+	function handleActionPress(id:Control, action:FunkinAction)
+	{
+		if (action.pressed)
+			return;
+
+		switch (id)
+		{
+			case NOTE_LEFT:
+				directionDown.dispatch(LEFT);
+			case NOTE_DOWN:
+				directionDown.dispatch(DOWN);
+			case NOTE_UP:
+				directionDown.dispatch(UP);
+			case NOTE_RIGHT:
+				directionDown.dispatch(RIGHT);
+			default:
+				// Does literally nothing
+		}
+
+		action.press();
+	}
+
+	function handleActionRelease(id:Control, action:FunkinAction)
+	{
+		if (!action.pressed)
+			return;
+
+		switch (id)
+		{
+			case NOTE_LEFT:
+				directionUp.dispatch(LEFT);
+			case NOTE_DOWN:
+				directionUp.dispatch(DOWN);
+			case NOTE_UP:
+				directionUp.dispatch(UP);
+			case NOTE_RIGHT:
+				directionUp.dispatch(RIGHT);
+			default:
+				// Does literally nothing
+		}
+
+		action.release();
 	}
 
 	inline function getAction(id:Control):FunkinAction
