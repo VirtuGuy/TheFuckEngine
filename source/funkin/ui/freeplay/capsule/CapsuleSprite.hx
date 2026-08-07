@@ -39,6 +39,8 @@ class CapsuleSprite extends FlxSpriteGroup
 	{
 		super();
 
+		active = false;
+
 		capsule = FunkinSprite.create(0, 0, 'ui/freeplay/capsule/image');
 		capsule.active = false;
 		add(capsule);
@@ -105,6 +107,13 @@ class CapsuleSprite extends FlxSpriteGroup
 		// This is stupid
 		@:privateAccess
 		songText.pendingTextBitmapChange = true;
+	}
+
+	override function draw()
+	{
+		if (y < -height || y > FlxG.height)
+			return;
+		super.draw();
 	}
 
 	override function revive()
