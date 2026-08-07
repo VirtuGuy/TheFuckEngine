@@ -21,8 +21,10 @@ class Voices
 			player = FunkinSound.load(song.getLegacyVoicePath(), 1, false, false, false);
 		else
 		{
-			opponent = FunkinSound.load(song.getVoicePath(false), 1, false, false, false);
-			player = FunkinSound.load(song.getVoicePath(true), 1, false, false, false);
+			if (song.hasVoice(false))
+				opponent = FunkinSound.load(song.getVoicePath(false), 1, false, false, false);
+			if (song.hasVoice(true))
+				player = FunkinSound.load(song.getVoicePath(true), 1, false, false, false);
 		}
 	}
 

@@ -110,6 +110,11 @@ class Song implements IPlayStateScriptedClass
 		return getPath('voices');
 	}
 
+	public function hasVoice(player:Bool):Bool
+	{
+		return Paths.exists(Paths.sound(getVoicePath(player)));
+	}
+
 	public function hasLegacyVoices():Bool
 	{
 		return Paths.exists(Paths.sound(getLegacyVoicePath()));
