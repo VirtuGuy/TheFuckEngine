@@ -1,7 +1,5 @@
 import funkin.play.character.Character;
 
-using StringTools;
-
 class DarnellBlazinCharacter extends Character
 {
     var num:Int = 0;
@@ -11,22 +9,30 @@ class DarnellBlazinCharacter extends Character
         super("darnell-blazin");
     }
 
-    override function onNoteHit(event:NoteScriptEvent)
+    function punch()
     {
-        var anim:String = '';
         var name:String = 'high';
 
         if (FlxG.random.bool(50))
             name = 'low';
 
         num = 1 - num;
-        anim = 'punch-$name-$num';
 
-        if (FlxG.random.bool(10))
-            anim = 'block';
-        if (FlxG.random.bool(5))
-            anim = 'dodge';
+        playAnimation('punch-$name-$num', true);
+    }
 
-        playAnimation(anim, true);
+    override function onNoteHit(event:NoteScriptEvent)
+    {
+        if (FlxG.random.bool(20))
+            playAnimation('block', true);
+        else if (FlxG.random.bool(5))
+            playAnimation('dodge', true);
+        else
+            punch();
+    }
+
+    override function onNoteMiss(event:NoteScriptEvent)
+    {
+        punch();
     }
 }
