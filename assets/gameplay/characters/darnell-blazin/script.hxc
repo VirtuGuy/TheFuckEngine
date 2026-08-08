@@ -21,12 +21,22 @@ class DarnellBlazinCharacter extends Character
         playAnimation('punch-$name-$num', true);
     }
 
+    function block()
+    {
+        playAnimation('block', true);
+    }
+
+    function dodge()
+    {
+        playAnimation('dodge', true);
+    }
+
     override function onNoteHit(event:NoteScriptEvent)
     {
         if (FlxG.random.bool(20))
-            playAnimation('block', true);
+            block();
         else if (FlxG.random.bool(5))
-            playAnimation('dodge', true);
+            dodge();
         else
             punch();
     }
