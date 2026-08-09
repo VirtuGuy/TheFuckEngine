@@ -276,6 +276,15 @@ class SongConverter
 				value.z = event.v.zoom;
 				value.e = event.v.ease;
 
+				// Fix zooming for certain songs
+				switch (song)
+				{
+					case '2hot':
+						if (value.z == 0.65)
+							value.z = 0.85;
+						if (value.z == 0.95 || value.z == 0.77) value.z = 1;
+				}
+
 				if (event.v.mode == 'direct')
 				{
 					// Multiply WTF stage zoom
