@@ -273,27 +273,37 @@ class SongConverter
 			case 'ZoomCamera':
 				kind = 'zoom-camera';
 
-				value.z = event.v.zoom;
-				value.e = event.v.ease;
-
-				// Fix zooming for certain songs
-				switch (song)
+				function getZoom():Float
 				{
-					case 'senpai':
-						if (variation == 'pico')
-						{
-							if (value.z == 0.8)
-								value.z = 0.85;
-							if (value.z == 0.84)
-								value.z = 0.89;
-							if (value.z == 0.88)
-								value.z = 0.94;
-						}
-					case '2hot':
-						if (value.z == 0.65)
-							value.z = 0.85;
-						if (value.z == 0.95 || value.z == 0.77) value.z = 1;
+					var zoom:Float = event.v.zoom;
+
+					switch (variation)
+					{
+						case 'pico':
+							switch (song)
+							{
+								case 'senpai' | 'roses':
+									if (zoom == 0.8)
+										zoom = 0.85;
+									if (zoom == 0.84)
+										zoom = 0.89;
+									if (zoom == 0.88) zoom = 0.94;
+							}
+						default:
+							switch (song)
+							{
+								case '2hot':
+									if (zoom == 0.65)
+										zoom = 0.85;
+									if (zoom == 0.95 || zoom == 0.77) zoom = 1;
+							}
+					}
+
+					return zoom;
 				}
+
+				value.z = getZoom();
+				value.e = event.v.ease;
 
 				if (event.v.mode == 'direct')
 				{
