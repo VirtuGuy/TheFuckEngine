@@ -279,6 +279,16 @@ class SongConverter
 				// Fix zooming for certain songs
 				switch (song)
 				{
+					case 'senpai':
+						if (variation == 'pico')
+						{
+							if (value.z == 0.8)
+								value.z = 0.85;
+							if (value.z == 0.84)
+								value.z = 0.89;
+							if (value.z == 0.88)
+								value.z = 0.94;
+						}
 					case '2hot':
 						if (value.z == 0.65)
 							value.z = 0.85;
