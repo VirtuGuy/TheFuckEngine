@@ -49,10 +49,11 @@ class ScriptEventMacro
 
 				if (cls.superClass != null)
 				{
+					var resetFunc:String = 'reset_${cls.superClass.t.get().name}';
+
 					switch (resetExpr.expr)
 					{
 						case EBlock(exprs):
-							var resetFunc:String = 'reset_${cls.superClass.t.get().name}';
 							var exprs:Array<Expr> = exprs.copy();
 
 							for (i => e in exprs)
@@ -74,6 +75,11 @@ class ScriptEventMacro
 							}
 
 							resetExpr.expr = EBlock(exprs);
+						case ECall(e, params):
+							resetExpr.expr = ECall({
+								expr: EConst(CIdent(resetFunc)),
+								pos: pos
+							}, params);
 						default:
 							// Does literally nothing
 					}

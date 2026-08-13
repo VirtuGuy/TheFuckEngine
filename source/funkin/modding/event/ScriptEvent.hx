@@ -26,6 +26,7 @@ class ScriptEvent
 	{
 		this.type = type;
 		this.handled = false;
+		this.cancelled = false;
 	}
 
 	public function cancel()
@@ -36,7 +37,6 @@ class ScriptEvent
 	public function put()
 	{
 		handled = true;
-		cancelled = false;
 	}
 }
 
