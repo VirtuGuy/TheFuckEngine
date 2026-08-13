@@ -51,8 +51,7 @@ class RhythmUtil
 
 	public static function judgeNote(note:NoteSprite):Judgement
 	{
-		var songTime:Float = Conductor.instance.time;
-		var timing:Float = Math.abs(note.time - songTime);
+		var timing:Float = Math.abs(Std.int(note.time - Conductor.instance.time));
 		var judgement:Judgement = SHIT;
 
 		if (timing <= Constants.SICK_WINDOW_MS)
