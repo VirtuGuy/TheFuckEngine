@@ -75,11 +75,6 @@ class ScriptEventMacro
 							}
 
 							resetExpr.expr = EBlock(exprs);
-						case ECall(e, params):
-							resetExpr.expr = ECall({
-								expr: EConst(CIdent(resetFunc)),
-								pos: pos
-							}, params);
 						default:
 							// Does literally nothing
 					}

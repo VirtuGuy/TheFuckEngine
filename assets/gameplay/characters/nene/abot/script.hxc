@@ -12,6 +12,7 @@ class ABotSprite extends FlxTypedSpriteGroup
 
     var analyzer:SpectralAnalyzer;
     var viz:Array<FunkinSprite> = [];
+    var levels:Array<Bar> = [];
 
     var eyesTween:FlxTween;
     var eyes:FunkinSprite;
@@ -68,7 +69,7 @@ class ABotSprite extends FlxTypedSpriteGroup
     {
         super.draw();
 
-        var levels = analyzer?.getLevels() ?? [];
+        levels = analyzer?.getLevels(levels) ?? [];
 
         for (i => bar in viz)
         {
