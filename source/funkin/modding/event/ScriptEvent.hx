@@ -25,8 +25,9 @@ class ScriptEvent
 	public function new(type:ScriptEventType)
 	{
 		this.type = type;
-		this.handled = false;
-		this.cancelled = false;
+
+		cancelled = false;
+		handled = false;
 	}
 
 	public function cancel()
@@ -128,14 +129,17 @@ class NoteScriptEvent extends ScriptEvent
 {
 	public var note(default, null):NoteSprite;
 
-	public var playAnimation:Bool = true;
-	public var suffix:String = '';
+	public var playAnimation:Bool;
+	public var suffix:String;
 
 	public function new(type:ScriptEventType, note:NoteSprite)
 	{
 		super(type);
 
 		this.note = note;
+
+		playAnimation = true;
+		suffix = '';
 	}
 }
 
@@ -148,14 +152,17 @@ class HoldNoteScriptEvent extends ScriptEvent
 {
 	public var holdNote(default, null):HoldNoteSprite;
 
-	public var playAnimation:Bool = true;
-	public var suffix:String = '';
+	public var playAnimation:Bool;
+	public var suffix:String;
 
 	public function new(type:ScriptEventType, holdNote:HoldNoteSprite)
 	{
 		super(type);
 
 		this.holdNote = holdNote;
+
+		playAnimation = true;
+		suffix = '';
 	}
 }
 
@@ -187,14 +194,17 @@ class GhostMissScriptEvent extends ScriptEvent
 {
 	public var direction(default, null):NoteDirection;
 
-	public var playAnimation:Bool = true;
-	public var suffix:String = '';
+	public var playAnimation:Bool;
+	public var suffix:String;
 
 	public function new(direction:NoteDirection)
 	{
 		super(GHOST_MISS);
 
 		this.direction = direction;
+
+		playAnimation = true;
+		suffix = '';
 	}
 }
 
