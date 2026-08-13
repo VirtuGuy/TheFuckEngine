@@ -13,19 +13,30 @@ import funkin.ui.freeplay.capsule.CapsuleSprite;
 /**
  * The base class for all the engine's script events.
  */
+@:build(funkin.util.macro.ScriptEventMacro.build())
+@:autoBuild(funkin.util.macro.ScriptEventMacro.build())
 class ScriptEvent
 {
 	public var type(default, null):ScriptEventType;
 	public var cancelled(default, null):Bool;
 
+	var handled(default, null):Bool;
+
 	public function new(type:ScriptEventType)
 	{
 		this.type = type;
+		this.handled = false;
 	}
 
 	public function cancel()
 	{
 		cancelled = true;
+	}
+
+	public function put()
+	{
+		handled = true;
+		cancelled = false;
 	}
 }
 

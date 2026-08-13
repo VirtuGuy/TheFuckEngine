@@ -40,7 +40,7 @@ class Countdown extends FunkinSprite
 
 	public function step(step:Int)
 	{
-		var event:CountdownScriptEvent = new CountdownScriptEvent(COUNTDOWN_STEP, step);
+		var event:CountdownScriptEvent = CountdownScriptEvent.get(COUNTDOWN_STEP, step);
 		dispatch(event);
 
 		if (event.cancelled)

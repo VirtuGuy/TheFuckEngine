@@ -29,14 +29,14 @@ class FunkinState extends FlxState
 	{
 		super.create();
 
-		dispatch(new StateScriptEvent(STATE_CREATE, this));
+		dispatch(StateScriptEvent.get(STATE_CREATE, this));
 	}
 
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
-		dispatch(new UpdateScriptEvent(elapsed));
+		dispatch(UpdateScriptEvent.get(elapsed));
 	}
 
 	public function dispatch(event:ScriptEvent)
@@ -44,19 +44,19 @@ class FunkinState extends FlxState
 		// Don't run the create, update, or destroy events for modules
 		// Modules handle these events on their own
 		if (event.type == CREATE || event.type == UPDATE || event.type == DESTROY)
-			return;
+			ModuleHandler.dispatch(event);
 
-		ModuleHandler.dispatch(event);
+		event.put();
 	}
 
 	function stepHit(step:Int)
 	{
-		dispatch(new ConductorScriptEvent(STEP_HIT, step, conductor.beat));
+		dispatch(ConductorScriptEvent.get(STEP_HIT, step, conductor.beat));
 	}
 
 	function beatHit(beat:Int)
 	{
-		dispatch(new ConductorScriptEvent(BEAT_HIT, conductor.step, beat));
+		dispatch(ConductorScriptEvent.get(BEAT_HIT, conductor.step, beat));
 	}
 
 	function directionDown(direction:NoteDirection) {}

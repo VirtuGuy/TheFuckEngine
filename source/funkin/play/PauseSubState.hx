@@ -122,7 +122,7 @@ class PauseSubState extends FunkinSubState
 
 	function resumeSong()
 	{
-		var event:ScriptEvent = new ScriptEvent(RESUME);
+		var event:ScriptEvent = ScriptEvent.get(RESUME);
 		dispatch(event);
 
 		if (event.cancelled)

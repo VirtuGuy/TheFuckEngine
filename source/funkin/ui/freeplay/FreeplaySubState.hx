@@ -261,7 +261,7 @@ class FreeplaySubState extends FunkinSubState
 		if (!stateMachine.canInteract())
 			return;
 
-		var event:FreeplaySongScriptEvent = new FreeplaySongScriptEvent(FREEPLAY_SONG_SELECTED, capsule);
+		var event:FreeplaySongScriptEvent = FreeplaySongScriptEvent.get(FREEPLAY_SONG_SELECTED, capsule);
 		dispatch(event);
 
 		if (event.cancelled)
@@ -315,7 +315,7 @@ class FreeplaySubState extends FunkinSubState
 		if (!stateMachine.canInteract() || song == null)
 			return;
 
-		var event:FreeplaySongScriptEvent = new FreeplaySongScriptEvent(FREEPLAY_SONG_FAVORITED, capsule);
+		var event:FreeplaySongScriptEvent = FreeplaySongScriptEvent.get(FREEPLAY_SONG_FAVORITED, capsule);
 		dispatch(event);
 
 		if (event.cancelled)
@@ -351,7 +351,7 @@ class FreeplaySubState extends FunkinSubState
 	{
 		// Intro script event
 		// Skip the intro if cancelled
-		var event:ScriptEvent = new ScriptEvent(FREEPLAY_INTRO);
+		var event:ScriptEvent = ScriptEvent.get(FREEPLAY_INTRO);
 		dispatch(event);
 
 		if (event.cancelled)
@@ -368,7 +368,7 @@ class FreeplaySubState extends FunkinSubState
 			stateMachine.reset();
 			backcard.show();
 
-			dispatch(new ScriptEvent(FREEPLAY_INTRO_DONE));
+			dispatch(ScriptEvent.get(FREEPLAY_INTRO_DONE));
 		}
 	}
 
@@ -386,7 +386,7 @@ class FreeplaySubState extends FunkinSubState
 
 		// Exit script event
 		// Prevent the player from exiting if cancelled
-		var event:ScriptEvent = new ScriptEvent(FREEPLAY_EXIT);
+		var event:ScriptEvent = ScriptEvent.get(FREEPLAY_EXIT);
 		dispatch(event);
 
 		if (event.cancelled)
@@ -396,7 +396,7 @@ class FreeplaySubState extends FunkinSubState
 
 		// Outro script event
 		// Skip the outro if cancelled
-		event = new ScriptEvent(FREEPLAY_OUTRO);
+		event = ScriptEvent.get(FREEPLAY_OUTRO);
 		dispatch(event);
 
 		if (event.cancelled)
@@ -410,7 +410,7 @@ class FreeplaySubState extends FunkinSubState
 
 		exitMovers.onOutroDone = () ->
 		{
-			dispatch(new ScriptEvent(FREEPLAY_OUTRO_DONE));
+			dispatch(ScriptEvent.get(FREEPLAY_OUTRO_DONE));
 			close();
 		}
 

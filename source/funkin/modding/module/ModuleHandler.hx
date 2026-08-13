@@ -30,8 +30,7 @@ class ModuleHandler
 				trace('Failed to load script $script.');
 		}
 
-		// Runs onCreate() for all modules
-		dispatch(new ScriptEvent(CREATE));
+		create();
 
 		// Adds a callback for when the game updates
 		// This allows modules to update, even when the game isn't paused
@@ -65,8 +64,20 @@ class ModuleHandler
 		}
 	}
 
+	static function create()
+	{
+		var event:ScriptEvent = ScriptEvent.get(CREATE);
+
+		for (module in modules)
+			ScriptEventDispatcher.dispatch(module, event);
+
+		event.put();
+	}
+
 	static function update()
 	{
+		var event:UpdateScriptEvent = UpdateScriptEvent.get(FlxG.elapsed);
+
 		for (module in modules)
 		{
 			if (!module.active)
@@ -76,21 +87,21 @@ class ModuleHandler
 			if (FlxG.state.subState != null && !module.alwaysUpdate)
 				continue;
 
-			ScriptEventDispatcher.dispatch(module, new UpdateScriptEvent(FlxG.elapsed));
+			ScriptEventDispatcher.dispatch(module, event);
 		}
+
+		event.put();
 	}
 
 	static function clear()
 	{
-		// The dispatch function checks for if a module is active
-		// We want to dispatch the onDestroy() event no matter what
+		var event:ScriptEvent = ScriptEvent.get(DESTROY);
+
 		for (module in modules)
-		{
-			var event:ScriptEvent = new ScriptEvent(DESTROY);
 			ScriptEventDispatcher.dispatch(module, event);
-		}
 
 		modules.clear();
+		event.put();
 
 		// Remove the update callback
 		FlxG.signals.postUpdate.remove(update);

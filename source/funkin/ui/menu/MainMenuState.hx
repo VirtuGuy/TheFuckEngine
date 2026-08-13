@@ -121,7 +121,7 @@ class MainMenuState extends FunkinState
 
 	function openFreeplayMenu()
 	{
-		var event:ScriptEvent = new ScriptEvent(FREEPLAY_ENTER);
+		var event:ScriptEvent = ScriptEvent.get(FREEPLAY_ENTER);
 		dispatch(event);
 
 		if (event.cancelled)

@@ -236,7 +236,7 @@ class PlayState extends FunkinState
 		updatePreferences();
 
 		// Runs the create script event
-		dispatch(new ScriptEvent(CREATE));
+		dispatch(ScriptEvent.get(CREATE));
 	}
 
 	override function update(elapsed:Float)
@@ -369,7 +369,7 @@ class PlayState extends FunkinState
 		}
 		else
 		{
-			var event:ScriptEvent = new ScriptEvent(SONG_RETRY);
+			var event:ScriptEvent = ScriptEvent.get(SONG_RETRY);
 			dispatch(event);
 
 			if (event.cancelled)
@@ -412,7 +412,7 @@ class PlayState extends FunkinState
 
 		nextEventIndex = 0;
 
-		dispatch(new SongLoadScriptEvent(notes, events));
+		dispatch(SongLoadScriptEvent.get(notes, events));
 
 		opponentStrumline.clean();
 		playerStrumline.clean();
@@ -438,7 +438,7 @@ class PlayState extends FunkinState
 
 	public function startCountdown()
 	{
-		var event:CountdownScriptEvent = new CountdownScriptEvent(COUNTDOWN_START, 0);
+		var event:CountdownScriptEvent = CountdownScriptEvent.get(COUNTDOWN_START, 0);
 		dispatch(event);
 
 		if (event.cancelled)
@@ -494,7 +494,7 @@ class PlayState extends FunkinState
 
 	public function pause()
 	{
-		var event:ScriptEvent = new ScriptEvent(PAUSE);
+		var event:ScriptEvent = ScriptEvent.get(PAUSE);
 		dispatch(event);
 
 		if (event.cancelled)
@@ -578,12 +578,12 @@ class PlayState extends FunkinState
 		FunkinSound.music.play();
 		voices.play();
 
-		dispatch(new ScriptEvent(SONG_START));
+		dispatch(ScriptEvent.get(SONG_START));
 	}
 
 	function endSong()
 	{
-		var event:ScriptEvent = new ScriptEvent(SONG_END);
+		var event:ScriptEvent = ScriptEvent.get(SONG_END);
 		dispatch(event);
 
 		songActive = false;
@@ -630,7 +630,7 @@ class PlayState extends FunkinState
 
 			// Handle the event
 			// That's if the script event wasn't cancelled though
-			var event:SongEventScriptEvent = new SongEventScriptEvent(event.e, event.v);
+			var event:SongEventScriptEvent = SongEventScriptEvent.get(event.e, event.v);
 			dispatch(event);
 
 			if (event.cancelled)
@@ -730,7 +730,7 @@ class PlayState extends FunkinState
 
 	function playerNoteHit(note:NoteSprite)
 	{
-		var event:NoteScriptEvent = new NoteScriptEvent(NOTE_HIT, note);
+		var event:NoteScriptEvent = NoteScriptEvent.get(NOTE_HIT, note);
 		dispatch(event);
 
 		if (event.cancelled)
@@ -767,7 +767,7 @@ class PlayState extends FunkinState
 
 	function playerHoldNoteHeld(holdNote:HoldNoteSprite)
 	{
-		var event:HoldNoteScriptEvent = new HoldNoteScriptEvent(HOLD_NOTE_HOLD, holdNote);
+		var event:HoldNoteScriptEvent = HoldNoteScriptEvent.get(HOLD_NOTE_HOLD, holdNote);
 		dispatch(event);
 
 		if (event.cancelled)
@@ -783,7 +783,7 @@ class PlayState extends FunkinState
 	{
 		playerStrumline.missNote(note);
 
-		var event:NoteScriptEvent = new NoteScriptEvent(NOTE_MISS, note);
+		var event:NoteScriptEvent = NoteScriptEvent.get(NOTE_MISS, note);
 		dispatch(event);
 
 		if (event.cancelled)
@@ -806,7 +806,7 @@ class PlayState extends FunkinState
 
 	function playerGhostMiss(direction:NoteDirection)
 	{
-		var event:GhostMissScriptEvent = new GhostMissScriptEvent(direction);
+		var event:GhostMissScriptEvent = GhostMissScriptEvent.get(direction);
 		dispatch(event);
 
 		if (event.cancelled)
@@ -820,7 +820,7 @@ class PlayState extends FunkinState
 
 	function playerHoldNoteDrop(holdNote:HoldNoteSprite)
 	{
-		var event:HoldNoteScriptEvent = new HoldNoteScriptEvent(HOLD_NOTE_DROP, holdNote);
+		var event:HoldNoteScriptEvent = HoldNoteScriptEvent.get(HOLD_NOTE_DROP, holdNote);
 		dispatch(event);
 
 		if (event.cancelled)
@@ -837,7 +837,7 @@ class PlayState extends FunkinState
 
 	function opponentNoteHit(note:NoteSprite)
 	{
-		var event:NoteScriptEvent = new NoteScriptEvent(NOTE_HIT, note);
+		var event:NoteScriptEvent = NoteScriptEvent.get(NOTE_HIT, note);
 		dispatch(event);
 
 		if (event.cancelled)
@@ -851,7 +851,7 @@ class PlayState extends FunkinState
 
 	function opponentHoldNoteHeld(holdNote:HoldNoteSprite)
 	{
-		var event:HoldNoteScriptEvent = new HoldNoteScriptEvent(HOLD_NOTE_HOLD, holdNote);
+		var event:HoldNoteScriptEvent = HoldNoteScriptEvent.get(HOLD_NOTE_HOLD, holdNote);
 		dispatch(event);
 	}
 
@@ -868,8 +868,6 @@ class PlayState extends FunkinState
 
 	override function dispatch(event:ScriptEvent)
 	{
-		super.dispatch(event);
-
 		ScriptEventDispatcher.dispatch(Playlist.level, event);
 		ScriptEventDispatcher.dispatch(song, event);
 
@@ -877,6 +875,8 @@ class PlayState extends FunkinState
 		NoteKindRegistry.instance.dispatch(event);
 
 		ScriptEventDispatcher.dispatch(stage, event);
+
+		super.dispatch(event);
 	}
 
 	override function openSubState(subState:FlxSubState)
@@ -928,7 +928,7 @@ class PlayState extends FunkinState
 	override function destroy()
 	{
 		// Runs the destroy script event
-		dispatch(new ScriptEvent(DESTROY));
+		dispatch(ScriptEvent.get(DESTROY));
 
 		// Not doing this can cause things to crash
 		// Even if it's accessed in a safe way

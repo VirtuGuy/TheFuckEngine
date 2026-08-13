@@ -30,14 +30,14 @@ class FunkinSubState extends FlxSubState
 	{
 		super.create();
 
-		dispatch(new SubStateScriptEvent(SUBSTATE_OPEN, this));
+		dispatch(SubStateScriptEvent.get(SUBSTATE_OPEN, this));
 	}
 
 	override function close()
 	{
 		super.close();
 
-		dispatch(new SubStateScriptEvent(SUBSTATE_CLOSE, this));
+		dispatch(SubStateScriptEvent.get(SUBSTATE_CLOSE, this));
 	}
 
 	override function destroy()
