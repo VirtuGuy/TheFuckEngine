@@ -44,17 +44,16 @@ class ScriptEventMacro
 				// RESET
 				//
 
-				var resetFunc:String = 'reset_${cls.name}';
 				var resetExpr:Expr = {expr: f.expr.expr, pos: pos};
+				var resetFunc:String = 'reset_${cls.name}';
 
 				if (cls.superClass != null)
 				{
-					var resetFunc:String = 'reset_${cls.superClass.t.get().name}';
-
 					switch (resetExpr.expr)
 					{
 						case EBlock(exprs):
 							var exprs:Array<Expr> = exprs.copy();
+							var resetFunc:String = 'reset_${cls.superClass.t.get().name}';
 
 							for (i => e in exprs)
 							{
