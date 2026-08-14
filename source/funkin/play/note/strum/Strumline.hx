@@ -86,7 +86,7 @@ class Strumline extends FlxGroup
 		notes.forEachAlive(note ->
 		{
 			final strum:StrumSprite = getStrum(note.direction);
-			final distance:Float = RhythmUtil.getDistance(note.time, speed);
+			final distance:Float = RhythmUtil.getDistance(note.time, note.wasBadHit ? 1 : speed);
 
 			note.x = strum.x;
 			note.y = strum.y + distance * (Preferences.downscroll ? -1 : 1);
@@ -163,7 +163,7 @@ class Strumline extends FlxGroup
 		this.speed = speed;
 	}
 
-	public function hitNote(note:NoteSprite)
+	public function hitNote(note:NoteSprite, wasBadHit:Bool = false)
 	{
 		getStrum(note.direction).playConfirm();
 
@@ -173,6 +173,16 @@ class Strumline extends FlxGroup
 
 			// Plays the hold cover here because this runs once
 			playHoldCover(note.holdNote);
+		}
+
+		if (wasBadHit)
+		{
+			note.alpha = 0.5;
+
+			note.wasBadHit = true;
+			note.wasMissed = true;
+
+			return;
 		}
 
 		note.kill();
@@ -256,6 +266,7 @@ class Strumline extends FlxGroup
 			note.buildSprite(style);
 
 		note.y = 9999;
+		note.alpha = 1;
 		note.data = data;
 
 		notes.sort((i, a, b) -> return SortUtil.byTime(FlxSort.ASCENDING, a.data, b.data));

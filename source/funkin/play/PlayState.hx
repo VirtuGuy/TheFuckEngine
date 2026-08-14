@@ -736,7 +736,7 @@ class PlayState extends FunkinState
 		if (event.cancelled)
 			return;
 
-		var judgement:Judgement = RhythmUtil.judgeNote(note);
+		final judgement:Judgement = RhythmUtil.judgeNote(note);
 
 		score += judgement.score;
 		health += Constants.NOTE_HEALTH;
@@ -762,7 +762,7 @@ class PlayState extends FunkinState
 		popups.popupJudgement(judgement);
 		popups.popupCombo(tallies.combo);
 
-		playerStrumline.hitNote(note);
+		playerStrumline.hitNote(note, judgement == BAD || judgement == SHIT);
 	}
 
 	function playerHoldNoteHeld(holdNote:HoldNoteSprite)
