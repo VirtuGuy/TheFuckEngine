@@ -86,14 +86,14 @@ class Strumline extends FlxGroup
 		notes.forEachAlive(note ->
 		{
 			final strum:StrumSprite = getStrum(note.direction);
-			final distance:Float = RhythmUtil.getDistance(note.time, note.wasBadHit ? 1 : speed);
+			final distance:Float = RhythmUtil.getDistance(note.time, speed);
 
 			note.x = strum.x;
 			note.y = strum.y + distance * (Preferences.downscroll ? -1 : 1);
 
 			final isOffscreen:Bool = Preferences.downscroll ? note.y > FlxG.height : note.y < -note.height;
 
-			if (isOffscreen && note.wasMissed)
+			if (isOffscreen && (note.wasMissed || note.wasHit))
 				note.kill();
 
 			RhythmUtil.processHitWindow(note, isPlayer);
@@ -124,7 +124,7 @@ class Strumline extends FlxGroup
 
 			final isOffscreen:Bool = Preferences.downscroll ? holdNote.y > FlxG.height + holdNote.height : holdNote.y < -holdNote.height;
 
-			if (isOffscreen && holdNote.wasMissed)
+			if (isOffscreen && (holdNote.wasMissed || holdNote.wasHit))
 				holdNote.kill();
 		});
 	}
@@ -163,9 +163,16 @@ class Strumline extends FlxGroup
 		this.speed = speed;
 	}
 
-	public function hitNote(note:NoteSprite, wasBadHit:Bool = false)
+	public function hitNote(note:NoteSprite, removeNote:Bool = true)
 	{
 		getStrum(note.direction).playConfirm();
+
+		note.wasHit = true;
+
+		if (removeNote)
+			note.kill();
+		else
+			note.alpha = 0.5;
 
 		if (note.holdNote != null)
 		{
@@ -174,18 +181,6 @@ class Strumline extends FlxGroup
 			// Plays the hold cover here because this runs once
 			playHoldCover(note.holdNote);
 		}
-
-		if (wasBadHit)
-		{
-			note.alpha = 0.5;
-
-			note.wasBadHit = true;
-			note.wasMissed = true;
-
-			return;
-		}
-
-		note.kill();
 	}
 
 	public function missNote(note:NoteSprite)
@@ -238,19 +233,24 @@ class Strumline extends FlxGroup
 		return notes.members.filter(note -> return note.alive);
 	}
 
-	public function getMayHitNotes():Array<NoteSprite>
+	public function getCurrentHoldNotes():Array<HoldNoteSprite>
 	{
-		return notes.members.filter(note -> return note.alive && note.mayHit && !note.willMiss);
+		return holdNotes.members.filter(holdNote -> return holdNote.alive);
 	}
 
-	public function getHeldHoldNotes():Array<HoldNoteSprite>
+	public function getMayHitNotes():Array<NoteSprite>
 	{
-		return holdNotes.members.filter(holdNote -> return holdNote.alive && holdNote.wasHit);
+		return getCurrentNotes().filter(note -> return note.mayHit && !note.wasHit && !note.willMiss);
 	}
 
 	public function getMissedNotes():Array<NoteSprite>
 	{
-		return notes.members.filter(note -> return note.alive && note.willMiss && !note.wasMissed);
+		return getCurrentNotes().filter(note -> return note.willMiss && !note.wasMissed);
+	}
+
+	public function getHeldHoldNotes():Array<HoldNoteSprite>
+	{
+		return getCurrentHoldNotes().filter(holdNote -> return holdNote.wasHit);
 	}
 
 	public function getStrum(direction:NoteDirection):StrumSprite

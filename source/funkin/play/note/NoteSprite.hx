@@ -19,7 +19,7 @@ class NoteSprite extends FunkinSprite
 	public var isPlayer(get, never):Bool;
 
 	public var mayHit:Bool;
-	public var wasBadHit:Bool;
+	public var wasHit:Bool;
 
 	public var willMiss:Bool;
 	public var wasMissed:Bool;
@@ -47,7 +47,7 @@ class NoteSprite extends FunkinSprite
 		holdNote = null;
 
 		mayHit = false;
-		wasBadHit = false;
+		wasHit = false;
 
 		willMiss = false;
 		wasMissed = false;

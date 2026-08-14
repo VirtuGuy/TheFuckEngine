@@ -762,7 +762,7 @@ class PlayState extends FunkinState
 		popups.popupJudgement(judgement);
 		popups.popupCombo(tallies.combo);
 
-		playerStrumline.hitNote(note, judgement == BAD || judgement == SHIT);
+		playerStrumline.hitNote(note, judgement != BAD && judgement != SHIT);
 	}
 
 	function playerHoldNoteHeld(holdNote:HoldNoteSprite)
