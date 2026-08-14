@@ -43,6 +43,9 @@ class RhythmUtil
 		if (isPlayer)
 			hitStart -= Constants.HIT_WINDOW_MS;
 
+		note.mayHit = false;
+		note.willMiss = false;
+
 		if (songTime >= hitEnd)
 			note.willMiss = true;
 		if (songTime >= hitStart)
