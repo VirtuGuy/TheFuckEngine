@@ -287,13 +287,25 @@ class PlayState extends FunkinState
 		if (opponentIcon != null)
 		{
 			opponentIcon.x = healthBar.fillPosition - opponentIcon.width + 15;
-			opponentIcon.isDead = health > 0.8;
+
+			if (health > 0.8)
+				opponentIcon.state = LOSING;
+			else if (health < 0.2)
+				opponentIcon.state = WINNING;
+			else
+				opponentIcon.state = IDLE;
 		}
 
 		if (playerIcon != null)
 		{
 			playerIcon.x = healthBar.fillPosition - 15;
-			playerIcon.isDead = health < 0.2;
+
+			if (health > 0.8)
+				playerIcon.state = WINNING;
+			else if (health < 0.2)
+				playerIcon.state = LOSING;
+			else
+				playerIcon.state = IDLE;
 		}
 
 		if (!songEnded)

@@ -17,9 +17,9 @@ class HealthIcon extends FunkinSprite
 	public var meta:CharacterIconData;
 	public var isPlayer:Bool;
 
-	public var isDead(default, set):Bool;
+	public var state(default, set):HealthIconState = IDLE;
 
-	var baseScale:Float;
+	var _scale:Float;
 
 	public function new(id:String, meta:CharacterIconData, isPlayer:Bool = false)
 	{
@@ -36,15 +36,13 @@ class HealthIcon extends FunkinSprite
 		loadSprite(path);
 		loadSprite(path, meta.scale, graphic?.height, graphic?.height);
 
-		addAnimation('icon', [0, 1], 0);
+		addAnimation('icon', [0, 1, 2], 0);
 		playAnimation('icon');
 
 		flipX = meta.flipX != isPlayer;
 		flipY = meta.flipY;
 
-		baseScale = scale.x;
-
-		isDead = false;
+		_scale = scale.x;
 	}
 
 	override function update(elapsed:Float)
@@ -52,7 +50,7 @@ class HealthIcon extends FunkinSprite
 		super.update(elapsed);
 
 		// Cool ass lerping >:D
-		scale.x = scale.y = MathUtil.lerp(scale.x, baseScale, LERP_SPEED);
+		scale.x = scale.y = MathUtil.lerp(scale.x, _scale, LERP_SPEED);
 		angle = MathUtil.lerp(angle, 0, LERP_SPEED);
 	}
 
@@ -62,21 +60,30 @@ class HealthIcon extends FunkinSprite
 		if (Conductor.instance.beat % meta.bopEvery != 0)
 			return;
 
-		scale.x = scale.y = baseScale * BOP_SCALE;
+		scale.x = scale.y = _scale * BOP_SCALE;
 
 		if (meta.bopAngle != null)
 			angle = meta.bopAngle;
 	}
 
 	@:noCompletion
-	function set_isDead(value:Bool):Bool
+	function set_state(value:HealthIconState):HealthIconState
 	{
-		if (this.isDead == value)
-			return value;
-		this.isDead = value;
+		if (state == value)
+			return state;
 
-		animation.frameIndex = value ? 1 : 0;
+		state = value;
 
-		return value;
+		animation.frameIndex = switch (state)
+		{
+			case LOSING:
+				1;
+			case WINNING:
+				2;
+			default:
+				0;
+		}
+
+		return state;
 	}
 }
