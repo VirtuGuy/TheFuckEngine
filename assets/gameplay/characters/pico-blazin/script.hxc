@@ -19,6 +19,9 @@ class PicoBlazinCharacter extends Character
         num = 1 - num;
 
         playAnimation('punch-$name-$num', true);
+
+        // Shakes the camera for the cool
+        camera.shake(0.002, 0.1);
     }
 
     function block()

@@ -19,6 +19,9 @@ class DarnellBlazinCharacter extends Character
         num = 1 - num;
 
         playAnimation('punch-$name-$num', true);
+
+        // Shakes the camera for the cool
+        camera.shake(0.002, 0.1);
     }
 
     function block()
@@ -33,9 +36,9 @@ class DarnellBlazinCharacter extends Character
 
     override function onNoteHit(event:NoteScriptEvent)
     {
-        if (FlxG.random.bool(20))
+        if (FlxG.random.bool(5))
             block();
-        else if (FlxG.random.bool(5))
+        else if (FlxG.random.bool(2))
             dodge();
         else
             punch();
