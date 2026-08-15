@@ -1,9 +1,8 @@
 package funkin.input;
 
-import lime.system.System;
+import lime.app.Application;
 import lime.ui.GamepadButton;
 import lime.ui.KeyCode;
-import openfl.events.Event;
 
 /**
  * The engine's control action class.
@@ -12,16 +11,13 @@ class FunkinAction
 {
 	public final id:Control;
 
-	public var pressed:Bool = false;
-	public var justPressed(get, never):Bool;
+	public var pressed(default, null):Bool;
+	public var justPressed(default, null):Bool;
+
+	var wasPressed:Bool;
 
 	var keys:Array<KeyCode> = [];
 	var buttons:Array<GamepadButton> = [];
-
-	var timestamp:Float;
-
-	var lastTime:Float;
-	var elapsed:Float;
 
 	public function new(id:Control, keys:Array<KeyCode>, buttons:Array<GamepadButton>)
 	{
@@ -30,7 +26,7 @@ class FunkinAction
 		this.keys = keys;
 		this.buttons = buttons;
 
-		FlxG.stage.addEventListener(Event.ENTER_FRAME, update);
+		Application.current.onUpdate.add(update);
 	}
 
 	public function press()
@@ -38,33 +34,32 @@ class FunkinAction
 		if (pressed)
 			return;
 		pressed = true;
-		timestamp = System.getTimer();
 	}
 
 	public function release()
 	{
 		pressed = false;
+		wasPressed = false;
 	}
 
-	public inline function hasKey(key:KeyCode):Bool
+	public function hasKey(key:KeyCode):Bool
 	{
 		return keys.contains(key);
 	}
 
-	public inline function hasButton(button:GamepadButton):Bool
+	public function hasButton(button:GamepadButton):Bool
 	{
 		return buttons.contains(button);
 	}
 
 	function update(_)
 	{
-		elapsed = System.getTimer() - lastTime;
-		lastTime = System.getTimer();
-	}
-
-	@:noCompletion
-	function get_justPressed():Bool
-	{
-		return timestamp + elapsed >= System.getTimer();
+		if (wasPressed)
+			justPressed = false;
+		else if (pressed)
+		{
+			justPressed = true;
+			wasPressed = true;
+		}
 	}
 }

@@ -89,7 +89,7 @@ class Option extends FlxSpriteGroup
 	@:noCompletion
 	inline function set_value(value:Dynamic):Dynamic
 	{
-		value = value.clamp(min, max);
+		value = NumberTools.clamp(value, min, max);
 
 		if (this.value == value)
 			return value;
