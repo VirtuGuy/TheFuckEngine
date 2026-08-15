@@ -10,6 +10,9 @@ import funkin.util.MathUtil;
  */
 class HealthIcon extends FunkinSprite
 {
+	static final LERP_SPEED:Float = 0.165;
+	static final BOP_SCALE:Float = 1.265;
+
 	public var id:String;
 	public var meta:CharacterIconData;
 	public var isPlayer:Bool;
@@ -49,8 +52,8 @@ class HealthIcon extends FunkinSprite
 		super.update(elapsed);
 
 		// Cool ass lerping >:D
-		scale.x = scale.y = MathUtil.lerp(scale.x, baseScale, 0.15);
-		angle = MathUtil.lerp(angle, 0, 0.15);
+		scale.x = scale.y = MathUtil.lerp(scale.x, baseScale, LERP_SPEED);
+		angle = MathUtil.lerp(angle, 0, LERP_SPEED);
 	}
 
 	public function bop()
@@ -59,7 +62,7 @@ class HealthIcon extends FunkinSprite
 		if (Conductor.instance.beat % meta.bopEvery != 0)
 			return;
 
-		scale.x = scale.y = baseScale * 1.25;
+		scale.x = scale.y = baseScale * BOP_SCALE;
 
 		if (meta.bopAngle != null)
 			angle = meta.bopAngle;
