@@ -245,7 +245,7 @@ class Strumline extends FlxGroup
 
 	public function getMissedNotes():Array<NoteSprite>
 	{
-		return getCurrentNotes().filter(note -> return note.willMiss && !note.wasMissed);
+		return getCurrentNotes().filter(note -> return !note.wasHit && note.willMiss && !note.wasMissed);
 	}
 
 	public function getHeldHoldNotes():Array<HoldNoteSprite>
