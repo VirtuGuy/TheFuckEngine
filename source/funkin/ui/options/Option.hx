@@ -1,7 +1,6 @@
 package funkin.ui.options;
 
 import flixel.group.FlxSpriteGroup;
-import flixel.math.FlxMath;
 import funkin.graphics.FunkinSprite;
 import funkin.graphics.FunkinText;
 
@@ -90,7 +89,7 @@ class Option extends FlxSpriteGroup
 	@:noCompletion
 	inline function set_value(value:Dynamic):Dynamic
 	{
-		value = FlxMath.bound(value, min, max);
+		value = value.clamp(min, max);
 
 		if (this.value == value)
 			return value;

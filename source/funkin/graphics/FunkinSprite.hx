@@ -2,7 +2,6 @@ package funkin.graphics;
 
 import flixel.FlxSprite;
 import flixel.graphics.FlxGraphic;
-import flixel.math.FlxMath;
 import flixel.util.FlxColor;
 
 /**
@@ -26,8 +25,8 @@ class FunkinSprite extends FlxSprite
 
 		// Validates the width and height
 		// Hooray no more crashy!!!
-		width = Std.int(FlxMath.bound(width, 0, graphic?.width));
-		height = Std.int(FlxMath.bound(height, 0, graphic?.height));
+		width = Std.int(width.clamp(0, graphic?.width));
+		height = Std.int(height.clamp(0, graphic?.height));
 
 		// Properly loads the graphic
 		loadGraphic(graphic, width > 0 || height > 0, width, height);

@@ -3,7 +3,6 @@ package funkin.play;
 import flixel.FlxCamera;
 import flixel.FlxObject;
 import flixel.FlxSubState;
-import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxSort;
@@ -280,7 +279,7 @@ class PlayState extends FunkinState
 		// HUD
 		//
 
-		health = FlxMath.bound(health, healthBar.min, healthBar.max);
+		health = health.clamp(healthBar.min, healthBar.max);
 		healthLerp = MathUtil.lerp(healthLerp, health, 0.15);
 
 		healthBar.value = healthLerp;
