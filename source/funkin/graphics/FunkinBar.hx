@@ -14,7 +14,7 @@ class FunkinBar extends FunkinSprite
 	public var emptyColor:FlxColor;
 	public var fillColor:FlxColor;
 
-	public var value:Float;
+	public var value(default, set):Float;
 
 	public var percent(get, never):Float;
 	public var fillPosition(get, never):Float;
@@ -57,9 +57,15 @@ class FunkinBar extends FunkinSprite
 	}
 
 	@:noCompletion
+	inline function set_value(value:Float):Float
+	{
+		return this.value = value.clamp(min, max);
+	}
+
+	@:noCompletion
 	inline function get_percent():Float
 	{
-		return value / max;
+		return (value - min) / (max - min);
 	}
 
 	@:noCompletion

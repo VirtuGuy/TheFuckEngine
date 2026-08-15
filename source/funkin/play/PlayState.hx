@@ -723,8 +723,8 @@ class PlayState extends FunkinState
 
 		if (controls.RESET)
 		{
-			health = 0;
-			healthLerp = 0;
+			health = healthBar.min;
+			healthLerp = health;
 		}
 	}
 
