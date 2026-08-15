@@ -43,7 +43,7 @@ class FunkinState extends FlxState
 	{
 		// Don't run the create, update, or destroy events for modules
 		// Modules handle these events on their own
-		if (event.type == CREATE || event.type == UPDATE || event.type == DESTROY)
+		if (event.type != CREATE && event.type != UPDATE && event.type != DESTROY)
 			ModuleHandler.dispatch(event);
 
 		event.put();
