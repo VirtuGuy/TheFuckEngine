@@ -31,14 +31,14 @@ class FunkinAction
 
 	public function press()
 	{
-		if (pressed)
-			return;
 		pressed = true;
+		justPressed = true;
 	}
 
 	public function release()
 	{
 		pressed = false;
+		justPressed = false;
 		wasPressed = false;
 	}
 
@@ -54,12 +54,10 @@ class FunkinAction
 
 	function update(_)
 	{
+		if (!pressed)
+			return;
 		if (wasPressed)
 			justPressed = false;
-		else if (pressed)
-		{
-			justPressed = true;
-			wasPressed = true;
-		}
+		wasPressed = true;
 	}
 }
