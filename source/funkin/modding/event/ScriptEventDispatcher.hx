@@ -34,7 +34,7 @@ class ScriptEventDispatcher
 		// STATE
 		//
 
-		if (Std.isOfType(target, IStateScriptedClass))
+		if (target is IStateScriptedClass)
 		{
 			var target:IStateScriptedClass = cast target;
 
@@ -55,7 +55,7 @@ class ScriptEventDispatcher
 		// NOTE
 		//
 
-		if (Std.isOfType(target, INoteScriptedClass))
+		if (target is INoteScriptedClass)
 		{
 			var target:INoteScriptedClass = cast target;
 
@@ -80,7 +80,7 @@ class ScriptEventDispatcher
 		// CONDUCTOR
 		//
 
-		if (Std.isOfType(target, IConductorScriptedClass))
+		if (target is IConductorScriptedClass)
 		{
 			var target:IConductorScriptedClass = cast target;
 
@@ -99,7 +99,7 @@ class ScriptEventDispatcher
 		// PLAYSTATE
 		//
 
-		if (Std.isOfType(target, IPlayStateScriptedClass))
+		if (target is IPlayStateScriptedClass)
 		{
 			var target:IPlayStateScriptedClass = cast target;
 
@@ -138,7 +138,7 @@ class ScriptEventDispatcher
 		// FREEPLAY
 		//
 
-		if (Std.isOfType(target, IFreeplayScriptedClass))
+		if (target is IFreeplayScriptedClass)
 		{
 			var target:IFreeplayScriptedClass = cast target;
 

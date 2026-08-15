@@ -85,7 +85,7 @@ class Countdown extends FunkinSprite
 
 	function dispatch(event:ScriptEvent)
 	{
-		if (!Std.isOfType(FlxG.state, FunkinState))
+		if (!(FlxG.state is FunkinState))
 			return;
 
 		final state:FunkinState = cast FlxG.state;

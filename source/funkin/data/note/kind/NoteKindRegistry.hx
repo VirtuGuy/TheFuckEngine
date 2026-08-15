@@ -45,13 +45,13 @@ class NoteKindRegistry extends BaseRegistry<NoteKind>
 	public function dispatch(event:ScriptEvent)
 	{
 		// Handle note script events
-		if (Std.isOfType(event, NoteScriptEvent))
+		if (event is NoteScriptEvent)
 		{
 			var event:NoteScriptEvent = cast event;
 
 			ScriptEventDispatcher.dispatch(fetch(event.note.kind), event);
 		}
-		else if (Std.isOfType(event, HoldNoteScriptEvent))
+		else if (event is HoldNoteScriptEvent)
 		{
 			var event:HoldNoteScriptEvent = cast event;
 

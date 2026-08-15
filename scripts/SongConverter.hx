@@ -258,7 +258,7 @@ class SongConverter
 
 				var c:Dynamic = event.v.char;
 
-				if (Std.isOfType(c, String))
+				if (c is String)
 					c = Std.parseInt(c);
 				if (Type.typeof(event.v) == TInt)
 					c = event.v;
