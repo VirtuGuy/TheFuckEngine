@@ -3,6 +3,7 @@ package funkin.play;
 import flixel.FlxCamera;
 import flixel.FlxObject;
 import flixel.FlxSubState;
+import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxSort;
@@ -254,7 +255,17 @@ class PlayState extends FunkinState
 			if (songLoaded)
 			{
 				if (songStarted)
-					conductor.time = FunkinSound.music.time - conductor.offset;
+				{
+					var time:Float = FunkinSound.music.time - conductor.offset;
+					var diff:Float = Math.round(Math.abs(conductor.time - time));
+
+					// Notes can appear choppy depending on the framerate
+					// Blehh
+					if (diff <= Constants.CONDUCTOR_DRIFT_THRESHOLD)
+						conductor.time = FlxMath.lerp(conductor.time, time, 1 - Math.exp(-(Constants.MUSIC_EASE_RATIO * playbackRate) * elapsed));
+					else
+						conductor.time = time;
+				}
 				else
 				{
 					conductor.time += elapsed * Constants.MS_PER_SEC * playbackRate;
