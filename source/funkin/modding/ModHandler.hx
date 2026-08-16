@@ -1,16 +1,7 @@
 package funkin.modding;
 
-import funkin.data.character.CharacterRegistry;
-import funkin.data.event.EventRegistry;
-import funkin.data.freeplay.album.AlbumRegistry;
-import funkin.data.freeplay.player.PlayerRegistry;
-import funkin.data.note.kind.NoteKindRegistry;
-import funkin.data.note.style.NoteStyleRegistry;
 import funkin.data.song.SongRegistry;
-import funkin.data.stage.StageRegistry;
-import funkin.data.sticker.StickerRegistry;
 import funkin.data.story.LevelRegistry;
-import funkin.modding.module.ModuleHandler;
 import funkin.play.PlayState;
 import funkin.play.Playlist;
 import funkin.util.WindowUtil;
@@ -41,21 +32,7 @@ class ModHandler
 
 		loadMods();
 
-		// Reloads the registries
-		// Not having this would ruin the point of hot-reloading
-		CharacterRegistry.instance.load();
-		StageRegistry.instance.load();
-		SongRegistry.instance.load();
-		LevelRegistry.instance.load();
-		PlayerRegistry.instance.load();
-		EventRegistry.instance.load();
-		NoteKindRegistry.instance.load();
-		NoteStyleRegistry.instance.load();
-		StickerRegistry.instance.load();
-		AlbumRegistry.instance.load();
-
-		// Reload all the modules
-		ModuleHandler.load();
+		InitState.loadRegistries();
 
 		// Reload the current song and level
 		// This is so dumb

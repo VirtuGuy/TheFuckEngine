@@ -17,8 +17,6 @@ class BaseRegistry<T>
 	{
 		this.id = id;
 		this.path = path ?? this.id;
-
-		load();
 	}
 
 	public function load()

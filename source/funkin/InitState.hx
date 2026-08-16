@@ -75,9 +75,27 @@ class InitState extends FlxState
 		StickerRegistry.instance = new StickerRegistry();
 		AlbumRegistry.instance = new AlbumRegistry();
 
-		ModuleHandler.load();
+		loadRegistries();
 
 		// Starts the game
 		FlxG.switchState(() -> new TitleState());
+	}
+
+	public static function loadRegistries()
+	{
+		// Loads registries
+		CharacterRegistry.instance.load();
+		StageRegistry.instance.load();
+		SongRegistry.instance.load();
+		LevelRegistry.instance.load();
+		PlayerRegistry.instance.load();
+		EventRegistry.instance.load();
+		NoteKindRegistry.instance.load();
+		NoteStyleRegistry.instance.load();
+		StickerRegistry.instance.load();
+		AlbumRegistry.instance.load();
+
+		// Loads modules
+		ModuleHandler.load();
 	}
 }
