@@ -83,7 +83,7 @@ class FunkinSoundTray extends FlxSoundTray
 		_timer = 0;
 
 		isSilent = volume == 0;
-		lerpPos = 70;
+		lerpPos = 50;
 
 		scaleX = SCALE * 1.25;
 		scaleY = SCALE * 0.75;
@@ -99,7 +99,7 @@ class FunkinSoundTray extends FlxSoundTray
 	{
 		var bar:Bitmap = new Bitmap(Assets.getBitmapData(Paths.image(getPath('bars/bar$index'))));
 		bar.x = -bar.width / 2;
-		bar.y = back.y + bar.height / 2 - 2;
+		bar.y = back.y + bar.height / 2 - 3;
 
 		addChild(bar);
 
