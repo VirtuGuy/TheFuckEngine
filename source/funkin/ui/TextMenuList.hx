@@ -19,7 +19,7 @@ class TextMenuList extends FlxTypedGroup<FunkinText>
 	public var onChange(default, null) = new FlxTypedSignal<Int->Void>();
 	public var onSelect(default, null) = new FlxTypedSignal<Int->Void>();
 
-	var callbacks(default, null) = new Map<Int, Void->Void>();
+	var callbacks(default, null) = new Map<Int, () -> Void>();
 
 	override function update(elapsed:Float)
 	{
@@ -43,7 +43,7 @@ class TextMenuList extends FlxTypedGroup<FunkinText>
 		});
 	}
 
-	public function addItem(text:String, callback:Void->Void)
+	public function addItem(text:String, callback:() -> Void)
 	{
 		var item:FunkinText = recycle(FunkinText);
 

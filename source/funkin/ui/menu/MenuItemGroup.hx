@@ -39,7 +39,7 @@ class MenuItemGroup extends FlxTypedGroup<MenuItem>
 			change(up ? -1 : 1);
 	}
 
-	public function addItem(id:String, callback:Void->Void)
+	public function addItem(id:String, callback:() -> Void)
 	{
 		var item:MenuItem = new MenuItem(id);
 

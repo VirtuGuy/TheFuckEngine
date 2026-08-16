@@ -13,8 +13,8 @@ class ExitMovers
 {
 	final DURATION:Float = 0.75;
 
-	public var onIntroDone:Void->Void;
-	public var onOutroDone:Void->Void;
+	public var onIntroDone:() -> Void;
+	public var onOutroDone:() -> Void;
 
 	var movers(default, null) = new Map<FlxObject, ExitMoverData>();
 	var endTimer:FlxTimer;

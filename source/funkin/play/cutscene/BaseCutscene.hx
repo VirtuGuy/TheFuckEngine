@@ -12,11 +12,11 @@ class BaseCutscene extends FlxGroup
 	public var id:String;
 
 	var hideHUD:Bool;
-	var callback:Void->Void;
+	var callback:() -> Void;
 
 	var controls(get, never):Controls;
 
-	public function new(id:String, hideHUD:Bool = true, ?callback:Void->Void)
+	public function new(id:String, hideHUD:Bool = true, ?callback:() -> Void)
 	{
 		super();
 

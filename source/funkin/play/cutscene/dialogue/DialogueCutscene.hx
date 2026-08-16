@@ -36,7 +36,7 @@ class DialogueCutscene extends BaseCutscene
 	var lineText(get, never):String;
 	var lineFinished(get, never):Bool;
 
-	public function new(id:String, ?callback:Void->Void)
+	public function new(id:String, ?callback:() -> Void)
 	{
 		super(id, false, callback);
 

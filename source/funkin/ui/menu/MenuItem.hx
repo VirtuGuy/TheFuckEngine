@@ -10,7 +10,7 @@ class MenuItem extends FunkinSprite
 	public var id:String;
 	public var selected(default, set):Bool;
 
-	public var onSelected:Void->Void;
+	public var onSelected:() -> Void;
 
 	public function new(id:String)
 	{
