@@ -1,6 +1,6 @@
 {
     "name": "Pico",
-    "width": 232,
+    "width": 228,
     "height": 225,
     "flipX": true,
     "animations": [

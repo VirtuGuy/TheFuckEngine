@@ -1,7 +1,7 @@
 {
     "name": "Pico",
     "width": 240,
-    "height": 244,
+    "height": 246,
     "globalOffset": [0, -350],
     "cameraOffset": [-100, -100],
     "icon": {},
@@ -52,12 +52,16 @@
             "frames": [15, 16, 17]
         },
         {
+            "name": "cheer",
+            "frames": [18, 19, 20]
+        },
+        {
             "name": "cock",
-            "frames": [18, 19]
+            "frames": [21, 22]
         },
         {
             "name": "fire",
-            "frames": [20, 21]
+            "frames": [23, 24]
         }
     ]
 }
