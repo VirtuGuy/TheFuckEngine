@@ -57,7 +57,10 @@ class FunkinSubState extends FlxSubState
 		// Script events only work if the parent state is a FunkinState
 		// Why wouldn't you use FunkinState anyways?
 		if (!(_parentState is FunkinState))
+		{
+			event.put();
 			return;
+		}
 
 		var state:FunkinState = cast _parentState;
 
