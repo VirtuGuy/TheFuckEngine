@@ -1,0 +1,59 @@
+{
+    "name": "Pico (Christmas)",
+    "width": 240,
+    "height": 244,
+    "globalOffset": [0, -350],
+    "cameraOffset": [-100, -100],
+    "pause": "pico",
+    "death": {
+        "id": "pico",
+        "sounds": "pico",
+        "music": "pico"
+    },
+    "icon": {
+        "id": "pico"
+    },
+    "flipX": true,
+    "animations": [
+        {
+            "name": "idle",
+            "frames": [0, 1, 2]
+        },
+        {
+            "name": "left",
+            "frames": [3, 4]
+        },
+        {
+            "name": "right",
+            "frames": [5, 6]
+        },
+        {
+            "name": "up",
+            "frames": [7, 8]
+        }, 
+        {
+            "name": "down",
+            "frames": [9, 10]
+        },
+        {
+            "name": "left-miss",
+            "frames": [3, 11],
+            "framerate": 20
+        },
+        {
+            "name": "right-miss",
+            "frames": [5, 12],
+            "framerate": 20
+        },
+        {
+            "name": "up-miss",
+            "frames": [7, 13],
+            "framerate": 20
+        },
+        {
+            "name": "down-miss",
+            "frames": [9, 14],
+            "framerate": 20
+        }
+    ]
+}
