@@ -1,20 +1,24 @@
+import funkin.data.character.CharacterRegistry;
 import funkin.play.character.Character;
 import funkin.play.PlayState;
 
-class NeneCharacter extends Character
+class NeneBaseCharacter extends Character
 {
+    var abotPath:String;
     var abot:ABotSprite;
 
-    public function new()
+    public function new(?id:String, ?abotPath:String)
     {
-        super("nene");
+        super(id ?? 'nene');
+
+        this.abotPath = abotPath ?? 'nene';
     }
 
     override function onCreate(event:ScriptEvent)
     {
         super.onCreate(event);
 
-        abot = new ABotSprite('$charPath/abot');
+        abot = new ABotSprite('${CharacterRegistry.instance.path}/$abotPath/abot');
         abot.scrollFactor.x = scrollFactor.x;
         abot.scrollFactor.y = scrollFactor.y;
         abot.zIndex = zIndex - 1;
@@ -50,7 +54,7 @@ class NeneCharacter extends Character
     {
         super.onSongEvent(event);
 
-        if (event.kind != "focus-camera")
+        if (event.kind != 'focus-camera')
             return;
 
         abot.look(event.value.c == 1);

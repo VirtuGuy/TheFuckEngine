@@ -1,0 +1,17 @@
+{
+    "name": "Nene (Christmas)",
+    "width": 200,
+    "height": 242,
+    "globalOffset": [0, -420],
+    "cameraOffset": [0, 20],
+    "icon": {
+        "id": "nene"
+    },
+    "bopEvery": 1,
+    "animations": [
+        {
+            "name": "idle",
+            "frames": [0, 1, 2]
+        }
+    ]
+}

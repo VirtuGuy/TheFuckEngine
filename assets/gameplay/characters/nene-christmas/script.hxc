@@ -1,0 +1,7 @@
+class NeneChristmasCharacter extends NeneBaseCharacter
+{
+    public function new()
+    {
+        super('nene-christmas');
+    }
+}
