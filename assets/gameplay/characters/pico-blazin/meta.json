@@ -4,6 +4,7 @@
     "height": 224,
     "globalOffset": [0, -350],
     "cameraOffset": [-120, -100],
+    "pause": "pico",
     "icon": {
         "id": "pico"
     },
