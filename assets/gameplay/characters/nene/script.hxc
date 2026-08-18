@@ -7,9 +7,12 @@ class NeneBaseCharacter extends Character
     var abotPath:String;
     var abot:ABotSprite;
 
-    public function new(?id:String, ?abotPath:String)
+    public function new(id:String, ?abotPath:String)
     {
-        super(id ?? 'nene');
+        if (id == '')
+            id = 'nene';
+
+        super(id);
 
         this.abotPath = abotPath ?? 'nene';
     }
