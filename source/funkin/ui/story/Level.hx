@@ -24,7 +24,6 @@ class Level implements IPlayStateScriptedClass
 	public var color(get, never):String;
 
 	var songs:Array<String>;
-	var songNames:Array<String>;
 	var diffs:Array<String>;
 
 	public function new(id:String)
@@ -59,11 +58,7 @@ class Level implements IPlayStateScriptedClass
 
 	public function getSongNames():Array<String>
 	{
-		// Use a cached array to make it real easy for the engine
-		if (songNames != null)
-			return songNames;
-
-		songNames = [];
+		var songNames:Array<String> = [];
 
 		for (song in getSongs())
 		{
@@ -83,12 +78,17 @@ class Level implements IPlayStateScriptedClass
 
 		diffs = [];
 
-		for (i => song in getSongs())
+		var checked:Bool = false;
+
+		for (song in getSongs())
 		{
 			final song:Song = SongRegistry.instance.fetch(song);
 
-			if (i == 0)
+			if (!checked)
+			{
 				diffs = song.getDifficulties(false);
+				checked = true;
+			}
 
 			for (diff in diffs.copy())
 			{
