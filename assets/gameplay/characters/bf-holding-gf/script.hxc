@@ -1,0 +1,19 @@
+import funkin.play.character.Character;
+
+class BFHoldingGFCharacter extends Character
+{
+    public function new()
+    {
+        super('bf-holding-gf');
+    }
+
+    override function getDeathSFX(id:String):String
+    {
+        return getPath(id, 'bf-death');
+    }
+
+    override function getPauseMusic():String
+    {
+        return getPath('pause', 'bf');
+    }
+}

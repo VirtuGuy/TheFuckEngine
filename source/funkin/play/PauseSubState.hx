@@ -39,10 +39,7 @@ class PauseSubState extends FunkinSubState
 
 		instance = this;
 
-		final player:Character = PlayState.instance.stage.player;
-		final musicPath:String = '${CharacterRegistry.instance.path}/${player?.meta?.pause ?? player?.id}/pause';
-
-		music = FunkinSound.load(musicPath, 0);
+		music = FunkinSound.load(PlayState.instance.stage.player?.getPauseMusic(), 0);
 		music.fadeIn(2);
 
 		bg = FunkinSprite.createSolidColor(0, 0, FlxG.width, FlxG.height, 0xFF000000);

@@ -9,8 +9,6 @@ import funkin.ui.FunkinSubState;
 
 /**
  * The game over sub state that appears when the player dies.
- * 
- * TODO: Possibly rework how character gameover stuff is handled.
  */
 class GameOverSubState extends FunkinSubState
 {
@@ -55,9 +53,9 @@ class GameOverSubState extends FunkinSubState
 
 		player = PlayState.instance.stage.player;
 
-		music = FunkinSound.load(getDeathMusic(), 1, true, true, false);
+		music = FunkinSound.load(player?.getDeathMusic(), 1, true, true, false);
 
-		startSound = FunkinSound.load(getDeathSound('start'), 1, false);
+		startSound = FunkinSound.load(player?.getDeathSFX('start'), 1, false);
 		startSound.onComplete = startLoop;
 
 		buildCharacter();
@@ -65,6 +63,7 @@ class GameOverSubState extends FunkinSubState
 		if (character != null)
 		{
 			PlayState.instance.setCameraTarget(character);
+
 			camera.active = true;
 		}
 	}
@@ -116,7 +115,7 @@ class GameOverSubState extends FunkinSubState
 		// Or else the character keeps bopping
 		menuConductor.reset();
 
-		FunkinSound.playOnce(getDeathSound('end'));
+		FunkinSound.playOnce(player?.getDeathSFX('end'));
 
 		FlxTimer.wait(1, () -> camera.fade(0xFF000000, 2, false, close));
 	}
@@ -130,35 +129,13 @@ class GameOverSubState extends FunkinSubState
 
 	function buildCharacter()
 	{
-		final id:String = player?.meta?.death?.id ?? player?.id;
+		character = player?.buildDeathCharacter();
+		character?.playAnimation('start');
 
-		character = CharacterRegistry.instance.fetchCharacter('$id-death');
-
-		// Don't do the actual character stuff if it's null
-		// Because I guess you never know when the death sprite doesn't exist
 		if (character == null)
 			return;
 
-		character.scrollFactor.copyFrom(player?.scrollFactor);
-		character.setPosition(player?.x, player?.y);
-
-		character.playAnimation('start');
-
 		add(character);
-	}
-
-	function getDeathMusic():String
-	{
-		final path:String = player?.meta?.death?.music ?? player?.id;
-
-		return '${CharacterRegistry.instance.path}/$path-death/music';
-	}
-
-	function getDeathSound(id:String)
-	{
-		final path:String = player?.meta?.death?.sounds ?? player?.id;
-
-		return '${CharacterRegistry.instance.path}/$path-death/$id';
 	}
 
 	override function beatHit(beat:Int)

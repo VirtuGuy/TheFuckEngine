@@ -55,12 +55,10 @@ class TankmanCharacter extends Character
         super.onGameOverLoop(event);
 
         var music:FunkinSound = GameOverSubState.instance.music;
-
         music.volume = 0.3;
 
-        // Jeff gameover voicelines
-        // Yes Jeff is his name
-        var deathQuote:FunkinSound = FunkinSound.playOnce(Paths.random('$charPath/sounds/gameover', 1, 7));
+        // Plays a random voiceline
+        var deathQuote:FunkinSound = FunkinSound.playOnce(Paths.random(getPath('sounds/gameover'), 1, 7));
         deathQuote.onComplete = () -> music.fadeIn(1, music.volume);
     }
 }

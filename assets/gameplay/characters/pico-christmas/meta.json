@@ -4,12 +4,6 @@
     "height": 244,
     "globalOffset": [0, -350],
     "cameraOffset": [-100, -100],
-    "pause": "pico",
-    "death": {
-        "id": "pico",
-        "sounds": "pico",
-        "music": "pico"
-    },
     "icon": {
         "id": "pico"
     },

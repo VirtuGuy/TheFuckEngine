@@ -47,10 +47,11 @@ class Level implements IPlayStateScriptedClass
 
 			final song:Song = SongRegistry.instance.fetch(song);
 
-			// Push the song if it exists
-			// There's no point of keeping null songs
-			if (song?.getDifficulties(false)?.length > 0)
-				songs.push(song.id);
+			// Skip songs that are null or lack difficulties
+			if (song == null || song.getDifficulties(false).length == 0)
+				continue;
+
+			songs.push(song.id);
 		}
 
 		return songs;
@@ -58,17 +59,10 @@ class Level implements IPlayStateScriptedClass
 
 	public function getSongNames():Array<String>
 	{
-		var songNames:Array<String> = [];
-
+		var result:Array<String> = [];
 		for (song in getSongs())
-		{
-			final song:Song = SongRegistry.instance.fetch(song);
-			final name:String = song.name;
-
-			songNames.push(name);
-		}
-
-		return songNames;
+			result.push(SongRegistry.instance.fetch(song).name);
+		return result;
 	}
 
 	public function getDifficulties():Array<String>
@@ -108,8 +102,8 @@ class Level implements IPlayStateScriptedClass
 	@:noCompletion
 	function get_name():String
 	{
-		var name:String = meta.name;
-		if (name.isEmpty())
+		var name:Null<String> = meta.name;
+		if (StringTools.isEmpty(name))
 			name = Constants.DEFAULT_NAME;
 		return name;
 	}

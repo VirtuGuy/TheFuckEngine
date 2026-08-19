@@ -24,17 +24,13 @@ class Character extends StageProp implements IPlayStateScriptedClass
 	public var isSinging(get, never):Bool;
 	public var isMissing(get, never):Bool;
 
-	// Flixel is so fucking stupid
-	// Why does path HAVE to be an already existing variable?!
-	public var charPath(get, never):String;
-
 	public function buildSprite()
 	{
 		if (meta == null)
 			return;
 
 		// Loads the image
-		loadSprite('$charPath/image', meta.scale, meta.width, meta.height);
+		loadSprite(getPath('image'), meta.scale, meta.width, meta.height);
 		loadAnimations(meta.animations);
 
 		bopEvery = meta.bopEvery;
@@ -105,10 +101,48 @@ class Character extends StageProp implements IPlayStateScriptedClass
 			singTimer = 0;
 	}
 
-	@:noCompletion
-	inline function get_charPath():String
+	//
+	// DEATH
+	//
+
+	public function buildDeathCharacter():Character
 	{
-		return '${CharacterRegistry.instance.path}/$id';
+		var death:Character = CharacterRegistry.instance.fetchCharacter(getDeathCharacter());
+
+		if (death == null)
+			return null;
+
+		death.scrollFactor.copyFrom(scrollFactor);
+		death.setPosition(x, y);
+
+		return death;
+	}
+
+	public function getDeathCharacter():String
+	{
+		return '$id-death';
+	}
+
+	public function getDeathMusic():String
+	{
+		return getDeathSFX('music');
+	}
+
+	public function getDeathSFX(id:String):String
+	{
+		return getPath(id, getDeathCharacter());
+	}
+
+	public function getPauseMusic():String
+	{
+		return getPath('pause');
+	}
+
+	public function getPath(id:String, ?character:String)
+	{
+		character ??= this.id;
+
+		return '${CharacterRegistry.instance.path}/$character/$id';
 	}
 
 	@:noCompletion

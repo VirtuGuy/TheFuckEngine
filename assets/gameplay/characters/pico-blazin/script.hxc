@@ -48,4 +48,9 @@ class PicoBlazinCharacter extends Character
     {
         block();
     }
+
+    override function getPauseMusic():String
+    {
+        return getPath('pause', 'pico');
+    }
 }

@@ -136,7 +136,7 @@ class Song implements IPlayStateScriptedClass
 	function get_name():String
 	{
 		var name:Null<String> = meta.name;
-		if (name.isEmpty())
+		if (StringTools.isEmpty(name))
 			name = Constants.DEFAULT_NAME;
 		return name;
 	}
@@ -151,7 +151,7 @@ class Song implements IPlayStateScriptedClass
 	function get_artist():String
 	{
 		var artist:Null<String> = meta.artist;
-		if (artist == null || artist.trim() == '')
+		if (StringTools.isEmpty(artist))
 			artist = Constants.DEFAULT_ARTIST;
 		return artist;
 	}
@@ -160,7 +160,7 @@ class Song implements IPlayStateScriptedClass
 	function get_charter():String
 	{
 		var charter:Null<String> = meta.charter;
-		if (charter == null || charter.trim() == '')
+		if (StringTools.isEmpty(charter))
 			charter = Constants.DEFAULT_CHARTER;
 		return charter;
 	}
