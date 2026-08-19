@@ -2,8 +2,8 @@ package funkin.play;
 
 import flixel.util.FlxTimer;
 import funkin.audio.FunkinSound;
-import funkin.data.character.CharacterRegistry;
 import funkin.modding.event.ScriptEvent;
+import funkin.modding.event.ScriptEventDispatcher;
 import funkin.play.character.Character;
 import funkin.ui.FunkinSubState;
 
@@ -31,15 +31,9 @@ class GameOverSubState extends FunkinSubState
 
 		instance = this;
 
-		var event:ScriptEvent = ScriptEvent.get(GAMEOVER_START);
-		dispatch(event);
-
-		if (event.cancelled)
-			return close();
+		_parentState.persistentDraw = false;
 
 		PlayState.instance.deaths++;
-
-		_parentState.persistentDraw = false;
 
 		// This doesn't need a unique camera
 		// This should use the game's camera actually
@@ -59,6 +53,12 @@ class GameOverSubState extends FunkinSubState
 		startSound.onComplete = startLoop;
 
 		buildCharacter();
+
+		var event:ScriptEvent = ScriptEvent.get(GAMEOVER_START);
+		dispatch(event);
+
+		if (event.cancelled)
+			return close();
 
 		if (character != null)
 		{
@@ -80,6 +80,13 @@ class GameOverSubState extends FunkinSubState
 			retry();
 		if (controls.BACK)
 			exit();
+	}
+
+	override function dispatch(event:ScriptEvent)
+	{
+		ScriptEventDispatcher.dispatch(character, event);
+
+		super.dispatch(event);
 	}
 
 	function startLoop()
@@ -143,11 +150,6 @@ class GameOverSubState extends FunkinSubState
 		super.beatHit(beat);
 
 		character?.playAnimation('loop', true);
-
-		// We still want the beat hit script event to work
-		// So we're doing this >:)
-		@:privateAccess
-		PlayState.instance.beatHit(beat);
 	}
 
 	override function close()

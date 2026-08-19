@@ -1,0 +1,42 @@
+import flixel.util.FlxTimer;
+import funkin.play.character.Character;
+import funkin.play.GameOverSubState;
+
+class PicoDeathCharacter extends Character
+{
+    var startTimer:FlxTimer;
+
+    public function new()
+    {
+        super('pico-death');
+    }
+
+    override function onGameOverStart(event:ScriptEvent)
+    {
+        super.onGameOverStart(event);
+
+        animation.onFinish.add(name ->
+        {
+            if (name == 'loop-start')
+                playAnimation('loop');
+        });
+
+        startTimer = FlxTimer.wait(0.745, () ->
+        {
+            playAnimation('collapse');
+
+            startTimer = FlxTimer.wait(0.595, () -> {
+                playAnimation('loop-start');
+
+                GameOverSubState.instance.startLoop();
+            });
+        });
+    }
+
+    override function onGameOverRetry(event:ScriptEvent)
+    {
+        super.onGameOverRetry(event);
+
+        startTimer?.cancel();
+    }
+}
