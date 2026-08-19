@@ -4,13 +4,13 @@ class MonsterSong extends Song
 {
     public function new()
     {
-        super("monster");
+        super('monster');
     }
 
-    override function get_name():String
-    {
-        if (FlxG.random.bool(5))
-            return "Mosner";
-        return super.get_name();
-    }
+    // override function get_name():String
+    // {
+    //     if (FlxG.random.bool(5))
+    //         return 'Mosner';
+    //     return super.get_name();
+    // }
 }
