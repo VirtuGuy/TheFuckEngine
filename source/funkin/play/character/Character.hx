@@ -114,6 +114,7 @@ class Character extends StageProp implements IPlayStateScriptedClass
 
 		death.scrollFactor.copyFrom(scrollFactor);
 		death.setPosition(x, y);
+		death.playAnimation('start');
 
 		return death;
 	}

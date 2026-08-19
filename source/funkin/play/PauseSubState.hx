@@ -2,11 +2,9 @@ package funkin.play;
 
 import flixel.tweens.FlxTween;
 import funkin.audio.FunkinSound;
-import funkin.data.character.CharacterRegistry;
 import funkin.graphics.FunkinSprite;
 import funkin.graphics.FunkinText;
 import funkin.modding.event.ScriptEvent;
-import funkin.play.character.Character;
 import funkin.play.song.Song;
 import funkin.ui.FunkinSubState;
 import funkin.ui.TextMenuList;
@@ -22,16 +20,16 @@ class PauseSubState extends FunkinSubState
 {
 	public static var instance:PauseSubState;
 
+	public var music:FunkinSound;
+
+	public var bg:FunkinSprite;
+	public var songText:FunkinText;
+	public var menuList:TextMenuList;
+
 	var song(get, never):Song;
 	var difficulty(get, never):String;
 	var instrumental(get, never):String;
 	var deaths(get, never):Int;
-
-	var music:FunkinSound;
-
-	var bg:FunkinSprite;
-	var songText:FunkinText;
-	var menuList:TextMenuList;
 
 	override function create()
 	{

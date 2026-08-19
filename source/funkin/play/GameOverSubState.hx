@@ -14,16 +14,15 @@ class GameOverSubState extends FunkinSubState
 {
 	public static var instance:GameOverSubState;
 
-	var retrying:Bool = false;
+	public var retrying:Bool = false;
 
-	var menuConductor:Conductor;
+	public var music:FunkinSound;
+	public var character:Character;
 
-	var music:FunkinSound;
-	var startSound:FunkinSound;
+	var _conductor:Conductor;
+	var startTimer:FlxTimer;
 
-	var player:Character;
-	var character:Character;
-	var id:String;
+	var player(get, never):Character;
 
 	override function create()
 	{
@@ -41,24 +40,16 @@ class GameOverSubState extends FunkinSubState
 
 		camera = FlxG.camera;
 
-		menuConductor = new Conductor();
-		menuConductor.beatHit.add(beatHit);
-		menuConductor.reset(100);
-
-		player = PlayState.instance.stage.player;
+		_conductor = new Conductor();
+		_conductor.beatHit.add(beatHit);
+		_conductor.reset(100);
 
 		music = FunkinSound.load(player?.getDeathMusic(), 1, true, true, false);
+		startTimer = FlxTimer.wait(1.5, startLoop);
 
-		startSound = FunkinSound.load(player?.getDeathSFX('start'), 1, false);
-		startSound.onComplete = startLoop;
+		FunkinSound.load(player?.getDeathSFX('start'), 1, false);
 
 		buildCharacter();
-
-		var event:ScriptEvent = ScriptEvent.get(GAMEOVER_START);
-		dispatch(event);
-
-		if (event.cancelled)
-			return close();
 
 		if (character != null)
 		{
@@ -66,15 +57,20 @@ class GameOverSubState extends FunkinSubState
 
 			camera.active = true;
 		}
+
+		var event:ScriptEvent = ScriptEvent.get(GAMEOVER_START);
+		dispatch(event);
+
+		if (event.cancelled)
+			close();
 	}
 
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
-		// Updates the conductor
-		menuConductor.time = music?.time;
-		menuConductor.update();
+		_conductor.time = music?.time;
+		_conductor.update();
 
 		if (controls.ACCEPT_P)
 			retry();
@@ -114,14 +110,11 @@ class GameOverSubState extends FunkinSubState
 		retrying = true;
 
 		character?.playAnimation('end');
+		startTimer.cancel();
 
-		music.destroy();
-		startSound.destroy();
+		_conductor.reset();
 
-		// Gotta reset this!
-		// Or else the character keeps bopping
-		menuConductor.reset();
-
+		FunkinSound.stopAllSounds();
 		FunkinSound.playOnce(player?.getDeathSFX('end'));
 
 		FlxTimer.wait(1, () -> camera.fade(0xFF000000, 2, false, close));
@@ -137,12 +130,9 @@ class GameOverSubState extends FunkinSubState
 	function buildCharacter()
 	{
 		character = player?.buildDeathCharacter();
-		character?.playAnimation('start');
 
-		if (character == null)
-			return;
-
-		add(character);
+		if (character != null)
+			add(character);
 	}
 
 	override function beatHit(beat:Int)
@@ -168,5 +158,12 @@ class GameOverSubState extends FunkinSubState
 		super.destroy();
 
 		instance = null;
+		startTimer.cancel();
+	}
+
+	@:noCompletion
+	inline function get_player():Character
+	{
+		return PlayState.instance.stage.player;
 	}
 }

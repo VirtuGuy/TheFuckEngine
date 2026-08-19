@@ -25,11 +25,7 @@ class PicoDeathCharacter extends Character
         {
             playAnimation('collapse');
 
-            startTimer = FlxTimer.wait(0.595, () -> {
-                playAnimation('loop-start');
-
-                GameOverSubState.instance.startLoop();
-            });
+            startTimer = FlxTimer.wait(0.595, () -> playAnimation('loop-start'));
         });
     }
 
