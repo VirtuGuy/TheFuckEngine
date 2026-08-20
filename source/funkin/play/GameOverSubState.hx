@@ -50,6 +50,7 @@ class GameOverSubState extends FunkinSubState
 		FlxG.cameras.remove(camera);
 
 		camera = FlxG.camera;
+		camera.active = true;
 
 		_conductor = new Conductor();
 		_conductor.beatHit.add(beatHit);
@@ -61,12 +62,7 @@ class GameOverSubState extends FunkinSubState
 
 		FunkinSound.load(getPath('sounds/start', deathSFX), 1, false).onComplete = startLoop;
 
-		if (character != null)
-		{
-			PlayState.instance.setCameraTarget(character);
-
-			camera.active = true;
-		}
+		PlayState.instance.setCameraTarget(character);
 
 		var event:ScriptEvent = ScriptEvent.get(GAMEOVER_START);
 		dispatch(event);
