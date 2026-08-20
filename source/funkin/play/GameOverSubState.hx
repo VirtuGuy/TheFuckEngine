@@ -2,6 +2,7 @@ package funkin.play;
 
 import flixel.util.FlxTimer;
 import funkin.audio.FunkinSound;
+import funkin.data.character.CharacterRegistry;
 import funkin.modding.event.ScriptEvent;
 import funkin.modding.event.ScriptEventDispatcher;
 import funkin.play.character.Character;
@@ -14,6 +15,10 @@ class GameOverSubState extends FunkinSubState
 {
 	public static var instance:GameOverSubState;
 
+	public static var deathId:String;
+	public static var deathMusic:String;
+	public static var deathSFX:String;
+
 	public var retrying:Bool = false;
 
 	public var music:FunkinSound;
@@ -22,7 +27,14 @@ class GameOverSubState extends FunkinSubState
 	var _conductor:Conductor;
 	var startTimer:FlxTimer;
 
-	var player(get, never):Character;
+	var player:Character;
+
+	public function new(player:Character)
+	{
+		super();
+
+		this.player = player;
+	}
 
 	override function create()
 	{
@@ -44,12 +56,12 @@ class GameOverSubState extends FunkinSubState
 		_conductor.beatHit.add(beatHit);
 		_conductor.reset(100);
 
-		music = FunkinSound.load(player?.getDeathMusic(), 1, true, true, false);
+		buildCharacter();
+
+		music = FunkinSound.load(getPath('music', deathMusic), 1, true, true, false);
 		startTimer = FlxTimer.wait(1.5, startLoop);
 
-		FunkinSound.load(player?.getDeathSFX('start'), 1, false);
-
-		buildCharacter();
+		FunkinSound.load(getPath('start', deathSFX), 1, false);
 
 		if (character != null)
 		{
@@ -115,7 +127,7 @@ class GameOverSubState extends FunkinSubState
 		_conductor.reset();
 
 		FunkinSound.stopAllSounds();
-		FunkinSound.playOnce(player?.getDeathSFX('end'));
+		FunkinSound.playOnce(getPath('end', deathSFX));
 
 		FlxTimer.wait(1, () -> camera.fade(0xFF000000, 2, false, close));
 	}
@@ -129,10 +141,28 @@ class GameOverSubState extends FunkinSubState
 
 	function buildCharacter()
 	{
-		character = player?.buildDeathCharacter();
+		if (player == null)
+			return;
+
+		character = CharacterRegistry.instance.fetchCharacter('$deathId-death');
+
+		if (character == null)
+			return;
+
+		character.scrollFactor.copyFrom(player.scrollFactor);
+		character.setPosition(player.x, player.y);
+		character.playAnimation('start');
 
 		if (character != null)
 			add(character);
+	}
+
+	function getPath(id:String, ?character:String):String
+	{
+		character ??= deathId;
+		character += '-death';
+
+		return '${CharacterRegistry.instance.path}/$character/$id';
 	}
 
 	override function beatHit(beat:Int)
@@ -161,9 +191,10 @@ class GameOverSubState extends FunkinSubState
 		startTimer.cancel();
 	}
 
-	@:noCompletion
-	inline function get_player():Character
+	public static function reset()
 	{
-		return PlayState.instance.stage.player;
+		deathId = PlayState.instance.stage.player?.id;
+		deathMusic = deathId;
+		deathSFX = deathSFX;
 	}
 }

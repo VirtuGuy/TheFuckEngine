@@ -24,13 +24,15 @@ class Character extends StageProp implements IPlayStateScriptedClass
 	public var isSinging(get, never):Bool;
 	public var isMissing(get, never):Bool;
 
+	var charPath(get, never):String;
+
 	public function buildSprite()
 	{
 		if (meta == null)
 			return;
 
 		// Loads the image
-		loadSprite(getPath('image'), meta.scale, meta.width, meta.height);
+		loadSprite('$charPath/image', meta.scale, meta.width, meta.height);
 		loadAnimations(meta.animations);
 
 		bopEvery = meta.bopEvery;
@@ -101,75 +103,6 @@ class Character extends StageProp implements IPlayStateScriptedClass
 			singTimer = 0;
 	}
 
-	//
-	// DEATH
-	//
-
-	public function buildDeathCharacter():Character
-	{
-		var death:Character = CharacterRegistry.instance.fetchCharacter(getDeathCharacter());
-
-		if (death == null)
-			return null;
-
-		death.scrollFactor.copyFrom(scrollFactor);
-		death.setPosition(x, y);
-		death.playAnimation('start');
-
-		return death;
-	}
-
-	public function getDeathCharacter():String
-	{
-		return '$id-death';
-	}
-
-	public function getDeathMusic():String
-	{
-		return getDeathSFX('music');
-	}
-
-	public function getDeathSFX(id:String):String
-	{
-		return getPath(id, getDeathCharacter());
-	}
-
-	public function getPauseMusic():String
-	{
-		return getPath('pause');
-	}
-
-	public function getPath(id:String, ?character:String)
-	{
-		character ??= this.id;
-
-		return '${CharacterRegistry.instance.path}/$character/$id';
-	}
-
-	@:noCompletion
-	inline function get_isBopping():Bool
-	{
-		return getCurrentAnimation() == 'idle';
-	}
-
-	@:noCompletion
-	inline function get_isSinging():Bool
-	{
-		final name:String = getCurrentAnimation();
-
-		return (name.startsWith(NoteDirection.LEFT.name)
-			|| name.startsWith(NoteDirection.DOWN.name)
-			|| name.startsWith(NoteDirection.UP.name)
-			|| name.startsWith(NoteDirection.RIGHT.name))
-			&& !name.endsWith('-miss');
-	}
-
-	@:noCompletion
-	inline function get_isMissing():Bool
-	{
-		return getCurrentAnimation().endsWith('-miss');
-	}
-
 	override function onNoteHit(event:NoteScriptEvent)
 	{
 		super.onNoteHit(event);
@@ -230,5 +163,35 @@ class Character extends StageProp implements IPlayStateScriptedClass
 		// Force the bopping animation
 		// This is honestly better than staying in a singing animation
 		bop(true);
+	}
+
+	@:noCompletion
+	inline function get_isBopping():Bool
+	{
+		return getCurrentAnimation() == 'idle';
+	}
+
+	@:noCompletion
+	inline function get_isSinging():Bool
+	{
+		final name:String = getCurrentAnimation();
+
+		return (name.startsWith(NoteDirection.LEFT.name)
+			|| name.startsWith(NoteDirection.DOWN.name)
+			|| name.startsWith(NoteDirection.UP.name)
+			|| name.startsWith(NoteDirection.RIGHT.name))
+			&& !name.endsWith('-miss');
+	}
+
+	@:noCompletion
+	inline function get_isMissing():Bool
+	{
+		return getCurrentAnimation().endsWith('-miss');
+	}
+
+	@:noCompletion
+	inline function get_charPath():String
+	{
+		return '${CharacterRegistry.instance.path}/$id';
 	}
 }

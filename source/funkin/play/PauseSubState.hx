@@ -2,6 +2,7 @@ package funkin.play;
 
 import flixel.tweens.FlxTween;
 import funkin.audio.FunkinSound;
+import funkin.data.character.CharacterRegistry;
 import funkin.graphics.FunkinSprite;
 import funkin.graphics.FunkinText;
 import funkin.modding.event.ScriptEvent;
@@ -19,6 +20,7 @@ import funkin.api.DiscordRPC;
 class PauseSubState extends FunkinSubState
 {
 	public static var instance:PauseSubState;
+	public static var musicId:String;
 
 	public var music:FunkinSound;
 
@@ -37,7 +39,7 @@ class PauseSubState extends FunkinSubState
 
 		instance = this;
 
-		music = FunkinSound.load(PlayState.instance.stage.player?.getPauseMusic(), 0);
+		music = FunkinSound.load(getMusicPath(), 0);
 		music.fadeIn(2);
 
 		bg = FunkinSprite.createSolidColor(0, 0, FlxG.width, FlxG.height, 0xFF000000);
@@ -184,6 +186,11 @@ class PauseSubState extends FunkinSubState
 		songText.x = FlxG.width - songText.width - 20;
 	}
 
+	function getMusicPath():String
+	{
+		return '${CharacterRegistry.instance.path}/$musicId/pause';
+	}
+
 	override function close()
 	{
 		super.close();
@@ -224,6 +231,11 @@ class PauseSubState extends FunkinSubState
 	inline function get_deaths():Int
 	{
 		return PlayState.instance.deaths;
+	}
+
+	public static function reset()
+	{
+		musicId = PlayState.instance.stage.player?.id;
 	}
 }
 

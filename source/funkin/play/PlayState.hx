@@ -330,7 +330,7 @@ class PlayState extends FunkinState
 
 		// Death :(
 		if (health <= healthBar.min)
-			openSubState(new GameOverSubState());
+			openSubState(new GameOverSubState(stage.player));
 	}
 
 	override function draw()
@@ -593,6 +593,9 @@ class PlayState extends FunkinState
 			playerIcon.zIndex = healthBorder.zIndex;
 			add(playerIcon);
 		}
+
+		GameOverSubState.reset();
+		PauseSubState.reset();
 	}
 
 	function startSong()

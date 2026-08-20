@@ -58,7 +58,7 @@ class TankmanCharacter extends Character
         music.volume = 0.3;
 
         // Plays a random voiceline
-        var deathQuote:FunkinSound = FunkinSound.playOnce(Paths.random(getPath('sounds/gameover'), 1, 7));
+        var deathQuote:FunkinSound = FunkinSound.playOnce(Paths.random('$charPath/sounds/gameover', 1, 7));
         deathQuote.onComplete = () -> music.fadeIn(1, music.volume);
     }
 }

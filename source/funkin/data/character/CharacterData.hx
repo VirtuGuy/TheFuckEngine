@@ -17,8 +17,6 @@ typedef CharacterData =
 	var scale:Float;
 	var flipX:Bool;
 	var flipY:Bool;
-	@:optional
-	var pause:String;
 	@:default(2)
 	var bopEvery:Int;
 	@:default(8)

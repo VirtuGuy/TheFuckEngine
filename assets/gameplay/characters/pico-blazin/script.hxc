@@ -1,4 +1,5 @@
 import funkin.play.character.Character;
+import funkin.play.PauseSubState;
 
 class PicoBlazinCharacter extends Character
 {
@@ -34,6 +35,13 @@ class PicoBlazinCharacter extends Character
         playAnimation('dodge', true);
     }
 
+    override function onCreate(event:ScriptEvent)
+    {
+        super.onCreate(event);
+
+        PauseSubState.musicId = 'pico';
+    }
+
     override function onNoteHit(event:NoteScriptEvent)
     {
         if (FlxG.random.bool(30))
@@ -47,10 +55,5 @@ class PicoBlazinCharacter extends Character
     override function onNoteMiss(event:NoteScriptEvent)
     {
         block();
-    }
-
-    override function getPauseMusic():String
-    {
-        return getPath('pause', 'pico');
     }
 }

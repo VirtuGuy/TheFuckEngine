@@ -1,4 +1,6 @@
 import funkin.play.character.Character;
+import funkin.play.GameOverSubState;
+import funkin.play.PauseSubState;
 
 class BFHoldingGFCharacter extends Character
 {
@@ -7,13 +9,13 @@ class BFHoldingGFCharacter extends Character
         super('bf-holding-gf');
     }
 
-    override function getDeathSFX(id:String):String
+    override function onCreate(event:ScriptEvent)
     {
-        return getPath(id, 'bf-death');
-    }
+        super.onCreate(event);
 
-    override function getPauseMusic():String
-    {
-        return getPath('pause', 'bf');
+        GameOverSubState.deathMusic = 'bf';
+        GameOverSubState.deathSFX = 'bf';
+
+        PauseSubState.musicId = 'bf';
     }
 }
