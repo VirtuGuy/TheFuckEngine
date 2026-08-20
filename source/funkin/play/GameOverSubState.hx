@@ -25,7 +25,6 @@ class GameOverSubState extends FunkinSubState
 	public var character:Character;
 
 	var _conductor:Conductor;
-	var startTimer:FlxTimer;
 
 	var player:Character;
 
@@ -59,9 +58,8 @@ class GameOverSubState extends FunkinSubState
 		buildCharacter();
 
 		music = FunkinSound.load(getPath('music', deathMusic), 1, true, true, false);
-		startTimer = FlxTimer.wait(1.5, startLoop);
 
-		FunkinSound.load(getPath('start', deathSFX), 1, false);
+		FunkinSound.load(getPath('sounds/start', deathSFX), 1, false).onComplete = startLoop;
 
 		if (character != null)
 		{
@@ -90,11 +88,11 @@ class GameOverSubState extends FunkinSubState
 			exit();
 	}
 
-	override function dispatch(event:ScriptEvent)
+	override function beatHit(beat:Int)
 	{
-		ScriptEventDispatcher.dispatch(character, event);
+		super.beatHit(beat);
 
-		super.dispatch(event);
+		character?.playAnimation('loop');
 	}
 
 	function startLoop()
@@ -122,12 +120,10 @@ class GameOverSubState extends FunkinSubState
 		retrying = true;
 
 		character?.playAnimation('end');
-		startTimer.cancel();
-
 		_conductor.reset();
 
 		FunkinSound.stopAllSounds();
-		FunkinSound.playOnce(getPath('end', deathSFX));
+		FunkinSound.playOnce(getPath('sounds/end', deathSFX));
 
 		FlxTimer.wait(1, () -> camera.fade(0xFF000000, 2, false, close));
 	}
@@ -165,11 +161,11 @@ class GameOverSubState extends FunkinSubState
 		return '${CharacterRegistry.instance.path}/$character/$id';
 	}
 
-	override function beatHit(beat:Int)
+	override function dispatch(event:ScriptEvent)
 	{
-		super.beatHit(beat);
+		ScriptEventDispatcher.dispatch(character, event);
 
-		character?.playAnimation('loop', true);
+		super.dispatch(event);
 	}
 
 	override function close()
@@ -188,7 +184,6 @@ class GameOverSubState extends FunkinSubState
 		super.destroy();
 
 		instance = null;
-		startTimer.cancel();
 	}
 
 	public static function reset()
