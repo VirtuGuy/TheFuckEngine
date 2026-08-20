@@ -19,7 +19,6 @@ typedef CharacterData =
 	var flipY:Bool;
 	@:optional
 	var pause:String;
-	var death:CharacterDeathData;
 	@:default(2)
 	var bopEvery:Int;
 	@:default(8)
@@ -42,14 +41,4 @@ typedef CharacterIconData =
 	var bopEvery:Int;
 	@:optional
 	var bopAngle:Float;
-}
-
-/**
- * A structure object used for the game over data of characters.
- */
-typedef CharacterDeathData =
-{
-	var id:String;
-	var sounds:String;
-	var music:String;
 }
