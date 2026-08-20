@@ -489,8 +489,8 @@ class PlayState extends FunkinState
 		if (target == null)
 			return;
 
-		var pos:FlxPoint = target.getGraphicMidpoint();
-		var offset:FlxPoint = MathUtil.arrayToPoint(target.meta.cameraOffset);
+		final pos:FlxPoint = target.getGraphicMidpoint();
+		final offset:FlxPoint = MathUtil.arrayToPoint(target.meta.cameraOffset);
 
 		if (target.flipX)
 			offset.x = -offset.x;
@@ -499,6 +499,8 @@ class PlayState extends FunkinState
 
 		if (instant)
 			camera.snapToTarget();
+
+		offset.put();
 	}
 
 	public function setCameraZoom(?zoom:Float, instant:Bool = false)
