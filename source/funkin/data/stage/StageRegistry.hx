@@ -1,6 +1,5 @@
 package funkin.data.stage;
 
-import funkin.modding.ScriptBases.ScriptedStage;
 import funkin.play.stage.Stage;
 import funkin.util.FileUtil;
 import haxe.ds.StringMap;
@@ -46,7 +45,7 @@ class StageRegistry extends BaseRegistry<StageData>
 
 		scripted.clear();
 
-		final scripts:Array<String> = ScriptedStage.listScriptClasses();
+		final scripts:Array<String> = Stage.listScriptClasses();
 
 		trace('Loading ${scripts.length} scripted stage(s)...');
 
@@ -54,7 +53,7 @@ class StageRegistry extends BaseRegistry<StageData>
 		{
 			try
 			{
-				var stage:Stage = ScriptedStage.scriptInit(script, '');
+				var stage:Stage = Stage.scriptInit(script, '');
 
 				scripted.set(stage.id, script);
 				stage.destroy();
@@ -69,7 +68,7 @@ class StageRegistry extends BaseRegistry<StageData>
 		var stage:Stage = null;
 
 		if (scripted.exists(id))
-			stage = ScriptedStage.scriptInit(scripted.get(id), id);
+			stage = Stage.scriptInit(scripted.get(id), id);
 		else
 			stage = new Stage(id);
 

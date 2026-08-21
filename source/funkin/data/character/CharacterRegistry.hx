@@ -1,6 +1,5 @@
 package funkin.data.character;
 
-import funkin.modding.ScriptBases.ScriptedCharacter;
 import funkin.play.character.Character;
 import funkin.play.character.CharacterType;
 import funkin.util.FileUtil;
@@ -47,7 +46,7 @@ class CharacterRegistry extends BaseRegistry<CharacterData>
 
 		scripted.clear();
 
-		final scripts:Array<String> = ScriptedCharacter.listScriptClasses();
+		final scripts:Array<String> = Character.listScriptClasses();
 
 		trace('Loading ${scripts.length} scripted character(s)...');
 
@@ -55,7 +54,7 @@ class CharacterRegistry extends BaseRegistry<CharacterData>
 		{
 			try
 			{
-				var character:Character = ScriptedCharacter.scriptInit(script, '');
+				var character:Character = Character.scriptInit(script, '');
 
 				scripted.set(character.id, script);
 				character.destroy();
@@ -73,7 +72,7 @@ class CharacterRegistry extends BaseRegistry<CharacterData>
 		var character:Character = null;
 
 		if (scripted.exists(id))
-			character = ScriptedCharacter.scriptInit(scripted.get(id), id);
+			character = Character.scriptInit(scripted.get(id), id);
 		else
 			character = new Character(id);
 

@@ -1,6 +1,5 @@
 package funkin.data.freeplay.album;
 
-import funkin.modding.ScriptBases.ScriptedAlbum;
 import funkin.ui.freeplay.album.Album;
 import funkin.util.FileUtil;
 import json2object.JsonParser;
@@ -45,7 +44,7 @@ class AlbumRegistry extends BaseRegistry<Album>
 		// SCRIPTED
 		//
 
-		final scripts:Array<String> = ScriptedAlbum.listScriptClasses();
+		final scripts:Array<String> = Album.listScriptClasses();
 
 		trace('Loading ${scripts.length} scripted album(s)...');
 
@@ -53,7 +52,7 @@ class AlbumRegistry extends BaseRegistry<Album>
 		{
 			try
 			{
-				var album:Album = ScriptedAlbum.scriptInit(script, '');
+				var album:Album = Album.scriptInit(script, '');
 				var ogAlbum:Album = fetch(album.id);
 
 				if (ogAlbum == null)

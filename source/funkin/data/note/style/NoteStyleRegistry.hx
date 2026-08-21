@@ -1,6 +1,5 @@
 package funkin.data.note.style;
 
-import funkin.modding.ScriptBases.ScriptedNoteStyle;
 import funkin.play.note.NoteStyle;
 import funkin.util.FileUtil;
 import json2object.JsonParser;
@@ -45,7 +44,7 @@ class NoteStyleRegistry extends BaseRegistry<NoteStyle>
 		// SCRIPTED
 		//
 
-		final scripts:Array<String> = ScriptedNoteStyle.listScriptClasses();
+		final scripts:Array<String> = NoteStyle.listScriptClasses();
 
 		trace('Loading ${scripts.length} scripted style(s)...');
 
@@ -53,7 +52,7 @@ class NoteStyleRegistry extends BaseRegistry<NoteStyle>
 		{
 			try
 			{
-				var style:NoteStyle = ScriptedNoteStyle.scriptInit(script, '');
+				var style:NoteStyle = NoteStyle.scriptInit(script, '');
 				var ogStyle:NoteStyle = fetch(style.id);
 
 				if (ogStyle == null)

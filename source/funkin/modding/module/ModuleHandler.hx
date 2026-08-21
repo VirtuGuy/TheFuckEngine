@@ -1,6 +1,5 @@
 package funkin.modding.module;
 
-import funkin.modding.ScriptBases.ScriptedModule;
 import funkin.modding.event.ScriptEvent;
 import funkin.modding.event.ScriptEventDispatcher;
 import haxe.ds.StringMap;
@@ -17,13 +16,13 @@ class ModuleHandler
 		clear();
 
 		// Loads the modules
-		final scripts:Array<String> = ScriptedModule.listScriptClasses();
+		final scripts:Array<String> = Module.listScriptClasses();
 
 		for (script in scripts)
 		{
 			try
 			{
-				var module:Module = ScriptedModule.scriptInit(script, '');
+				var module:Module = Module.scriptInit(script, '');
 				modules.set(module.id, module);
 			}
 			catch (e)

@@ -1,6 +1,5 @@
 package funkin.data.sticker;
 
-import funkin.modding.ScriptBases.ScriptedStickerPack;
 import funkin.ui.sticker.StickerPack;
 import funkin.util.FileUtil;
 import json2object.JsonParser;
@@ -45,7 +44,7 @@ class StickerRegistry extends BaseRegistry<StickerPack>
 		// SCRIPTED
 		//
 
-		final scripts:Array<String> = ScriptedStickerPack.listScriptClasses();
+		final scripts:Array<String> = StickerPack.listScriptClasses();
 
 		trace('Loading ${scripts.length} scripted stickerpack(s)...');
 
@@ -53,7 +52,7 @@ class StickerRegistry extends BaseRegistry<StickerPack>
 		{
 			try
 			{
-				var pack:StickerPack = ScriptedStickerPack.scriptInit(script, '');
+				var pack:StickerPack = StickerPack.scriptInit(script, '');
 				var ogPack:StickerPack = fetch(pack.id);
 
 				if (ogPack == null)

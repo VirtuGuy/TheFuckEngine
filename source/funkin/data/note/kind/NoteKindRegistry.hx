@@ -1,6 +1,5 @@
 package funkin.data.note.kind;
 
-import funkin.modding.ScriptBases.ScriptedNoteKind;
 import funkin.modding.event.ScriptEvent;
 import funkin.modding.event.ScriptEventDispatcher;
 import funkin.play.note.NoteKind;
@@ -26,7 +25,7 @@ class NoteKindRegistry extends BaseRegistry<NoteKind>
 		super.load();
 
 		// Loading note kinds just like scripts because it's literally just code
-		final scripts:Array<String> = ScriptedNoteKind.listScriptClasses();
+		final scripts:Array<String> = NoteKind.listScriptClasses();
 
 		trace('Loading ${scripts.length} scripted notekind(s)...');
 
@@ -34,7 +33,7 @@ class NoteKindRegistry extends BaseRegistry<NoteKind>
 		{
 			try
 			{
-				var kind:NoteKind = ScriptedNoteKind.scriptInit(script, '');
+				var kind:NoteKind = NoteKind.scriptInit(script, '');
 				entries.set(kind.id, kind);
 			}
 			catch (e)

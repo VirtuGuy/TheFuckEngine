@@ -2,7 +2,6 @@ package funkin.data.song;
 
 import funkin.data.song.SongData;
 import funkin.data.story.LevelRegistry;
-import funkin.modding.ScriptBases.ScriptedSong;
 import funkin.play.song.Song;
 import funkin.ui.freeplay.player.Player;
 import funkin.ui.story.Level;
@@ -78,7 +77,7 @@ class SongRegistry extends BaseRegistry<Song>
 		// SCRIPTED
 		//
 
-		final scripts:Array<String> = ScriptedSong.listScriptClasses();
+		final scripts:Array<String> = Song.listScriptClasses();
 
 		trace('Loading ${scripts.length} scripted song(s)...');
 
@@ -86,7 +85,7 @@ class SongRegistry extends BaseRegistry<Song>
 		{
 			try
 			{
-				var song:Song = ScriptedSong.scriptInit(script, '');
+				var song:Song = Song.scriptInit(script, '');
 				var ogSong:Song = fetch(song.id);
 
 				if (ogSong == null)

@@ -1,6 +1,5 @@
 package funkin.data.story;
 
-import funkin.modding.ScriptBases.ScriptedLevel;
 import funkin.ui.story.Level;
 import funkin.util.FileUtil;
 import json2object.JsonParser;
@@ -46,7 +45,7 @@ class LevelRegistry extends BaseRegistry<Level>
 		// SCRIPTED
 		//
 
-		final scripts:Array<String> = ScriptedLevel.listScriptClasses();
+		final scripts:Array<String> = Level.listScriptClasses();
 
 		trace('Loading ${scripts.length} scripted level(s)...');
 
@@ -54,7 +53,7 @@ class LevelRegistry extends BaseRegistry<Level>
 		{
 			try
 			{
-				var level:Level = ScriptedLevel.scriptInit(script, '');
+				var level:Level = Level.scriptInit(script, '');
 				var ogLevel:Level = fetch(level.id);
 
 				if (ogLevel == null)

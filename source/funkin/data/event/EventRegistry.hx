@@ -1,6 +1,5 @@
 package funkin.data.event;
 
-import funkin.modding.ScriptBases.ScriptedSongEvent;
 import funkin.modding.event.ScriptEvent;
 import funkin.modding.event.ScriptEventDispatcher;
 import funkin.play.song.SongEvent;
@@ -23,7 +22,7 @@ class EventRegistry extends BaseRegistry<SongEvent>
 
 		// Song events are loaded just like how scripted stuff is loaded in registries
 		// Song events are literally just code, so yeah
-		final scripts:Array<String> = ScriptedSongEvent.listScriptClasses();
+		final scripts:Array<String> = SongEvent.listScriptClasses();
 
 		trace('Loading ${scripts.length} scripted song event(s)...');
 
@@ -31,7 +30,7 @@ class EventRegistry extends BaseRegistry<SongEvent>
 		{
 			try
 			{
-				var event:SongEvent = ScriptedSongEvent.scriptInit(script, '');
+				var event:SongEvent = SongEvent.scriptInit(script, '');
 				entries.set(event.id, event);
 			}
 			catch (e)
