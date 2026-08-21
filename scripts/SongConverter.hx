@@ -307,18 +307,22 @@ class SongConverter
 
 				if (event.v.mode == 'direct')
 				{
-					// Multiply WTF stage zoom
-					value.z *= switch (stage)
+					function getBaseZoom():Float
 					{
-						case 'mainStage' | 'mainStageErect': 1.25;
-						case 'spookyMansion' | 'spookyMansionErect': 1.35;
-						case 'phillyTrain' | 'phillyTrainErect': 1.4;
-						case 'limoRide' | 'limoRideErect' | 'school' | 'schoolErect' | 'schoolEvil' | 'schoolEvilErect': 1.15;
-						case 'mallXmas' | 'mallXmasErect' | 'mallEvil': 1.125;
-						case 'tankmanBattlefield' | 'tankmanBattlefieldErect': 1.3;
-						case 'phillyStreets' | 'phillyStreetsErect' | 'phillyBlazin': 1.2;
-						default: 1;
+						return switch (stage)
+						{
+							case 'mainStage' | 'phillyTrain' | 'phillyTrainErect': 1.1;
+							case 'mainStageErect' | 'mallXmas' | 'mallXmasErect': 0.8;
+							case 'limoRide' | 'limoRideErect' | 'tankmanBattlefield': 0.9;
+							case 'tankmanBattlefieldErect': 0.7;
+							case 'phillyStreets' | 'phillyStreetsErect': 0.77;
+							case 'phillyBlazin': 0.75;
+							default: 1;
+						}
 					}
+
+					value.z /= getBaseZoom();
+					value.z = Math.round(value.z * 10000) / 10000;
 				}
 
 				if (event.v.duration != null)
