@@ -18,7 +18,7 @@ class StickerPlugin extends FlxBasic
 	public static var instance:StickerPlugin;
 
 	final START_OFFSET:Int = -100;
-	final STICKER_TIME:Float = 0.0075;
+	final STICKER_TIME:Float = 0.008;
 
 	var stickerTime:Float;
 	var stickerIndex:Int;
