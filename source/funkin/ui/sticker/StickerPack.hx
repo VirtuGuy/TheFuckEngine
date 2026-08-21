@@ -23,11 +23,6 @@ class StickerPack
 		this.id = id;
 	}
 
-	public function buildSticker(id:String):StickerSprite
-	{
-		return new StickerSprite(this, id);
-	}
-
 	public function pickRandom():String
 	{
 		return FlxG.random.getObject(images);

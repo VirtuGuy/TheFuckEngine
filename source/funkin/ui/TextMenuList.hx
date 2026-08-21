@@ -21,18 +21,26 @@ class TextMenuList extends FlxTypedGroup<FunkinText>
 
 	var callbacks(default, null) = new Map<Int, () -> Void>();
 
+	/**
+	 * What a stupid fucking variable.
+	 */
+	var allowInput:Bool = false;
+
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
-		final up:Bool = Controls.instance.UI_UP_P;
-		final down:Bool = Controls.instance.UI_DOWN_P;
-		final accept:Bool = Controls.instance.ACCEPT_P;
+		if (allowInput)
+		{
+			final up:Bool = Controls.instance.UI_UP_P;
+			final down:Bool = Controls.instance.UI_DOWN_P;
+			final accept:Bool = Controls.instance.ACCEPT_P;
 
-		if (up || down)
-			change(up ? -1 : 1);
-		if (accept)
-			select();
+			if (up || down)
+				change(up ? -1 : 1);
+			if (accept)
+				select();
+		}
 
 		forEachAlive(item ->
 		{
@@ -41,6 +49,8 @@ class TextMenuList extends FlxTypedGroup<FunkinText>
 			item.x = MathUtil.lerp(item.x, getTargetX(item.ID), 0.2);
 			item.y = MathUtil.lerp(item.y, getTargetY(item.ID), 0.2);
 		});
+
+		allowInput = true;
 	}
 
 	public function addItem(text:String, callback:() -> Void)

@@ -18,6 +18,7 @@ import funkin.modding.module.ModuleHandler;
 import funkin.save.Save;
 import funkin.ui.title.TitleState;
 import funkin.util.plugins.ReloadPlugin;
+import funkin.util.plugins.StickerPlugin;
 #if HAS_DISCORD_RPC
 import funkin.api.DiscordRPC;
 #end
@@ -54,6 +55,7 @@ class InitState extends FlxState
 		ModHandler.init();
 
 		// Plugins
+		StickerPlugin.init();
 		ReloadPlugin.init();
 		#if HAS_SCREENSHOTS
 		ScreenshotPlugin.init();

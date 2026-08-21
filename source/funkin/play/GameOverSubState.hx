@@ -20,6 +20,7 @@ class GameOverSubState extends FunkinSubState
 	public static var deathSFX:String;
 
 	public var retrying:Bool = false;
+	public var exiting:Bool = false;
 
 	public var music:FunkinSound;
 	public var character:Character;
@@ -104,7 +105,7 @@ class GameOverSubState extends FunkinSubState
 
 	function retry()
 	{
-		if (retrying)
+		if (exiting || retrying)
 			return;
 
 		var event:ScriptEvent = ScriptEvent.get(GAMEOVER_RETRY);
@@ -126,8 +127,11 @@ class GameOverSubState extends FunkinSubState
 
 	function exit()
 	{
-		if (retrying)
+		if (exiting || retrying)
 			return;
+
+		exiting = true;
+
 		PlayState.instance.exit();
 	}
 

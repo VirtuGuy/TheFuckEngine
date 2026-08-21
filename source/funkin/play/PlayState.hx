@@ -38,12 +38,12 @@ import funkin.save.Save;
 import funkin.ui.FunkinState;
 import funkin.ui.freeplay.FreeplaySubState;
 import funkin.ui.menu.MainMenuState;
-import funkin.ui.sticker.StickerSubState;
 import funkin.ui.story.StoryMenuSubState;
 import funkin.util.MathUtil;
 import funkin.util.RhythmUtil;
 import funkin.util.SortUtil;
 import funkin.util.WindowUtil;
+import funkin.util.plugins.StickerPlugin;
 #if HAS_DISCORD_RPC
 import funkin.api.DiscordRPC;
 #end
@@ -884,13 +884,13 @@ class PlayState extends FunkinState
 
 	public function exit()
 	{
-		StickerSubState.switchState(() ->
+		StickerPlugin.instance.switchState(song.stickerpack, () ->
 		{
 			if (Playlist.isStory)
 				StoryMenuSubState.build();
 			else
 				FreeplaySubState.build();
-		}, song.stickerpack);
+		});
 	}
 
 	override function dispatch(event:ScriptEvent)

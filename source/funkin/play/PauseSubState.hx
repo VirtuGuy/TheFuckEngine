@@ -53,7 +53,6 @@ class PauseSubState extends FunkinSubState
 		add(songText);
 
 		menuList = new TextMenuList();
-		menuList.busy = true;
 		add(menuList);
 
 		updateSongText();
@@ -64,13 +63,6 @@ class PauseSubState extends FunkinSubState
 		#if HAS_DISCORD_RPC
 		DiscordRPC.updatePresence(null, 'Paused');
 		#end
-	}
-
-	override function update(elapsed:Float)
-	{
-		super.update(elapsed);
-
-		menuList.busy = false;
 	}
 
 	function load(mode:PauseMode = DEFAULT)
@@ -149,6 +141,8 @@ class PauseSubState extends FunkinSubState
 
 	function exitSong()
 	{
+		menuList.busy = true;
+
 		PlayState.instance.exit();
 	}
 
