@@ -32,8 +32,8 @@ class TextMenuList extends FlxTypedGroup<FunkinText>
 
 		if (allowInput)
 		{
-			final up:Bool = Controls.instance.UI_UP_P;
-			final down:Bool = Controls.instance.UI_DOWN_P;
+			final up:Bool = Controls.instance.UI_UP_T;
+			final down:Bool = Controls.instance.UI_DOWN_T;
 			final accept:Bool = Controls.instance.ACCEPT_P;
 
 			if (up || down)

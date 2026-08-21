@@ -52,6 +52,10 @@ class Controls
 	public var UI_DOWN_P(get, never):Bool;
 	public var UI_UP_P(get, never):Bool;
 	public var UI_RIGHT_P(get, never):Bool;
+	public var UI_LEFT_T(get, never):Bool;
+	public var UI_DOWN_T(get, never):Bool;
+	public var UI_UP_T(get, never):Bool;
+	public var UI_RIGHT_T(get, never):Bool;
 	public var ACCEPT(get, never):Bool;
 	public var ACCEPT_P(get, never):Bool;
 	public var BACK(get, never):Bool;
@@ -156,6 +160,30 @@ class Controls
 	inline function get_UI_RIGHT_P():Bool
 	{
 		return getAction(Control.UI_RIGHT).justPressed;
+	}
+
+	@:noCompletion
+	inline function get_UI_LEFT_T():Bool
+	{
+		return getAction(Control.UI_LEFT).justPressedTurbo;
+	}
+
+	@:noCompletion
+	inline function get_UI_DOWN_T():Bool
+	{
+		return getAction(Control.UI_DOWN).justPressedTurbo;
+	}
+
+	@:noCompletion
+	inline function get_UI_UP_T():Bool
+	{
+		return getAction(Control.UI_UP).justPressedTurbo;
+	}
+
+	@:noCompletion
+	inline function get_UI_RIGHT_T():Bool
+	{
+		return getAction(Control.UI_RIGHT).justPressedTurbo;
 	}
 
 	@:noCompletion

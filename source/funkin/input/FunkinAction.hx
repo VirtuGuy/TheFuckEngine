@@ -13,8 +13,11 @@ class FunkinAction
 
 	public var pressed(default, null):Bool;
 	public var justPressed(default, null):Bool;
+	public var justPressedTurbo(get, never):Bool;
 
 	var wasPressed:Bool;
+
+	var spamTimer:Float = 0;
 
 	var keys:Array<KeyCode> = [];
 	var buttons:Array<GamepadButton> = [];
@@ -39,7 +42,10 @@ class FunkinAction
 	{
 		pressed = false;
 		justPressed = false;
+
 		wasPressed = false;
+
+		spamTimer = 0;
 	}
 
 	public function hasKey(key:KeyCode):Bool
@@ -52,12 +58,25 @@ class FunkinAction
 		return buttons.contains(button);
 	}
 
-	function update(_)
+	function update(elapsed:Float)
 	{
 		if (!pressed)
 			return;
+
 		if (wasPressed)
 			justPressed = false;
+
 		wasPressed = true;
+
+		if (spamTimer == 1)
+			spamTimer = 0.9;
+
+		spamTimer = Math.min(1, spamTimer + elapsed / Constants.MS_PER_SEC);
+	}
+
+	@:noCompletion
+	inline function get_justPressedTurbo():Bool
+	{
+		return justPressed || spamTimer == 1;
 	}
 }

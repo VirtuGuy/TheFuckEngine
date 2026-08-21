@@ -40,8 +40,8 @@ class CapsuleGroup extends FlxTypedGroup<CapsuleSprite>
 
 		if (!busy)
 		{
-			final up:Bool = Controls.instance.UI_UP_P;
-			final down:Bool = Controls.instance.UI_DOWN_P;
+			final up:Bool = Controls.instance.UI_UP_T;
+			final down:Bool = Controls.instance.UI_DOWN_T;
 
 			var scroll:Int = -FlxG.mouse.wheel;
 

@@ -196,9 +196,12 @@ class StoryMenuSubState extends FunkinSubState
 		levelText.text = level.name;
 		levelText.x = FlxG.width - levelText.width - 10;
 
+		// Tracks
 		songsText.text = 'tracks\n';
+
 		for (song in level.getSongNames())
 			songsText.text += '\n$song';
+
 		songsText.x = 200 - songsText.width / 2;
 
 		// Characters
@@ -224,13 +227,16 @@ class StoryMenuSubState extends FunkinSubState
 
 	function changeDiff(selected:Int)
 	{
+		final lastSelected:Int = selectedDiff;
+
 		selectedDiff = selected;
 		levelScore = Save.instance.getLevelScore(level.id, difficulty);
 
 		exitMovers.add(diffText, FlxG.width + diffText.width);
 
-		if (!stateMachine.canInteract())
+		if (lastSelected == selected || !stateMachine.canInteract())
 			return;
+
 		stateMachine.transition(INTERACTING);
 
 		FlxTimer.wait(0.1, () -> stateMachine.reset());
