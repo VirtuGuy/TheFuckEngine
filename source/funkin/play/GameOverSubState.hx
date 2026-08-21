@@ -190,6 +190,6 @@ class GameOverSubState extends FunkinSubState
 	{
 		deathId = PlayState.instance.stage.player?.id;
 		deathMusic = deathId;
-		deathSFX = deathSFX;
+		deathSFX = deathId;
 	}
 }
