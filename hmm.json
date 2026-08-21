@@ -4,7 +4,7 @@
       "name": "flixel",
       "type": "git",
       "dir": null,
-      "ref": "141f23c400c0508c76d5a09a143f5ce6790f8122",
+      "ref": "099f63238dd4ba5614e138f0bde73edb9652adae",
       "url": "https://github.com/FunkinCrew/flixel"
     },
     {
@@ -92,7 +92,7 @@
       "name": "polymod",
       "type": "git",
       "dir": null,
-      "ref": "a745a7f7ceac9882a790e8607e666b5f9e607380",
+      "ref": "8e0a34e8650bc66edc19d6ca92ebebec3f41b0b2",
       "url": "https://github.com/FunkinCrew/polymod"
     },
     {
