@@ -3,7 +3,6 @@ package funkin.ui.menu;
 #if HAS_TRANS_SECRET
 import openfl.display.Bitmap;
 import openfl.geom.Rectangle;
-import openfl.utils.Assets;
 
 /**
  * An overlay that displays the transgender flag. Why? Because why the hell not.
@@ -13,7 +12,7 @@ class TransOverlay extends Bitmap
 {
 	public function new()
 	{
-		super(Assets.getBitmapData(Paths.image('ui/menu/trans/flag')));
+		super(FlxG.assets.getBitmapData(Paths.image('ui/menu/trans/flag')));
 
 		scrollRect = new Rectangle();
 		alpha = 0.5;

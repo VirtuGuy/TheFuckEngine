@@ -1,7 +1,5 @@
 package funkin.util;
 
-import openfl.utils.Assets;
-
 /**
  * A utility class for file handling.
  */
@@ -11,7 +9,7 @@ class FileUtil
 	{
 		return try
 		{
-			Assets.getText(id);
+			FlxG.assets.getText(id);
 		}
 		catch (e)
 			'';
@@ -22,7 +20,7 @@ class FileUtil
 		id = Paths.path(id);
 
 		var list:Array<String> = [];
-		var items:Array<String> = Assets.list().filter(item -> return item.startsWith(id));
+		var items:Array<String> = FlxG.assets.list().filter(item -> return item.startsWith(id));
 
 		for (item in items)
 		{

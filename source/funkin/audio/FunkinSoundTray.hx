@@ -3,7 +3,6 @@ package funkin.audio;
 import flixel.system.ui.FlxSoundTray;
 import funkin.util.MathUtil;
 import openfl.display.Bitmap;
-import openfl.utils.Assets;
 
 /**
  * An extension of `FlxSoundTray`, but with style.
@@ -23,7 +22,7 @@ class FunkinSoundTray extends FlxSoundTray
 
 		removeChildren();
 
-		back = new Bitmap(Assets.getBitmapData(Paths.image(getPath('back'))));
+		back = new Bitmap(FlxG.assets.getBitmapData(Paths.image(getPath('back'))));
 		back.x = -back.width / 2;
 		back.y = -back.height / 2;
 		addChild(back);
@@ -97,7 +96,7 @@ class FunkinSoundTray extends FlxSoundTray
 
 	function buildBar(index:Int):Bitmap
 	{
-		var bar:Bitmap = new Bitmap(Assets.getBitmapData(Paths.image(getPath('bars/bar$index'))));
+		var bar:Bitmap = new Bitmap(FlxG.assets.getBitmapData(Paths.image(getPath('bars/bar$index'))));
 		bar.x = -bar.width / 2;
 		bar.y = back.y + bar.height / 2 - 3;
 

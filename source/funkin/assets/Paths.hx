@@ -1,7 +1,5 @@
 package funkin.assets;
 
-import openfl.utils.Assets;
-
 /**
  * A class for retrieving the game's asset paths.
  */
@@ -44,6 +42,6 @@ class Paths
 
 	public static inline function exists(id:String):Bool
 	{
-		return Assets.exists(id);
+		return FlxG.assets.exists(id);
 	}
 }

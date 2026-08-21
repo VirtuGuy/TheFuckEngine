@@ -1,11 +1,11 @@
-import flixel.addons.display.FlxRuntimeShader;
+import funkin.graphics.shader.FunkinShader;
 import funkin.play.stage.Stage;
 import funkin.util.FileUtil;
 
 class SchoolEvilStage extends Stage
 {
     var wiggleTime:Float = 0;
-    var wiggle:FlxRuntimeShader;
+    var wiggle:FunkinShader;
 
     public function new()
     {
@@ -16,13 +16,13 @@ class SchoolEvilStage extends Stage
     {
         super.onCreate(event);
 
-        wiggle = new FlxRuntimeShader(FileUtil.getText(Paths.frag("general/shaders/wiggle")));
-        wiggle.setFloat("speed", 2);
-        wiggle.setFloat("frequency", 10);
-        wiggle.setFloat("waveAmplitude", 0.03);
+        wiggle = new FunkinShader('wiggle');
+        wiggle.setFloat('speed', 2);
+        wiggle.setFloat('frequency', 10);
+        wiggle.setFloat('waveAmplitude', 0.03);
 
-        getProp("school").shader = wiggle;
-        getProp("ground").shader = wiggle;
+        getProp('school').shader = wiggle;
+        getProp('ground').shader = wiggle;
     }
 
     override function onUpdate(event:UpdateScriptEvent)
@@ -31,6 +31,6 @@ class SchoolEvilStage extends Stage
 
         wiggleTime += event.elapsed;
 
-        wiggle.setFloat("time", wiggleTime);
+        wiggle.setFloat('time', wiggleTime);
     }
 }
