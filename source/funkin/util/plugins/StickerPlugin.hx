@@ -6,10 +6,9 @@ import flixel.util.typeLimit.NextState;
 import funkin.audio.FunkinSound;
 import funkin.data.sticker.StickerRegistry;
 import funkin.ui.sticker.StickerPack;
-import openfl.display.Bitmap;
+import funkin.ui.sticker.StickerSprite;
 import openfl.display.Sprite;
 import openfl.geom.Rectangle;
-import openfl.utils.Assets;
 
 /**
  * A plugin for playing a sticker transition when exiting a song.
@@ -85,13 +84,7 @@ class StickerPlugin extends FlxBasic
 
 		while (x < FlxG.width)
 		{
-			final path:String = Paths.image('${pack.path}/${pack.pickRandom()}');
-
-			var sticker:Bitmap = new Bitmap(Assets.getBitmapData(path));
-
-			sticker.scaleX = sticker.scaleY = Constants.ZOOM * 2.65;
-			sticker.rotation = FlxG.random.float(-10, 10);
-			sticker.visible = false;
+			var sticker:StickerSprite = new StickerSprite(pack, pack.pickRandom());
 
 			sticker.x = x;
 			sticker.y = y;
