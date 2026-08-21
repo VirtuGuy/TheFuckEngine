@@ -28,15 +28,15 @@ class FunkinText extends FlxBitmapText
 	override function set_text(value:String):String
 	{
 		value = value?.toLowerCase();
-		if (this.text == value)
-			return value;
+		if (text == value)
+			return text;
 		return super.set_text(value);
 	}
 
 	@:noCompletion
 	inline function set_size(value:Int):Int
 	{
-		this.size = value;
+		size = value;
 
 		// The base font size is 32, so divide size by 32
 		scale.x = value / 32;
@@ -44,6 +44,6 @@ class FunkinText extends FlxBitmapText
 
 		updateHitbox();
 
-		return value;
+		return size;
 	}
 }
