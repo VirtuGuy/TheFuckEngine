@@ -7,7 +7,6 @@ import openfl.geom.Rectangle;
 /**
  * An overlay that displays the transgender flag. Why? Because why the hell not.
  */
-@:access(flixel.FlxCamera)
 class TransOverlay extends Bitmap
 {
 	public function new()
@@ -24,13 +23,14 @@ class TransOverlay extends Bitmap
 
 	function onResize()
 	{
-		final width:Float = FlxG.camera._scrollRect.scrollRect.width;
-		final height:Float = FlxG.camera._scrollRect.scrollRect.height;
+		final width:Float = FlxG.scaleMode.gameSize.x;
+		final height:Float = FlxG.scaleMode.gameSize.y;
 
 		scaleX = width;
 		scaleY = height / 10;
 
-		__scrollRect.setTo(0, 0, width, height);
+		__scrollRect.width = width;
+		__scrollRect.height = height;
 	}
 }
 #end

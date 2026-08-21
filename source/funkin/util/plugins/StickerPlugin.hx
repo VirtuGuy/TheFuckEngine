@@ -67,11 +67,12 @@ class StickerPlugin extends FlxBasic
 
 			if (stickerIndex == sprite.__children.length)
 			{
+				active = false;
+
 				if (!sticker.visible)
 					clear();
 				if (callback != null)
 					callback();
-				active = false;
 			}
 		}
 	}
@@ -153,14 +154,10 @@ class StickerPlugin extends FlxBasic
 
 	function onResize()
 	{
-		final scaleX:Float = FlxG.scaleMode.scale.x;
-		final scaleY:Float = FlxG.scaleMode.scale.y;
-		final width:Float = FlxG.width * Math.max(1, scaleX);
-		final height:Float = FlxG.height * Math.max(1, scaleY);
+		sprite.scaleX = FlxG.scaleMode.scale.x;
+		sprite.scaleY = FlxG.scaleMode.scale.y;
 
-		sprite.scaleX = scaleX;
-		sprite.scaleY = scaleY;
-
-		sprite.__scrollRect.setTo(0, 0, width, height);
+		sprite.__scrollRect.width = Math.max(FlxG.width, FlxG.scaleMode.gameSize.x);
+		sprite.__scrollRect.height = Math.max(FlxG.height, FlxG.scaleMode.gameSize.y);
 	}
 }
