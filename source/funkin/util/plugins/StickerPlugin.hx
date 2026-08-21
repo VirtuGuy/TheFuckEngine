@@ -1,7 +1,6 @@
 package funkin.util.plugins;
 
 import flixel.FlxBasic;
-import flixel.util.FlxTimer;
 import flixel.util.typeLimit.NextState;
 import funkin.audio.FunkinSound;
 import funkin.data.sticker.StickerRegistry;
@@ -21,6 +20,11 @@ class StickerPlugin extends FlxBasic
 	final START_OFFSET:Int = -100;
 	final STICKER_TIME:Float = 0.0075;
 
+	var stickerTime:Float;
+	var stickerIndex:Int;
+
+	var callback:() -> Void;
+
 	var sprite:Sprite;
 
 	public static function init()
@@ -33,6 +37,7 @@ class StickerPlugin extends FlxBasic
 		super();
 
 		instance = this;
+		active = false;
 
 		sprite = new Sprite();
 		sprite.scrollRect = new Rectangle();
@@ -43,10 +48,41 @@ class StickerPlugin extends FlxBasic
 		onResize();
 	}
 
-	public function switchState(?id:String, nextState:NextState)
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
+
+		stickerTime = Math.max(0, stickerTime - 1 / STICKER_TIME * elapsed);
+
+		if (stickerTime == 0)
+		{
+			var sticker:StickerSprite = cast sprite.getChildAt(stickerIndex);
+
+			sticker.visible = !sticker.visible;
+
+			stickerTime = 1;
+			stickerIndex++;
+
+			FunkinSound.playOnce(Paths.random('general/sticker/sounds/sticker', 1, 5));
+
+			if (stickerIndex == sprite.__children.length)
+			{
+				if (!sticker.visible)
+					clear();
+				if (callback != null)
+					callback();
+				active = false;
+			}
+		}
+	}
+
+	public function switchState(nextState:NextState, ?id:String)
 	{
 		start(id, () ->
 		{
+			if (nextState == null)
+				return popup();
+
 			FlxG.switchState(nextState);
 			FlxG.signals.preStateCreate.addOnce(_ -> popup());
 		});
@@ -55,6 +91,9 @@ class StickerPlugin extends FlxBasic
 	public function clear()
 	{
 		sprite.removeChildren();
+
+		callback = null;
+		active = false;
 	}
 
 	function start(?id:String, ?callback:() -> Void)
@@ -67,7 +106,8 @@ class StickerPlugin extends FlxBasic
 
 		final pack:StickerPack = StickerRegistry.instance.fetch(id);
 
-		if (pack == null)
+		// Don't bother generating stickers if there is none
+		if (pack.images.length == 0)
 		{
 			if (callback != null)
 				callback();
@@ -95,6 +135,7 @@ class StickerPlugin extends FlxBasic
 			}
 		}
 
+		// I love random :D
 		FlxG.random.shuffle(sprite.__children);
 
 		popup(callback);
@@ -102,23 +143,12 @@ class StickerPlugin extends FlxBasic
 
 	function popup(?callback:() -> Void)
 	{
-		for (i => sticker in sprite.__children)
-		{
-			FlxTimer.wait(STICKER_TIME * (i + 1), () ->
-			{
-				sticker.visible = !sticker.visible;
+		this.callback = callback;
 
-				FunkinSound.playOnce(Paths.random('general/sticker/sounds/sticker', 1, 5));
+		stickerTime = 1;
+		stickerIndex = 0;
 
-				if (i == sprite.numChildren - 1)
-				{
-					if (!sticker.visible)
-						clear();
-					if (callback != null)
-						callback();
-				}
-			});
-		}
+		active = true;
 	}
 
 	function onResize()

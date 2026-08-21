@@ -7,7 +7,8 @@ import funkin.data.sticker.StickerData;
  */
 class StickerPack
 {
-	public var id:String;
+	public final id:String;
+
 	public var meta:StickerData;
 
 	public var name(get, never):String;

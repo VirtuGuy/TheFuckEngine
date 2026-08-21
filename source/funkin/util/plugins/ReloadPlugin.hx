@@ -28,23 +28,18 @@ class ReloadPlugin extends FlxBasic
 	{
 		super.update(elapsed);
 
-		// Press F5 to hot-reload
+		// Hot reloading
 		if (FlxG.keys.justPressed.F5)
 		{
 			ModHandler.reload();
-
 			FlxG.resetState();
-
-			// Clear stickers because problems
 			StickerPlugin.instance.clear();
 		}
 
-		// Press F4 to eject back into the main menu
+		// Main menu eject
 		if (FlxG.keys.justPressed.F4)
 		{
 			FlxG.switchState(() -> new MainMenuState());
-
-			// Clear stickers because problems
 			StickerPlugin.instance.clear();
 		}
 	}
