@@ -43,11 +43,6 @@ class StickerPlugin extends FlxBasic
 		onResize();
 	}
 
-	public function play(?id:String, ?callback:() -> Void)
-	{
-		start(id, () -> popup(callback));
-	}
-
 	public function switchState(?id:String, nextState:NextState)
 	{
 		start(id, () ->
