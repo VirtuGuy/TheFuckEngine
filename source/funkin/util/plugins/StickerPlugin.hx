@@ -63,7 +63,7 @@ class StickerPlugin extends FlxBasic
 			stickerTime = 1;
 			stickerIndex++;
 
-			FunkinSound.playOnce(Paths.random('general/sticker/sounds/sticker', 1, 5));
+			FunkinSound.playOnce(Paths.random('general/sticker/sounds/sticker', 1, 4));
 
 			if (stickerIndex == sprite.__children.length)
 			{
