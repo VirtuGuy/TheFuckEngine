@@ -8,9 +8,8 @@ class PhillyTrainStage extends Stage
 {
     final WINDOW_COLORS:Array<FlxColor> = [0xFFFF0000, 0xFF00FF00, 0xFF0000FF, 0xFFFF00FF];
     final WINDOW_BEATS:Int = 4;
+    
     final TRAIN_SPEED:Float = 10000;
-
-    var windowFade:Float;
 
     var trainActive:Bool = false;
     var trainMoving:Bool = false;
@@ -21,22 +20,18 @@ class PhillyTrainStage extends Stage
 
     public function new()
     {
-        super("philly-train");
+        super('philly-train');
     }
 
     override function onCreate(event:ScriptEvent)
     {
         super.onCreate(event);
 
-        windows = getProp("windows");
-        train = getProp("train");
-
-        windowFade = Conductor.instance.crotchet;
-        windowFade /= Constants.MS_PER_SEC / WINDOW_BEATS;
+        windows = getProp('windows');
+        train = getProp('train');
 
         windows.alpha = 0;
 
-        // Hides the train
         stopTrain();
     }
 
@@ -44,16 +39,16 @@ class PhillyTrainStage extends Stage
     {
         super.onUpdate(event);
 
-        windows.alpha -= event.elapsed / windowFade;
+        windows.alpha -= event.elapsed / (Conductor.instance.crotchet / Constants.MS_PER_SEC * WINDOW_BEATS);
+
+        train.visible = trainActive;
 
         if (trainMoving)
         {
             train.x -= event.elapsed * TRAIN_SPEED;
 
             if (train.x < -train.width * 2)
-            {
                 stopTrain();
-            }
         }
     }
 
@@ -61,17 +56,14 @@ class PhillyTrainStage extends Stage
     {
         super.onBeatHit(event);
 
-        if (event.beat < 0) return;
+        if (event.beat < 0)
+            return;
 
         if (event.beat % WINDOW_BEATS == 0)
-        {
             pickWindowColor();
-        }
 
         if (FlxG.random.bool(10) && !trainActive && event.beat > trainBeat)
-        {
             startTrain(event.beat);
-        }
     }
 
     override function onSongRetry(event:ScriptEvent)
@@ -97,7 +89,6 @@ class PhillyTrainStage extends Stage
         trainActive = true;
         trainBeat = beat + 50;
 
-        train.visible = true;
         train.x = FlxG.width;
 
         FunkinSound.playOnce('$path/sounds/train');
@@ -115,7 +106,5 @@ class PhillyTrainStage extends Stage
     {
         trainActive = false;
         trainMoving = false;
-
-        train.visible = false;
     }
 }
