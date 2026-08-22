@@ -14,7 +14,7 @@
         {
             "id": "school",
             "image": "school",
-            "position": [-360, -320],
+            "position": [-360, -350],
             "scroll": [0.7, 0.7],
             "scale": 3
         },
