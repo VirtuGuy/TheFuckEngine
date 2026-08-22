@@ -2,7 +2,7 @@
     "name": "Girlfriend (Tankman)",
     "width": 262,
     "height": 290,
-    "globalOffset": [-127, -330],
+    "globalOffset": [-127, -325],
     "cameraOffset": [0, -60],
     "icon": {
         "id": "gf"

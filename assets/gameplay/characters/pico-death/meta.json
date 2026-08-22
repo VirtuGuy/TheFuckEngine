@@ -2,7 +2,7 @@
     "name": "Pico (Death)",
     "width": 254,
     "height": 287,
-    "globalOffset": [-75, -285],
+    "globalOffset": [-85, -285],
     "cameraOffset": [0, 0],
     "animations": [
         {

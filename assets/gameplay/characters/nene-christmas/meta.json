@@ -2,7 +2,7 @@
     "name": "Nene (Christmas)",
     "width": 200,
     "height": 242,
-    "globalOffset": [-125, -350],
+    "globalOffset": [-120, -350],
     "cameraOffset": [0, 20],
     "icon": {
         "id": "nene"
