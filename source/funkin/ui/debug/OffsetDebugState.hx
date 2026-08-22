@@ -20,6 +20,8 @@ class OffsetDebugState extends FunkinState
 	final GRID_COLOR:FlxColor = 0x10FFFFFF;
 	final GRID_SPEED:Float = 30;
 
+	var characters:Array<String>;
+
 	var camHUD:FlxCamera;
 
 	var characterText:FunkinText;
@@ -28,8 +30,8 @@ class OffsetDebugState extends FunkinState
 	var middleLine:FunkinSprite;
 	var floorLine:FunkinSprite;
 
-	var characters:Array<String>;
 	var character:Character;
+	var onionSkin:Character;
 
 	override function create()
 	{
@@ -94,6 +96,8 @@ class OffsetDebugState extends FunkinState
 
 		if (FlxG.keys.justPressed.F)
 			character.flipX = !character.flipX;
+		if (FlxG.keys.justPressed.O)
+			buildOnionSkin();
 
 		if (prev || next)
 		{
@@ -142,6 +146,7 @@ class OffsetDebugState extends FunkinState
 		super.beatHit(beat);
 
 		character.bop();
+		onionSkin?.bop();
 	}
 
 	function loadCharacter(id:String)
@@ -157,5 +162,24 @@ class OffsetDebugState extends FunkinState
 		final count:Int = characters.length;
 
 		characterText.text = '$id ($index/$count)';
+	}
+
+	function buildOnionSkin()
+	{
+		if (onionSkin?.id != character.id)
+		{
+			onionSkin?.destroy();
+
+			onionSkin = CharacterRegistry.instance.fetchCharacter(character.id);
+			onionSkin.setPosition(character.x, character.y);
+			onionSkin.alpha = 0.5;
+			onionSkin.zIndex = -1;
+
+			add(onionSkin);
+			refresh();
+		}
+
+		onionSkin.offset.copyFrom(character.offset);
+		onionSkin.flipX = character.flipX;
 	}
 }
