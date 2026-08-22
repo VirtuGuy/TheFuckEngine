@@ -2,41 +2,41 @@
     "name": "Philly (Train)",
     "zoom": 1.4,
     "opponent": {
-        "position": [-220, 350]
+        "position": [-220, 50]
     },
     "player": {
-        "position": [220, 350]
+        "position": [220, 50]
     },
     "gf": {
-        "position": [0, 300]
+        "position": [0, 0]
     },
     "props": [
         {
             "image": "sky",
-            "position": [0, 20],
-            "scroll": [0.05, 0.05]
+            "position": [-250, -100],
+            "scroll": [0.1, 0.1]
         },
         {
             "image": "buildings",
-            "position": [-440, 20],
+            "position": [-480, -50],
             "scroll": [0.3, 0.3],
             "scale": 1.1
         },
         {
             "id": "windows",
             "image": "windows",
-            "position": [-415, 80],
+            "position": [-455, 0],
             "scroll": [0.3, 0.3],
             "scale": 1.1
         },
         {
             "id": "train",
             "image": "train",
-            "position": [0, -180]
+            "position": [0, -400]
         },
         {
             "image": "front",
-            "position": [-550, 150]
+            "position": [-700, -80]
         }
     ]
 }

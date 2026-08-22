@@ -2,34 +2,34 @@
     "name": "Limo Ride",
     "zoom": 1.15,
     "opponent": {
-        "position": [-250, 370]
+        "position": [-250, 50]
     },
     "player": {
-        "position": [440, 240]
+        "position": [450, -100]
     },
     "gf": {
-        "position": [0, 320]
+        "position": [0, 0]
     },
     "props": [
         {
             "image": "sky",
-            "position": [-50, -100],
+            "position": [-100, -150],
             "scroll": [0.1, 0.1]
         },
         {
             "image": "back",
-            "position": [-280, 115],
-            "scroll": [0.6, 0.6],
-            "scale": 0.85
+            "position": [-320, -150],
+            "scroll": [0.6, 0.75],
+            "scale": 0.95
         },
         {
             "id": "henchman",
             "image": "henchman",
             "width": 267,
             "height": 272,
-            "position": [50, -115],
-            "scroll": [0.6, 0.6],
-            "scale": 0.8,
+            "position": [20, -380],
+            "scroll": [0.6, 0.75],
+            "scale": 0.825,
             "animations": [
                 {
                     "name": "idle",
@@ -39,25 +39,25 @@
         },
         {
             "prop": "henchman",
-            "position": [350, -115]
+            "position": [320, -380]
         },
         {
             "prop": "henchman",
-            "position": [650, -115]
+            "position": [620, -380]
         },
         {
             "prop": "henchman",
-            "position": [950, -115]
+            "position": [920, -380]
         },
         {
             "image": "front",
-            "position": [-380, 80],
+            "position": [-500, -160],
             "zIndex": 2
         },
         {
             "id": "car",
             "image": "car",
-            "position": [0, 180],
+            "position": [0, -30],
             "scale": 1.2,
             "zIndex": 3
         }

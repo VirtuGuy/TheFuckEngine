@@ -21,8 +21,8 @@ class SpookyStage extends Stage
         super.onCreate(event);
 
         back = getProp('back');
-
         window = getProp('window');
+
         window.alpha = 0;
     }
 

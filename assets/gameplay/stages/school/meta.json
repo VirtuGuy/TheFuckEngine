@@ -2,53 +2,55 @@
     "name": "School",
     "zoom": 1.15,
     "opponent": {
-        "position": [-250, 350]
+        "position": [-250, 50]
     },
     "player": {
-        "position": [250, 350]
+        "position": [250, 50]
     },
     "gf": {
-        "position": [0, 300]
+        "position": [0, 0]
     },
     "props": [
         {
             "image": "sky",
-            "position": [-150, -100],
+            "position": [-150, -150],
             "scroll": [0.2, 0.2],
             "scale": 3.5
         },
         {
             "image": "trees",
-            "position": [-400, 30],
+            "position": [-500, -100],
             "scroll": [0.6, 0.6],
             "scale": 3
         },
         {
             "image": "school",
-            "position": [-480, -240],
-            "scroll": [0.75, 0.75],
+            "position": [-545, -350],
+            "scroll": [0.7, 0.7],
             "scale": 3
         },
         {
             "image": "ground",
-            "position": [-720, 50],
+            "position": [-850, -140],
             "scale": 3.5
         },
         {
             "image": "tree",
-            "position": [-690, -400],
+            "position": [-780, -580],
+            "scroll": [0.95, 0.95],
             "scale": 3
         },
         {
             "image": "tree",
-            "position": [500, -400],
+            "position": [440, -580],
+            "scroll": [0.95, 0.95],
             "scale": 3,
             "flipX": true
         },
         {
             "id": "girls1",
             "image": "girls",
-            "position": [-320, -180],
+            "position": [-420, -400],
             "scale": 3.5,
             "width": 83,
             "height": 70,
@@ -66,7 +68,7 @@
         {
             "id": "girls2",
             "prop": "girls1",
-            "position": [200, -180]
+            "position": [60, -400]
         }
     ]
 }

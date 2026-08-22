@@ -25,7 +25,7 @@ class NeneBaseCharacter extends Character
         abot.scrollFactor.x = scrollFactor.x;
         abot.scrollFactor.y = scrollFactor.y;
         abot.zIndex = zIndex - 1;
-        abot.setPosition(x - 100, y - 250);
+        abot.setPosition(x - offset.x - 98, y - offset.y + 170);
         
         PlayState.instance.stage.add(abot);
         PlayState.instance.stage.refresh();

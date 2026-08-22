@@ -2,34 +2,33 @@
     "name": "Tankman Battlefield",
     "zoom": 1.3,
     "opponent": {
-        "position": [-250, 350]
+        "position": [-250, 120]
     },
     "player": {
-        "position": [250, 350]
+        "position": [250, 120]
     },
     "gf": {
-        "position": [0, 180]
+        "position": [0, 0]
     },
     "props": [
         {
             "image": "sky",
-            "position": [0, 0],
+            "position": [-50, 0],
             "scroll": [0.05, 0.05]
         },
         {
             "image": "mountains",
-            "position": [-200, 40],
+            "position": [-200, 50],
             "scroll": [0.2, 0.2]
         },
         {
             "image": "ruins",
-            "position": [-200, 30],
-            "scroll": [0.4, 0.4],
-            "scale": 1.05
+            "position": [-200, 0],
+            "scroll": [0.4, 0.4]
         },
         {
             "image": "tower",
-            "position": [-200, -150],
+            "position": [-230, -200],
             "scroll": [0.6, 0.6],
             "width": 148,
             "height": 258,
@@ -44,13 +43,13 @@
         {
             "id": "tank",
             "image": "tank",
-            "position": [0, 80]
+            "position": [0, -30]
         },
         {
             "id": "ground",
             "image": "ground",
-            "position": [-625, 0],
-            "scale": 1.35
+            "position": [-680, -100],
+            "scale": 1.25
         }
     ]
 }

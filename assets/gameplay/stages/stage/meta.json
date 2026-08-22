@@ -2,32 +2,32 @@
     "name": "Stage",
     "zoom": 1.25,
     "opponent": {
-        "position": [-300, 350]
+        "position": [-300, 50]
     },
     "player": {
-        "position": [300, 350]
+        "position": [300, 50]
     },
     "gf": {
-        "position": [0, 300]
+        "position": [0, 0]
     },
     "props": [
         {
             "image": "back",
-            "position": [-525, -350]
+            "position": [-700, -550]
         },
         {
             "image": "front",
-            "position": [-525, 180]
+            "position": [-675, -30]
         },
         {
             "image": "curtain",
-            "position": [-525, -300],
+            "position": [-590, -500],
             "scroll": [0.75, 0.75],
             "zIndex": 3
         },
         {
             "image": "curtain",
-            "position": [700, -300],
+            "position": [590, -500],
             "scroll": [0.75, 0.75],
             "flipX": true,
             "zIndex": 3

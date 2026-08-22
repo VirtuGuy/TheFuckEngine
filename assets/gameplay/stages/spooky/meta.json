@@ -2,25 +2,25 @@
     "name": "Spooky Mansion",
     "zoom": 1.35,
     "opponent": {
-        "position": [-300, 350]
+        "position": [-300, 50]
     },
     "player": {
-        "position": [300, 350]
+        "position": [300, 50]
     },
     "gf": {
-        "position": [0, 300]
+        "position": [0, 0]
     },
     "props": [
         {
             "id": "back",
             "image": "back",
-            "position": [-600, -400],
+            "position": [-750, -600],
             "scale": 1.1
         },
         {
             "id": "window",
             "image": "window",
-            "position": [-265, -287],
+            "position": [-414, -487],
             "scale": 1.1
         }
     ]

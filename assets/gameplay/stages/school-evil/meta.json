@@ -2,26 +2,26 @@
     "name": "School (Evil)",
     "zoom": 1.15,
     "opponent": {
-        "position": [-280, 350]
+        "position": [-280, 50]
     },
     "player": {
-        "position": [280, 350]
+        "position": [280, 50]
     },
     "gf": {
-        "position": [0, 300]
+        "position": [0, 0]
     },
     "props": [
         {
             "id": "school",
             "image": "school",
-            "position": [-300, -190],
-            "scroll": [0.75, 0.75],
+            "position": [-360, -320],
+            "scroll": [0.7, 0.7],
             "scale": 3
         },
         {
             "id": "ground",
             "image": "ground",
-            "position": [-720, 100],
+            "position": [-850, -140],
             "scale": 3.5
         }
     ]

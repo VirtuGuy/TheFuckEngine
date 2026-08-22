@@ -2,37 +2,37 @@
     "name": "Mall",
     "zoom": 1.125,
     "opponent": {
-        "position": [-400, 400]
+        "position": [-450, 50]
     },
     "player": {
-        "position": [300, 400]
+        "position": [300, 50]
     },
     "gf": {
-        "position": [0, 320]
+        "position": [0, 0]
     },
     "props": [
         {
             "image": "back-top",
-            "position": [-260, -370],
+            "position": [-300, -420],
             "scroll": [0.3, 0.45],
             "scale": 0.75
         },
         {
             "image": "back-bottom",
-            "position": [-260, 120],
+            "position": [-300, 20],
             "scroll": [0.3, 0.45],
             "scale": 0.75
         },
         {
             "image": "back-bottom",
-            "position": [500, 120],
+            "position": [460, 20],
             "scroll": [0.3, 0.45],
             "flipX": true,
             "scale": 0.75
         },
         {
             "image": "boppers-top-left",
-            "position": [-210, -40],
+            "position": [-250, -130],
             "scroll": [0.5, 0.5],
             "scale": 0.8,
             "width": 416,
@@ -46,7 +46,7 @@
         },
         {
             "image": "boppers-top-right",
-            "position": [500, -40],
+            "position": [420, -130],
             "scroll": [0.5, 0.5],
             "scale": 0.8,
             "width": 383,
@@ -60,13 +60,13 @@
         },
         {
             "image": "front",
-            "position": [-460, 50],
+            "position": [-520, -40],
             "scroll": [0.5, 0.5],
             "scale": 0.8
         },
         {
             "image": "front",
-            "position": [340, 50],
+            "position": [280, -40],
             "scroll": [0.5, 0.5],
             "flipX": true,
             "scale": 0.8
@@ -74,13 +74,13 @@
         {
             "id": "tree",
             "image": "tree",
-            "position": [30, -300],
+            "position": [-50, -420],
             "scroll": [0.7, 0.7],
             "scale": 0.75
         },
         {
             "image": "boppers-bottom",
-            "position": [380, -110],
+            "position": [220, -360],
             "width": 407,
             "height": 277,
             "animations": [
@@ -92,7 +92,7 @@
         },
         {
             "image": "mighty",
-            "position": [-180, -110],
+            "position": [-300, -360],
             "width": 146,
             "height": 256,
             "animations": [
@@ -104,11 +104,11 @@
         },
         {
             "image": "snow",
-            "position": [-850, 200]
+            "position": [-1000, -50]
         },
         {
             "image": "santa",
-            "position": [-760, -30],
+            "position": [-930, -230],
             "scale": 1.1,
             "width": 219,
             "height": 254,
