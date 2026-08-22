@@ -35,14 +35,14 @@ class Character extends StageProp implements IPlayStateScriptedClass
 		loadSprite('$charPath/image', meta.scale, meta.width, meta.height);
 		loadAnimations(meta.animations);
 
-		bopEvery = meta.bopEvery;
-		singDuration = meta.singDuration;
+		offset.set(-meta.globalOffset[0] ?? 0, -meta.globalOffset[1] ?? 0);
 
 		flipX = meta.flipX != (type == PLAYER);
 		flipY = meta.flipY;
 
-		offset.set(-meta.globalOffset[0] ?? 0, -meta.globalOffset[1] ?? 0);
+		bopEvery = meta.bopEvery;
 
+		singDuration = meta.singDuration;
 		singTimer = MAX_SING_TIME;
 
 		bop();
