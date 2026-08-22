@@ -22,6 +22,7 @@ class ModHandler
 		if (!FileSystem.exists(MOD_FOLDER))
 			FileSystem.createDirectory(MOD_FOLDER);
 
+		buildImports();
 		loadMods();
 	}
 
@@ -44,8 +45,6 @@ class ModHandler
 
 	static function loadMods()
 	{
-		buildImports();
-
 		Polymod.init({
 			modRoot: MOD_FOLDER,
 			framework: OPENFL,
