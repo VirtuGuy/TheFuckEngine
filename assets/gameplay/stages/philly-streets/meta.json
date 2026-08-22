@@ -2,13 +2,13 @@
     "name": "Philly (Streets)",
     "zoom": 1.2,
     "opponent": {
-        "position": [-380, 20]
+        "position": [-370, 20]
     },
     "player": {
         "position": [300, 110]
     },
     "gf": {
-        "position": [0, 0]
+        "position": [20, 0]
     },
     "props": [
         {
@@ -37,7 +37,7 @@
         {
             "id": "cans",
             "image": "cans",
-            "position": [-310, -50],
+            "position": [-290, -50],
             "zIndex": 3
         }
     ]
