@@ -12,7 +12,6 @@
 		}
 	},
 	"haxe.enableExtendedIndentation": true,
-	"haxe.enableServerView": true,
 	"files.associations": {
 		"*.hxp": "haxe",
 		"*.hxc": "haxe"
