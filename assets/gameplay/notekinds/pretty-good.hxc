@@ -4,7 +4,7 @@ class PrettyGoodNoteKind extends NoteKind
 {
     public function new()
     {
-        super("pretty-good");
+        super('pretty-good');
 
         // Handled in Tankman's script
     }

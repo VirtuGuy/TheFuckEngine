@@ -15,23 +15,23 @@ class TwoHotSong extends Song
 
     public function new()
     {
-        super("2hot");
+        super('2hot');
     }
 
     override function onCreate(event:ScriptEvent)
     {
         super.onCreate(event);
 
-        cans = PlayState.instance.stage.getProp("cans");
+        cans = PlayState.instance.stage.getProp('cans');
 
-        can = new StageProp("can");
+        can = new StageProp('can');
         can.loadSprite(getPath('props/can'));
         can.zIndex = cans.zIndex - 1;
         can.moves = true;
 
-        explosion = new StageProp("explosion");
+        explosion = new StageProp('explosion');
         explosion.loadSprite(getPath('props/explosion'), 1, 258, 267);
-        explosion.addAnimation("explode", [0, 1, 2], 12, false);
+        explosion.addAnimation('explode', [0, 1, 2], 12, false);
         explosion.animation.onFinish.add(_ -> resetExplosion());
         explosion.zIndex = 100;
 
@@ -63,19 +63,19 @@ class TwoHotSong extends Song
 
         switch (event.note.kind)
         {
-            case "kick-can":
+            case 'kick-can':
                 can.acceleration.y = 10000;
                 can.velocity.y = -1800;
-            case "knee-can":
+            case 'knee-can':
                 can.acceleration.set(4000, 6000);
                 can.velocity.y = -1500;
 
                 canKicked = true;
-            case "cock-gun":
+            case 'cock-gun':
                 gunPrepped = true;
                 
                 FunkinSound.playOnce(getPath('sounds/cock'));
-            case "fire-gun":
+            case 'fire-gun':
                 // Can't fire the gun when it isn't prepped
                 if (!gunPrepped)
                     return event.cancel();
@@ -90,7 +90,7 @@ class TwoHotSong extends Song
     {
         super.onNoteMiss(event);
 
-        if (event.note.kind == "fire-gun")
+        if (event.note.kind == 'fire-gun')
         {
             explodeCan();
 
@@ -113,7 +113,7 @@ class TwoHotSong extends Song
 
     function explodeCan()
     {
-        explosion.playAnimation("explode", true);
+        explosion.playAnimation('explode', true);
         explosion.x = can.x + (can.width - explosion.width) / 2;
         explosion.y = can.y + (can.height - explosion.height) / 2;
 

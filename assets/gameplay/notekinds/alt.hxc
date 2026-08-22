@@ -4,13 +4,13 @@ class AltNoteKind extends NoteKind
 {
     public function new()
     {
-        super("alt");
+        super('alt');
     }
 
     override function onNoteHit(event:NoteScriptEvent)
     {
         super.onNoteHit(event);
 
-        event.suffix = "-alt";
+        event.suffix = '-alt';
     }
 }

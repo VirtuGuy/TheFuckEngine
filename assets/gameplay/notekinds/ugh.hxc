@@ -4,7 +4,7 @@ class UghNoteKind extends NoteKind
 {
     public function new()
     {
-        super("ugh");
+        super('ugh');
 
         // Handled in Tankman's script
     }

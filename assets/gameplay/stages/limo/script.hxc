@@ -15,14 +15,14 @@ class LimoStage extends Stage
 
     public function new()
     {
-        super("limo");
+        super('limo');
     }
 
     override function onCreate(event:ScriptEvent)
     {
         super.onCreate(event);
 
-        car = getProp("car");
+        car = getProp('car');
 
         resetCar();
     }
@@ -36,9 +36,7 @@ class LimoStage extends Stage
             car.x -= event.elapsed * CAR_SPEED;
 
             if (car.x < -car.width * 2)
-            {
                 resetCar();
-            }
         }
     }
 
@@ -47,9 +45,7 @@ class LimoStage extends Stage
         super.onBeatHit(event);
 
         if (FlxG.random.bool(10) && !carActive && event.beat > carBeat)
-        {
             startCar(event.beat);
-        }
     }
 
     function startCar(beat:Int)

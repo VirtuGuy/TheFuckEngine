@@ -5,15 +5,15 @@ class CameraBopEvent extends SongEvent
 {
     public function new()
     {
-        super("camera-bop");
+        super('camera-bop');
     }
 
     override function handle(value:Dynamic)
     {
         super.handle(value);
 
-        var rate:Float = getFloat("r");
-        var intensity:Float = getFloat("i");
+        var rate:Float = getFloat('r');
+        var intensity:Float = getFloat('i');
 
         // Funkin' is a little dumb sometimes
         intensity *= Constants.CAMERA_BOP_INTENSITY - 1;

@@ -4,7 +4,7 @@ class DarnellCharacter extends Character
 {
     public function new()
     {
-        super("darnell");
+        super('darnell');
     }
 
     override function onNoteHit(event:NoteScriptEvent)
@@ -13,12 +13,12 @@ class DarnellCharacter extends Character
 
         switch (event.note.kind)
         {
-            case "light-can":
-                playAnimation("light");
-            case "kick-can":
-                playAnimation("kick");
-            case "knee-can":
-                playAnimation("knee");
+            case 'light-can':
+                playAnimation('light');
+            case 'kick-can':
+                playAnimation('kick');
+            case 'knee-can':
+                playAnimation('knee');
         }
     }
 }

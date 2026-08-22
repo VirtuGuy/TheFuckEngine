@@ -16,20 +16,20 @@ class TankStage extends Stage
 
     public function new()
     {
-        super("tank");
+        super('tank');
     }
 
     override function onCreate(event:ScriptEvent)
     {
         super.onCreate(event);
 
-        ground = getProp("ground");
-        tank = getProp("tank");
+        ground = getProp('ground');
+        tank = getProp('tank');
 
         tankX = tank.x;
         tankY = tank.y;
 
-        if (PlayState.instance.song.id == "stress")
+        if (PlayState.instance.song.id == 'stress')
         {
             tankmen = new TankmenGroup(this.superClass);
             tankmen.zIndex = gf?.zIndex - 1;

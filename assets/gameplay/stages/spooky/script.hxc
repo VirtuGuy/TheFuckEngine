@@ -13,16 +13,16 @@ class SpookyStage extends Stage
 
     public function new()
     {
-        super("spooky");
+        super('spooky');
     }
 
     override function onCreate(event:ScriptEvent)
     {
         super.onCreate(event);
 
-        back = getProp("back");
+        back = getProp('back');
 
-        window = getProp("window");
+        window = getProp('window');
         window.alpha = 0;
     }
 
@@ -38,12 +38,10 @@ class SpookyStage extends Stage
     {
         super.onBeatHit(event);
 
-        var syncedBeat:Bool = event.beat == 4 && PlayState.instance.song.id == "spookeez";
+        var syncedBeat:Bool = event.beat == 4 && PlayState.instance.song.id == 'spookeez';
 
         if ((FlxG.random.bool(10) && event.beat > lightningBeat) || syncedBeat)
-        {
             strikeLightning(!syncedBeat, event.beat);
-        }
     }
 
     function strikeLightning(playSound:Bool = true, beat:Int)
@@ -54,8 +52,6 @@ class SpookyStage extends Stage
         window.alpha = 1;        
 
         if (playSound)
-        {
             FunkinSound.playOnce(Paths.random('$path/sounds/thunder', 1, 2));
-        }
     }
 }

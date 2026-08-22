@@ -6,7 +6,7 @@ class DarnellBlazinCharacter extends Character
 
     public function new()
     {
-        super("darnell-blazin");
+        super('darnell-blazin');
     }
 
     function punch()

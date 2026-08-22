@@ -7,7 +7,7 @@ class PicoSpeakerCharacter extends Character
 
     public function new()
     {
-        super("pico-speaker");
+        super('pico-speaker');
     }
 
     override function onUpdate(event:UpdateScriptEvent)
@@ -42,7 +42,7 @@ class PicoSpeakerCharacter extends Character
     {
         super.onSongLoaded(event);
 
-        data = PlayState.instance.song.getNotes("picospeaker").copy();
+        data = PlayState.instance.song.getNotes('picospeaker').copy();
     }
 
     function shoot(direction:Int)
@@ -50,8 +50,8 @@ class PicoSpeakerCharacter extends Character
         // Paths.random() my beloved
         // Also yeah there's only left and right directions
         if (direction == 0)
-            playAnimation(Paths.random("shoot", 1, 2), true);
+            playAnimation(Paths.random('shoot', 1, 2), true);
         else if (direction == 3)
-            playAnimation(Paths.random("shoot", 3, 4), true);
+            playAnimation(Paths.random('shoot', 3, 4), true);
     }
 }

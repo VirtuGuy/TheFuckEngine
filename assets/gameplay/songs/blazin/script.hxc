@@ -5,7 +5,7 @@ class BlazinSong extends Song
 {
     public function new()
     {
-        super("blazin");
+        super('blazin');
     }
 
     override function onCreate(event:ScriptEvent)

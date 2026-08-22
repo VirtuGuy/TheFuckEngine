@@ -10,14 +10,14 @@ class TankmanCharacter extends Character
 
     public function new()
     {
-        super("tankman");
+        super('tankman');
     }
 
     override function bop(force:Bool = false)
     {
-        // Don't bop during "heh"
-        // "heh" is meant to be for the "pretty-good" animation
-        if (getCurrentAnimation() == "heh")
+        // Don't bop during 'heh'
+        // 'heh' is meant to be for the 'pretty-good' animation
+        if (getCurrentAnimation() == 'heh')
             return;
 
         super.bop(force);
@@ -28,11 +28,11 @@ class TankmanCharacter extends Character
         super.onCreate(event);
 
         animation.onFinish.add(name -> {
-            if (name != "heh")
+            if (name != 'heh')
                 return;
 
             hehTimer?.cancel();
-            hehTimer = FlxTimer.wait(1.15, () -> playAnimation("pretty-good", true));
+            hehTimer = FlxTimer.wait(1.15, () -> playAnimation('pretty-good', true));
         });
     }
 
@@ -42,11 +42,11 @@ class TankmanCharacter extends Character
 
         switch (event.note.kind)
         {
-            case "ugh":
-                playAnimation("ugh", true);
-            case "pretty-good":
-                // "heh", then "pretty-good"
-                playAnimation("heh", true);
+            case 'ugh':
+                playAnimation('ugh', true);
+            case 'pretty-good':
+                // 'heh', then 'pretty-good'
+                playAnimation('heh', true);
         }
     }
 

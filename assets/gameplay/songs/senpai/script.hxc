@@ -16,14 +16,15 @@ class SenpaiSong extends Song
 
     public function new()
     {
-        super("senpai");
+        super('senpai');
     }
 
     override function onCountdownStart(event:CountdownScriptEvent)
     {
         super.onCountdownStart(event);
 
-        if (seenCutscene || !Playlist.isStory) return;
+        if (seenCutscene || !Playlist.isStory)
+            return;
         seenCutscene = true;
 
         event.cancel();
@@ -53,7 +54,7 @@ class SenpaiSong extends Song
 
         noteCount++;
 
-        if (sentpajim && noteCount > 3 && opponent?.hasAnimation("sentpajim"))
+        if (sentpajim && noteCount > 3 && opponent?.hasAnimation('sentpajim'))
         {
             PlayState.instance.stage.remove(opponent, true);
             PlayState.instance.add(opponent);
@@ -67,7 +68,7 @@ class SenpaiSong extends Song
 
             event.cancel();
 
-            opponent.playAnimation("sentpajim");
+            opponent.playAnimation('sentpajim');
             opponent.screenCenter();
             opponent.centerOffsets();
             opponent.scrollFactor.set();

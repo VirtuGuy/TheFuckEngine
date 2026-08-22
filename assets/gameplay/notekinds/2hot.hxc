@@ -6,7 +6,7 @@ class LightCanNoteKind extends NoteKind
 {
     public function new()
     {
-        super("light-can");
+        super('light-can');
     }
 }
 
@@ -14,7 +14,7 @@ class KickCanNoteKind extends NoteKind
 {
     public function new()
     {
-        super("kick-can");
+        super('kick-can');
     }
 }
 
@@ -22,7 +22,7 @@ class KneeCanNoteKind extends NoteKind
 {
     public function new()
     {
-        super("knee-can");
+        super('knee-can');
     }
 }
 
@@ -30,7 +30,7 @@ class CockGunNoteKind extends NoteKind
 {
     public function new()
     {
-        super("cock-gun");
+        super('cock-gun');
     }
 }
 
@@ -38,6 +38,6 @@ class FireGunNoteKind extends NoteKind
 {
     public function new()
     {
-        super("fire-gun");
+        super('fire-gun');
     }
 }

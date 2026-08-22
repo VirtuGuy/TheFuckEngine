@@ -6,21 +6,21 @@ class SchoolStage extends Stage
 {
     public function new()
     {
-        super("school");
+        super('school');
     }
 
     override function onCreate(event:ScriptEvent)
     {
         super.onCreate(event);
 
-        var girls1:StageProp = getProp("girls1");
-        var girls2:StageProp = getProp("girls2");
+        var girls1:StageProp = getProp('girls1');
+        var girls2:StageProp = getProp('girls2');
 
         // Make the background freaks scared for Roses
-        if (PlayState.instance.song.id == "roses")
+        if (PlayState.instance.song.id == 'roses')
         {
-            girls1.idleSuffix = "-scared";
-            girls2.idleSuffix = "-scared";
+            girls1.idleSuffix = '-scared';
+            girls2.idleSuffix = '-scared';
             girls1.bop();
             girls2.bop();
         }

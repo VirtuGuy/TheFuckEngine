@@ -5,7 +5,7 @@ class PhillyStreetsStage extends Stage
 {
     public function new()
     {
-        super("philly-streets");
+        super('philly-streets');
     }
 
     override function onCreate(event:ScriptEvent)
@@ -14,9 +14,9 @@ class PhillyStreetsStage extends Stage
 
         // Blazin' unique stuff
         // Spray can removal, character positioning, etc.
-        if (PlayState.instance.song.id == "blazin")
+        if (PlayState.instance.song.id == 'blazin')
         {
-            getProp("cans").destroy();
+            getProp('cans').destroy();
 
             opponent.setPosition(gf.x - 120, 350);
             player.setPosition(gf.x + 120, opponent.y);

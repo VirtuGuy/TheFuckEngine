@@ -13,7 +13,7 @@ class WinterHorrorlandSong extends Song
 
     public function new()
     {
-        super("winter-horrorland");
+        super('winter-horrorland');
     }
 
     override function onCountdownStart(event:CountdownScriptEvent)
@@ -26,7 +26,7 @@ class WinterHorrorlandSong extends Song
 
         event.cancel();
 
-        var tree:StageProp = PlayState.instance.stage.getProp("tree");
+        var tree:StageProp = PlayState.instance.stage.getProp('tree');
 
         PlayState.instance.camFollow.setPosition(tree?.x + 100, tree?.y - 200);
 
@@ -41,7 +41,7 @@ class WinterHorrorlandSong extends Song
             PlayState.instance.camHUD.visible = true;
             PlayState.instance.startCountdown();
 
-            EventRegistry.instance.handleEvent("zoom-camera", { z: 1, e: "quintOut", d: 40 });
+            EventRegistry.instance.handleEvent('zoom-camera', { z: 1, e: 'quintOut', d: 40 });
         });
     }
 

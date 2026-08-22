@@ -4,16 +4,16 @@ class PlayAnimationEvent extends SongEvent
 {
     public function new()
     {
-        super("play-animation");
+        super('play-animation');
     }
 
     override function handle(value:Dynamic)
     {
         super.handle(value);
 
-        var target:Character = getCharacter("c");
-        var anim:String = getString("a");
-        var force:Bool = getBool("f");
+        var target:Character = getCharacter('c');
+        var anim:String = getString('a');
+        var force:Bool = getBool('f');
 
         if (target == null) return;
 

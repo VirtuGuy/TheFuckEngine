@@ -7,7 +7,7 @@ class PicoBlazinCharacter extends Character
 
     public function new()
     {
-        super("pico-blazin");
+        super('pico-blazin');
     }
 
     function punch()
