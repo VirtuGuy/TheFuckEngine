@@ -12,7 +12,12 @@ class FunkinSoundTray extends FlxSoundTray
 	static final SCALE:Float = 1.25;
 
 	var isSilent:Bool;
+
+	var lerpScaleX:Float;
+	var lerpScaleY:Float;
 	var lerpPos:Float;
+
+	var targetPos:Float;
 
 	var back:Bitmap;
 
@@ -44,21 +49,23 @@ class FunkinSoundTray extends FlxSoundTray
 
 			if (_timer == 1)
 			{
-				lerpPos = -height;
+				targetPos = -height;
 
 				if (y <= -height)
-				{
-					visible = false;
-					active = false;
-				}
+					visible = active = false;
 			}
 		}
 
-		x = FlxG.width / 2;
-		y = MathUtil.lerp(y, lerpPos, 0.25);
+		lerpScaleX = MathUtil.lerp(lerpScaleX, SCALE, 0.3);
+		lerpScaleY = MathUtil.lerp(lerpScaleY, SCALE, 0.3);
 
-		scaleX = MathUtil.lerp(scaleX, SCALE, 0.3);
-		scaleY = MathUtil.lerp(scaleY, SCALE, 0.3);
+		scaleX = lerpScaleX * FlxG.scaleMode.scale.x;
+		scaleY = lerpScaleY * FlxG.scaleMode.scale.y;
+
+		lerpPos = MathUtil.lerp(lerpPos, targetPos, 0.25);
+
+		x = FlxG.scaleMode.gameSize.x / 2;
+		y = lerpPos * FlxG.scaleMode.scale.y;
 	}
 
 	override function showIncrement()
@@ -82,13 +89,13 @@ class FunkinSoundTray extends FlxSoundTray
 		_timer = 0;
 
 		isSilent = volume == 0;
-		lerpPos = 50;
 
-		scaleX = SCALE * 1.25;
-		scaleY = SCALE * 0.75;
+		lerpScaleX = SCALE * 1.25;
+		lerpScaleY = SCALE * 0.75;
 
-		visible = true;
-		active = true;
+		targetPos = 50;
+
+		visible = active = true;
 
 		for (i => bar in _bars)
 			bar.visible = i < volume;
