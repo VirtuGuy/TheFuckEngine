@@ -2,7 +2,7 @@
     "name": "Monster",
     "width": 232,
     "height": 316,
-    "globalOffset": [30, -450],
+    "globalOffset": [-98, -350],
     "cameraOffset": [100, -80],
     "icon": {},
     "animations": [

@@ -2,7 +2,7 @@
     "name": "Pico (Speaker)",
     "width": 358,
     "height": 288,
-    "globalOffset": [0, -390],
+    "globalOffset": [-160, -320],
     "cameraOffset": [0, -60],
     "icon": {
         "id": "pico"

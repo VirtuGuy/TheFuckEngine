@@ -2,7 +2,7 @@
     "name": "Tankman",
     "width": 218,
     "height": 240,
-    "globalOffset": [0, -350],
+    "globalOffset": [-93, -260],
     "cameraOffset": [100, -100],
     "scale": 1.05,
     "icon": {},

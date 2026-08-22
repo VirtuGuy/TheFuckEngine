@@ -2,7 +2,7 @@
     "name": "Boyfriend (Holding GF) [Death]",
     "width": 256,
     "height": 255,
-    "globalOffset": [0, -350],
+    "globalOffset": [-100, -235],
     "cameraOffset": [0, 0],
     "animations": [
         {

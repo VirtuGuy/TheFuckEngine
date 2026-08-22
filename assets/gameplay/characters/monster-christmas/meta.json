@@ -2,7 +2,7 @@
     "name": "Monster (Christmas)",
     "width": 232,
     "height": 331,
-    "globalOffset": [30, -460],
+    "globalOffset": [-98, -370],
     "cameraOffset": [100, -80],
     "icon": {
         "id": "monster"

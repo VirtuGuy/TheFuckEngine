@@ -2,7 +2,7 @@
     "name": "Girlfriend",
     "width": 262,
     "height": 295,
-    "globalOffset": [0, -400],
+    "globalOffset": [-127, -330],
     "cameraOffset": [0, -60],
     "icon": {},
     "bopEvery": 1,

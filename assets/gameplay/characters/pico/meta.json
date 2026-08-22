@@ -2,7 +2,7 @@
     "name": "Pico",
     "width": 240,
     "height": 246,
-    "globalOffset": [0, -350],
+    "globalOffset": [-150, -255],
     "cameraOffset": [-100, -100],
     "icon": {},
     "flipX": true,

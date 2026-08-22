@@ -3,7 +3,7 @@
     "width": 61,
     "height": 65,
     "scale": 3.5,
-    "globalOffset": [100, -250],
+    "globalOffset": [-35, -140],
     "cameraOffset": [0, 0],
     "animations": [
         {
