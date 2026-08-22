@@ -18,6 +18,7 @@ class FunkinSoundTray extends FlxSoundTray
 	var lerpPos:Float;
 
 	var targetPos:Float;
+	var targetAlpha:Float;
 
 	var back:Bitmap;
 
@@ -50,8 +51,9 @@ class FunkinSoundTray extends FlxSoundTray
 			if (_timer == 1)
 			{
 				targetPos = -height;
+				targetAlpha = 0;
 
-				if (lerpPos <= targetPos / 2 * FlxG.scaleMode.scale.y)
+				if (alpha <= 0.05)
 					visible = active = false;
 			}
 		}
@@ -59,7 +61,9 @@ class FunkinSoundTray extends FlxSoundTray
 		lerpScaleX = MathUtil.lerp(lerpScaleX, SCALE, 0.3);
 		lerpScaleY = MathUtil.lerp(lerpScaleY, SCALE, 0.3);
 
-		lerpPos = MathUtil.lerp(lerpPos, targetPos, 0.25);
+		lerpPos = MathUtil.lerp(lerpPos, targetPos, 0.15);
+
+		alpha = MathUtil.lerp(alpha, targetAlpha, 0.45);
 
 		screenCenter();
 	}
@@ -99,6 +103,7 @@ class FunkinSoundTray extends FlxSoundTray
 		lerpScaleY = SCALE * 0.75;
 
 		targetPos = 50;
+		targetAlpha = 1;
 
 		visible = active = true;
 
