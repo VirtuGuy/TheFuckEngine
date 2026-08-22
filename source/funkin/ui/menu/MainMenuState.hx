@@ -6,6 +6,7 @@ import funkin.audio.FunkinSound;
 import funkin.graphics.FunkinSprite;
 import funkin.graphics.FunkinText;
 import funkin.modding.event.ScriptEvent;
+import funkin.ui.debug.OffsetDebugState;
 import funkin.ui.freeplay.FreeplaySubState;
 import funkin.ui.options.OptionsSubState;
 import funkin.ui.story.StoryMenuSubState;
@@ -89,6 +90,11 @@ class MainMenuState extends FunkinState
 			exit();
 		if (controls.ACCEPT_P)
 			confirm();
+
+		// TODO: Add a better way to access this
+		// This is for testing purposes
+		if (FlxG.keys.justPressed.SEVEN)
+			FlxG.switchState(() -> new OffsetDebugState());
 
 		items.busy = !stateMachine.canInteract();
 	}

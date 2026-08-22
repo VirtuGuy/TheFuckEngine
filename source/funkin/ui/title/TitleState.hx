@@ -20,9 +20,9 @@ import funkin.api.DiscordRPC;
  */
 class TitleState extends FunkinState
 {
-	static final GRID_SIZE:Int = 64;
-	static final GRID_COLOR:FlxColor = 0x10FFFFFF;
-	static final GRID_SPEED:Float = 30;
+	final GRID_SIZE:Int = 64;
+	final GRID_COLOR:FlxColor = 0x10FFFFFF;
+	final GRID_SPEED:Float = 30;
 
 	var started:Bool = false;
 	var logoScale:Float;
@@ -38,8 +38,8 @@ class TitleState extends FunkinState
 		conductor.reset(100);
 
 		var bg:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(GRID_SIZE, GRID_SIZE, GRID_SIZE * 2, GRID_SIZE * 2, true, GRID_COLOR, 0x0));
-		bg.moves = true;
 		bg.velocity.set(GRID_SPEED, GRID_SPEED);
+		bg.moves = true;
 		add(bg);
 
 		gf = FunkinSprite.create(0, 0, 'ui/title/gf', 1.5, 268, 290);
