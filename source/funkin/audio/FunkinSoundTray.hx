@@ -33,8 +33,7 @@ class FunkinSoundTray extends FlxSoundTray
 		back.y = -back.height / 2;
 		addChild(back);
 
-		var bars:Bitmap = buildBar(10);
-		bars.alpha = 0.3;
+		buildBar(10).alpha = 0.3;
 
 		_bars = [];
 
