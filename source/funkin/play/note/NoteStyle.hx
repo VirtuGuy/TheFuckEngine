@@ -10,7 +10,8 @@ import funkin.util.RhythmUtil.Judgement;
  */
 class NoteStyle
 {
-	public var id:String;
+	public final id:String;
+
 	public var meta:NoteStyleData;
 
 	public var name(get, never):String;

@@ -8,7 +8,7 @@ import funkin.modding.event.ScriptEvent;
  */
 class NoteKind implements IPlayStateScriptedClass
 {
-	public var id:String;
+	public final id:String;
 
 	public function new(id:String)
 	{

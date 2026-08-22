@@ -10,7 +10,7 @@ import funkin.modding.event.ScriptEvent;
  */
 class StageProp extends FunkinSprite implements IPlayStateScriptedClass
 {
-	public var id:String;
+	public final id:String;
 
 	public var idleSuffix:String = '';
 	public var bopEvery:Int = 1;

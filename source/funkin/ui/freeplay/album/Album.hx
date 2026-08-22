@@ -8,7 +8,8 @@ import funkin.data.freeplay.album.AlbumRegistry;
  */
 class Album
 {
-	public var id:String;
+	public final id:String;
+
 	public var meta:AlbumData;
 
 	public var name(get, never):String;

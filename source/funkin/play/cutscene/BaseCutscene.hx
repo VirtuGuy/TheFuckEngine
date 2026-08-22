@@ -9,7 +9,7 @@ import funkin.input.Controls;
  */
 class BaseCutscene extends FlxGroup
 {
-	public var id:String;
+	public final id:String;
 
 	var hideHUD:Bool;
 	var callback:() -> Void;

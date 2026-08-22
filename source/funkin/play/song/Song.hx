@@ -12,12 +12,13 @@ import haxe.ds.StringMap;
  */
 class Song implements IPlayStateScriptedClass
 {
-	public var id:String;
+	public final id:String;
+
+	public var variation:String;
+
 	public var meta:SongMetadata;
 	public var chart:SongChartData;
-
 	public var variations:StringMap<Song>;
-	public var variation:String;
 
 	public var events(get, never):Array<EventData>;
 

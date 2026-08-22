@@ -8,10 +8,10 @@ import haxe.ds.StringMap;
  */
 class BaseRegistry<T>
 {
-	public var entries:StringMap<T> = new StringMap<T>();
+	public final id:String;
+	public final path:String;
 
-	public var id:String;
-	public var path:String;
+	public var entries:StringMap<T> = new StringMap<T>();
 
 	public function new(id:String, ?path:String)
 	{

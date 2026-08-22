@@ -18,7 +18,8 @@ import haxe.ds.StringMap;
  */
 class Stage extends FlxGroup implements IPlayStateScriptedClass
 {
-	public var id:String;
+	public final id:String;
+
 	public var meta:StageData;
 
 	public var props(default, null) = new StringMap<StageProp>();

@@ -9,11 +9,11 @@ import funkin.graphics.FunkinText;
  */
 class Option extends FlxSpriteGroup
 {
-	public var id:String;
-	public var name:String;
-	public var step:Int;
-	public var min:Int;
-	public var max:Int;
+	public final id:String;
+	public final name:String;
+	public final step:Int;
+	public final min:Int;
+	public final max:Int;
 
 	public var value(get, set):Dynamic;
 	public var type(get, never):OptionType;

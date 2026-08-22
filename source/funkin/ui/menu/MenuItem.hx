@@ -7,7 +7,8 @@ import funkin.graphics.FunkinSprite;
  */
 class MenuItem extends FunkinSprite
 {
-	public var id:String;
+	public final id:String;
+
 	public var selected(default, set):Bool;
 
 	public var onSelected:() -> Void;

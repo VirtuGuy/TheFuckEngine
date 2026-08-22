@@ -13,9 +13,9 @@ class HealthIcon extends FunkinSprite
 	static final LERP_SPEED:Float = 0.165;
 	static final BOP_SCALE:Float = 1.265;
 
-	public var id:String;
-	public var meta:CharacterIconData;
-	public var isPlayer:Bool;
+	public final id:String;
+	public final meta:CharacterIconData;
+	public final isPlayer:Bool;
 
 	public var state(default, set):HealthIconState = IDLE;
 

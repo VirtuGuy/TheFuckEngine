@@ -11,7 +11,8 @@ import funkin.play.song.Song;
  */
 class Level implements IPlayStateScriptedClass
 {
-	public var id:String;
+	public final id:String;
+
 	public var meta:LevelData;
 
 	public var name(get, never):String;

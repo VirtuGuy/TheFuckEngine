@@ -11,7 +11,7 @@ import funkin.play.character.Character;
  */
 class SongEvent implements IPlayStateScriptedClass
 {
-	public var id:String;
+	public final id:String;
 
 	var value:Dynamic;
 

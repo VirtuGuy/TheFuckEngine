@@ -8,7 +8,8 @@ import funkin.data.freeplay.player.PlayerRegistry;
  */
 class Player
 {
-	public var id:String;
+	public final id:String;
+
 	public var meta:PlayerData;
 
 	public var name(get, never):String;
