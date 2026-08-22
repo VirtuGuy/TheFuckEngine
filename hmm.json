@@ -85,14 +85,14 @@
       "name": "openfl",
       "type": "git",
       "dir": null,
-      "ref": "6ed851fe44dd165dfd1c957b7d3d860184158708",
+      "ref": "7722b7971f3a66c9dd94d6c2d95c8b60c8d8a010",
       "url": "https://github.com/FunkinCrew/openfl"
     },
     {
       "name": "polymod",
       "type": "git",
       "dir": null,
-      "ref": "8e0a34e8650bc66edc19d6ca92ebebec3f41b0b2",
+      "ref": "d426bdfdafd5e225b81956b217db5fe3a86a90b2",
       "url": "https://github.com/FunkinCrew/polymod"
     },
     {
