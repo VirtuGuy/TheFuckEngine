@@ -94,6 +94,6 @@ class Module implements IStateScriptedClass implements IPlayStateScriptedClass i
 
 	public function toString():String
 	{
-		return '$id | $active';
+		return id;
 	}
 }

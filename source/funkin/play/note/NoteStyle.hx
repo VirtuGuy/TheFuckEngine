@@ -113,6 +113,6 @@ class NoteStyle
 
 	public function toString():String
 	{
-		return '$id | $name';
+		return id;
 	}
 }

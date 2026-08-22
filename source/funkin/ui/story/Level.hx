@@ -186,6 +186,6 @@ class Level implements IPlayStateScriptedClass
 
 	public function toString():String
 	{
-		return '$id | $name';
+		return id;
 	}
 }

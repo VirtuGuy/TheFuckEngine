@@ -56,6 +56,6 @@ class Album
 
 	public function toString():String
 	{
-		return '$id | $name';
+		return id;
 	}
 }

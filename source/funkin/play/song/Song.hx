@@ -261,6 +261,6 @@ class Song implements IPlayStateScriptedClass
 
 	public function toString():String
 	{
-		return '$id | $name | $bpm';
+		return id;
 	}
 }
