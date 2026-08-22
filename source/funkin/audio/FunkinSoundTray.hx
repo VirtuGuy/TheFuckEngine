@@ -51,7 +51,7 @@ class FunkinSoundTray extends FlxSoundTray
 			{
 				targetPos = -height;
 
-				if (y <= -height)
+				if (lerpPos <= targetPos / 2 * FlxG.scaleMode.scale.y)
 					visible = active = false;
 			}
 		}
@@ -59,10 +59,15 @@ class FunkinSoundTray extends FlxSoundTray
 		lerpScaleX = MathUtil.lerp(lerpScaleX, SCALE, 0.3);
 		lerpScaleY = MathUtil.lerp(lerpScaleY, SCALE, 0.3);
 
+		lerpPos = MathUtil.lerp(lerpPos, targetPos, 0.25);
+
+		screenCenter();
+	}
+
+	override function screenCenter()
+	{
 		scaleX = lerpScaleX * FlxG.scaleMode.scale.x;
 		scaleY = lerpScaleY * FlxG.scaleMode.scale.y;
-
-		lerpPos = MathUtil.lerp(lerpPos, targetPos, 0.25);
 
 		x = FlxG.scaleMode.gameSize.x / 2;
 		y = lerpPos * FlxG.scaleMode.scale.y;
