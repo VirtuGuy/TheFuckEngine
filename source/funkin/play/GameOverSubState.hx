@@ -44,6 +44,15 @@ class GameOverSubState extends FunkinSubState
 
 		_parentState.persistentDraw = false;
 
+		buildCharacter();
+
+		var event:ScriptEvent = ScriptEvent.get(GAMEOVER_START);
+		dispatch(event);
+
+		if (event.cancelled)
+			return close();
+
+		PlayState.instance.setCameraTarget(character);
 		PlayState.instance.deaths++;
 
 		// This doesn't need a unique camera
@@ -53,23 +62,13 @@ class GameOverSubState extends FunkinSubState
 		camera = FlxG.camera;
 		camera.active = true;
 
-		buildCharacter();
-
-		var event:ScriptEvent = ScriptEvent.get(GAMEOVER_START);
-		dispatch(event);
-
-		if (event.cancelled)
-			return close();
-
-		music = FunkinSound.load(getPath('music', deathMusic), 1, true, true, false);
-
-		FunkinSound.load(getPath('sounds/start', deathSFX), 1, false).onComplete = startLoop;
-
 		_conductor = new Conductor();
 		_conductor.beatHit.add(beatHit);
 		_conductor.reset(100);
 
-		PlayState.instance.setCameraTarget(character);
+		music = FunkinSound.load(getPath('music', deathMusic), 1, true, true, false);
+
+		FunkinSound.load(getPath('sounds/start', deathSFX), 1, false).onComplete = startLoop;
 	}
 
 	override function update(elapsed:Float)
@@ -77,6 +76,7 @@ class GameOverSubState extends FunkinSubState
 		super.update(elapsed);
 
 		_conductor.time = music?.time;
+		_conductor.update();
 
 		if (controls.ACCEPT_P)
 			retry();

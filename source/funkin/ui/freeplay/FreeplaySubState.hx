@@ -81,6 +81,8 @@ class FreeplaySubState extends FunkinSubState
 		exitMovers = new ExitMovers();
 		stateMachine = new StateMachine();
 
+		conductor.reset(150);
+
 		backcard = new BackcardSprite();
 		add(backcard);
 
@@ -134,8 +136,6 @@ class FreeplaySubState extends FunkinSubState
 		sortText.onChanged.add(changeSort);
 		add(sortText);
 
-		conductor.reset(150);
-
 		exitMovers.add(backcard, -backcard.width);
 		exitMovers.add(backingImage, FlxG.width);
 		exitMovers.add(dj, -dj.width);
@@ -161,6 +161,7 @@ class FreeplaySubState extends FunkinSubState
 		super.update(elapsed);
 
 		conductor.time = FunkinSound.music.time;
+		conductor.update();
 
 		if (controls.FAVORITE)
 			favorite(capsules.capsule);

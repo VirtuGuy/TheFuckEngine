@@ -66,6 +66,8 @@ class StoryMenuSubState extends FunkinSubState
 		exitMovers = new ExitMovers();
 		stateMachine = new StateMachine();
 
+		conductor.reset(100);
+
 		blackTop = FunkinSprite.createSolidColor(0, 0, FlxG.width, 50, 0xFF000000);
 		blackTop.active = false;
 		blackTop.zIndex = 2;
@@ -126,8 +128,6 @@ class StoryMenuSubState extends FunkinSubState
 		gf.zIndex = player.zIndex;
 		add(gf);
 
-		conductor.reset(100);
-
 		exitMovers.add(blackTop, null, -blackTop.height);
 		exitMovers.add(blackBottom, FlxG.width);
 		exitMovers.add(bg, -bg.width);
@@ -156,6 +156,7 @@ class StoryMenuSubState extends FunkinSubState
 		super.update(elapsed);
 
 		conductor.time = FunkinSound.music.time;
+		conductor.update();
 
 		_parentState.persistentDraw = stateMachine.transitioning();
 

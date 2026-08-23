@@ -85,6 +85,7 @@ class OffsetDebugState extends FunkinState
 		super.update(elapsed);
 
 		conductor.time = FunkinSound.music.time;
+		conductor.update();
 
 		//
 		// CHARACTER
