@@ -16,28 +16,29 @@ class FunkinSubState extends FlxSubState
 	public function new()
 	{
 		super();
-
-		camera = new FlxCamera();
-		camera.bgColor = 0x0;
-		FlxG.cameras.add(camera, false);
-
-		// Adds conductor callbacks
-		conductor.stepHit.add(stepHit);
-		conductor.beatHit.add(beatHit);
 	}
 
 	override function create()
 	{
 		super.create();
 
-		dispatch(SubStateScriptEvent.get(SUBSTATE_OPEN, this));
+		camera = new FlxCamera();
+		camera.bgColor = 0x0;
+		FlxG.cameras.add(camera, false);
+
+		conductor.stepHit.add(stepHit);
+		conductor.beatHit.add(beatHit);
 	}
 
 	override function close()
 	{
-		super.close();
+		var event:SubStateScriptEvent = SubStateScriptEvent.get(SUBSTATE_CLOSE, this);
+		dispatch(event);
 
-		dispatch(SubStateScriptEvent.get(SUBSTATE_CLOSE, this));
+		if (event.cancelled)
+			return;
+
+		super.close();
 	}
 
 	override function destroy()
