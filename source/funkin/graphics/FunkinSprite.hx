@@ -55,6 +55,11 @@ class FunkinSprite extends FlxSprite
 		animation.add(name, frames, framerate, looped);
 	}
 
+	public function removeAnimation(name:String)
+	{
+		animation.remove(name);
+	}
+
 	public function playAnimation(name:String, force:Bool = false)
 	{
 		if (!hasAnimation(name))
