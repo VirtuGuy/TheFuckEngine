@@ -70,6 +70,9 @@ class Conductor
 	@:noCompletion
 	inline function set_bpm(value:Float):Float
 	{
+		if (bpm == value)
+			return bpm;
+
 		bpm = value;
 
 		changeStep = step;
