@@ -194,6 +194,8 @@ class Stage extends FlxGroup implements IPlayStateScriptedClass
 
 	public function onNoteMiss(event:NoteScriptEvent) {}
 
+	public function onNoteIncoming(event:NoteScriptEvent) {}
+
 	public function onHoldNoteHold(event:HoldNoteScriptEvent) {}
 
 	public function onHoldNoteDrop(event:HoldNoteScriptEvent) {}

@@ -65,6 +65,8 @@ class ScriptEventDispatcher
 					target.onNoteHit(cast event);
 				case NOTE_MISS:
 					target.onNoteMiss(cast event);
+				case NOTE_INCOMING:
+					target.onNoteIncoming(cast event);
 				case HOLD_NOTE_HOLD:
 					target.onHoldNoteHold(cast event);
 				case HOLD_NOTE_DROP:

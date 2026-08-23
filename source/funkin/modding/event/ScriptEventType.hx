@@ -18,6 +18,7 @@ enum ScriptEventType
 	// Note
 	NOTE_HIT;
 	NOTE_MISS;
+	NOTE_INCOMING;
 	HOLD_NOTE_HOLD;
 	HOLD_NOTE_DROP;
 	GHOST_MISS;

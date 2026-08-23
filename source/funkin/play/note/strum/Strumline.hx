@@ -2,6 +2,7 @@ package funkin.play.note.strum;
 
 import flixel.group.FlxGroup;
 import flixel.group.FlxSpriteGroup;
+import flixel.util.FlxSignal.FlxTypedSignal;
 import flixel.util.FlxSort;
 import funkin.data.song.SongData;
 import funkin.play.note.hold.HoldNoteCover;
@@ -26,6 +27,8 @@ class Strumline extends FlxGroup
 	public var holdNotes:FlxTypedGroup<HoldNoteSprite>;
 	public var noteSplashes:FlxTypedGroup<NoteSplash>;
 	public var holdCovers:FlxTypedGroup<HoldNoteCover>;
+
+	public var noteIncoming(default, null) = new FlxTypedSignal<NoteSprite->Void>();
 
 	var nextNoteIndex:Int;
 	var style:NoteStyle;
@@ -80,6 +83,7 @@ class Strumline extends FlxGroup
 				note.holdNote = buildHoldNote(noteData);
 
 			nextNoteIndex = i + 1;
+			noteIncoming.dispatch(note);
 		}
 
 		// Note processing

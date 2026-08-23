@@ -177,13 +177,15 @@ class PlayState extends FunkinState
 		//
 
 		opponentStrumline = new Strumline(style, false);
-		opponentStrumline.x = 325;
+		opponentStrumline.noteIncoming.add(note -> dispatch(NoteScriptEvent.get(NOTE_INCOMING, note)));
 		opponentStrumline.camera = camHUD;
+		opponentStrumline.x = 325;
 		add(opponentStrumline);
 
 		playerStrumline = new Strumline(style, true);
-		playerStrumline.x = FlxG.width - opponentStrumline.x;
+		playerStrumline.noteIncoming.add(note -> dispatch(NoteScriptEvent.get(NOTE_INCOMING, note)));
 		playerStrumline.camera = camHUD;
+		playerStrumline.x = FlxG.width - opponentStrumline.x;
 		add(playerStrumline);
 
 		healthBorder = FunkinSprite.create(0, 0, 'gameplay/healthbar');

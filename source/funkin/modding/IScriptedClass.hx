@@ -30,6 +30,7 @@ interface INoteScriptedClass extends IScriptedClass
 {
 	public function onNoteHit(event:NoteScriptEvent):Void;
 	public function onNoteMiss(event:NoteScriptEvent):Void;
+	public function onNoteIncoming(event:NoteScriptEvent):Void;
 	public function onHoldNoteHold(event:HoldNoteScriptEvent):Void;
 	public function onHoldNoteDrop(event:HoldNoteScriptEvent):Void;
 	public function onGhostMiss(event:GhostMissScriptEvent):Void;
