@@ -1,7 +1,6 @@
 package funkin.ui;
 
 import flixel.FlxState;
-import flixel.FlxSubState;
 import funkin.input.Controls;
 import funkin.modding.event.ScriptEvent;
 import funkin.modding.module.ModuleHandler;
@@ -33,17 +32,6 @@ class FunkinState extends FlxState
 		super.update(elapsed);
 
 		dispatch(UpdateScriptEvent.get(elapsed));
-	}
-
-	override function openSubState(subState:FlxSubState)
-	{
-		var event:SubStateScriptEvent = SubStateScriptEvent.get(SUBSTATE_OPEN, subState);
-		dispatch(event);
-
-		if (event.cancelled)
-			return;
-
-		super.openSubState(subState);
 	}
 
 	public function dispatch(event:ScriptEvent)

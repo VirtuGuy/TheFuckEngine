@@ -13,11 +13,6 @@ class FunkinSubState extends FlxSubState
 	var conductor(get, never):Conductor;
 	var controls(get, never):Controls;
 
-	public function new()
-	{
-		super();
-	}
-
 	override function create()
 	{
 		super.create();
@@ -28,17 +23,15 @@ class FunkinSubState extends FlxSubState
 
 		conductor.stepHit.add(stepHit);
 		conductor.beatHit.add(beatHit);
+
+		dispatch(SubStateScriptEvent.get(SUBSTATE_OPEN, subState));
 	}
 
 	override function close()
 	{
-		var event:SubStateScriptEvent = SubStateScriptEvent.get(SUBSTATE_CLOSE, this);
-		dispatch(event);
-
-		if (event.cancelled)
-			return;
-
 		super.close();
+
+		dispatch(SubStateScriptEvent.get(SUBSTATE_CLOSE, this));
 	}
 
 	override function destroy()
