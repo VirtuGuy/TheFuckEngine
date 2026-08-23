@@ -38,10 +38,6 @@ class CharacterSelectState extends FunkinState
 
 		instance = this;
 
-		FunkinSound.playMusic('$PATH/music');
-
-		conductor.reset(90);
-
 		camFollow = new FlxObject();
 		camera.follow(camFollow, null, 0.015);
 
@@ -127,12 +123,14 @@ class CharacterSelectState extends FunkinState
 		nameText.size = 40;
 		add(nameText);
 
-		// Doing this so that everything can snap into place
 		change(selected);
 
 		camera.snapToTarget();
-
 		cursor.snap();
+
+		FunkinSound.playMusic('$PATH/music');
+
+		conductor.reset(90);
 	}
 
 	override function update(elapsed:Float)
@@ -140,7 +138,6 @@ class CharacterSelectState extends FunkinState
 		super.update(elapsed);
 
 		conductor.time = FunkinSound.music.time;
-		conductor.update();
 
 		if (controls.BACK)
 			exit();

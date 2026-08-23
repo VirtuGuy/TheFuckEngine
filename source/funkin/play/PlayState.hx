@@ -274,8 +274,6 @@ class PlayState extends FunkinState
 						startSong();
 				}
 
-				conductor.update();
-
 				voices.checkResync(FunkinSound.music.time);
 			}
 

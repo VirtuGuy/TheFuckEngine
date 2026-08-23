@@ -9,18 +9,17 @@ class Conductor
 {
 	public static var instance:Conductor;
 
-	public var time:Float;
+	public var time(default, set):Float;
 	public var bpm(default, set):Float;
 
-	public var step:Int;
-	public var beat:Int;
+	public var step(get, never):Int;
+	public var beat(get, never):Int;
 
 	public var crotchet(get, never):Float;
 	public var quaver(get, never):Float;
 
 	/**
 	 * TODO: Make this changeable ingame.
-	 * This is also really fucky.
 	 */
 	public var offset:Float = 0;
 
@@ -32,13 +31,27 @@ class Conductor
 
 	public function new() {}
 
-	public function update()
+	/**
+	 * Resets everything, including time, BPM, and steps.
+	 * You're going to want to run this whenever music is changed.
+	 */
+	public function reset(bpm:Float = 0)
+	{
+		time = 0;
+
+		changeStep = 0;
+		changeTimestamp = 0;
+
+		this.bpm = bpm;
+	}
+
+	@:noCompletion
+	function set_time(value:Float):Float
 	{
 		final lastStep:Int = step;
 		final lastBeat:Int = beat;
 
-		step = changeStep + Math.floor((time - changeTimestamp) / quaver);
-		beat = Math.floor(step / Constants.STEPS_PER_BEAT);
+		time = value;
 
 		if (lastStep != step)
 			stepHit.dispatch(step);
@@ -50,44 +63,41 @@ class Conductor
 		FlxG.watch.addQuick('bpm', bpm);
 		FlxG.watch.addQuick('step', step);
 		FlxG.watch.addQuick('beat', beat);
+
+		return time;
 	}
 
-	/**
-	 * Resets everything, including time, BPM, and steps.
-	 * You're going to want to run this whenever music is changed.
-	 */
-	public function reset(bpm:Float = 0)
-	{
-		this.bpm = bpm;
-
-		time = 0;
-		step = 0;
-		beat = 0;
-
-		changeStep = 0;
-		changeTimestamp = 0;
-	}
-
+	@:noCompletion
 	function set_bpm(value:Float):Float
 	{
-		if (this.bpm == value)
-			return value;
-		this.bpm = value;
+		bpm = value;
 
 		changeStep = step;
 		changeTimestamp = time;
 
-		return value;
+		return bpm;
 	}
 
 	@:noCompletion
-	inline function get_crotchet():Float
+	function get_step():Int
+	{
+		return changeStep + Math.floor((time - changeTimestamp) / quaver);
+	}
+
+	@:noCompletion
+	function get_beat():Int
+	{
+		return Math.floor(step / Constants.STEPS_PER_BEAT);
+	}
+
+	@:noCompletion
+	function get_crotchet():Float
 	{
 		return Constants.SECS_PER_MIN / bpm * Constants.MS_PER_SEC;
 	}
 
 	@:noCompletion
-	inline function get_quaver():Float
+	function get_quaver():Float
 	{
 		return crotchet / Constants.STEPS_PER_BEAT;
 	}

@@ -53,23 +53,23 @@ class GameOverSubState extends FunkinSubState
 		camera = FlxG.camera;
 		camera.active = true;
 
-		_conductor = new Conductor();
-		_conductor.beatHit.add(beatHit);
-		_conductor.reset(100);
-
 		buildCharacter();
-
-		music = FunkinSound.load(getPath('music', deathMusic), 1, true, true, false);
-
-		FunkinSound.load(getPath('sounds/start', deathSFX), 1, false).onComplete = startLoop;
-
-		PlayState.instance.setCameraTarget(character);
 
 		var event:ScriptEvent = ScriptEvent.get(GAMEOVER_START);
 		dispatch(event);
 
 		if (event.cancelled)
-			close();
+			return close();
+
+		music = FunkinSound.load(getPath('music', deathMusic), 1, true, true, false);
+
+		FunkinSound.load(getPath('sounds/start', deathSFX), 1, false).onComplete = startLoop;
+
+		_conductor = new Conductor();
+		_conductor.beatHit.add(beatHit);
+		_conductor.reset(100);
+
+		PlayState.instance.setCameraTarget(character);
 	}
 
 	override function update(elapsed:Float)
@@ -77,7 +77,6 @@ class GameOverSubState extends FunkinSubState
 		super.update(elapsed);
 
 		_conductor.time = music?.time;
-		_conductor.update();
 
 		if (controls.ACCEPT_P)
 			retry();
@@ -88,6 +87,9 @@ class GameOverSubState extends FunkinSubState
 	override function beatHit(beat:Int)
 	{
 		super.beatHit(beat);
+
+		if (retrying)
+			return;
 
 		character?.playAnimation('loop');
 	}
@@ -117,7 +119,6 @@ class GameOverSubState extends FunkinSubState
 		retrying = true;
 
 		character?.playAnimation('end');
-		_conductor.reset();
 
 		FunkinSound.stopAllSounds();
 		FunkinSound.playOnce(getPath('sounds/end', deathSFX));
