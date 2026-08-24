@@ -5,6 +5,7 @@ import haxe.Http;
 import haxe.Json;
 import haxe.macro.Context;
 import haxe.macro.Expr;
+import sys.io.Process;
 #end
 
 /**
@@ -25,6 +26,40 @@ class GitMacro
 	static var _contributors:Array<ContributorData>;
 	@:persistent
 	static var _contributions:Int = 0;
+
+	public static macro function getCommitHash():ExprOf<String>
+	{
+		if (Context.defined('display'))
+			return macro $v{''};
+
+		var process:Process = new Process('git rev-parse --short HEAD');
+		var result:String = '';
+
+		if (process.exitCode() != 0)
+			Context.warning('Failed to fetch commit hash.', Context.currentPos());
+
+		result = process.stdout.readLine();
+		process.close();
+
+		return macro $v{result};
+	}
+
+	public static macro function getBranchName():ExprOf<String>
+	{
+		if (Context.defined('display'))
+			return macro $v{''};
+
+		var process:Process = new Process('git rev-parse --abbrev-ref HEAD');
+		var result:String = '';
+
+		if (process.exitCode() != 0)
+			Context.warning('Failed to fetch branch name.', Context.currentPos());
+
+		result = process.stdout.readLine();
+		process.close();
+
+		return macro $v{result};
+	}
 
 	public static macro function getContributors():ExprOf<Array<ContributorData>>
 	{

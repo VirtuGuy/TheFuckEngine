@@ -1,6 +1,7 @@
 package funkin.util;
 
 import flixel.util.FlxColor;
+import funkin.util.macro.GitMacro;
 import lime.app.Application;
 
 /**
@@ -10,6 +11,9 @@ class Constants
 {
 	public static final TITLE:String = 'WTF Engine';
 	public static var VERSION(get, never):String;
+
+	public static final GIT_HASH:String = GitMacro.getCommitHash();
+	public static final GIT_BRANCH:String = GitMacro.getBranchName();
 
 	public static final IMAGE_EXT:String = 'png';
 	public static final SOUND_EXT:String = 'ogg';
@@ -66,6 +70,8 @@ class Constants
 	@:noCompletion
 	inline static function get_VERSION():String
 	{
-		return 'v${Application.current.meta.get('version')}';
+		var version:String = 'v${Application.current.meta.get('version')}';
+		version += ' ($GIT_BRANCH : $GIT_HASH)';
+		return version;
 	}
 }
