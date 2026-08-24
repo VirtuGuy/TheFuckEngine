@@ -33,7 +33,7 @@ class GitMacro
 
 		if (_contributors != null)
 		{
-			trace('Using cached GitHub contributors list.');
+			Context.info('Using cached GitHub contributors list.', Context.currentPos());
 
 			return macro $v{_contributors};
 		}
@@ -68,11 +68,9 @@ class GitMacro
 			}
 		}
 		catch (e)
-			trace('Failed to fetch GitHub contributors.');
+			Context.warning('Failed to fetch GitHub contributors.', Context.currentPos());
 
 		_contributors = result;
-
-		trace('Done fetching GitHub contributors.');
 
 		return macro $v{result};
 	}
