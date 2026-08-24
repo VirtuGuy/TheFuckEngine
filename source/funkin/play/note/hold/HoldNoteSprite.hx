@@ -1,13 +1,15 @@
 package funkin.play.note.hold;
 
-import flixel.FlxStrip;
+import flixel.graphics.tile.FlxDrawTrianglesItem.DrawData;
 import funkin.data.song.SongData.SongNoteData;
+import funkin.graphics.FunkinSprite;
 
 /**
  * A sprite used as a sustain note that the player must hold.
  */
-class HoldNoteSprite extends FlxStrip
+class HoldNoteSprite extends FunkinSprite
 {
+	final INDICES:Array<Int> = [0, 1, 2, 1, 3, 2, 4, 5, 6, 5, 7, 6];
 	final HOLD_HEIGHT:Int = 1;
 
 	public var data(default, set):SongNoteData;
@@ -25,6 +27,10 @@ class HoldNoteSprite extends FlxStrip
 	public var wasHit:Bool;
 	public var wasMissed:Bool;
 
+	var vertices:DrawData<Float> = new DrawData<Float>();
+	var indices:DrawData<Int> = new DrawData<Int>();
+	var uvtData:DrawData<Float> = new DrawData<Float>();
+
 	var holdHeight:Float;
 	var endHeight:Float;
 
@@ -37,27 +43,13 @@ class HoldNoteSprite extends FlxStrip
 
 		active = false;
 
-		// Sets the indices
-		// This doesn't need to be changed at all
-		indices[0] = 0;
-		indices[1] = 1;
-		indices[2] = 2;
-		indices[3] = 1;
-		indices[4] = 3;
-		indices[5] = 2;
-		indices[6] = 4;
-		indices[7] = 5;
-		indices[8] = 6;
-		indices[9] = 5;
-		indices[10] = 7;
-		indices[11] = 6;
+		for (i => indice in INDICES)
+			indices[i] = indice;
 	}
 
 	public function buildSprite(style:NoteStyle)
 	{
-		loadGraphic(Paths.image(style.getNote('hold/image')));
-		setGraphicSize(Std.int(width * Constants.ZOOM * style.note.scale));
-		updateHitbox();
+		loadSprite(style.getNote('hold/image'), style.note.scale);
 
 		graphicWidth = graphic?.width;
 		graphicHeight = graphic?.height;
@@ -114,6 +106,22 @@ class HoldNoteSprite extends FlxStrip
 		uvtData[15] = uvtData[13];
 
 		updateHitbox();
+	}
+
+	override function draw()
+	{
+		if (alpha == 0 || graphic == null || vertices == null)
+			return;
+
+		for (camera in cameras)
+		{
+			if (!camera.visible || !camera.exists)
+				continue;
+
+			getScreenPosition(_point, camera).subtract(offset);
+
+			camera.drawTriangles(graphic, vertices, indices, uvtData, null, _point, blend, true, antialiasing, colorTransform, shader);
+		}
 	}
 
 	override function updateHitbox()
