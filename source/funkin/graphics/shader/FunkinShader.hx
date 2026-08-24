@@ -11,15 +11,14 @@ class FunkinShader extends FlxRuntimeShader
 {
 	public final id:String;
 
+	public var filter(default, null):ShaderFilter;
+
 	public function new(id:String)
 	{
 		super(FileUtil.getText(Paths.frag('general/shaders/$id')));
 
 		this.id = id;
-	}
 
-	public function buildFilter():ShaderFilter
-	{
-		return new ShaderFilter(this);
+		filter = new ShaderFilter(this);
 	}
 }
