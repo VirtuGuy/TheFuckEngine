@@ -21,7 +21,7 @@
         },
         {
             "image": "curtain",
-            "position": [-590, -500],
+            "position": [-570, -500],
             "scroll": [0.75, 0.75],
             "zIndex": 3
         },
