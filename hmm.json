@@ -78,21 +78,21 @@
       "name": "lime",
       "type": "git",
       "dir": null,
-      "ref": "ca1ccddee816d5ea8f6481ff7eb3c8930c98d909",
+      "ref": "ed3b530f7100a6129f8273d9545b18fb19dde8ea",
       "url": "https://github.com/FunkinCrew/lime"
     },
     {
       "name": "openfl",
       "type": "git",
       "dir": null,
-      "ref": "c1c19a82464741d67c59d90ef30c4b9ecb328e9c",
+      "ref": "97cfb92e3ab6c4eb5815ab3205b235e04142e010",
       "url": "https://github.com/FunkinCrew/openfl"
     },
     {
       "name": "polymod",
       "type": "git",
       "dir": null,
-      "ref": "d426bdfdafd5e225b81956b217db5fe3a86a90b2",
+      "ref": "b7b6e4f528cf088fcbb0b72571e378f2dede4bc9",
       "url": "https://github.com/FunkinCrew/polymod"
     },
     {
