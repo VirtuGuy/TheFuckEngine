@@ -18,8 +18,8 @@
         },
         {
             "image": "back",
-            "position": [-320, -150],
-            "scroll": [0.6, 0.75],
+            "position": [-480, -320],
+            "scroll": [0.8, 1],
             "scale": 0.95
         },
         {
@@ -27,8 +27,8 @@
             "image": "henchman",
             "width": 267,
             "height": 272,
-            "position": [20, -380],
-            "scroll": [0.6, 0.75],
+            "position": [-80, -550],
+            "scroll": [0.8, 1],
             "scale": 0.825,
             "animations": [
                 {
@@ -39,15 +39,15 @@
         },
         {
             "prop": "henchman",
-            "position": [320, -380]
+            "position": [220, -550]
         },
         {
             "prop": "henchman",
-            "position": [620, -380]
+            "position": [520, -550]
         },
         {
             "prop": "henchman",
-            "position": [920, -380]
+            "position": [820, -550]
         },
         {
             "image": "front",
