@@ -15,6 +15,7 @@ import funkin.util.SortUtil;
  */
 class Strumline extends FlxGroup
 {
+	public var style(default, set):NoteStyle;
 	public var isPlayer:Bool;
 
 	public var data:Array<SongNoteData> = [];
@@ -31,14 +32,10 @@ class Strumline extends FlxGroup
 	public var noteIncoming(default, null) = new FlxTypedSignal<NoteSprite->Void>();
 
 	var nextNoteIndex:Int;
-	var style:NoteStyle;
 
 	public function new(style:NoteStyle, isPlayer:Bool)
 	{
 		super();
-
-		this.style = style;
-		this.isPlayer = isPlayer;
 
 		strums = new FlxTypedSpriteGroup<StrumSprite>();
 		add(strums);
@@ -55,7 +52,11 @@ class Strumline extends FlxGroup
 		notes = new FlxTypedGroup<NoteSprite>();
 		add(notes);
 
-		buildStrums();
+		for (direction in 0...Constants.NOTE_COUNT)
+			strums.add(new StrumSprite(direction));
+
+		this.style = style;
+		this.isPlayer = isPlayer;
 	}
 
 	public function process()
@@ -131,19 +132,6 @@ class Strumline extends FlxGroup
 			if (isOffscreen && (holdNote.wasMissed || holdNote.wasHit))
 				holdNote.kill();
 		});
-	}
-
-	public function buildStrums()
-	{
-		for (direction in 0...Constants.NOTE_COUNT)
-		{
-			var strum:StrumSprite = new StrumSprite(direction);
-
-			strum.buildSprite(style);
-			strum.x = (direction - Constants.NOTE_COUNT / 2) * strum.width;
-
-			strums.add(strum);
-		}
 	}
 
 	public function updateScroll()
@@ -292,6 +280,29 @@ class Strumline extends FlxGroup
 		holdNotes.sort((i, a, b) -> return SortUtil.byTime(FlxSort.ASCENDING, a.data, b.data));
 
 		return holdNote;
+	}
+
+	@:noCompletion
+	inline function set_style(value:NoteStyle):NoteStyle
+	{
+		if (style == value)
+			return style;
+
+		style = value;
+
+		strums.forEach(strum ->
+		{
+			strum.buildSprite(style);
+			strum.x = strums.x + (strum.direction - Constants.NOTE_COUNT / 2) * strum.width;
+		});
+
+		notes.forEach(note -> note.buildSprite(style));
+		holdNotes.forEach(holdNote -> holdNote.buildSprite(style));
+
+		noteSplashes.forEach(splash -> splash.buildSprite(style));
+		holdCovers.forEach(cover -> cover.buildSprite(style));
+
+		return style;
 	}
 
 	@:noCompletion

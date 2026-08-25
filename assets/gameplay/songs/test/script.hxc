@@ -1,0 +1,18 @@
+import funkin.data.note.style.NoteStyleRegistry;
+import funkin.play.song.Song;
+import funkin.play.PlayState;
+
+class TestSong extends Song
+{
+    public function new()
+    {
+        super('test');
+    }
+
+    override function onCreate(event:ScriptEvent)
+    {
+        super.onCreate(event);
+
+        PlayState.instance.opponentStrumline.style = NoteStyleRegistry.instance.fetch('pixel');
+    }
+}

@@ -37,22 +37,19 @@ class HoldNoteSprite extends FunkinSprite
 	var graphicWidth:Float;
 	var graphicHeight:Float;
 
-	public function new()
+	public function buildSprite(style:NoteStyle)
 	{
-		super();
-
 		active = false;
 
 		for (i => indice in INDICES)
 			indices[i] = indice;
-	}
 
-	public function buildSprite(style:NoteStyle)
-	{
 		loadSprite(style.getNote('hold/image'), style.note.scale);
 
 		graphicWidth = graphic?.width;
 		graphicHeight = graphic?.height;
+
+		redraw();
 	}
 
 	public function redraw()

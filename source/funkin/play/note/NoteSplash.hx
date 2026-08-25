@@ -16,14 +16,17 @@ class NoteSplash extends FunkinSprite
 
 		for (i in 0...Constants.NOTE_COUNT)
 		{
-			var direction:NoteDirection = NoteDirection.fromInt(i);
-			var frames:Array<Int> = style.getNoteFrames(style.noteSplash.animations, direction);
-			var framerate:Int = Std.int(Math.max(1, style.noteSplash.framerate));
+			final direction:NoteDirection = NoteDirection.fromInt(i);
+			final frames:Array<Int> = style.getNoteFrames(style.noteSplash.animations, direction);
+			final framerate:Int = Std.int(Math.max(1, style.noteSplash.framerate));
 
 			addAnimation(direction.name, frames, framerate, false);
 		}
 
 		animation.onFinish.add(_ -> kill());
+
+		if (strum != null)
+			playAnimation(strum.direction.name);
 	}
 
 	public function play(strum:StrumSprite)

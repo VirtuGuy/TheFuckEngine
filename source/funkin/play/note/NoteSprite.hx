@@ -37,6 +37,8 @@ class NoteSprite extends FunkinSprite
 
 			addAnimation(direction.name, [frame]);
 		}
+
+		playAnimation(direction.name);
 	}
 
 	override function revive()

@@ -27,12 +27,15 @@ class HoldNoteCover extends FunkinSprite
 
 		for (i in 0...Constants.NOTE_COUNT)
 		{
-			var direction:NoteDirection = NoteDirection.fromInt(i);
-			var frames:Array<Int> = style.getNoteFrames(style.holdCover.animations, direction);
-			var framerate:Int = style.holdCover.framerate;
+			final direction:NoteDirection = NoteDirection.fromInt(i);
+			final frames:Array<Int> = style.getNoteFrames(style.holdCover.animations, direction);
+			final framerate:Int = style.holdCover.framerate;
 
 			addAnimation(direction.name, frames, framerate);
 		}
+
+		if (strum != null)
+			playAnimation(strum.direction.name);
 	}
 
 	public function play(holdNote:HoldNoteSprite, strum:StrumSprite)
