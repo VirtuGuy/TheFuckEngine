@@ -25,7 +25,11 @@ class StageProp extends FunkinSprite implements IPlayStateScriptedClass
 	public function loadAnimations(animations:Array<PropAnimData>)
 	{
 		for (anim in animations)
+		{
+			if (anim == null)
+				continue;
 			addAnimation(anim.name, anim.frames, anim.framerate, anim.looped);
+		}
 	}
 
 	public function bop(force:Bool = false)

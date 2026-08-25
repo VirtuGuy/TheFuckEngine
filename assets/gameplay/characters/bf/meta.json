@@ -31,31 +31,37 @@
         },
         {
             "name": "left-miss",
-            "frames": [3, 11],
-            "framerate": 20
+            "frames": [0, 1],
+            "framerate": 20,
+            "image": "miss"
         },
         {
             "name": "right-miss",
-            "frames": [5, 12],
-            "framerate": 20
+            "frames": [2, 3],
+            "framerate": 20,
+            "image": "miss"
         },
         {
             "name": "up-miss",
-            "frames": [7, 13],
-            "framerate": 20
+            "frames": [4, 5],
+            "framerate": 20,
+            "image": "miss"
         },
         {
             "name": "down-miss",
-            "frames": [9, 14],
-            "framerate": 20
+            "frames": [6, 7],
+            "framerate": 20,
+            "image": "miss"
         },
         {
             "name": "hey",
-            "frames": [15, 16, 17]
+            "frames": [0, 1, 2],
+            "image": "hey"
         },
         {
             "name": "cheer",
-            "frames": [18, 19, 20]
+            "frames": [0, 1, 2],
+            "image": "cheer"
         }
     ]
 }

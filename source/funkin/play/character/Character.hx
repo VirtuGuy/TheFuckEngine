@@ -1,5 +1,8 @@
 package funkin.play.character;
 
+import flixel.graphics.FlxGraphic;
+import flixel.graphics.frames.FlxTileFrames;
+import flixel.math.FlxPoint;
 import funkin.data.character.CharacterData;
 import funkin.data.character.CharacterRegistry;
 import funkin.modding.IScriptedClass.IPlayStateScriptedClass;
@@ -31,9 +34,8 @@ class Character extends StageProp implements IPlayStateScriptedClass
 		if (meta == null)
 			return;
 
-		// Loads the image
 		loadSprite('$charPath/image', meta.scale, meta.width, meta.height);
-		loadAnimations(meta.animations);
+		buildAnimations(meta.animations);
 
 		offset.set(-meta.globalOffset[0] ?? 0, -meta.globalOffset[1] ?? 0);
 
@@ -90,6 +92,51 @@ class Character extends StageProp implements IPlayStateScriptedClass
 		if (meta.icon == null)
 			return null;
 		return new HealthIcon(id, meta.icon, type == PLAYER);
+	}
+
+	function buildAnimations(animations:Array<CharacterAnimData>)
+	{
+		if (frames == null)
+			return;
+
+		final images:Array<String> = [];
+		final numFrames:Array<Int> = [];
+
+		var size:FlxPoint = FlxPoint.get();
+
+		for (anim in animations)
+		{
+			if (anim == null)
+				continue;
+
+			final image:Null<String> = anim.image;
+			final path:String = Paths.image('$charPath/images/$image');
+
+			if (!Paths.exists(path) || images.contains(image))
+				continue;
+
+			images.push(image);
+			numFrames.push(frames.numFrames);
+
+			size.set(frameWidth, frameHeight);
+
+			for (frame in FlxTileFrames.fromGraphic(FlxGraphic.fromAssetKey(path), size).frames)
+				frames.pushFrame(frame);
+		}
+
+		size.put();
+
+		for (anim in animations)
+		{
+			if (anim == null)
+				continue;
+
+			// This is done so frames are relative to their image
+			// God this sucks
+			final index:Int = numFrames[images.indexOf(anim.image)];
+
+			addAnimation(anim.name, [for (frame in anim.frames) frame + index], anim.framerate, anim.looped);
+		}
 	}
 
 	override function playAnimation(name:String, force:Bool = false)

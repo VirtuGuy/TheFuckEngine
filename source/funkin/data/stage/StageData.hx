@@ -1,7 +1,5 @@
 package funkin.data.stage;
 
-import funkin.data.stage.StageData.PropAnimData;
-
 /**
  * A structure object used for stage data.
  */

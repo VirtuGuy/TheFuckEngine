@@ -22,7 +22,7 @@ typedef CharacterData =
 	@:default(8)
 	var singDuration:Float;
 	@:default([])
-	var animations:Array<PropAnimData>;
+	var animations:Array<CharacterAnimData>;
 }
 
 /**
@@ -39,4 +39,10 @@ typedef CharacterIconData =
 	var bopEvery:Int;
 	@:optional
 	var bopAngle:Float;
+}
+
+typedef CharacterAnimData = PropAnimData &
+{
+	@:optional
+	var image:String;
 }
