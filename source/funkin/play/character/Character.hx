@@ -9,6 +9,7 @@ import funkin.modding.IScriptedClass.IPlayStateScriptedClass;
 import funkin.modding.event.ScriptEvent;
 import funkin.play.note.NoteDirection;
 import funkin.play.stage.StageProp;
+import funkin.util.MathUtil;
 
 /**
  * A `StageProp` that sings and bops and all that.
@@ -102,8 +103,6 @@ class Character extends StageProp implements IPlayStateScriptedClass
 		final images:Array<String> = [];
 		final numFrames:Array<Int> = [];
 
-		var size:FlxPoint = FlxPoint.get();
-
 		for (anim in animations)
 		{
 			if (anim == null)
@@ -118,13 +117,18 @@ class Character extends StageProp implements IPlayStateScriptedClass
 			images.push(image);
 			numFrames.push(frames.numFrames);
 
-			size.set(frameWidth, frameHeight);
+			var size:FlxPoint = FlxPoint.get(anim.width ?? frameWidth, anim.height ?? frameHeight);
+			var offset:FlxPoint = MathUtil.arrayToPoint(anim.offset);
 
 			for (frame in FlxTileFrames.fromGraphic(FlxGraphic.fromAssetKey(path), size).frames)
+			{
+				frame.offset.copyFrom(offset);
 				frames.pushFrame(frame);
-		}
+			}
 
-		size.put();
+			size.put();
+			offset.put();
+		}
 
 		for (anim in animations)
 		{

@@ -1,7 +1,7 @@
 {
     "name": "Boyfriend",
     "width": 266,
-    "height": 248,
+    "height": 242,
     "globalOffset": [-125, -250],
     "cameraOffset": [-100, -100],
     "icon": {
@@ -33,35 +33,43 @@
             "name": "left-miss",
             "frames": [0, 1],
             "framerate": 20,
-            "image": "miss"
+            "image": "miss",
+            "height": 248
         },
         {
             "name": "right-miss",
             "frames": [2, 3],
             "framerate": 20,
-            "image": "miss"
+            "image": "miss",
+            "height": 248
         },
         {
             "name": "up-miss",
             "frames": [4, 5],
             "framerate": 20,
-            "image": "miss"
+            "image": "miss",
+            "height": 248
         },
         {
             "name": "down-miss",
             "frames": [6, 7],
             "framerate": 20,
-            "image": "miss"
+            "image": "miss",
+            "height": 248
         },
         {
             "name": "hey",
             "frames": [0, 1, 2],
-            "image": "hey"
+            "image": "hey",
+            "width": 207,
+            "height": 218
         },
         {
             "name": "cheer",
             "frames": [0, 1, 2],
-            "image": "cheer"
+            "image": "cheer",
+            "width": 207,
+            "height": 237
         }
     ]
 }

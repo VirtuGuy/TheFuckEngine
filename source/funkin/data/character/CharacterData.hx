@@ -45,4 +45,9 @@ typedef CharacterAnimData = PropAnimData &
 {
 	@:optional
 	var image:String;
+	@:optional
+	var width:Int;
+	@:optional
+	var height:Int;
+	var offset:Array<Float>;
 }
