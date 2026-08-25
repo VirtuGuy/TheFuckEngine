@@ -1,6 +1,7 @@
 package funkin.ui;
 
 import flixel.FlxState;
+import funkin.assets.FunkinMemory;
 import funkin.input.Controls;
 import funkin.modding.event.ScriptEvent;
 import funkin.modding.module.ModuleHandler;

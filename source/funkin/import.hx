@@ -3,7 +3,6 @@ package;
 // Only import classes outside of macro
 #if !macro
 import flixel.FlxG;
-import funkin.assets.FunkinMemory;
 import funkin.assets.Paths;
 import funkin.util.Constants;
 

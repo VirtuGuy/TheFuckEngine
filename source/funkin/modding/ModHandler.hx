@@ -68,7 +68,6 @@ class ModHandler
 		// Just whatever is used in import.hx
 		Polymod.addDefaultImport(Constants);
 		Polymod.addDefaultImport(Conductor);
-		Polymod.addDefaultImport(FunkinMemory);
 		Polymod.addDefaultImport(Paths);
 		Polymod.addDefaultImport(Preferences);
 		Polymod.addDefaultImport(FlxG);
