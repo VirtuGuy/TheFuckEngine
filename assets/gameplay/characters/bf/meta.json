@@ -8,6 +8,11 @@
         "flipX": true
     },
     "flipX": true,
+    "images": {
+        "miss": { "width": 266, "height": 248, "offset": [0, 0] },
+        "hey": { "width": 207, "height": 218, "offset": [0, 0] },
+        "cheer": { "width": 207, "height": 237, "offset": [0, 0] }
+    },
     "animations": [
         {
             "name": "idle",
@@ -33,43 +38,35 @@
             "name": "left-miss",
             "frames": [0, 1],
             "framerate": 20,
-            "image": "miss",
-            "height": 248
+            "image": "miss"
         },
         {
             "name": "right-miss",
             "frames": [2, 3],
             "framerate": 20,
-            "image": "miss",
-            "height": 248
+            "image": "miss"
         },
         {
             "name": "up-miss",
             "frames": [4, 5],
             "framerate": 20,
-            "image": "miss",
-            "height": 248
+            "image": "miss"
         },
         {
             "name": "down-miss",
             "frames": [6, 7],
             "framerate": 20,
-            "image": "miss",
-            "height": 248
+            "image": "miss"
         },
         {
             "name": "hey",
             "frames": [0, 1, 2],
-            "image": "hey",
-            "width": 207,
-            "height": 218
+            "image": "hey"
         },
         {
             "name": "cheer",
             "frames": [0, 1, 2],
-            "image": "cheer",
-            "width": 207,
-            "height": 237
+            "image": "cheer"
         }
     ]
 }

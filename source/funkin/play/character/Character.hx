@@ -10,6 +10,7 @@ import funkin.modding.event.ScriptEvent;
 import funkin.play.note.NoteDirection;
 import funkin.play.stage.StageProp;
 import funkin.util.MathUtil;
+import haxe.ds.StringMap;
 
 /**
  * A `StageProp` that sings and bops and all that.
@@ -36,7 +37,8 @@ class Character extends StageProp implements IPlayStateScriptedClass
 			return;
 
 		loadSprite('$charPath/image', meta.scale, meta.width, meta.height);
-		buildAnimations(meta.animations);
+
+		buildAnimations();
 
 		offset.set(-meta.globalOffset[0] ?? 0, -meta.globalOffset[1] ?? 0);
 
@@ -95,54 +97,42 @@ class Character extends StageProp implements IPlayStateScriptedClass
 		return new HealthIcon(id, meta.icon, type == PLAYER);
 	}
 
-	function buildAnimations(animations:Array<CharacterAnimData>)
+	function buildAnimations()
 	{
 		if (frames == null)
 			return;
 
-		final images:Array<String> = [];
+		// Loads animation images
+		var images:StringMap<Int> = new StringMap<Int>();
 
-		for (anim in animations)
+		for (id => image in meta.images)
+		{
+			final path:String = Paths.image('$charPath/images/$id');
+
+			if (image == null || !Paths.exists(path) || images.exists(id))
+				continue;
+
+			images.set(id, frames.numFrames);
+
+			final size:FlxPoint = FlxPoint.get(image.width ?? frameWidth, image.height ?? frameHeight);
+			final offset:FlxPoint = MathUtil.arrayToPoint(image.offset);
+
+			for (frame in FlxTileFrames.fromGraphic(FlxGraphic.fromAssetKey(path), size).frames)
+			{
+				frame.offset.copyFrom(offset);
+				frames.pushFrame(frame);
+			}
+
+			size.put();
+			offset.put();
+		}
+
+		// Adds the actual animations
+		for (anim in meta.animations)
 		{
 			if (anim == null)
 				continue;
-
-			final image:Null<String> = anim.image;
-			final path:String = Paths.image('$charPath/images/$image');
-
-			// Loads the images for the animations
-			if (Paths.exists(path) && !images.contains(image))
-			{
-				images.push(image);
-
-				final size:FlxPoint = FlxPoint.get(anim.width ?? frameWidth, anim.height ?? frameHeight);
-
-				for (frame in FlxTileFrames.fromGraphic(FlxGraphic.fromAssetKey(path), size).frames)
-				{
-					frame.name = image;
-					frames.pushFrame(frame, true);
-				}
-
-				size.put();
-			}
-
-			// Adds the actual animations
-			// This also applies offsets to them as well :D
-			final offset:FlxPoint = MathUtil.arrayToPoint(anim.offset);
-			final index:Int = Std.int(Math.max(0, frames.getIndexByName(anim.image)));
-
-			final animFrames:Array<Int> = [];
-
-			for (frame in anim.frames)
-			{
-				frame += index;
-				frames.getByIndex(frame)?.offset?.set(offset.x, offset.y);
-				animFrames.push(frame);
-			}
-
-			offset.put();
-
-			addAnimation(anim.name, animFrames, anim.framerate, anim.looped);
+			addAnimation(anim.name, [for (frame in anim.frames) frame + images.get(anim.image)], anim.framerate, anim.looped);
 		}
 	}
 

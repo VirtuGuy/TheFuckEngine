@@ -22,6 +22,8 @@ typedef CharacterData =
 	@:default(8)
 	var singDuration:Float;
 	@:default([])
+	var images:Map<String, CharacterImageData>;
+	@:default([])
 	var animations:Array<CharacterAnimData>;
 }
 
@@ -41,10 +43,20 @@ typedef CharacterIconData =
 	var bopAngle:Float;
 }
 
+/**
+ * A structure object used for the animation data of characters.
+ */
 typedef CharacterAnimData = PropAnimData &
 {
 	@:optional
 	var image:String;
+}
+
+/**
+ * A structure object used for the image data of characters.
+ */
+typedef CharacterImageData =
+{
 	@:optional
 	var width:Int;
 	@:optional

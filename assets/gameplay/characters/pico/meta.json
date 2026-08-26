@@ -1,11 +1,17 @@
 {
     "name": "Pico",
     "width": 240,
-    "height": 246,
+    "height": 244,
     "globalOffset": [-120, -255],
     "cameraOffset": [-100, -100],
     "icon": {},
     "flipX": true,
+    "images": {
+        "miss": { "width": 238, "height": 244, "offset": [0, 0] },
+        "hey": { "width": 223, "height": 225, "offset": [0, 0] },
+        "cheer": { "width": 194, "height": 238, "offset": [0, 0] },
+        "shoot": { "width": 199, "height": 224, "offset": [0, 0] }
+    },
     "animations": [
         {
             "name": "idle",
@@ -29,39 +35,47 @@
         },
         {
             "name": "left-miss",
-            "frames": [3, 11],
-            "framerate": 20
+            "frames": [0, 1],
+            "framerate": 20,
+            "image": "miss"
         },
         {
             "name": "right-miss",
-            "frames": [5, 12],
-            "framerate": 20
+            "frames": [2, 3],
+            "framerate": 20,
+            "image": "miss"
         },
         {
             "name": "up-miss",
-            "frames": [7, 13],
-            "framerate": 20
+            "frames": [4, 5],
+            "framerate": 20,
+            "image": "miss"
         },
         {
             "name": "down-miss",
-            "frames": [9, 14],
-            "framerate": 20
+            "frames": [6, 7],
+            "framerate": 20,
+            "image": "miss"
         },
         {
             "name": "hey",
-            "frames": [15, 16, 17]
+            "frames": [0, 1, 2],
+            "image": "hey"
         },
         {
             "name": "cheer",
-            "frames": [18, 19, 20]
+            "frames": [0, 1, 2],
+            "image": "cheer"
         },
         {
             "name": "cock",
-            "frames": [21, 22]
+            "frames": [0, 1],
+            "image": "shoot"
         },
         {
             "name": "fire",
-            "frames": [23, 24]
+            "frames": [2, 3],
+            "image": "shoot"
         }
     ]
 }
