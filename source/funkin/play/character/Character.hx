@@ -101,7 +101,6 @@ class Character extends StageProp implements IPlayStateScriptedClass
 			return;
 
 		final images:Array<String> = [];
-		final numFrames:Array<Int> = [];
 
 		for (anim in animations)
 		{
@@ -111,33 +110,29 @@ class Character extends StageProp implements IPlayStateScriptedClass
 			final image:Null<String> = anim.image;
 			final path:String = Paths.image('$charPath/images/$image');
 
-			if (!Paths.exists(path) || images.contains(image))
-				continue;
-
-			images.push(image);
-			numFrames.push(frames.numFrames);
-
-			var size:FlxPoint = FlxPoint.get(anim.width ?? frameWidth, anim.height ?? frameHeight);
-			var offset:FlxPoint = MathUtil.arrayToPoint(anim.offset);
-
-			for (frame in FlxTileFrames.fromGraphic(FlxGraphic.fromAssetKey(path), size).frames)
+			// Loads the images for the animations
+			if (Paths.exists(path) && !images.contains(image))
 			{
-				frame.offset.copyFrom(offset);
-				frames.pushFrame(frame);
+				images.push(image);
+
+				final size:FlxPoint = FlxPoint.get(anim.width ?? frameWidth, anim.height ?? frameHeight);
+
+				for (frame in FlxTileFrames.fromGraphic(FlxGraphic.fromAssetKey(path), size).frames)
+				{
+					frame.name = image;
+					frames.pushFrame(frame, true);
+				}
+
+				size.put();
 			}
 
-			size.put();
+			// Adds the actual animations
+			// This also applies offsets to them as well :D
+			final offset:FlxPoint = MathUtil.arrayToPoint(anim.offset);
+			final index:Int = Std.int(Math.max(0, frames.getIndexByName(anim.image)));
+
+			frames.setFramesOffsetByPrefix(anim.image, offset.x, offset.y);
 			offset.put();
-		}
-
-		for (anim in animations)
-		{
-			if (anim == null)
-				continue;
-
-			// This is done so frames are relative to their image
-			// God this sucks
-			final index:Int = numFrames[images.indexOf(anim.image)];
 
 			addAnimation(anim.name, [for (frame in anim.frames) frame + index], anim.framerate, anim.looped);
 		}
