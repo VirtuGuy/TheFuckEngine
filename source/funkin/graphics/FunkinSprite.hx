@@ -2,6 +2,8 @@ package funkin.graphics;
 
 import flixel.FlxSprite;
 import flixel.graphics.FlxGraphic;
+import flixel.graphics.frames.FlxTileFrames;
+import flixel.math.FlxPoint;
 import flixel.util.FlxColor;
 
 /**
@@ -9,15 +11,7 @@ import flixel.util.FlxColor;
  */
 class FunkinSprite extends FlxSprite
 {
-	public static function create(x:Float, y:Float, id:String, scale:Float = 1, width:Int = 0, height:Int = 0):FunkinSprite
-	{
-		return new FunkinSprite(x, y).loadSprite(id, scale, width, height);
-	}
-
-	public static function createSolidColor(x:Float, y:Float, width:Int, height:Int, color:FlxColor):FunkinSprite
-	{
-		return new FunkinSprite(x, y).makeSolidColor(width, height, color);
-	}
+	var images:Array<String> = [];
 
 	public function loadSprite(id:String, scale:Float = 1, width:Int = 0, height:Int = 0):FunkinSprite
 	{
@@ -36,6 +30,41 @@ class FunkinSprite extends FlxSprite
 			setGraphicSize(Std.int(this.width * Constants.ZOOM * scale));
 			updateHitbox();
 		}
+
+		return this;
+	}
+
+	public function loadAdditionalFrames(id:String, ?width:Int, ?height:Int, ?key:String):FunkinSprite
+	{
+		key ??= id;
+
+		if (frames?.type != TILES || images.contains(key))
+			return this;
+
+		var graphic:FlxGraphic = FlxGraphic.fromAssetKey(Paths.image(id));
+
+		if (graphic == null)
+			return this;
+
+		width ??= frameWidth;
+		height ??= frameHeight;
+
+		if (width <= 0)
+			width = graphic.width;
+		if (height <= 0)
+			height = graphic.height;
+
+		width = Std.int(width.clamp(0, graphic.width));
+		height = Std.int(height.clamp(0, graphic.height));
+
+		var size:FlxPoint = FlxPoint.get(width, height);
+		var tiles:FlxTileFrames = FlxTileFrames.fromGraphic(graphic, size);
+
+		for (frame in tiles.frames)
+			frames.pushFrame(frame);
+
+		size.put();
+		images.push(key);
 
 		return this;
 	}
@@ -100,5 +129,15 @@ class FunkinSprite extends FlxSprite
 		sprite.zIndex = zIndex;
 
 		return sprite;
+	}
+
+	public static function create(x:Float, y:Float, id:String, scale:Float = 1, width:Int = 0, height:Int = 0):FunkinSprite
+	{
+		return new FunkinSprite(x, y).loadSprite(id, scale, width, height);
+	}
+
+	public static function createSolidColor(x:Float, y:Float, width:Int, height:Int, color:FlxColor):FunkinSprite
+	{
+		return new FunkinSprite(x, y).makeSolidColor(width, height, color);
 	}
 }

@@ -1,16 +1,11 @@
 package funkin.play.character;
 
-import flixel.graphics.FlxGraphic;
-import flixel.graphics.frames.FlxTileFrames;
-import flixel.math.FlxPoint;
 import funkin.data.character.CharacterData;
 import funkin.data.character.CharacterRegistry;
 import funkin.modding.IScriptedClass.IPlayStateScriptedClass;
 import funkin.modding.event.ScriptEvent;
 import funkin.play.note.NoteDirection;
 import funkin.play.stage.StageProp;
-import funkin.util.MathUtil;
-import haxe.ds.StringMap;
 
 /**
  * A `StageProp` that sings and bops and all that.
@@ -102,33 +97,17 @@ class Character extends StageProp implements IPlayStateScriptedClass
 		if (frames == null)
 			return;
 
-		// Loads animation images
-		var images:StringMap<Int> = new StringMap<Int>();
+		// Loads the sprites
+		var numFrames:Array<Int> = [];
 
 		for (image in meta.images)
 		{
-			if (image == null)
-				continue;
-
 			final name:String = image.name;
-			final path:String = Paths.image('$charPath/images/$name');
+			final path:String = '$charPath/images/$name';
 
-			if (!Paths.exists(path) || images.exists(name))
-				continue;
+			numFrames.push(frames.numFrames);
 
-			images.set(name, frames.numFrames);
-
-			final size:FlxPoint = FlxPoint.get(image.width ?? frameWidth, image.height ?? frameHeight);
-			final offset:FlxPoint = MathUtil.arrayToPoint(image.offset);
-
-			for (frame in FlxTileFrames.fromGraphic(FlxGraphic.fromAssetKey(path), size).frames)
-			{
-				frame.offset.copyFrom(offset);
-				frames.pushFrame(frame);
-			}
-
-			size.put();
-			offset.put();
+			loadAdditionalFrames(path, image.width, image.height, name);
 		}
 
 		// Adds the actual animations
@@ -136,7 +115,10 @@ class Character extends StageProp implements IPlayStateScriptedClass
 		{
 			if (anim == null)
 				continue;
-			addAnimation(anim.name, [for (frame in anim.frames) frame + images.get(anim.image)], anim.framerate, anim.looped);
+
+			final index:Int = numFrames[images.indexOf(anim.image)];
+
+			addAnimation(anim.name, [for (frame in anim.frames) frame + index], anim.framerate, anim.looped);
 		}
 	}
 
