@@ -119,7 +119,11 @@ class GameOverSubState extends FunkinSubState
 			return;
 
 		retrying = true;
-		retryTimer = FlxTimer.wait(1, () -> camera.fade(0xFF000000, 2, false, close));
+		retryTimer = FlxTimer.wait(1, () ->
+		{
+			camera.fade(0xFF000000, 2, false, close);
+			exiting = true;
+		});
 
 		character?.playAnimation('end');
 
