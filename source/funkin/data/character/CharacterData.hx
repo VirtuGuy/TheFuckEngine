@@ -22,7 +22,7 @@ typedef CharacterData =
 	@:default(8)
 	var singDuration:Float;
 	@:default([])
-	var images:Map<String, CharacterImageData>;
+	var images:Array<CharacterImageData>;
 	@:default([])
 	var animations:Array<CharacterAnimData>;
 }
@@ -57,6 +57,7 @@ typedef CharacterAnimData = PropAnimData &
  */
 typedef CharacterImageData =
 {
+	var name:String;
 	@:optional
 	var width:Int;
 	@:optional

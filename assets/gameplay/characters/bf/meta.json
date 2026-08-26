@@ -2,17 +2,17 @@
     "name": "Boyfriend",
     "width": 266,
     "height": 242,
-    "globalOffset": [-125, -250],
+    "globalOffset": [-125, -240],
     "cameraOffset": [-100, -100],
     "icon": {
         "flipX": true
     },
     "flipX": true,
-    "images": {
-        "miss": { "width": 266, "height": 248, "offset": [0, 0] },
-        "hey": { "width": 207, "height": 218, "offset": [0, 0] },
-        "cheer": { "width": 207, "height": 237, "offset": [0, 0] }
-    },
+    "images": [
+        { "name": "miss", "width": 266, "height": 248, "offset": [0, 0] },
+        { "name": "hey", "width": 207, "height": 218, "offset": [0, 0] },
+        { "name": "cheer", "width": 207, "height": 237, "offset": [0, 0] }
+    ],
     "animations": [
         {
             "name": "idle",

@@ -6,12 +6,12 @@
     "cameraOffset": [-100, -100],
     "icon": {},
     "flipX": true,
-    "images": {
-        "miss": { "width": 238, "height": 244, "offset": [0, 0] },
-        "hey": { "width": 223, "height": 225, "offset": [0, 0] },
-        "cheer": { "width": 194, "height": 238, "offset": [0, 0] },
-        "shoot": { "width": 199, "height": 224, "offset": [0, 0] }
-    },
+    "images": [
+        { "name": "miss", "width": 238, "height": 244, "offset": [0, 0] },
+        { "name": "hey", "width": 223, "height": 225, "offset": [0, 0] },
+        { "name": "cheer", "width": 194, "height": 238, "offset": [0, 0] },
+        { "name": "shoot", "width": 199, "height": 224, "offset": [0, 0] }
+    ],
     "animations": [
         {
             "name": "idle",

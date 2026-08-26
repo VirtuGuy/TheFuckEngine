@@ -105,14 +105,18 @@ class Character extends StageProp implements IPlayStateScriptedClass
 		// Loads animation images
 		var images:StringMap<Int> = new StringMap<Int>();
 
-		for (id => image in meta.images)
+		for (image in meta.images)
 		{
-			final path:String = Paths.image('$charPath/images/$id');
-
-			if (image == null || !Paths.exists(path) || images.exists(id))
+			if (image == null)
 				continue;
 
-			images.set(id, frames.numFrames);
+			final name:String = image.name;
+			final path:String = Paths.image('$charPath/images/$name');
+
+			if (!Paths.exists(path) || images.exists(name))
+				continue;
+
+			images.set(name, frames.numFrames);
 
 			final size:FlxPoint = FlxPoint.get(image.width ?? frameWidth, image.height ?? frameHeight);
 			final offset:FlxPoint = MathUtil.arrayToPoint(image.offset);
