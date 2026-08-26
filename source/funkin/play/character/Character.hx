@@ -131,10 +131,18 @@ class Character extends StageProp implements IPlayStateScriptedClass
 			final offset:FlxPoint = MathUtil.arrayToPoint(anim.offset);
 			final index:Int = Std.int(Math.max(0, frames.getIndexByName(anim.image)));
 
-			frames.setFramesOffsetByPrefix(anim.image, offset.x, offset.y);
+			final animFrames:Array<Int> = [];
+
+			for (frame in anim.frames)
+			{
+				frame += index;
+				frames.getByIndex(frame)?.offset?.set(offset.x, offset.y);
+				animFrames.push(frame);
+			}
+
 			offset.put();
 
-			addAnimation(anim.name, [for (frame in anim.frames) frame + index], anim.framerate, anim.looped);
+			addAnimation(anim.name, animFrames, anim.framerate, anim.looped);
 		}
 	}
 
