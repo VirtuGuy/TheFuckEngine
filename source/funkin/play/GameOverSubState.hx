@@ -27,6 +27,7 @@ class GameOverSubState extends FunkinSubState
 
 	var _conductor:Conductor;
 
+	var retryTimer:FlxTimer;
 	var player:Character;
 
 	public function new(player:Character)
@@ -104,8 +105,12 @@ class GameOverSubState extends FunkinSubState
 
 	function retry()
 	{
-		if (exiting || retrying)
+		if (exiting)
 			return;
+
+		// Faster gameover mashing hehe
+		if (retrying)
+			return close();
 
 		var event:ScriptEvent = ScriptEvent.get(GAMEOVER_RETRY);
 		dispatch(event);
@@ -114,13 +119,12 @@ class GameOverSubState extends FunkinSubState
 			return;
 
 		retrying = true;
+		retryTimer = FlxTimer.wait(1, () -> camera.fade(0xFF000000, 2, false, close));
 
 		character?.playAnimation('end');
 
 		FunkinSound.stopAllSounds();
 		FunkinSound.playOnce(getPath('sounds/end', deathSFX));
-
-		FlxTimer.wait(1, () -> camera.fade(0xFF000000, 2, false, close));
 	}
 
 	function exit()
@@ -182,6 +186,8 @@ class GameOverSubState extends FunkinSubState
 		super.destroy();
 
 		instance = null;
+
+		retryTimer?.cancel();
 	}
 
 	public static function reset()
