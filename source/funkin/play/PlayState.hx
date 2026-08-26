@@ -77,6 +77,8 @@ class PlayState extends FunkinState
 	public var songEnded:Bool;
 	public var songActive:Bool;
 
+	public var isPaused(get, never):Bool;
+
 	/**
 	 * TODO: Make this changeable ingame
 	 */
@@ -321,7 +323,7 @@ class PlayState extends FunkinState
 				playerIcon.state = IDLE;
 		}
 
-		if (!songEnded)
+		if (songActive)
 		{
 			timeText.text = FlxStringUtil.formatTime((FunkinSound.music.length - FunkinSound.music.time) / Constants.MS_PER_SEC);
 			timeText.screenCenter(X);
@@ -520,6 +522,9 @@ class PlayState extends FunkinState
 
 	public function pause()
 	{
+		if (isPaused || !songActive)
+			return;
+
 		var event:ScriptEvent = ScriptEvent.get(PAUSE);
 		dispatch(event);
 
@@ -954,6 +959,16 @@ class PlayState extends FunkinState
 		camera.active = true;
 	}
 
+	override function onFocusLost()
+	{
+		super.onFocusLost();
+
+		// Pause the game when the game is unfocused
+		// Though we only do this if the option is enabled
+		if (Preferences.autoPause)
+			pause();
+	}
+
 	override function destroy()
 	{
 		// Runs the destroy script event
@@ -1014,5 +1029,11 @@ class PlayState extends FunkinState
 		voices.pitch = value;
 
 		return value;
+	}
+
+	@:noCompletion
+	inline function get_isPaused():Bool
+	{
+		return subState != null;
 	}
 }

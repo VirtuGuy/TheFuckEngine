@@ -25,16 +25,11 @@ class Preferences
 	public static var fpsCap(get, set):Int;
 	public static var vsync(get, set):Bool;
 	public static var unlockedFPS(get, set):Bool;
+	public static var autoPause(get, set):Bool;
 
 	#if HAS_DISCORD_RPC
 	public static var discordRPC(get, set):Bool;
 	#end
-
-	@:noCompletion
-	static inline function get_downscroll():Bool
-	{
-		return Save.instance.options.downscroll;
-	}
 
 	@:noCompletion
 	static inline function set_downscroll(value:Bool):Bool
@@ -48,9 +43,9 @@ class Preferences
 	}
 
 	@:noCompletion
-	static inline function get_showTimer():Bool
+	static inline function get_downscroll():Bool
 	{
-		return Save.instance.options.showTimer;
+		return Save.instance.options.downscroll;
 	}
 
 	@:noCompletion
@@ -64,13 +59,13 @@ class Preferences
 		return value;
 	}
 
-	#if HAS_FPS_COUNTER
 	@:noCompletion
-	static inline function get_showFPS():Bool
+	static inline function get_showTimer():Bool
 	{
-		return Save.instance.options.showFPS;
+		return Save.instance.options.showTimer;
 	}
 
+	#if HAS_FPS_COUNTER
 	@:noCompletion
 	static inline function set_showFPS(value:Bool):Bool
 	{
@@ -83,9 +78,9 @@ class Preferences
 	}
 
 	@:noCompletion
-	static inline function get_fpsBGOpacity():Int
+	static inline function get_showFPS():Bool
 	{
-		return Save.instance.options.fpsBGOpacity;
+		return Save.instance.options.showFPS;
 	}
 
 	@:noCompletion
@@ -98,13 +93,13 @@ class Preferences
 
 		return value;
 	}
-	#end
 
 	@:noCompletion
-	static inline function get_fpsCap():Int
+	static inline function get_fpsBGOpacity():Int
 	{
-		return Save.instance.options.fpsCap;
+		return Save.instance.options.fpsBGOpacity;
 	}
+	#end
 
 	@:noCompletion
 	static inline function set_fpsCap(value:Int):Int
@@ -118,9 +113,9 @@ class Preferences
 	}
 
 	@:noCompletion
-	static inline function get_vsync():Bool
+	static inline function get_fpsCap():Int
 	{
-		return Save.instance.options.vsync;
+		return Save.instance.options.fpsCap;
 	}
 
 	@:noCompletion
@@ -135,9 +130,9 @@ class Preferences
 	}
 
 	@:noCompletion
-	static inline function get_unlockedFPS():Bool
+	static inline function get_vsync():Bool
 	{
-		return Save.instance.options.unlockedFPS;
+		return Save.instance.options.vsync;
 	}
 
 	@:noCompletion
@@ -151,13 +146,30 @@ class Preferences
 		return value;
 	}
 
-	#if HAS_DISCORD_RPC
 	@:noCompletion
-	static inline function get_discordRPC():Bool
+	static inline function get_unlockedFPS():Bool
 	{
-		return Save.instance.options.discordRPC;
+		return Save.instance.options.unlockedFPS;
 	}
 
+	@:noCompletion
+	static inline function set_autoPause(value:Bool):Bool
+	{
+		Save.instance.options.autoPause = value;
+		Save.instance.flush();
+
+		FlxG.autoPause = value;
+
+		return value;
+	}
+
+	@:noCompletion
+	static inline function get_autoPause():Bool
+	{
+		return Save.instance.options.autoPause;
+	}
+
+	#if HAS_DISCORD_RPC
 	@:noCompletion
 	static inline function set_discordRPC(value:Bool):Bool
 	{
@@ -170,6 +182,12 @@ class Preferences
 			DiscordRPC.shutdown(0);
 
 		return value;
+	}
+
+	@:noCompletion
+	static inline function get_discordRPC():Bool
+	{
+		return Save.instance.options.discordRPC;
 	}
 	#end
 

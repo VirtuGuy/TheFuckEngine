@@ -73,6 +73,7 @@ class OptionsSubState extends FunkinSubState
 		options.addOption('fpsCap', 'fps cap', 10, 60, 500);
 		options.addOption('vsync', 'vsync');
 		options.addOption('unlockedFPS', 'unlocked fps');
+		options.addOption('autoPause', 'pause on unfocus');
 
 		#if HAS_DISCORD_RPC
 		options.addOption('discordRPC', 'discord rpc');

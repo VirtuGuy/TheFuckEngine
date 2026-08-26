@@ -37,6 +37,7 @@ class Save
 		// LOAD
 		//
 
+		FlxG.autoPause = options.autoPause;
 		FlxG.drawFramerate = FlxG.updateFramerate = options.unlockedFPS ? 0 : options.fpsCap;
 
 		WindowUtil.setVSync(options.vsync);
@@ -222,6 +223,7 @@ class Save
 				fpsCap: 200,
 				vsync: false,
 				unlockedFPS: false,
+				autoPause: true,
 				discordRPC: true,
 			}
 		}
