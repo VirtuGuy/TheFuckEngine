@@ -1,6 +1,5 @@
 package funkin.play.character;
 
-import funkin.audio.FunkinSound;
 import funkin.data.character.CharacterData;
 import funkin.data.character.CharacterRegistry;
 import funkin.modding.IScriptedClass.IPlayStateScriptedClass;
@@ -77,15 +76,11 @@ class Character extends StageProp implements IPlayStateScriptedClass
 		playAnimation('${direction.name}$suffix', true);
 	}
 
-	public function miss(direction:NoteDirection, suffix:String = '', playSound:Bool = true)
+	public function miss(direction:NoteDirection, suffix:String = '')
 	{
 		if (flipX && direction.horizontal)
 			direction = direction.inverse;
-
 		playAnimation('${direction.name}-miss$suffix', true);
-
-		if (playSound)
-			FunkinSound.playOnce(Paths.random('gameplay/sounds/miss', 1, 3), 0.5);
 	}
 
 	public function buildHealthIcon():HealthIcon

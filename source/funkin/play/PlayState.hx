@@ -838,6 +838,8 @@ class PlayState extends FunkinState
 		health += Constants.MISS_HEALTH;
 
 		voices.playerVolume = 0;
+
+		FunkinSound.playOnce(Paths.random('gameplay/sounds/miss', 1, 3), 0.5);
 	}
 
 	function playerGhostMiss(direction:NoteDirection)
@@ -852,6 +854,8 @@ class PlayState extends FunkinState
 		health += Constants.GHOST_MISS_HEALTH;
 
 		voices.playerVolume = 0;
+
+		FunkinSound.playOnce(Paths.random('gameplay/sounds/miss', 1, 3), 0.5);
 	}
 
 	function playerHoldNoteDrop(holdNote:HoldNoteSprite)
@@ -869,6 +873,8 @@ class PlayState extends FunkinState
 		health += Constants.MISS_HEALTH;
 
 		voices.playerVolume = 0;
+
+		FunkinSound.playOnce(Paths.random('gameplay/sounds/miss', 1, 3), 0.5);
 	}
 
 	function opponentNoteHit(note:NoteSprite)
