@@ -1,7 +1,8 @@
 import flixel.util.FlxTimer;
 import funkin.audio.FunkinSound;
-import funkin.play.stage.Stage;
 import funkin.play.stage.StageProp;
+import funkin.play.stage.Stage;
+import funkin.play.PlayState;
 
 class LimoStage extends Stage
 {
@@ -43,6 +44,9 @@ class LimoStage extends Stage
     override function onBeatHit(event:ConductorScriptEvent)
     {
         super.onBeatHit(event);
+
+        if (PlayState.instance.isPaused)
+            return;
 
         if (FlxG.random.bool(10) && !carActive && event.beat > carBeat)
             startCar(event.beat);

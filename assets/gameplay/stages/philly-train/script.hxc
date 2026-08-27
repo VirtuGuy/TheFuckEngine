@@ -1,8 +1,9 @@
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import funkin.audio.FunkinSound;
-import funkin.play.stage.Stage;
 import funkin.play.stage.StageProp;
+import funkin.play.stage.Stage;
+import funkin.play.PlayState;
 
 class PhillyTrainStage extends Stage
 {
@@ -56,7 +57,7 @@ class PhillyTrainStage extends Stage
     {
         super.onBeatHit(event);
 
-        if (event.beat < 0)
+        if (PlayState.instance.isPaused || event.beat < 0)
             return;
 
         if (event.beat % WINDOW_BEATS == 0)

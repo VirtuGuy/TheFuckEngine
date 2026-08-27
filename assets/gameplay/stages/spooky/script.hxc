@@ -1,8 +1,8 @@
-import funkin.audio.FunkinSound;
-import funkin.play.stage.Stage;
-import funkin.play.stage.StageProp;
-import funkin.play.PlayState;
 import flixel.FlxG;
+import funkin.audio.FunkinSound;
+import funkin.play.stage.StageProp;
+import funkin.play.stage.Stage;
+import funkin.play.PlayState;
 
 class SpookyStage extends Stage
 {
@@ -37,6 +37,9 @@ class SpookyStage extends Stage
     override function onBeatHit(event:ConductorScriptEvent)
     {
         super.onBeatHit(event);
+
+        if (PlayState.instance.isPaused)
+            return;
 
         var syncedBeat:Bool = event.beat == 4 && PlayState.instance.song.id == 'spookeez';
 
