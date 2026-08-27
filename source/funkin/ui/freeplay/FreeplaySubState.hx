@@ -18,9 +18,9 @@ import funkin.ui.freeplay.capsule.CapsuleGroup;
 import funkin.ui.freeplay.capsule.CapsuleSprite;
 import funkin.ui.freeplay.components.BackcardSprite;
 import funkin.ui.freeplay.components.DJSprite;
+import funkin.ui.freeplay.components.DifficultySelector;
+import funkin.ui.freeplay.components.SortSelector;
 import funkin.ui.freeplay.player.Player;
-import funkin.ui.freeplay.selector.DifficultySelector;
-import funkin.ui.freeplay.selector.SortSelector;
 import funkin.ui.menu.MainMenuState;
 import funkin.util.MathUtil;
 

@@ -11,7 +11,7 @@ import funkin.graphics.FunkinText;
 import funkin.play.PlayState;
 import funkin.play.Playlist;
 import funkin.save.Save;
-import funkin.ui.freeplay.selector.DifficultySelector;
+import funkin.ui.freeplay.components.DifficultySelector;
 import funkin.ui.menu.MainMenuState;
 import funkin.ui.story.Level;
 import funkin.util.MathUtil;
