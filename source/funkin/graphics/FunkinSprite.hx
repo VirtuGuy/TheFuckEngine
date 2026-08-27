@@ -15,30 +15,25 @@ class FunkinSprite extends FlxSprite
 
 	public function loadSprite(id:String, scale:Float = 1, width:Int = 0, height:Int = 0):FunkinSprite
 	{
-		var graphic:FlxGraphic = FlxGraphic.fromAssetKey(Paths.image(id));
+		frames = null;
+		images = [];
 
-		// Validates the width and height
-		// Hooray no more crashy!!!
-		width = Std.int(width.clamp(0, graphic?.width));
-		height = Std.int(height.clamp(0, graphic?.height));
-
-		// Properly loads the graphic
-		loadGraphic(graphic, width > 0 || height > 0, width, height);
+		loadFrames(id, width, height);
 
 		if (graphic != null)
 		{
-			setGraphicSize(Std.int(this.width * Constants.ZOOM * scale));
+			setGraphicSize(Std.int(frameWidth * Constants.ZOOM * scale));
 			updateHitbox();
 		}
 
 		return this;
 	}
 
-	public function loadAdditionalFrames(id:String, ?width:Int, ?height:Int, ?key:String):FunkinSprite
+	public function loadFrames(id:String, ?width:Int, ?height:Int, ?key:String):FunkinSprite
 	{
 		key ??= id;
 
-		if (frames?.type != TILES || images.contains(key))
+		if (images.contains(key))
 			return this;
 
 		var graphic:FlxGraphic = FlxGraphic.fromAssetKey(Paths.image(id));
@@ -46,25 +41,39 @@ class FunkinSprite extends FlxSprite
 		if (graphic == null)
 			return this;
 
-		width ??= frameWidth;
-		height ??= frameHeight;
+		// Frame size checking
+		// Use the image frame if the frame size matches the graphic size
+		frameWidth = graphic.width;
+		frameHeight = graphic.height;
 
-		if (width <= 0)
-			width = graphic.width;
-		if (height <= 0)
-			height = graphic.height;
+		width = width <= 0 ? frameWidth : Std.int(width.clamp(0, frameWidth));
+		height = height <= 0 ? frameHeight : Std.int(height.clamp(0, frameHeight));
 
-		width = Std.int(width.clamp(0, graphic.width));
-		height = Std.int(height.clamp(0, graphic.height));
+		if (width == frameWidth && height == frameHeight)
+		{
+			frames = graphic.imageFrame;
+			return this;
+		}
 
+		// Loads the frames
+		// Initialize frames if it's null
 		var size:FlxPoint = FlxPoint.get(width, height);
 		var tiles:FlxTileFrames = FlxTileFrames.fromGraphic(graphic, size);
 
-		for (frame in tiles.frames)
-			frames.pushFrame(frame);
-
 		size.put();
 		images.push(key);
+
+		frameWidth = width;
+		frameHeight = height;
+
+		if (frames == null)
+		{
+			frames = tiles;
+			return this;
+		}
+
+		for (frame in tiles.frames)
+			frames.pushFrame(frame);
 
 		return this;
 	}

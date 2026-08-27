@@ -107,7 +107,7 @@ class Character extends StageProp implements IPlayStateScriptedClass
 
 			numFrames.push(frames.numFrames);
 
-			loadAdditionalFrames(path, image.width, image.height, name);
+			loadFrames(path, image.width, image.height, name);
 		}
 
 		// Adds the actual animations
