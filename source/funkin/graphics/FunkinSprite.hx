@@ -43,15 +43,16 @@ class FunkinSprite extends FlxSprite
 
 		// Frame size checking
 		// Use the image frame if the frame size matches the graphic size
-		frameWidth = graphic.width;
-		frameHeight = graphic.height;
+		width = width <= 0 ? graphic.width : Std.int(width.clamp(0, graphic.width));
+		height = height <= 0 ? graphic.height : Std.int(height.clamp(0, graphic.height));
 
-		width = width <= 0 ? frameWidth : Std.int(width.clamp(0, frameWidth));
-		height = height <= 0 ? frameHeight : Std.int(height.clamp(0, frameHeight));
-
-		if (width == frameWidth && height == frameHeight)
+		if (frames == null && width == graphic.width && height == graphic.height)
 		{
 			frames = graphic.imageFrame;
+
+			frameWidth = graphic.width;
+			frameHeight = graphic.height;
+
 			return this;
 		}
 
@@ -62,12 +63,13 @@ class FunkinSprite extends FlxSprite
 
 		size.put();
 
-		frameWidth = width;
-		frameHeight = height;
-
 		if (frames == null)
 		{
 			frames = tiles;
+
+			frameWidth = width;
+			frameHeight = height;
+
 			return this;
 		}
 
