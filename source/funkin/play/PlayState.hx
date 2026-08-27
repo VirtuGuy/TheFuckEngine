@@ -423,6 +423,8 @@ class PlayState extends FunkinState
 
 		setCameraZoom(null, true);
 
+		camera.snapToTarget();
+
 		camBopRate = 1;
 		camBopIntensity = 1;
 
