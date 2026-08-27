@@ -61,7 +61,6 @@ class FunkinSprite extends FlxSprite
 		var tiles:FlxTileFrames = FlxTileFrames.fromGraphic(graphic, size);
 
 		size.put();
-		images.push(key);
 
 		frameWidth = width;
 		frameHeight = height;
@@ -74,6 +73,8 @@ class FunkinSprite extends FlxSprite
 
 		for (frame in tiles.frames)
 			frames.pushFrame(frame);
+
+		images.push(key);
 
 		return this;
 	}
