@@ -3,6 +3,7 @@ package funkin.util.plugins;
 import flixel.FlxBasic;
 import flixel.util.FlxTimer;
 import flixel.util.typeLimit.NextState;
+import funkin.assets.FunkinCache;
 import funkin.audio.FunkinSound;
 import funkin.data.sticker.StickerRegistry;
 import funkin.ui.sticker.StickerPack;
@@ -52,7 +53,7 @@ class StickerPlugin extends FlxBasic
 				return popup();
 
 			FlxG.switchState(nextState);
-			FlxG.signals.preStateCreate.addOnce(_ -> popup());
+			FlxG.signals.preStateCreate.addOnce(_ -> popup(FunkinCache.clearStickers));
 		});
 	}
 

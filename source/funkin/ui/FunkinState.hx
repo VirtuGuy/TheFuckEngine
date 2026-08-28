@@ -1,7 +1,7 @@
 package funkin.ui;
 
 import flixel.FlxState;
-import funkin.assets.FunkinMemory;
+import funkin.assets.FunkinCache;
 import funkin.input.Controls;
 import funkin.modding.event.ScriptEvent;
 import funkin.modding.module.ModuleHandler;
@@ -71,7 +71,7 @@ class FunkinState extends FlxState
 
 		// Clears the asset cache
 		// This is pretty good ngl
-		FunkinMemory.clearCache();
+		FunkinCache.clearCache();
 	}
 
 	@:noCompletion
