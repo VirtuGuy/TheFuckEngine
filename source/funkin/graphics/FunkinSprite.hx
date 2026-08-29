@@ -58,10 +58,7 @@ class FunkinSprite extends FlxSprite
 
 		// Loads the frames
 		// Initialize frames if it's null
-		var size:FlxPoint = FlxPoint.get(width, height);
-		var tiles:FlxTileFrames = FlxTileFrames.fromGraphic(graphic, size);
-
-		size.put();
+		var tiles:FlxTileFrames = FlxTileFrames.fromGraphic(graphic, FlxPoint.weak(width, height));
 
 		if (frames == null)
 		{
