@@ -243,3 +243,24 @@ class FreeplaySongScriptEvent extends ScriptEvent
 		this.song = capsule.song;
 	}
 }
+
+/**
+ * A script event that exists for modding purposes.
+ * 
+ * Use `onScriptEvent` to handle this event type.
+ * 
+ * Inspired by https://github.com/FunkinCrew/Funkin/pull/8060.
+ */
+class CustomScriptEvent extends ScriptEvent
+{
+	public var id(default, null):String;
+	public var data:Dynamic;
+
+	public function new(id:String, data:Dynamic)
+	{
+		super(CUSTOM);
+
+		this.id = id;
+		this.data = data;
+	}
+}

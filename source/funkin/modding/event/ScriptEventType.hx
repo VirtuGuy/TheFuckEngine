@@ -9,6 +9,7 @@ enum ScriptEventType
 	CREATE;
 	UPDATE;
 	DESTROY;
+	CUSTOM;
 
 	// State
 	STATE_CREATE;
