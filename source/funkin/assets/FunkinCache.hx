@@ -1,8 +1,7 @@
 package funkin.assets;
 
 import cpp.vm.Gc;
-import lime.utils.Assets as LimeAssets;
-import openfl.utils.Assets as OpenFlAssets;
+import openfl.utils.Assets;
 
 /**
  * A class for handling sound and image cache.
@@ -13,7 +12,7 @@ class FunkinCache
 {
 	public static function clearCache()
 	{
-		clear();
+		Assets.cache.clear('');
 
 		// Runs garbage collector
 		// Pffff I don't know what major means
@@ -24,14 +23,8 @@ class FunkinCache
 
 	public static function clearStickers()
 	{
-		clear('sticker/');
+		Assets.cache.clear('sticker/');
 
 		trace('Done clearing sticker cache.');
-	}
-
-	static function clear(?prefix:String)
-	{
-		LimeAssets.cache.clear(prefix);
-		OpenFlAssets.cache.clear(prefix);
 	}
 }
