@@ -80,7 +80,7 @@ class FunkinSprite extends FlxSprite
 
 	public function makeSolidColor(width:Int, height:Int, color:FlxColor):FunkinSprite
 	{
-		makeGraphic(1, 1, color);
+		makeGraphic(1, 1, color, false, 'solid${color.toHexString(true, false)}');
 
 		scale.set(width, height);
 		updateHitbox();
