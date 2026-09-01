@@ -87,7 +87,6 @@ class TitleState extends FunkinState
 	{
 		super.update(elapsed);
 
-		conductor.time = FunkinSound.music.time;
 		conductor.update();
 
 		logo.scale.x = MathUtil.lerp(logo.scale.x, logoScale, 0.15);

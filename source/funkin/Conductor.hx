@@ -1,6 +1,7 @@
 package funkin;
 
 import flixel.util.FlxSignal.FlxTypedSignal;
+import funkin.audio.FunkinSound;
 
 /**
  * The conductor class for the game. This is what handles steps and beats and all that crap.
@@ -31,10 +32,12 @@ class Conductor
 
 	public function new() {}
 
-	public function update()
+	public function update(?time:Float)
 	{
 		final lastStep:Int = step;
 		final lastBeat:Int = beat;
+
+		this.time = time ??= FunkinSound.music?.time;
 
 		step = changeStep + Math.floor((time - changeTimestamp) / quaver);
 		beat = Math.floor(step / Constants.STEPS_PER_BEAT);

@@ -160,7 +160,6 @@ class FreeplaySubState extends FunkinSubState
 	{
 		super.update(elapsed);
 
-		conductor.time = FunkinSound.music.time;
 		conductor.update();
 
 		if (controls.FAVORITE)

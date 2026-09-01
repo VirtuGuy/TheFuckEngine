@@ -260,25 +260,23 @@ class PlayState extends FunkinState
 			{
 				if (songStarted)
 				{
-					var time:Float = FunkinSound.music.time - conductor.offset;
-					var diff:Float = Math.round(Math.abs(conductor.time - time));
+					final time:Float = FunkinSound.music.time - conductor.offset;
+					final diff:Float = Math.round(Math.abs(conductor.time - time));
 
 					// Notes can appear choppy depending on the framerate
 					// Blehh
 					if (diff <= Constants.CONDUCTOR_DRIFT_THRESHOLD)
-						conductor.time = FlxMath.lerp(conductor.time, time, 1 - Math.exp(-(Constants.MUSIC_EASE_RATIO * playbackRate) * elapsed));
+						conductor.update(FlxMath.lerp(conductor.time, time, 1 - Math.exp(-(Constants.MUSIC_EASE_RATIO * playbackRate) * elapsed)));
 					else
-						conductor.time = time;
+						conductor.update();
 				}
 				else
 				{
-					conductor.time += elapsed * Constants.MS_PER_SEC * playbackRate;
+					conductor.update(conductor.time + elapsed * Constants.MS_PER_SEC * playbackRate);
 
 					if (conductor.time >= -conductor.offset)
 						startSong();
 				}
-
-				conductor.update();
 
 				voices.checkResync(FunkinSound.music.time);
 			}

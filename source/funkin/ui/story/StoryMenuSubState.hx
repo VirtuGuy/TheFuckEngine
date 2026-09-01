@@ -155,7 +155,6 @@ class StoryMenuSubState extends FunkinSubState
 	{
 		super.update(elapsed);
 
-		conductor.time = FunkinSound.music.time;
 		conductor.update();
 
 		_parentState.persistentDraw = stateMachine.transitioning();

@@ -73,8 +73,7 @@ class GameOverSubState extends FunkinSubState
 	{
 		super.update(elapsed);
 
-		_conductor.time = music?.time;
-		_conductor.update();
+		_conductor.update(music?.time);
 
 		if (controls.ACCEPT_P)
 			retry();
