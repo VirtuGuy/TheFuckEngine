@@ -92,11 +92,10 @@ class Conductor
 
 	public function setBPM(bpm:ConductorBPM)
 	{
-		bpm ??= {b: 0};
+		this.bpm = bpm ??= {b: 0};
+
 		bpm.n ??= 4;
 		bpm.d ??= 4;
-
-		this.bpm = bpm;
 
 		changeStep = step;
 		changeBeat = beat;
