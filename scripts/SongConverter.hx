@@ -82,9 +82,11 @@ class SongConverter
 
 	static function convertMeta(meta:Dynamic):Dynamic
 	{
+		var bpm:Dynamic = meta.timeChanges[0];
+
 		var meta:Dynamic = {
 			name: meta.songName,
-			bpm: meta.timeChanges[0].bpm,
+			bpm: {b: bpm.bpm, n: bpm.n ?? 4, d: bpm.d ?? 4},
 			artist: meta.artist,
 			charter: meta.charter,
 			difficulties: meta.playData.difficulties,
@@ -178,7 +180,7 @@ class SongConverter
 		for (event in chart.events ?? [])
 			convertEvent(event, events);
 		for (timeChange in timeChanges)
-			events.push({t: timeChange.t, e: 'change-bpm', v: {b: timeChange.bpm}});
+			events.push({t: timeChange.t, e: 'change-bpm', v: {b: timeChange.bpm, n: timeChange.n ?? 4, d: timeChange.d ?? 4}});
 
 		events.sort((a, b) -> return a.t - b.t);
 

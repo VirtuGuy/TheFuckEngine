@@ -13,7 +13,11 @@
 	"instrumentals": [],
 	"player": "pico-christmas",
 	"stage": "mall",
-	"bpm": 100,
+	"bpm": {
+		"n": 4,
+		"d": 4,
+		"b": 100
+	},
 	"artist": "six impala (feat. Saruky)",
 	"rating": {
 		"normal": 3,

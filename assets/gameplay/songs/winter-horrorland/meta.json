@@ -13,7 +13,11 @@
 	"instrumentals": [],
 	"player": "bf-christmas",
 	"stage": "mall-evil",
-	"bpm": 159,
+	"bpm": {
+		"n": 4,
+		"d": 4,
+		"b": 159
+	},
 	"artist": "Bassetfilms",
 	"rating": {
 		"normal": 2,

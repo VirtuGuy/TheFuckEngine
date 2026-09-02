@@ -12,7 +12,11 @@
 	"instrumentals": [],
 	"player": "bf-christmas",
 	"stage": "mall",
-	"bpm": 140,
+	"bpm": {
+		"n": 4,
+		"d": 4,
+		"b": 140
+	},
 	"artist": "Saruky",
 	"rating": {
 		"nightmare": 7,

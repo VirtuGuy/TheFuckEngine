@@ -12,7 +12,11 @@
 	"instrumentals": [],
 	"player": "bf",
 	"stage": "spooky",
-	"bpm": 166,
+	"bpm": {
+		"n": 4,
+		"d": 4,
+		"b": 166
+	},
 	"artist": "Kawai Sprite (feat. Saruky)",
 	"rating": {
 		"nightmare": 12,

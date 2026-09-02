@@ -13,7 +13,11 @@
 	"instrumentals": [],
 	"player": "bf",
 	"stage": "spooky",
-	"bpm": 95,
+	"bpm": {
+		"n": 4,
+		"d": 4,
+		"b": 95
+	},
 	"artist": "Bassetfilms",
 	"rating": {
 		"normal": 2,

@@ -35,7 +35,7 @@ class TitleState extends FunkinState
 	{
 		super.create();
 
-		conductor.reset(100);
+		conductor.reset({b: 100});
 
 		var bg:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(GRID_SIZE, GRID_SIZE, GRID_SIZE * 2, GRID_SIZE * 2, true, GRID_COLOR, 0x0));
 		bg.velocity.set(GRID_SPEED, GRID_SPEED);

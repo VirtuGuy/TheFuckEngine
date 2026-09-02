@@ -15,7 +15,11 @@
 	],
 	"player": "bf",
 	"stage": "spooky",
-	"bpm": 165,
+	"bpm": {
+		"n": 4,
+		"d": 4,
+		"b": 165
+	},
 	"artist": "Kawai Sprite",
 	"rating": {
 		"normal": 2,

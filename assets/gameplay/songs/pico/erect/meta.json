@@ -12,7 +12,11 @@
 	"instrumentals": [],
 	"player": "bf",
 	"stage": "philly-train",
-	"bpm": 162,
+	"bpm": {
+		"n": 4,
+		"d": 4,
+		"b": 162
+	},
 	"artist": "Kawai Sprite (feat. Saruky)",
 	"rating": {
 		"nightmare": 10,

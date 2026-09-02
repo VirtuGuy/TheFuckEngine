@@ -13,7 +13,11 @@
 	"instrumentals": [],
 	"player": "bf",
 	"stage": "stage",
-	"bpm": 100,
+	"bpm": {
+		"n": 4,
+		"d": 4,
+		"b": 100
+	},
 	"artist": "Kawai Sprite",
 	"rating": {
 		"normal": 0,

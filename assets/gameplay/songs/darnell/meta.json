@@ -15,7 +15,11 @@
 	],
 	"player": "pico",
 	"stage": "philly-streets",
-	"bpm": 155,
+	"bpm": {
+		"n": 4,
+		"d": 4,
+		"b": 155
+	},
 	"artist": "Kawai Sprite",
 	"rating": {
 		"normal": 3,

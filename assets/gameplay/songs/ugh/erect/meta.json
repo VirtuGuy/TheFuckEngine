@@ -12,7 +12,11 @@
 	"instrumentals": [],
 	"player": "bf",
 	"stage": "tank",
-	"bpm": 170,
+	"bpm": {
+		"n": 4,
+		"d": 4,
+		"b": 170
+	},
 	"artist": "Kawai Sprite",
 	"rating": {
 		"nightmare": 9,

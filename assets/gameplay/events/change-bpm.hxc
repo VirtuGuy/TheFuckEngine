@@ -13,8 +13,11 @@ class ChangeBPMEvent extends SongEvent
         super.handle(value);
 
         var conductor:Conductor = Conductor.instance;
-        var bpm:Float = getFloat('b');
 
-        conductor.bpm = bpm;
+        var bpm:Float = getFloat('b');
+        var numerator:Int = getInt('n');
+        var denominator:Int = getInt('d');
+
+        conductor.setBPM({b: bpm, n: numerator, d: denominator});
     }
 }

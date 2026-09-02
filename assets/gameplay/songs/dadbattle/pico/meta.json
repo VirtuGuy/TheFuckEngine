@@ -13,7 +13,11 @@
 	"instrumentals": [],
 	"player": "pico",
 	"stage": "stage",
-	"bpm": 180,
+	"bpm": {
+		"n": 4,
+		"d": 4,
+		"b": 180
+	},
 	"artist": "TeraVex (ft. Saruky)",
 	"rating": {
 		"normal": 4,

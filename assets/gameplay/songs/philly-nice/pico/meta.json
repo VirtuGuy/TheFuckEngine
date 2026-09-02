@@ -13,7 +13,11 @@
 	"instrumentals": [],
 	"player": "pico",
 	"stage": "philly-train",
-	"bpm": 175,
+	"bpm": {
+		"n": 4,
+		"d": 4,
+		"b": 175
+	},
 	"artist": "tsuyunoshi (ft. Saruky)",
 	"rating": {
 		"normal": 3,

@@ -12,7 +12,11 @@
 	"instrumentals": [],
 	"player": "bf-pixel",
 	"stage": "school",
-	"bpm": 128,
+	"bpm": {
+		"n": 4,
+		"d": 4,
+		"b": 128
+	},
 	"artist": "Kawai Sprite",
 	"rating": {
 		"nightmare": 9,

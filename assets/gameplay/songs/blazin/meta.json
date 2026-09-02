@@ -13,7 +13,11 @@
 	"instrumentals": [],
 	"player": "pico-blazin",
 	"stage": "philly-streets",
-	"bpm": 180,
+	"bpm": {
+		"n": 4,
+		"d": 4,
+		"b": 180
+	},
 	"artist": "Kawai Sprite",
 	"rating": {
 		"normal": 4,

@@ -12,7 +12,11 @@
 	"instrumentals": [],
 	"player": "bf",
 	"stage": "stage",
-	"bpm": 173,
+	"bpm": {
+		"n": 4,
+		"d": 4,
+		"b": 173
+	},
 	"artist": "Kaivara",
 	"rating": {
 		"normal": 3,

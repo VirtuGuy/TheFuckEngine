@@ -13,7 +13,11 @@
 	"instrumentals": [],
 	"player": "pico",
 	"stage": "tank",
-	"bpm": 160,
+	"bpm": {
+		"n": 4,
+		"d": 4,
+		"b": 160
+	},
 	"artist": "tsuyunoshi (ft. Saruky)",
 	"rating": {
 		"normal": 3,

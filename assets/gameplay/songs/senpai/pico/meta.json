@@ -13,7 +13,11 @@
 	"instrumentals": [],
 	"player": "pico-pixel",
 	"stage": "school",
-	"bpm": 144,
+	"bpm": {
+		"n": 4,
+		"d": 4,
+		"b": 144
+	},
 	"artist": "Tee Lopes (Feat. Saruky)",
 	"rating": {
 		"normal": 2,

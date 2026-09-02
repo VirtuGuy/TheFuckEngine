@@ -13,7 +13,11 @@
 	"instrumentals": [],
 	"player": "pico-pixel",
 	"stage": "school",
-	"bpm": 120,
+	"bpm": {
+		"n": 4,
+		"d": 4,
+		"b": 120
+	},
 	"artist": "Xploshi (ft. Saruky)",
 	"rating": {
 		"normal": 3,

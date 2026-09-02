@@ -1,5 +1,6 @@
 package funkin.play.song;
 
+import funkin.Conductor.ConductorBPM;
 import funkin.data.event.EventData;
 import funkin.data.song.SongData;
 import funkin.data.song.SongRegistry;
@@ -23,7 +24,7 @@ class Song implements IPlayStateScriptedClass
 	public var events(get, never):Array<EventData>;
 
 	public var name(get, never):String;
-	public var bpm(get, never):Float;
+	public var bpm(get, never):ConductorBPM;
 	public var artist(get, never):String;
 	public var charter(get, never):String;
 
@@ -143,7 +144,7 @@ class Song implements IPlayStateScriptedClass
 	}
 
 	@:noCompletion
-	function get_bpm():Float
+	function get_bpm():ConductorBPM
 	{
 		return meta.bpm;
 	}

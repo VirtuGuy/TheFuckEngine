@@ -12,7 +12,11 @@
 	"instrumentals": [],
 	"player": "bf",
 	"stage": "stage",
-	"bpm": 125,
+	"bpm": {
+		"n": 4,
+		"d": 4,
+		"b": 125
+	},
 	"artist": "Kohta Takahashi (feat. Saruky)",
 	"rating": {
 		"nightmare": 7,

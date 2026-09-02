@@ -12,7 +12,11 @@
 	"instrumentals": [],
 	"player": "bf-christmas",
 	"stage": "mall",
-	"bpm": 174,
+	"bpm": {
+		"n": 4,
+		"d": 4,
+		"b": 174
+	},
 	"artist": "Saster",
 	"rating": {
 		"nightmare": 8,

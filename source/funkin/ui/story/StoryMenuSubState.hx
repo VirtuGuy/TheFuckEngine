@@ -66,7 +66,7 @@ class StoryMenuSubState extends FunkinSubState
 		exitMovers = new ExitMovers();
 		stateMachine = new StateMachine();
 
-		conductor.reset(100);
+		conductor.reset({b: 100});
 
 		blackTop = FunkinSprite.createSolidColor(0, 0, FlxG.width, 50, 0xFF000000);
 		blackTop.active = false;

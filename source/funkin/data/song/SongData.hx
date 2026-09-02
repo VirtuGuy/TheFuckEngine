@@ -1,5 +1,6 @@
 package funkin.data.song;
 
+import funkin.Conductor.ConductorBPM;
 import funkin.data.event.EventData;
 
 /**
@@ -8,8 +9,7 @@ import funkin.data.event.EventData;
 typedef SongMetadata =
 {
 	var name:String;
-	@:default(100)
-	var bpm:Float;
+	var bpm:ConductorBPM;
 	var artist:String;
 	var charter:String;
 	@:default([])

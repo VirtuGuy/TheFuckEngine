@@ -13,7 +13,11 @@
 	"instrumentals": [],
 	"player": "bf-pixel",
 	"stage": "school-evil",
-	"bpm": 190,
+	"bpm": {
+		"n": 4,
+		"d": 4,
+		"b": 190
+	},
 	"artist": "Kawai Sprite",
 	"rating": {
 		"normal": 3,

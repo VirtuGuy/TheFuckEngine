@@ -81,7 +81,7 @@ class FreeplaySubState extends FunkinSubState
 		exitMovers = new ExitMovers();
 		stateMachine = new StateMachine();
 
-		conductor.reset(150);
+		conductor.reset({b: 150});
 
 		backcard = new BackcardSprite();
 		add(backcard);

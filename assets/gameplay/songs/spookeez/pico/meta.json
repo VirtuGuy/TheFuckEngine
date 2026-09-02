@@ -13,7 +13,11 @@
 	"instrumentals": [],
 	"player": "pico",
 	"stage": "spooky",
-	"bpm": 150,
+	"bpm": {
+		"n": 4,
+		"d": 4,
+		"b": 150
+	},
 	"artist": "six impala (feat. Saster)",
 	"rating": {
 		"normal": 2,

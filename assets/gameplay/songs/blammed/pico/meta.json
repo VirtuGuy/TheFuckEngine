@@ -13,7 +13,11 @@
 	"instrumentals": [],
 	"player": "pico",
 	"stage": "philly-train",
-	"bpm": 165,
+	"bpm": {
+		"n": 4,
+		"d": 4,
+		"b": 165
+	},
 	"artist": "Metaroom (feat. Saruky)",
 	"rating": {
 		"normal": 4,

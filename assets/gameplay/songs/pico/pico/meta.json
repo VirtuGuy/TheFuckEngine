@@ -13,7 +13,11 @@
 	"instrumentals": [],
 	"player": "pico",
 	"stage": "philly-train",
-	"bpm": 150,
+	"bpm": {
+		"n": 4,
+		"d": 4,
+		"b": 150
+	},
 	"artist": "Metaroom (ft. Saster)",
 	"rating": {
 		"normal": 3,

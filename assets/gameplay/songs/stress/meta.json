@@ -15,7 +15,11 @@
 	],
 	"player": "bf-holding-gf",
 	"stage": "tank",
-	"bpm": 178,
+	"bpm": {
+		"n": 4,
+		"d": 4,
+		"b": 178
+	},
 	"artist": "Kawai Sprite",
 	"rating": {
 		"normal": 4,

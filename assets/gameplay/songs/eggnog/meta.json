@@ -15,7 +15,11 @@
 	],
 	"player": "bf-christmas",
 	"stage": "mall",
-	"bpm": 150,
+	"bpm": {
+		"n": 4,
+		"d": 4,
+		"b": 150
+	},
 	"artist": "Kawai Sprite",
 	"rating": {
 		"normal": 2,

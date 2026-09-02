@@ -4,6 +4,18 @@ import flixel.util.FlxSignal.FlxTypedSignal;
 import funkin.audio.FunkinSound;
 
 /**
+ * A structure object used for setting the BPM of a `Conductor`.
+ */
+typedef ConductorBPM =
+{
+	var b:Float;
+	@:optional
+	var n:Int;
+	@:optional
+	var d:Int;
+}
+
+/**
  * The conductor class for the game. This is what handles steps and beats and all that crap.
  */
 class Conductor
@@ -11,10 +23,11 @@ class Conductor
 	public static var instance:Conductor;
 
 	public var time:Float;
-	public var bpm(default, set):Float;
+	public var bpm(default, null):ConductorBPM;
 
 	public var step(default, null):Int;
 	public var beat(default, null):Int;
+	public var measure(default, null):Int;
 
 	public var crotchet(get, never):Float;
 	public var quaver(get, never):Float;
@@ -26,9 +39,12 @@ class Conductor
 
 	public var stepHit(default, null) = new FlxTypedSignal<Int->Void>();
 	public var beatHit(default, null) = new FlxTypedSignal<Int->Void>();
+	public var measureHit(default, null) = new FlxTypedSignal<Int->Void>();
 
-	var changeStep:Int = 0;
-	var changeTimestamp:Float = 0;
+	var changeStep:Int;
+	var changeBeat:Int;
+	var changeMeasure:Int;
+	var changeTimestamp:Float;
 
 	public function new() {}
 
@@ -36,63 +52,67 @@ class Conductor
 	{
 		final lastStep:Int = step;
 		final lastBeat:Int = beat;
+		final lastMeasure:Int = measure;
 
 		this.time = time ??= FunkinSound.music?.time;
 
 		step = changeStep + Math.floor((time - changeTimestamp) / quaver);
 		beat = Math.floor(step / Constants.STEPS_PER_BEAT);
+		measure = changeMeasure + Math.floor((beat - changeBeat) / bpm.n);
 
 		if (lastStep != step)
 			stepHit.dispatch(step);
 		if (lastBeat != beat)
 			beatHit.dispatch(beat);
+		if (lastMeasure != measure)
+			measureHit.dispatch(measure);
 
 		// Debug watching (for debugging purposes)
 		FlxG.watch.addQuick('time', time);
 		FlxG.watch.addQuick('bpm', bpm);
 		FlxG.watch.addQuick('step', step);
 		FlxG.watch.addQuick('beat', beat);
+		FlxG.watch.addQuick('measure', measure);
 	}
 
 	/**
 	 * Resets everything, including time, BPM, and steps.
 	 * You're going to want to run this whenever music is changed.
 	 */
-	public function reset(bpm:Float = 0)
+	public function reset(bpm:ConductorBPM)
 	{
-		this.bpm = bpm;
-
 		time = 0;
+
 		step = 0;
 		beat = 0;
+		measure = 0;
 
-		changeStep = 0;
-		changeTimestamp = 0;
+		setBPM(bpm);
 	}
 
-	@:noCompletion
-	inline function set_bpm(value:Float):Float
+	public function setBPM(bpm:ConductorBPM)
 	{
-		if (bpm == value)
-			return bpm;
+		bpm ??= {b: 0};
+		bpm.n ??= 4;
+		bpm.d ??= 4;
 
-		bpm = value;
+		this.bpm = bpm;
 
 		changeStep = step;
+		changeBeat = beat;
+		changeMeasure = measure;
 		changeTimestamp = time;
-
-		return bpm;
 	}
 
 	@:noCompletion
 	inline function get_crotchet():Float
 	{
-		return Constants.SECS_PER_MIN / bpm * Constants.MS_PER_SEC;
+		return Constants.SECS_PER_MIN / bpm.b * Constants.MS_PER_SEC;
 	}
 
 	@:noCompletion
 	inline function get_quaver():Float
 	{
-		return crotchet / Constants.STEPS_PER_BEAT;
+		return crotchet / bpm.d;
 	}
 }

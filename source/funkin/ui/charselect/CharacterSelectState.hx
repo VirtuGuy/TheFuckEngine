@@ -40,7 +40,7 @@ class CharacterSelectState extends FunkinState
 
 		FunkinSound.playMusic('$PATH/music');
 
-		conductor.reset(90);
+		conductor.reset({b: 90});
 
 		camFollow = new FlxObject();
 		camera.follow(camFollow, null, 0.015);
