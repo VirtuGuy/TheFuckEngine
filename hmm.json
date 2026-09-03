@@ -24,7 +24,7 @@
     {
       "name": "grig.audio",
       "type": "git",
-      "dir": "src",
+      "dir": null,
       "ref": "6409f3c6d1b4c52176813d3ede86c0d34e8af2c1",
       "url": "https://github.com/FunkinCrew/grig.audio"
     },
@@ -32,7 +32,7 @@
       "name": "hxcpp",
       "type": "git",
       "dir": null,
-      "ref": "82b5bb7913e2eb8d9e8141da0dd8cd3bdc3f16c5",
+      "ref": "1f4661402afe66ae7bf6a94161148f5285da5c93",
       "url": "https://github.com/FunkinCrew/hxcpp"
     },
     {
@@ -78,21 +78,21 @@
       "name": "lime",
       "type": "git",
       "dir": null,
-      "ref": "e5f72395e8554d803b6d33476f8d04fa3df1aacf",
+      "ref": "a79628424a346100309cbcb74094f85342105c90",
       "url": "https://github.com/FunkinCrew/lime"
     },
     {
       "name": "openfl",
       "type": "git",
       "dir": null,
-      "ref": "2a6066b5c873324a85ad1ceab7b85c0fa0ad240d",
+      "ref": "470a87ecd2233f337c63e9f2dcab91cc0160c27b",
       "url": "https://github.com/FunkinCrew/openfl"
     },
     {
       "name": "polymod",
       "type": "git",
       "dir": null,
-      "ref": "70635f42dc154aaf285ab94ac52a23a67388c97c",
+      "ref": "68bf65ba46b5cdafc3941a44222fa6d72de99d31",
       "url": "https://github.com/FunkinCrew/polymod"
     },
     {
@@ -106,7 +106,7 @@
       "name": "thx.semver",
       "type": "git",
       "dir": null,
-      "ref": "9de477fa2bf6aa17528211afd61097cb113e3423",
+      "ref": "b91cf5cfee6ebe43b60f8acea4257f07af176b99",
       "url": "https://github.com/FunkinCrew/thx.semver"
     },
     {
