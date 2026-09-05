@@ -1,0 +1,26 @@
+{
+    "name": "Pico (Death) [Explode]",
+    "width": 218,
+    "height": 269,
+    "globalOffset": [-45, -285],
+    "cameraOffset": [0, 0],
+    "animations": [
+        {
+            "name": "start",
+            "frames": [0, 1, 2, 3]
+        },
+        {
+            "name": "collapse",
+            "frames": [4, 5, 6, 7],
+            "framerate": 15
+        },
+        {
+            "name": "loop-start",
+            "frames": [8, 9, 10, 11]
+        },
+        {
+            "name": "end",
+            "frames": [12, 13, 11]
+        }
+    ]
+}
