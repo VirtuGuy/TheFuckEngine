@@ -136,7 +136,7 @@ class Strumline extends FlxGroup
 
 	public function updateScroll()
 	{
-		strums.y = 60;
+		strums.y = 50;
 
 		if (Preferences.downscroll)
 			strums.y = FlxG.height - strums.height - strums.y;
