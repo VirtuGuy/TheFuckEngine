@@ -63,8 +63,8 @@ class Popups extends FlxTypedGroup<FunkinSprite>
 		popup.angle = FlxG.random.getObject([-1, 1]) * 2;
 		popup.alpha = 1;
 
-		popup.acceleration.set(popup.angle * 20, 800);
-		popup.velocity.set(0, -300 - FlxG.random.int(0, 30));
+		popup.acceleration.set(popup.angle * 50, 800);
+		popup.velocity.set(0, -300 - FlxG.random.int(0, 50));
 		popup.moves = true;
 
 		FlxTimer.wait(0.25, () ->
