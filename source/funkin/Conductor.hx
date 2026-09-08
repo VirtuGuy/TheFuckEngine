@@ -94,8 +94,8 @@ class Conductor
 	{
 		this.bpm = bpm ??= {b: 0};
 
-		bpm.n ??= 4;
-		bpm.d ??= 4;
+		bpm.n ??= Constants.DEFAULT_SIGNATURE_NUM;
+		bpm.d ??= Constants.DEFAULT_SIGNATURE_DEN;
 
 		changeStep = step;
 		changeBeat = beat;

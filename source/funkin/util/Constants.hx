@@ -37,6 +37,8 @@ class Constants
 	public static final DEFAULT_VARIATION:String = 'default';
 	public static final DEFAULT_SPEED:Float = 1;
 	public static final DEFAULT_CAMERA_ZOOM:Float = 1;
+	public static final DEFAULT_SIGNATURE_NUM:Int = 4;
+	public static final DEFAULT_SIGNATURE_DEN:Int = 4;
 
 	public static final CAMERA_FOLLOW_RATE:Float = 0.04;
 	public static final CAMERA_BOP_RATE:Float = 4;
